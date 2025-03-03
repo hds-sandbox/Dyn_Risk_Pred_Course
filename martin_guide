@@ -2,6 +2,6 @@
 
 2) skriv i terminalen: "git pull"
 
-3) skriv i terminalen: "quarto preview"
+3) skriv i terminalen: "quarto preview lectures/index.qmd"
 
 4) (HVIS DER BLIVER ÆNDRET NOGET) Skriv i terminalen: "git add ." -> "git commit -m "skriv en kommentar", "git push"
