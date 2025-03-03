@@ -1,7 +1,6 @@
 ---
 title: Rmarkdown example
 summary: This is an example of an Rmarkdown development
-bibliography: ../resources/references.bib
 date-modified: last-modified
 date-format: long
 date: 2024-01-01
@@ -70,7 +69,3 @@ ggplot(data = txhousing, aes(x = sales, y = listings)) +
 
 You can add images using the `knitr::include_graphics()` option.
 
-```{r, echo = TRUE, eval = TRUE, out.width="50%"}
-
-knitr::include_graphics("../img/logo.png")
-```
