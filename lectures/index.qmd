@@ -3,7 +3,7 @@ format: html
 ---
 
 :::{.hero-banner}
-# Welcome to the bulk RNAseq workshop 
+# Development and implementation of machine learning models for dynamic risk prediction in health care applications
 :::
 
 :::{.callout-warning title="Required preparation"}

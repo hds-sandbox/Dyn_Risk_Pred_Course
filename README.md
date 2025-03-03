@@ -22,11 +22,11 @@ In our configuration, you will find the type of `project`, and the `website` des
     left:
       - href: index.qmd
         text: Introduction
-      - href: people.qmd
+      - href: data_management.qmd
         text: People
-      - href: rmd/rmarkdown_example.Rmd
+      - href: rmd/modelling.Rmd
         text: Rmarkdown      
-      - href: jupyter_example.ipynb
+      - href: implementation.ipynb
         text: Jupyter example
     right: 
       - icon: github
