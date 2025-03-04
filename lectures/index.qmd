@@ -155,15 +155,65 @@ Traditional risk prediction generates a risk estimate at a defined timepoint in 
 
 ## What do we need in the setup of dynamic risk
 
-- Cohort
+- Cohort of patients
+- Prediction time points $t_{ij}$ for patient $i$ and $j_{th}$ time point
+- Binary outcome $Y(t_{ij})$ for each prediction time
+<div style="overflow: auto;">
+  <img src="../images/regular_inregular_time_patterns.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
+  <p>
+    **Regularly or irregularly triggered?**.
+  </p>
+</div>
+- Predictors
+  - Baseline/static data $X_i$ for patient $i$ (e.g., sex, birthday, preexisting conditions)
+  - Time dependent data $Z_i(t)$ for patient $i$ (e.g., blood pressure, weight, disease severity collected at time $t$)
 
-We are developing other apps. If you are interested, explore the modules section on our website!
+Note: $t \neq t_{ij}$ will often happen in real-world data
+<div style="overflow: auto;">
+  <img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+  <p>
+    **Add explanation: **:
+  </p>
+</div>
 
-## Discussion and feedback
+## Why predict in health care applications?
 
-We hope you enjoyed the workshop. If you have broader questions, suggestions, or concerns, now is the time to raise them! Remember that you can check out longer versions of our tutorials as well as other topics and tools in each of the [Sandbox modules](https://hds-sandbox.github.io/modules/). We regularly run workshops on a variety of health data science topics that you can also check out ([follow our news here](https://hds-sandbox.github.io/news.html)).
+Estimating risk can help us:
 
-As data scientists, we also would be happy for some quantifiable info and feedback - we want to build things that the Danish health data science community is excited to use. 
+- Detect disease on early stage
+- Prevent disease
+- Target treatment
+- Optimise use of health care ressources, e.g. in screening programs
+- Etc.
+
+## Why use dynamic risk prediction in health care?
+
+Risk of event seldomly stationary, it is **dynamic**
+
+- Risk of adverse event can e.g. increase the longer the patient has suffered from the disease
+- Risk of dying within the next year can depend on how long the patient has survived so far with the disease and the patient’s current health
+
+&rarr; a one-time prediction is not always precise enough
+
+# Motivation
+The motivation for predictive modeling for cancer patients is that predictive modeling is a powerful tool, ensuring patients receive the right Systemic Anti-Cancer Treatment (SACT) at the right time. Not only does this optimize survival rates, but it also potentially maximizes the quality of remaining life for patients. As technology and medical knowledge advance, the integration of such models will become more important in delivering patient-centered care. There is a fine line between when to advise a patient to receive SACT as it can decrease a patient’s life quality over time. The purpose of using SACT should be to make a patient able to recover and survive (Best-case scenario). It can cause a patient to suffer more in the remaining lifetime, which could mean that a patient's outcome would be worse with SACT than without (Worst-case scenario).
+
+<div style="overflow: auto;">
+  <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
+  <p>
+    **A model of health-related quality of life for a patient with limited survival:** A illustration of the possible scenarious in short-term survial predictions
+  </p>
+</div>
+
+## Using Extensice Health Data
+Predictive modeling is not just about having data; the data must be high quality and organized sequentially. This ensures that the model recognizes patterns and makes accurate predictions based on historical trends. The data sourcing is comprehensive and complex in terms of multiple stakeholders are involved. There is a necessary to access specialized and highly restrictive health databases such as PAS (Patient Administration System), MedOnc (Medical Oncology database), LABKA (Lab Information System), and Patobank (Pathology Registry). These databases offer in-depth patient-related information crucial for accurate predictions. If the objective is to expand the research scope globally, international health databases have to be considered. It is important to acknowledge that this data extraction and integration journey is challenging. While more data gives more powerfull models, one have to account for the extra layers of complexity
+Once access to these databases is secured, data preparation is the next step in the predictive modeling process. Relevant variables from these databases are identified and merged into a unified dataframe for streamlined analysis. Time factors are some of the most important variables to understand and define before executing predictive modeling. For instance, when predicting the short-term likelihood of a patient's death within 30 days, it is essential to have certain important events for the time series analysis. This includes the time of diagnosis, the initiation of palliative treatments, and the actual time of death, among other relevant markers.
+<div style="overflow: auto;">
+  <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
+  <p>
+    **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene; BMI, body mass index; COPD, chronic obstructive pulmonary disease; CRP, C-reactive protein; LDH, lactate dehydrogenase; Tx, treatment
+  </p>
+</div>
 
 <!-- 
 <b>Please answer these [5 questions](https://forms.office.com/e/e6e3AA1u0D?origin=lprLink) for us before you head out for the day ^[*link activated on day one of the workshop*.].</b>
