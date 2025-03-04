@@ -83,7 +83,13 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 # Course Agenda
 
-### Day 1
+### part 1
+
+| Subjects |
+|:----|
+|Introduction the course |
+
+### Part 2
 
 | Subjects |
 |:----|
@@ -93,7 +99,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Workshop – data management	|
 
 
-### Day 2
+### Day 3
 
 | Subjects |
 |:----|
@@ -102,7 +108,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Utility and explainability	|
 | Workshop - modelling	|
 
-### Day 3
+### Day 4
 
 | Subjects |
 |:----|
