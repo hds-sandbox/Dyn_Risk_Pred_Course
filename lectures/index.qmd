@@ -15,20 +15,20 @@ The participants are expected to have basic knowledge on regression analysis as 
 
 Our first choice is to provide all the **training materials, tutorials, and tools as interactive apps on UCloud**, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:
 
- 1. a Danish university ID so you can sign on to UCloud via WAYF^[Other institutions (e.g. hospitals, libraries, ...) can log on through WAYF. See all institutions [here](https://www.wayf.dk/da/institutioner-i-wayf)]. 
+ 1. **UCLOUD:** a Danish university ID so you can sign on to UCloud via WAYF^[Other institutions (e.g. hospitals, libraries, ...) can log on through WAYF. See all institutions [here](https://www.wayf.dk/da/institutioner-i-wayf)].
 
 &nbsp;
 
  <p align="center">
   <a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-    for UCloud Access
+    For UCloud access
     click here
   </a>
 </p>
 
 &nbsp;
 
- 2. Basic ability to navigate in Linux/RStudio/Jupyter. **You don't need to be an expert**, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.
+ 2. **REQUIREMENTS:** Basic ability to navigate in Linux/RStudio/Jupyter. **You don't need to be an expert**, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.
 
  3. **For workshop participants:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.] Click the link below after your first uCloud access and accept the invite that shows.
 
@@ -43,31 +43,31 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-4. Notebooks and scripts can be downloaded here:
+4. **CODE:** Notebooks and scripts can be downloaded here:
 
  &nbsp;
 
  <p align="center">
   <a href="https://phd.moodle.aau.dk/" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-    Download Code
+    Download code
   </a>
 </p>
 
 &nbsp;
 
-5. Course slides can be downloaded here:
+5. **SLIDES:** Course slides can be downloaded here:
 
  &nbsp;
 
  <p align="center">
   <a href="https://phd.moodle.aau.dk/" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-    Download Course Slides
+    Download course slides
   </a>
 </p>
 
 &nbsp;
 
-6. COURSE EVALUATION SURVEY - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+6. **COURSE EVALUATION SURVEY:**  The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
 
@@ -96,6 +96,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Introduction to dynamic risk prediction	|
 | Data sources and biases	|
 | Data management	|
+| Exercises	|
 
 
 ### Part 3
@@ -105,6 +106,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Machine learning models	|
 | Model Training	|
 | Utility and explainability	|
+| Exercises	|
 
 
 ### Part 4
@@ -113,8 +115,8 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 |:----|
 | Hosting and access to data	|
 | FHIR	|
-| User interface	|
 | Prospective validation	|
+| Exercises	|
 
 
 
