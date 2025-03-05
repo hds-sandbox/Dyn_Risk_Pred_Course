@@ -1,0 +1,317 @@
+[
+  {
+    "objectID": "index.html#access-sandbox-resources",
+    "href": "index.html#access-sandbox-resources",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Access Sandbox resources",
+    "text": "Access Sandbox resources\nOur first choice is to provide all the training materials, tutorials, and tools as interactive apps on UCloud, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:\n\na Danish university ID so you can sign on to UCloud via WAYF1.\n\n \n\n for UCloud Access click here \n\n \n\nbasic ability to navigate in Linux/RStudio/Jupyter. You don’t need to be an expert, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.\nFor workshop participants: Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop2 Click the link below after your first uCloud access and accept the invite that shows.\n\n \n\n Invite link to uCloud workspace \n\n \n\nAdditional files needed for exercises from Day 1 - Lecture 2 (QC report files)\n\n\n Download QC files \n\n\nCourse slides\n\n\n Download course slides \n\n \n\nCOURSE EVALUATION SURVEY - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!\n\n \n\n Evaluation survey link"
+  },
+  {
+    "objectID": "index.html#transcriptomics-apps",
+    "href": "index.html#transcriptomics-apps",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Transcriptomics apps",
+    "text": "Transcriptomics apps\nHigh-Performance Computing (HPC) platforms are essential for large-scale data analysis. Therefore, we will run our bulk RNA-seq analyses on one of the national HPC platforms, UCloud.\n\nIf you want to review the course material, visit our website where you will find the content for all the lectures.\n\nZenodo link to download the material (slides, assignments, data, etc.) for this workshop here.\nTo get started with our transcriptomics app, follow the UCloud setup guidelines. This will help you set up a new job and repeat the exercises on your own.\nTo run the nf-core RNAseq pipeline follow the instructions here. This will generate the output from the preprocessing pipeline.\n\n\n\n\nTranscriptomics Sandbox: Our sandbox for bulk or single-cell RNA sequencing analysis provides stand-alone analysis and visualization tools.\n\n\n \nWe are developing other apps. If you are interested, explore the modules section on our website!"
+  },
+  {
+    "objectID": "index.html#discussion-and-feedback",
+    "href": "index.html#discussion-and-feedback",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Discussion and feedback",
+    "text": "Discussion and feedback\nWe hope you enjoyed the workshop. If you have broader questions, suggestions, or concerns, now is the time to raise them! Remember that you can check out longer versions of our tutorials as well as other topics and tools in each of the Sandbox modules. We regularly run workshops on a variety of health data science topics that you can also check out (follow our news here).\nAs data scientists, we also would be happy for some quantifiable info and feedback - we want to build things that the Danish health data science community is excited to use.\n\n \n\n\n\n\n\n\n\nNice meeting you and we hope to see you again!"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nOther institutions (e.g. hospitals, libraries, …) can log on through WAYF. See all institutions here↩︎\nTo use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you’ll need to check with the local DeiC office at your university about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.↩︎"
+  },
+  {
+    "objectID": "rmd/rmarkdown_example.html",
+    "href": "rmd/rmarkdown_example.html",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "overview\n\n\n\n🕰 Time Estimation: X minutes\n💬 Learning Objectives:\n\nFirst item\n\nSecond item\n\nThis is an example of how to make md pages from rmarkdown documents. The source code to generate this md document is in develop/rmd/rmarkdown_example.Rmd.\n\n\nFirst we need to write the document as usual. Try to use the admonitions as in previous examples. Citations are like this (Garcia et al. 2020).\n\n\nYou can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts\n\n\n\n\n\n\n\n\nYou can add images using the knitr::include_graphics() option.\n\n\nCode\nknitr::include_graphics(\"../img/logo.png\")"
+  },
+  {
+    "objectID": "rmd/rmarkdown_example.html#writing-code",
+    "href": "rmd/rmarkdown_example.html#writing-code",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "rmd/rmarkdown_example.html#adding-images",
+    "href": "rmd/rmarkdown_example.html#adding-images",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can add images using the knitr::include_graphics() option.\n\n\nCode\nknitr::include_graphics(\"../img/logo.png\")"
+  },
+  {
+    "objectID": "people.html",
+    "href": "people.html",
+    "title": "People",
+    "section": "",
+    "text": "Alba Refoyo Martinez\n\n\n\n\n\nData Scientist, Copenhagen University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJacob Fredegaard Hansen\n\n\n\n\n\nData Scientist, Southern Denmark University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJakob Skelmose\n\n\n\n\n\nData Scientist, Aalborg University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJennifer Bartell\n\n\n\n\n\nData Scientist and Project coordinator, Copenhagen University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSamuele Soraggi\n\n\n\n\n\nData Scientist, Aarhus University\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "jupyter_example.html",
+    "href": "jupyter_example.html",
+    "title": "Jupyter notebook example",
+    "section": "",
+    "text": "This is simply done by writing a markdown cell with the metadata at the very beginning of the notebook. Citations are like (Garcia et al. 2020)."
+  },
+  {
+    "objectID": "jupyter_example.html#writing-admonitions",
+    "href": "jupyter_example.html#writing-admonitions",
+    "title": "Jupyter notebook example",
+    "section": "Writing admonitions",
+    "text": "Writing admonitions\nYou can write admonitions as above in a markdown cell. Look for more in the quarto manual to hide admonitions or use other types like warnings or tips admonitions."
+  },
+  {
+    "objectID": "jupyter_example.html#running-code",
+    "href": "jupyter_example.html#running-code",
+    "title": "Jupyter notebook example",
+    "section": "Running code",
+    "text": "Running code\nThis is some example code\n\n\nCode\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\ndataset_url = ('https://raw.githubusercontent.com/m-mehdi/pandas_tutorials/main/weekly_stocks.csv')\ndf = pd.read_csv(dataset_url, parse_dates=['Date'], index_col='Date')\npd.set_option('display.max.columns', None)\nprint(df.head())\n\n\n                  MSFT          FB        AAPL\nDate                                          \n2021-05-24  249.679993  328.730011  124.610001\n2021-05-31  250.789993  330.350006  125.889999\n2021-06-07  257.890015  331.260010  127.349998\n2021-06-14  259.429993  329.660004  130.460007\n2021-06-21  265.019989  341.369995  133.110001\n\n\n\n\nCode\ndf.plot(y='MSFT', figsize=(9,6))\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "cards/JenniferBartell.html",
+    "href": "cards/JenniferBartell.html",
+    "title": "Jennifer Bartell",
+    "section": "",
+    "text": "Jenifer is the Sandbox project coordinator, beyond being also a data scientist. She is based at the university of Copenhagen. Jennifer has a long experience in bacterial genomics and metabolomics, transcriptomics and pathway analysis."
+  },
+  {
+    "objectID": "cards/JacobHansen.html",
+    "href": "cards/JacobHansen.html",
+    "title": "Jacob Fredegaard Hansen",
+    "section": "",
+    "text": "Jacob is a Sandbox data scientist based at the university of Southern Danmark in Odense, and he is specialized in the proteomics applications."
+  },
+  {
+    "objectID": "cards/AlbaMartinez.html",
+    "href": "cards/AlbaMartinez.html",
+    "title": "Alba Refoyo Martinez",
+    "section": "",
+    "text": "Alba is a Sandbox data scientist based at the University of Copenhagen. During her academic background as a PhD and Postdoc she has developed a solid expertise in large-scale genomics and pipelines development on computing clusters."
+  },
+  {
+    "objectID": "cards/JakobSkelmose.html",
+    "href": "cards/JakobSkelmose.html",
+    "title": "Jakob Skelmose",
+    "section": "",
+    "text": "Jakob is a Sandbox data scientist based at the university of Aalborg. His work is mainly focused on applications related to synthetic data, both for reserch and teaching purposes."
+  },
+  {
+    "objectID": "cards/SamueleSoraggi.html",
+    "href": "cards/SamueleSoraggi.html",
+    "title": "Samuele Soraggi",
+    "section": "",
+    "text": "Samuele is a Sandbox data scientist based at the university of Aarhus. During his academic activity he has gained experience in population genomics, transcriptomics, single cell multiomics and spans his knowledge across various themes of advanced computational statistics."
+  },
+  {
+    "objectID": "LICENSE.html",
+    "href": "LICENSE.html",
+    "title": "Course Template",
+    "section": "",
+    "text": "Attribution-ShareAlike 4.0 International\n=======================================================================\nCreative Commons Corporation (“Creative Commons”) is not a law firm and does not provide legal services or legal advice. Distribution of Creative Commons public licenses does not create a lawyer-client or other relationship. Creative Commons makes its licenses and related information available on an “as-is” basis. Creative Commons gives no warranties regarding its licenses, any material licensed under their terms and conditions, or any related information. Creative Commons disclaims all liability for damages resulting from their use to the fullest extent possible.\nUsing Creative Commons Public Licenses\nCreative Commons public licenses provide a standard set of terms and conditions that creators and other rights holders may use to share original works of authorship and other material subject to copyright and certain other rights specified in the public license below. The following considerations are for informational purposes only, are not exhaustive, and do not form part of our licenses.\n Considerations for licensors: Our public licenses are\n intended for use by those authorized to give the public\n permission to use material in ways otherwise restricted by\n copyright and certain other rights. Our licenses are\n irrevocable. Licensors should read and understand the terms\n and conditions of the license they choose before applying it.\n Licensors should also secure all rights necessary before\n applying our licenses so that the public can reuse the\n material as expected. Licensors should clearly mark any\n material not subject to the license. This includes other CC-\n licensed material, or material used under an exception or\n limitation to copyright. More considerations for licensors:\nwiki.creativecommons.org/Considerations_for_licensors\n\n Considerations for the public: By using one of our public\n licenses, a licensor grants the public permission to use the\n licensed material under specified terms and conditions. If\n the licensor's permission is not necessary for any reason--for\n example, because of any applicable exception or limitation to\n copyright--then that use is not regulated by the license. Our\n licenses grant only permissions under copyright and certain\n other rights that a licensor has authority to grant. Use of\n the licensed material may still be restricted for other\n reasons, including because others have copyright or other\n rights in the material. A licensor may make special requests,\n such as asking that all changes be marked or described.\n Although not required by our licenses, you are encouraged to\n respect those requests where reasonable. More_considerations\n for the public:\nwiki.creativecommons.org/Considerations_for_licensees\n=======================================================================\nCreative Commons Attribution-ShareAlike 4.0 International Public License\nBy exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-ShareAlike 4.0 International Public License (“Public License”). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.\nSection 1 – Definitions.\n\nAdapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor. For purposes of this Public License, where the Licensed Material is a musical work, performance, or sound recording, Adapted Material is always produced where the Licensed Material is synched in timed relation with a moving image.\nAdapter’s License means the license You apply to Your Copyright and Similar Rights in Your contributions to Adapted Material in accordance with the terms and conditions of this Public License.\nBY-SA Compatible License means a license listed at creativecommons.org/compatiblelicenses, approved by Creative Commons as essentially the equivalent of this Public License.\nCopyright and Similar Rights means copyright and/or similar rights closely related to copyright including, without limitation, performance, broadcast, sound recording, and Sui Generis Database Rights, without regard to how the rights are labeled or categorized. For purposes of this Public License, the rights specified in Section 2(b)(1)-(2) are not Copyright and Similar Rights.\nEffective Technological Measures means those measures that, in the absence of proper authority, may not be circumvented under laws fulfilling obligations under Article 11 of the WIPO Copyright Treaty adopted on December 20, 1996, and/or similar international agreements.\nExceptions and Limitations means fair use, fair dealing, and/or any other exception or limitation to Copyright and Similar Rights that applies to Your use of the Licensed Material.\nLicense Elements means the license attributes listed in the name of a Creative Commons Public License. The License Elements of this Public License are Attribution and ShareAlike.\nLicensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.\nLicensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.\nLicensor means the individual(s) or entity(ies) granting rights under this Public License.\nShare means to provide material to the public by any means or process that requires permission under the Licensed Rights, such as reproduction, public display, public performance, distribution, dissemination, communication, or importation, and to make material available to the public including in ways that members of the public may access the material from a place and at a time individually chosen by them.\nSui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.\nYou means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.\n\nSection 2 – Scope.\n\nLicense grant.\n\nSubject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:\n\nreproduce and Share the Licensed Material, in whole or in part; and\nproduce, reproduce, and Share Adapted Material.\n\nExceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.\nTerm. The term of this Public License is specified in Section 6(a).\nMedia and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)\n\nnever produces Adapted Material.\n\nDownstream recipients.\n\nOffer from the Licensor – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.\nAdditional offer from the Licensor – Adapted Material. Every recipient of Adapted Material from You automatically receives an offer from the Licensor to exercise the Licensed Rights in the Adapted Material under the conditions of the Adapter’s License You apply.\nNo downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.\n\nNo endorsement. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).\n\nOther rights.\n\nMoral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.\nPatent and trademark rights are not licensed under this Public License.\nTo the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties.\n\n\nSection 3 – License Conditions.\nYour exercise of the Licensed Rights is expressly made subject to the following conditions.\n\nAttribution.\n\nIf You Share the Licensed Material (including in modified form), You must:\n\nretain the following if it is supplied by the Licensor with the Licensed Material:\n\nidentification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);\na copyright notice;\na notice that refers to this Public License;\na notice that refers to the disclaimer of warranties;\na URI or hyperlink to the Licensed Material to the extent reasonably practicable;\n\nindicate if You modified the Licensed Material and retain an indication of any previous modifications; and\nindicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.\n\nYou may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.\nIf requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.\n\nShareAlike.\nIn addition to the conditions in Section 3(a), if You Share Adapted Material You produce, the following conditions also apply.\n\nThe Adapter’s License You apply must be a Creative Commons license with the same License Elements, this version or later, or a BY-SA Compatible License.\nYou must include the text of, or the URI or hyperlink to, the Adapter’s License You apply. You may satisfy this condition in any reasonable manner based on the medium, means, and context in which You Share Adapted Material.\nYou may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, Adapted Material that restrict exercise of the rights granted under the Adapter’s License You apply.\n\n\nSection 4 – Sui Generis Database Rights.\nWhere the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:\n\nfor the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database;\nif You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material,\nincluding for purposes of Section 3(b); and\nYou must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.\n\nFor the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.\nSection 5 – Disclaimer of Warranties and Limitation of Liability.\n\nUNLESS OTHERWISE SEPARATELY UNDERTAKEN BY THE LICENSOR, TO THE EXTENT POSSIBLE, THE LICENSOR OFFERS THE LICENSED MATERIAL AS-IS AND AS-AVAILABLE, AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND CONCERNING THE LICENSED MATERIAL, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHER. THIS INCLUDES, WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OR ABSENCE OF ERRORS, WHETHER OR NOT KNOWN OR DISCOVERABLE. WHERE DISCLAIMERS OF WARRANTIES ARE NOT ALLOWED IN FULL OR IN PART, THIS DISCLAIMER MAY NOT APPLY TO YOU.\nTO THE EXTENT POSSIBLE, IN NO EVENT WILL THE LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY (INCLUDING, WITHOUT LIMITATION, NEGLIGENCE) OR OTHERWISE FOR ANY DIRECT, SPECIAL, INDIRECT, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES, COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR USE OF THE LICENSED MATERIAL, EVEN IF THE LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LOSSES, COSTS, EXPENSES, OR DAMAGES. WHERE A LIMITATION OF LIABILITY IS NOT ALLOWED IN FULL OR IN PART, THIS LIMITATION MAY NOT APPLY TO YOU.\nThe disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.\n\nSection 6 – Term and Termination.\n\nThis Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this Public License, then Your rights under this Public License terminate automatically.\nWhere Your right to use the Licensed Material has terminated under Section 6(a), it reinstates:\n\nautomatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or\nupon express reinstatement by the Licensor.\n\nFor the avoidance of doubt, this Section 6(b) does not affect any right the Licensor may have to seek remedies for Your violations of this Public License.\nFor the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.\nSections 1, 5, 6, 7, and 8 survive termination of this Public License.\n\nSection 7 – Other Terms and Conditions.\n\nThe Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.\nAny arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.\n\nSection 8 – Interpretation.\n\nFor the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.\nTo the extent possible, if any provision of this Public License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this Public License without affecting the enforceability of the remaining terms and conditions.\nNo term or condition of this Public License will be waived and no failure to comply consented to unless expressly agreed to by the Licensor.\nNothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.\n\n=======================================================================\nCreative Commons is not a party to its public licenses. Notwithstanding, Creative Commons may elect to apply one of its public licenses to material it publishes and in those instances will be considered the “Licensor.” The text of the Creative Commons public licenses is dedicated to the public domain under the CC0 Public Domain Dedication. Except for the limited purpose of indicating that material is shared under a Creative Commons public license or as otherwise permitted by the Creative Commons policies published at creativecommons.org/policies, Creative Commons does not authorize the use of the trademark “Creative Commons” or any other trademark or logo of Creative Commons without its prior written consent including, without limitation, in connection with any unauthorized modifications to any of its public licenses or any other arrangements, understandings, or agreements concerning use of licensed material. For the avoidance of doubt, this paragraph does not form part of the public licenses.\nCreative Commons may be contacted at creativecommons.org."
+  },
+  {
+    "objectID": "rmd/knit/rmarkdown_example.html",
+    "href": "rmd/knit/rmarkdown_example.html",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "2000-01-01"
+  },
+  {
+    "objectID": "rmd/knit/rmarkdown_example.html#writing-code",
+    "href": "rmd/knit/rmarkdown_example.html#writing-code",
+    "title": "Rmarkdown example",
+    "section": "Writing code",
+    "text": "Writing code\nYou can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\nlibrary(tidyverse)\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()"
+  },
+  {
+    "objectID": "rmd/knit/rmarkdown_example.html#adding-images",
+    "href": "rmd/knit/rmarkdown_example.html#adding-images",
+    "title": "Rmarkdown example",
+    "section": "Adding images",
+    "text": "Adding images\nYou can add images using the knitr::include_graphics() option. The images should be in the same folder, otherwise they will break in the step below:"
+  },
+  {
+    "objectID": "rmd/knit/rmarkdown_example.html#knitting-the-document-and-formatting-item",
+    "href": "rmd/knit/rmarkdown_example.html#knitting-the-document-and-formatting-item",
+    "title": "Rmarkdown example",
+    "section": "Knitting the document and formatting item",
+    "text": "Knitting the document and formatting item\nTo use this document in the webpage, you will have to knit it first as a github_document. This is already setup in the yaml menu above. The knitted files will be created in the knit folder. Unfortunately, knitting creates a couple of issues. First, we need to get rid of the knit options of the yaml file. Knitting will also create a header with the title, author and date on the newly created md document. Lastly, for some reason, knitting will change the normal quotes “” into cursive quotes “”. This will completely mess up the admonitions, and mkdocs will not display them properly.\nIn order to solve this issues, there is a small modify_md.ipynb file that will take all the created github_document (*.md) files and fix these issues.\nfrom os import listdir\nimport re\n\nfiles = listdir(\"./knit/\")\n\nprint(files)\nfor i in files:\n    if i.endswith(\".md\"):\n        with open(\"./knit/\"+ i) as f:\n            text = f.read()\n            text = re.sub(\"\\nknit((.|\\n)*)\\n[0-9]{4}-[0-9]{2}-[0-9]{2}\\n\", \"\\n---\\n\" ,text)\n            text = re.sub(\"(”|“)\",\"\\\"\",text)\n        with open(\"./knit/\"+ i, \"w\") as f:\n            f.write(text)\nYou can then move the knitted documents (and the images if needed) to the develop folder."
+  },
+  {
+    "objectID": "rmd/implementation.html",
+    "href": "rmd/implementation.html",
+    "title": "Jupyter notebook example",
+    "section": "",
+    "text": "This is simply done by writing a markdown cell with the metadata at the very beginning of the notebook. Citations are like [@Garcia2020].\nCode\n# use references like this bibliography: resources/references.bib"
+  },
+  {
+    "objectID": "rmd/implementation.html#writing-admonitions",
+    "href": "rmd/implementation.html#writing-admonitions",
+    "title": "Jupyter notebook example",
+    "section": "Writing admonitions",
+    "text": "Writing admonitions\nYou can write admonitions as above in a markdown cell. Look for more in the quarto manual to hide admonitions or use other types like warnings or tips admonitions."
+  },
+  {
+    "objectID": "rmd/implementation.html#running-code",
+    "href": "rmd/implementation.html#running-code",
+    "title": "Jupyter notebook example",
+    "section": "Running code",
+    "text": "Running code\nThis is some example code\n\n\nCode\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\ndataset_url = ('https://raw.githubusercontent.com/m-mehdi/pandas_tutorials/main/weekly_stocks.csv')\ndf = pd.read_csv(dataset_url, parse_dates=['Date'], index_col='Date')\npd.set_option('display.max.columns', None)\nprint(df.head())\n\n\n                  MSFT          FB        AAPL\nDate                                          \n2021-05-24  249.679993  328.730011  124.610001\n2021-05-31  250.789993  330.350006  125.889999\n2021-06-07  257.890015  331.260010  127.349998\n2021-06-14  259.429993  329.660004  130.460007\n2021-06-21  265.019989  341.369995  133.110001\n\n\n\n\nCode\ndf.plot(y='MSFT', figsize=(9,6))\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "modelling.html",
+    "href": "modelling.html",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "overview\n\n\n\n🕰 Time Estimation: X minutes\n💬 Learning Objectives:\n\nFirst item\n\nSecond item\n\nThis is an example of how to make md pages from rmarkdown documents. The source code to generate this md document is in develop/rmd/rmarkdown_example.Rmd.\n\n\nFirst we need to write the document as usual. Try to use the admonitions as in previous examples. Citations are like this [@Garcia2020].\n\n\nYou can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts\n\n\n\n\n\n\n\n\nYou can add images using the knitr::include_graphics() option.\n\n\nCode\nknitr::include_graphics(\"img/logo.png\")"
+  },
+  {
+    "objectID": "modelling.html#writing-code",
+    "href": "modelling.html#writing-code",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "modelling.html#adding-images",
+    "href": "modelling.html#adding-images",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can add images using the knitr::include_graphics() option.\n\n\nCode\nknitr::include_graphics(\"img/logo.png\")"
+  },
+  {
+    "objectID": "data_management.html",
+    "href": "data_management.html",
+    "title": "People",
+    "section": "",
+    "text": "Alba Refoyo Martinez\n\n\n\n\n\nData Scientist, Copenhagen University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJacob Fredegaard Hansen\n\n\n\n\n\nData Scientist, Southern Denmark University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJakob Skelmose\n\n\n\n\n\nData Scientist, Aalborg University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJennifer Bartell\n\n\n\n\n\nData Scientist and Project coordinator, Copenhagen University\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSamuele Soraggi\n\n\n\n\n\nData Scientist, Aarhus University\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/index.html#access-sandbox-resources",
+    "href": "lectures/index.html#access-sandbox-resources",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Access Sandbox resources",
+    "text": "Access Sandbox resources\nOur first choice is to provide all the training materials, tutorials, and tools as interactive apps on UCloud, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:\n\na Danish university ID so you can sign on to UCloud via WAYF1.\n\n \n\n for UCloud Access click here \n\n \n\nBasic ability to navigate in Linux/RStudio/Jupyter. You don’t need to be an expert, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.\nFor workshop participants: Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop2 Click the link below after your first uCloud access and accept the invite that shows.\n\n \n\n Invite link to uCloud workspace \n\n \n\nNotebooks and scripts can be downloaded here:\n\n \n\n Download Code \n\n \n\nCourse slides can be downloaded here:\n\n \n\n Download Course Slides \n\n \n\nCOURSE EVALUATION SURVEY - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!\n\n \n\n Evaluation survey link"
+  },
+  {
+    "objectID": "lectures/index.html#transcriptomics-apps",
+    "href": "lectures/index.html#transcriptomics-apps",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Transcriptomics apps",
+    "text": "Transcriptomics apps\nHigh-Performance Computing (HPC) platforms are essential for large-scale data analysis. Therefore, we will run our bulk RNA-seq analyses on one of the national HPC platforms, UCloud.\n\nIf you want to review the course material, visit our website where you will find the content for all the lectures.\n\nZenodo link to download the material (slides, assignments, data, etc.) for this workshop here.\nTo get started with our transcriptomics app, follow the UCloud setup guidelines. This will help you set up a new job and repeat the exercises on your own.\nTo run the nf-core RNAseq pipeline follow the instructions here. This will generate the output from the preprocessing pipeline.\n\n\n\n\nTranscriptomics Sandbox: Our sandbox for bulk or single-cell RNA sequencing analysis provides stand-alone analysis and visualization tools.\n\n\n \nWe are developing other apps. If you are interested, explore the modules section on our website!"
+  },
+  {
+    "objectID": "lectures/index.html#discussion-and-feedback",
+    "href": "lectures/index.html#discussion-and-feedback",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Discussion and feedback",
+    "text": "Discussion and feedback\nWe hope you enjoyed the workshop. If you have broader questions, suggestions, or concerns, now is the time to raise them! Remember that you can check out longer versions of our tutorials as well as other topics and tools in each of the Sandbox modules. We regularly run workshops on a variety of health data science topics that you can also check out (follow our news here).\nAs data scientists, we also would be happy for some quantifiable info and feedback - we want to build things that the Danish health data science community is excited to use.\n\n \n\n\n\n\n\n\n\nNice meeting you and we hope to see you again!"
+  },
+  {
+    "objectID": "lectures/index.html#footnotes",
+    "href": "lectures/index.html#footnotes",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nOther institutions (e.g. hospitals, libraries, …) can log on through WAYF. See all institutions here↩︎\nTo use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you’ll need to check with the local DeiC office at your university about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.↩︎"
+  },
+  {
+    "objectID": "lectures/modelling.html",
+    "href": "lectures/modelling.html",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "overview\n\n\n\n🕰 Time Estimation: X minutes\n💬 Learning Objectives:\n\nFirst item\n\nSecond item\n\nThis is an example of how to make md pages from rmarkdown documents. The source code to generate this md document is in develop/rmd/rmarkdown_example.Rmd.\n\n\nFirst we need to write the document as usual. Try to use the admonitions as in previous examples. Citations are like this [@Garcia2020].\n\n\nYou can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts\n\n\n\n\n\n\n\n\nYou can add images using the knitr::include_graphics() option."
+  },
+  {
+    "objectID": "lectures/modelling.html#writing-code",
+    "href": "lectures/modelling.html#writing-code",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can run code as usual in Rmarkdown. The chunk options can be very useful. By default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the “knitr” chunk above).\n\n\nCode\nlibrary(tidyverse)\n\n\n\n\nCode\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "lectures/modelling.html#adding-images",
+    "href": "lectures/modelling.html#adding-images",
+    "title": "Rmarkdown example",
+    "section": "",
+    "text": "You can add images using the knitr::include_graphics() option."
+  },
+  {
+    "objectID": "lectures/data_management.html",
+    "href": "lectures/data_management.html",
+    "title": "People",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "lectures/implementation.html",
+    "href": "lectures/implementation.html",
+    "title": "Jupyter notebook example",
+    "section": "",
+    "text": "This is simply done by writing a markdown cell with the metadata at the very beginning of the notebook. Citations are like [@Garcia2020].\nCode\n# use references like this bibliography: resources/references.bib"
+  },
+  {
+    "objectID": "lectures/implementation.html#writing-admonitions",
+    "href": "lectures/implementation.html#writing-admonitions",
+    "title": "Jupyter notebook example",
+    "section": "Writing admonitions",
+    "text": "Writing admonitions\nYou can write admonitions as above in a markdown cell. Look for more in the quarto manual to hide admonitions or use other types like warnings or tips admonitions."
+  },
+  {
+    "objectID": "lectures/implementation.html#running-code",
+    "href": "lectures/implementation.html#running-code",
+    "title": "Jupyter notebook example",
+    "section": "Running code",
+    "text": "Running code\nThis is some example code\n\n\nCode\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\ndataset_url = ('https://raw.githubusercontent.com/m-mehdi/pandas_tutorials/main/weekly_stocks.csv')\ndf = pd.read_csv(dataset_url, parse_dates=['Date'], index_col='Date')\npd.set_option('display.max.columns', None)\nprint(df.head())\n\n\n                  MSFT          FB        AAPL\nDate                                          \n2021-05-24  249.679993  328.730011  124.610001\n2021-05-31  250.789993  330.350006  125.889999\n2021-06-07  257.890015  331.260010  127.349998\n2021-06-14  259.429993  329.660004  130.460007\n2021-06-21  265.019989  341.369995  133.110001\n\n\n\n\nCode\ndf.plot(y='MSFT', figsize=(9,6))\n\n\n\n\n\n\n\n\nFigure 1: Charts"
+  },
+  {
+    "objectID": "lectures/index.html#the-journey-from-raw-data-to-implementation",
+    "href": "lectures/index.html#the-journey-from-raw-data-to-implementation",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "The journey from raw data to implementation",
+    "text": "The journey from raw data to implementation\nTraditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care. The course includes the following topics:\n\n\nData management: This part of the course considers the challenges of preparing heterogenous longitudinal health data for prediction. We will cover the various steps involved in this process, including data formatting, feature engineering, and splitting strategies for model validation. This will include discussion about how to handle irregularly sampled health data, data leakage, class imbalance, temporal robustness, normalization, and other potential biases.\n\n\nModelling: In this part of the course, participants will be led through the process of building such models. We will introduce both basic and more advanced dynamic machine learning prediction algorithms, such as gradient tree boosting, random forest, and LSTM and discuss issues related to performance metrics and hyperparameter optimization, for example Bayesian optimization.\n\n\nImplementation: In the last part of the course, we will consider the challenges associated with the implementation of predictive tools in the clinic. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the FHIR standard. Regulatory and organizational issues will also be discussed. During the project the participants will get hands on experience covering realistic scenarios related to the subjects discussed. This will include data management of representative data sets, training models and hands on introduction to the FHIR set-up.\n\n\n \n\n\n\nIllustration of a journey from raw data to implementation: A simplified illustration of the process of making raw data into a product, by formatting the data and build a model which takes the data as input."
+  },
+  {
+    "objectID": "lectures/index.html#section",
+    "href": "lectures/index.html#section",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "",
+    "text": "We are developing other apps. If you are interested, explore the modules section on our website!"
+  },
+  {
+    "objectID": "lectures/index.html#what-do-we-need-in-the-setup-of-dynamic-risk",
+    "href": "lectures/index.html#what-do-we-need-in-the-setup-of-dynamic-risk",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "What do we need in the setup of dynamic risk",
+    "text": "What do we need in the setup of dynamic risk\n\nCohort of patients: A group of individuals being monitored over time for clinical outcomes or disease progression.\nPrediction time points \\(t_{ij}\\) for patient \\(i\\) and \\(j_{th}\\) time point: The specific moments when predictions are made for patient i at their jth time point.\nBinary outcome \\(Y(t_{ij})\\) for each prediction time: clinical outcome measures as “yes/no” (like disease, hospitalization, or recovery) at each prediction time point.\n\n\n\nRegularly or irregularly triggered?: As the clinical measurements and prediction points can occur either at fixed, regular intervals (like every third months or once a year) or at irregular intervals based on patient visits or clinical events.\n\n\nPredictors\n\nBaseline/static data \\(X_i\\) for patient \\(i\\): These are characteristics that do not change over time for each patient, such as biological sex, date of birth, or genetic factors.\nTime dependent data \\(Z_i(t)\\) for patient \\(i\\): These are measurements that change over time, like weight, lab values, or prescriptions of medicine and amount collected at various time points.\n\n\nNote: \\(t \\neq t_{ij}\\): The time when predictive data is collected (t) may differ from the prediction time points (\\(t{_ij}\\)), reflecting real-world clinical practice where measurements are not always synchronized with prediction needs\n\n\n\nAdd explanation: This illustration is showing multiple prediction of a patient which arrives in irregular intervals."
+  },
+  {
+    "objectID": "lectures/index.html#why-predict-in-health-care-applications",
+    "href": "lectures/index.html#why-predict-in-health-care-applications",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Why predict in health care applications?",
+    "text": "Why predict in health care applications?\nEstimating risk can help us:\n\nDetect disease on early stage\nPrevent disease\nTarget treatment\nOptimise use of health care ressources, e.g. in screening programs\nEtc.\n\nPredictive analytics in healthcare applications offers value by providing proactive rather than reactive care. Using patient data and clinical patterns, these tools can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly. Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system."
+  },
+  {
+    "objectID": "lectures/index.html#why-use-dynamic-risk-prediction-in-health-care",
+    "href": "lectures/index.html#why-use-dynamic-risk-prediction-in-health-care",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Why use dynamic risk prediction in health care?",
+    "text": "Why use dynamic risk prediction in health care?\nRisk of event seldomly stationary, it is dynamic\n\nRisk of adverse event can e.g. increase the longer the patient has suffered from the disease\nRisk of dying within the next year can depend on how long the patient has survived so far with the disease and the patient’s current health\n\n→ a one-time prediction is not always precise enough"
+  },
+  {
+    "objectID": "lectures/index.html#using-extensice-health-data",
+    "href": "lectures/index.html#using-extensice-health-data",
+    "title": "Development and implementation of machine learning models for dynamic risk prediction in health care applications",
+    "section": "Using Extensice Health Data",
+    "text": "Using Extensice Health Data\nPredictive modeling demands data in vast amounts, while also the data must be high quality and organized sequentially. This ensures that the model recognizes patterns and makes accurate predictions based on historical trends. The data sourcing is comprehensive and complex in terms of multiple stakeholders are involved. There is a necessary to access specialized and highly restrictive health databases such as PAS (Patient Administration System), MedOnc (Medical Oncology database), LABKA (Lab Information System), and Patobank (Pathology Registry). These databases offer in-depth patient-related information crucial for accurate predictions. It is important to acknowledge that this data extraction and integration is challenging. Once access to these databases is secured, data preparation is the next step in the predictive modeling process. Relevant variables from these databases are identified and merged into a unified dataframe for a streamlined analysis. Time factors are some of the most important variables to understand and define before executing predictive modeling. For instance, when predicting the short-term likelihood of a patient’s death within 30 days, it is essential to have certain important events for the time series analysis. This includes the time of diagnosis, the initiation of palliative treatments, and the actual time of death, among other relevant markers.\n\n\n\nExample of records for a patient: This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene; BMI, body mass index; COPD, chronic obstructive pulmonary disease; CRP, C-reactive protein; LDH, lactate dehydrogenase; Tx, treatment"
+  }
+]

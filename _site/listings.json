@@ -1,0 +1,26 @@
+[
+  {
+    "listing": "/people.html",
+    "items": [
+      "/cards/AlbaMartinez.html",
+      "/cards/JacobHansen.html",
+      "/cards/JakobSkelmose.html",
+      "/cards/JenniferBartell.html",
+      "/cards/SamueleSoraggi.html"
+    ]
+  },
+  {
+    "listing": "/data_management.html",
+    "items": [
+      "/cards/AlbaMartinez.html",
+      "/cards/JacobHansen.html",
+      "/cards/JakobSkelmose.html",
+      "/cards/JenniferBartell.html",
+      "/cards/SamueleSoraggi.html"
+    ]
+  },
+  {
+    "listing": "/lectures/data_management.html",
+    "items": []
+  }
+]

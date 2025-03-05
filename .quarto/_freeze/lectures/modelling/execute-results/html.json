@@ -1,0 +1,15 @@
+{
+  "hash": "5ac80cd6f689119048d6289098b2726c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Rmarkdown example\nsummary: This is an example of an Rmarkdown development\ndate-modified: last-modified\ndate-format: long\ndate: 2024-01-01\nknit: (function(inputFile, encoding) { \n      rmarkdown::render(inputFile,\n                        encoding=encoding,\n                        output_format='all',\n                        output_dir='./knit/')})\noutput:\n  github_document: \n     preserve_yaml: TRUE\n     html_preview: FALSE\n     pandoc_args: [\n      \"--wrap\", \"none\" # this is needed to not break admonitions\n    ]\n---\n\n\n\n\n\n\n\n# Rmarkdown example\n\n:::{.callout-note title=\"overview\"}\n\n&#128368; **Time Estimation:** X minutes  \n\n&#128172; **Learning Objectives:**    \n    \n1. First item  \n2. Second item  \n\nThis is an example of how to make md pages from rmarkdown documents. The source code to generate this md document is in `develop/rmd/rmarkdown_example.Rmd`.\n:::\n\nFirst we need to write the document as usual. Try to use the admonitions as in previous examples. Citations are like this [@Garcia2020].\n\n## Writing code\n\nYou can run code as usual in Rmarkdown. The chunk options can be very useful. \nBy default, the code will not run unless explicity specified in the chunk (you can change this behaviour on the \"knitr\" chunk above).\n\n\n\n\n\n::: {.cell layout-align=\"center\"}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n:::\n\n::: {.cell layout-align=\"center\"}\n\n```{.r .cell-code}\nggplot(data = txhousing, aes(x = sales, y = listings)) +\n  geom_point()\n```\n\n::: {.cell-output-display}\n![Charts](./images/modelling.rmarkdown/fig-charts-1.png){#fig-charts fig-align='center' width=672}\n:::\n:::\n\n\n\n\n\n## Adding images\n\nYou can add images using the `knitr::include_graphics()` option.\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

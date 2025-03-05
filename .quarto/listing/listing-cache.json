@@ -1,0 +1,13 @@
+{
+  "listingMap": {
+    "people.qmd": [
+      "cards/*.qmd"
+    ],
+    "lectures\\data_management.qmd": [
+      "cards/*.qmd"
+    ],
+    "data_management.qmd": [
+      "cards/*.qmd"
+    ]
+  }
+}

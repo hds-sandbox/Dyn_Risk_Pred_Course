@@ -1,0 +1,59 @@
+{
+  "index.qmd": {
+    "index.html": "87a3d823"
+  },
+  "cards/AlbaMartinez.qmd": {
+    "AlbaMartinez.html": "d83b51c3"
+  },
+  "cards/JacobHansen.qmd": {
+    "JacobHansen.html": "925a6b03"
+  },
+  "cards/JakobSkelmose.qmd": {
+    "JakobSkelmose.html": "4cae47c2"
+  },
+  "cards/JenniferBartell.qmd": {
+    "JenniferBartell.html": "339540a7"
+  },
+  "cards/SamueleSoraggi.qmd": {
+    "SamueleSoraggi.html": "2429ce3d"
+  },
+  "jupyter_example.ipynb": {
+    "jupyter_example.html": "da2b8786"
+  },
+  "LICENSE.md": {
+    "LICENSE.html": "f8f40f46"
+  },
+  "people.qmd": {
+    "people.html": "6bd3328a"
+  },
+  "rmd/knit/rmarkdown_example.md": {
+    "rmarkdown_example.html": "8066100e"
+  },
+  "rmd/rmarkdown_example.Rmd": {
+    "rmarkdown_example.html": "a94af322"
+  },
+  "lectures/data_management.qmd": {
+    "data_management.html": "c1bb257a"
+  },
+  "lectures/implementation.ipynb": {
+    "implementation.html": "b4faf663"
+  },
+  "data_management.qmd": {
+    "data_management.html": "830cb352"
+  },
+  "implementation.ipynb": {
+    "implementation.html": "3b22c5a2"
+  },
+  "modelling.Rmd": {
+    "modelling.html": "847bd4af"
+  },
+  "rmd/implementation.ipynb": {
+    "implementation.html": "beb98385"
+  },
+  "lectures/index.qmd": {
+    "index.html": "dfc23727"
+  },
+  "lectures/modelling.Rmd": {
+    "modelling.html": "86f593c8"
+  }
+}
