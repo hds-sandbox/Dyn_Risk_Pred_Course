@@ -1,6 +1,46 @@
 ---
-title: "People"
-listing:
-  contents: cards/*.qmd
-  type: default
+format: html
 ---
+
+:::{.hero-banner}
+# Development and implementation of machine learning models for dynamic risk prediction in health care applications
+:::
+
+:::{.callout-warning title="Required preparation"}
+The participants are expected to have basic knowledge on regression analysis as well as programming experience in a statistical software tool, such as R or Python.
+
+:::
+
+# Introduction to dynamic risk prediction
+
+
+# Data sources and biases
+
+
+# Data management
+
+
+# Exercises
+
+# Workshop 1 – data management
+In this workshop you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in PAD-introduction.html and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
+
+This workshop focusses on preparing data for non-recurrent models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome you can for example choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
+
+Go through the following steps:
+
+    1)	Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+    2)	Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date; as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+    3)	Add baseline variables (in baseline_data) to the dataset (join by patient id).
+    4)	Determine which patients goes into the training, validation, calibration, and test split (using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which split each observation belongs to or split your data into the four pieces.
+    5)	Perform feature engineering, for example:
+        a.	Do we want to remove some predictors? (e.g., due to missingness or weird values)
+        b.	One-hot encoding of categorical predictors
+        c.	Construct feature for age at each time point
+        d.	How to handle missing values? Imputation*, presence variables, …?
+        e.	Cap and normalise numerical predictors**
+        f.	Summary variables (aggregating historical information)
+    6)	Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
+
+*If you use the mean or regression to impute variables, you should base this on the training set only*
+**The values you cap and the values you use to normalise should be based on the training set only**

@@ -30,7 +30,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
  2. **REQUIREMENTS:** Basic ability to navigate in Linux/RStudio/Jupyter. **You don't need to be an expert**, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.
 
- 3. **For workshop participants:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.] Click the link below after your first uCloud access and accept the invite that shows.
+ 3. **FOR WORKSHOP PARTICIPANTS:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.] Click the link below after your first uCloud access and accept the invite that shows.
 
  &nbsp;
 
@@ -83,13 +83,13 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 # Course Agenda
 
-### Part 1
+### Part 1 - Introduction
 
 | Subjects |
 |:----|
 |Introduction the course |
 
-### Part 2
+### Part 2 - Data management
 
 | Subjects |
 |:----|
@@ -99,17 +99,17 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Exercises	|
 
 
-### Part 3
+### Part 3 - Modelling
 
 | Subjects |
 |:----|
 | Machine learning models	|
-| Model Training	|
+| Model training	|
 | Utility and explainability	|
 | Exercises	|
 
 
-### Part 4
+### Part 4 - Implementation
 
 | Subjects |
 |:----|
