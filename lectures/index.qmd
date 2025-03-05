@@ -96,7 +96,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Introduction to dynamic risk prediction	|
 | Data sources and biases	|
 | Data management	|
-| Workshop – data management	|
 
 
 ### Part 3
@@ -106,7 +105,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Machine learning models	|
 | Model Training	|
 | Utility and explainability	|
-| Workshop - modelling	|
+
 
 ### Part 4
 
@@ -162,19 +161,19 @@ Traditional risk prediction generates a risk estimate at a defined timepoint in 
 ## What do we need in the setup of dynamic risk
 
 - Cohort of patients: A group of individuals being monitored over time for clinical outcomes or disease progression.
-- Prediction time points $t_{ij}$ for patient $i$ and $j_{th}$ time point: The specific moments when predictions are made for patient i at their jth time point. Different patients may have
+- Prediction time points $t_{ij}$ for patient $i$ and $j_{th}$ time point: The specific moments when predictions are made for patient i at their jth time point.
 - Binary outcome $Y(t_{ij})$ for each prediction time: clinical outcome measures as "yes/no" (like disease, hospitalization, or recovery) at each prediction time point.
 <div style="overflow: auto;">
   <img src="../images/regular_inregular_time_patterns.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
   <p>
-    **Regularly or irregularly triggered?:** AS the clinical measurements and prediction points can occur either at fixed, regular intervals (e.g., every 3 months) or at irregular intervals based on patient visits or clinical events.
+    **Regularly or irregularly triggered?:** As the clinical measurements and prediction points can occur either at fixed, regular intervals (like every third months or once a year) or at irregular intervals based on patient visits or clinical events.
   </p>
 </div>
 - Predictors
-  - Baseline/static data $X_i$ for patient $i$: These are characteristics that don't change over time for each patient, such as biological sex, date of birth, or genetic factors.
+  - Baseline/static data $X_i$ for patient $i$: These are characteristics that do not change over time for each patient, such as biological sex, date of birth, or genetic factors.
   - Time dependent data $Z_i(t)$ for patient $i$: These are measurements that change over time, like weight, lab values, or prescriptions of medicine and amount collected at various time points.
 
-Note: $t \neq t_{ij}$: The time when predictive data is collected (t) may differ from the prediction time points (t_ij), reflecting real-world clinical practice where measurements are not always synchronized with prediction needs
+Note: $t \neq t_{ij}$: The time when predictive data is collected (t) may differ from the prediction time points ($t{_ij}$), reflecting real-world clinical practice where measurements are not always synchronized with prediction needs
 <div style="overflow: auto;">
   <img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
   <p>
