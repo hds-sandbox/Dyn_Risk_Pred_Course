@@ -140,7 +140,36 @@ Others
 These databases are both national, regional and local examples potential data providers. In regard to international databases are beyond the scope of this course.
 However, there are many initiatives in the EU which makes it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy preserving synthetic data and federated learning.
 
-Before we decide on which data source we want to use for our predictive model we should be aware of the
+Before we decide on which data source we want to use for our predictive model we should be aware of the potential bias and limitations, which is what the section will cover in depth.
+
+## Bias and limitations
+- DNPR (or LPR or PAS)
+	- Only for patients in contact with the hospital
+		- Informed presence bias
+		- Issue with chronic conditions potentially treated by GPs
+	- Administrative tool
+		- The coding practices might be impacted by reimbursement
+		- Not as thoroughly filled as a clinical tool
+- Selection biases
+	- Many more: sampling bias, susceptibility bias, confirmation bias, attrition bias, volunteer bias… (see
+	  https://catalogofbias.org/biases/)
+### Retrospective studies: coding and classification
+- introduction for some of the data providers in Denmark
+
+### Prospective Studies: FAIR Data Principles
+- Introduction to FAIR
+	- Findable
+	- Accessible
+	- Interoperable
+	- Reusable
+- Motivation for FAIR
+- Examples of FAIR
+- Limitations of FAIR
+### PROSPECTIVE STUDIES: Relational Databases and REDCap
+- introduction to Relational Databases
+- Introduction to REDCap
+
+
 
 # Data management
 
