@@ -16,6 +16,7 @@ There can become issues when multiple datasets are gathered as similar variables
 Many of these issues can be addressed in data management. However, some tradeoffs are needed to make the data work.
 
 This lecture will cover:
+
 - The motivation
 - Data sources and biases
 - Data management
@@ -49,10 +50,13 @@ Regardless is there a common knowlegde that data management takes time. Data man
 In this section of the course, there will be introduced Data collection and the potential biases in regard to:
 
 **Retrospective studies**
+
 - Data sources
 - Biases and known limitations
 - Coding/Classifications
+
 **Prospective studies**
+
 - FAIR data principles
 - Introduction to databases and REDCap
 - Data structure for collection
@@ -60,12 +64,15 @@ In this section of the course, there will be introduced Data collection and the 
 The difference in these types of studies lays in the time and control. First we want be able to understand the existing data and how to work with the data we are collecting.
 Next, when looking forward we want to put this data in frameworks that allow for better research designs while ensuring solid data quality.
 
-## Datasource: Data vs Metadata vs Annotations
+## Data vs Metadata vs Annotations
+
 When working with data management, one should be able to differ between data, metadata, and annotations.
+Data is the actual subject of interest as it is the raw information which is gathered and which can gain valuable insight, if there is enough data.
 Most people knows about data, but metadata and annotations is also critical to make vast amounts of data understandable and usable.
 Metadata can be seen as the information data about the data.
 An example of metadata could be that some blood samples have been gathered:
-|Test Name          | Result    |
+
+|Test Name  | Result |
 |:----|:----|
 | Hemoglobin         | 14.2 g/dL |
 | White Blood Cells  | 7,800/μL  |
@@ -73,20 +80,67 @@ An example of metadata could be that some blood samples have been gathered:
 
 This data could have some additional data explaining the circumstances and gathering of the data:
 
-| Metadata |Result|
-|:----|:----|
-| Patient ID: | 030895 |
-| Test Date:  | March 8, 2025 |
-| Collection Time: | 8:30 AM |
-| Ordering Physician: | Dr. House |
-| Laboratory: | Princeton-Plainsboro Teaching Hospital |
+| Metadata |
+|:----|
+| Patient ID: 42421010 |
+| Test Date: March 10, 2025 |
+| Collection Time: 8:30 AM |
+| Ordering Physician: Dr. House |
+| Laboratory: Princeton-Plainsboro Teaching Hospital |
 
+Annotations is a like providing data with labels. It can be helpful for the data management and the modelling to understand the values of the data.
+With collaborations from the healthcare staff, the data collectors, the clinicians, add a extra column to the data, providing a label which categorises the data, to make it easier to understand for non-experts and models.
+A example of this could be:
 
+|Test Name  | Result | Annotation |
+|:----|:----|:----|
+| Hemoglobin         | 14.2 g/dL | Within normal limits |
+| White Blood Cells  | 7,800/μL  | Normal, no indication of infection |
+| Platelets          | 250,000/μL| Normal platelet count |
 
+As can be seen are annotation a kind of footnote to provide a overview of the meaning behind the values which are displayed in the data.
 
-Then, there might be information regarding the tools for collecting the sample, where the sample was collected, and the time of the collection.
-This kind of metadata gives a broad understanding of the circumstances and conditions of the raw data.
-Annotations act as footnotes or comments in the data. They provide additional insights or clarifications that are outside the metadata.
+With these central definition explained, the next step is to understand the who provides the data we are interested in when building dynamic prediction models for healthcare applications
+
+## Data Providers
+
+Data providers are the data holders of certain data.
+As the developer of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health related data.
+As we are located in Denmark and our application is build on danish patients, the data sources will be danish.
+
+A few example of some of the major data holders of health data in Denmark are:
+
+Health Data Authority (SDS), transferable to DST
+
+- Register of causes of death
+- LPR (diagnoses, procedures…)
+- Prescription register
+- Pathology register
+- MiBA database (with COVID data)
+- LABKA
+- etc.
+
+RKKP
+- Quality databases for cancers (more than 40…)
+
+Statistics Denmark (DST)
+
+- Civil status register
+- Income register
+- Social benefit register
+- Education register
+- etc.
+
+Others
+
+- Your own collected data
+- Local databases
+- etc.
+
+These databases are both national, regional and local examples potential data providers. In regard to international databases are beyond the scope of this course.
+However, there are many initiatives in the EU which makes it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy preserving synthetic data and federated learning.
+
+Before we decide on which data source we want to use for our predictive model we should be aware of the
 
 # Data management
 
