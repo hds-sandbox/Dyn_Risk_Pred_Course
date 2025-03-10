@@ -204,25 +204,7 @@ Risk of event seldomly stationary, it is **dynamic**
 
 &rarr; a one-time prediction is not always precise enough
 
-# Motivation
-Applying Systemic Anti-Cancer Treatment (SACT) is a motivation for predictive modeling for cancer patients, as it ensures patients receive the right SACT at the right time. Not only does this optimize survival rates, but it also potentially maximizes the quality of remaining life for patients. There is a fine balance between when to provide a patient with SACT as it can decrease a patient’s life quality over time. The purpose of using SACT should be to make a patient able to recover and survive (Best-case scenario). It can cause a patient to suffer more in the remaining lifetime, which could mean that a patient's outcome would be worse with SACT than without (Worst-case scenario). Therefor are dynamic predictive models a important measure to help the clinicians make a better informed decision to either save the point or to spare them suffering.
 
-<div style="overflow: auto;">
-  <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
-  <p>
-    **A model of health-related quality of life for a patient with limited survival:** A illustration of the possible scenarious in short-term survial predictions
-  </p>
-</div>
-
-## Using Extensice Health Data
-Predictive modeling demands data in vast amounts, while also the data must be high quality and organized sequentially. This ensures that the model recognizes patterns and makes accurate predictions based on historical trends. The data sourcing is comprehensive and complex in terms of multiple stakeholders are involved. There is a necessary to access specialized and highly restrictive health databases such as PAS (Patient Administration System), MedOnc (Medical Oncology database), LABKA (Lab Information System), and Patobank (Pathology Registry). These databases offer in-depth patient-related information crucial for accurate predictions. It is important to acknowledge that this data extraction and integration is challenging.
-Once access to these databases is secured, data preparation is the next step in the predictive modeling process. Relevant variables from these databases are identified and merged into a unified dataframe for a streamlined analysis. Time factors are some of the most important variables to understand and define before executing predictive modeling. For instance, when predicting the short-term likelihood of a patient's death within 30 days, it is essential to have certain important events for the time series analysis. This includes the time of diagnosis, the initiation of palliative treatments, and the actual time of death, among other relevant markers.
-<div style="overflow: auto;">
-  <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
-  <p>
-    **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene; BMI, body mass index; COPD, chronic obstructive pulmonary disease; CRP, C-reactive protein; LDH, lactate dehydrogenase; Tx, treatment
-  </p>
-</div>
 
 # Summary
 

@@ -1,0 +1,25 @@
+---
+format: html
+---
+
+:::{.hero-banner}
+# Modelling
+
+:::
+
+
+# Machine learning models
+
+# Model training
+
+# Utility and explainability
+
+# Exercises
+## Modelling
+In this workshop you will train and test at least one prediction model based on the datasets you prepared in Workshop 1 (in case you did not succeed with Workshop 1, a prepared data set is available on PhD Moodle under Day 2/Workshop 2. In this dataset there is a variable called split, indicating which split the observation belongs too). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”).
+Go through the following steps:
+1)	Choose a performance metric for final test of model performance (is there class imbalance in your data?)
+2)	Choose a model to train (e.g., logistic regression with elastic net or random forest). What parameters and hyper parameters does the model have?
+3)	Train model and tune hyper parameters.
+4)	How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did we predict both positive and negative outcomes well?
+5)	Train a calibration model. How well is the model calibrated, considering the test set?
