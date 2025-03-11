@@ -75,8 +75,8 @@ An example of metadata could be that some blood samples have been gathered:
 |Test Name  | Result |
 |:----|:----|
 | Hemoglobin         | 14.2 g/dL |
-| White Blood Cells  | 7,800/μL  |
-| Platelets          | 250,000/μL|
+| White Blood Cells  | 7.8/mL  |
+| Platelets          | 250/mL|
 
 This data could have some additional data explaining the circumstances and gathering of the data:
 
@@ -95,8 +95,8 @@ A example of this could be:
 |Test Name  | Result | Annotation |
 |:----|:----|:----|
 | Hemoglobin         | 14.2 g/dL | Within normal limits |
-| White Blood Cells  | 7,800/μL  | Normal, no indication of infection |
-| Platelets          | 250,000/μL| Normal platelet count |
+| White Blood Cells  | 7.8/mL  | Normal, no indication of infection |
+| Platelets          | 250/mL| Normal platelet count |
 
 As can be seen are annotation a kind of footnote to provide a overview of the meaning behind the values which are displayed in the data.
 
@@ -143,29 +143,63 @@ However, there are many initiatives in the EU which makes it easier to gather da
 Before we decide on which data source we want to use for our predictive model we should be aware of the potential bias and limitations, which is what the section will cover in depth.
 
 ## Bias and limitations
-- DNPR (or LPR or PAS)
-	- Only for patients in contact with the hospital
-		- Informed presence bias
-		- Issue with chronic conditions potentially treated by GPs
-	- Administrative tool
-		- The coding practices might be impacted by reimbursement
-		- Not as thoroughly filled as a clinical tool
-- Selection biases
-	- Many more: sampling bias, susceptibility bias, confirmation bias, attrition bias, volunteer bias… (see
-	  https://catalogofbias.org/biases/)
+
+The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. Originally, the DNPR was designed to assist in the administrative processes rather than being used in clinical research. It captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the population. In medical research based on DNPR, it can give a presence bias because there are only observations with some illness in the dataset, and it gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading Goldstein, et al. 2016 [Link: Controlling for Informed Presence Bias Due to the Number of Health Encounters in an Electronic Health Record - PMC (nih.gov)].
+Another issue is to consider the coding practice within the DNPR. Being originally an administrative tool, the data collection could be driven by financial motivation. This might lead to certain conditions being coded more frequently or in specific ways, not necessarily because they reflect the exact medical status of a patient but because of financial implications for the healthcare institution. It has unfortunately been an issue in Danish healthcare that, in some cases, healthcare professionals use codes or treatments that are not appropriate for a given patient for personal financial gain. The problem, therefore, becomes twofold as the Danish regions will pay for unnecessary treatments, and the data contains more noise.  Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination, which affects the quality.  Autopsies is a detailed examination of a deceased individual to determine the cause of death. Doctors with sparse experience might lack the knowledge or expertise to pinpoint the precise cause of death in cases of a complex nature, which can cause low-quality death certificates. Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it. Also, relying on prescription data to indicate a patient's health condition is challenging.
+Many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This interprets drug prescription data complex and can create noise for a model.
+
+In addition to the biases already discussed, there is a long list of biases to consider when conducting research. It is beyound the scope of this course to cover the full list, but here are a few important biases to be aware of:
+
+|Type of bias  | Description |
+|:----|:----|
+| Sampling bias         | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
+| Susceptibility bias  | when certain groups are more prone to a particular outcome, due to some other external factors  |
+| Confirmation bias          | cognitive bias where researchers might unintentionally seek out or interpret data in ways that affirm their existing beliefs or hypotheses |
+| Attritition bias   | Systematic dropout from long-term studies which over time will create class imbalanace |
+| Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
+
+For more information about biases, please check out this comprehensive list from University of Oxford: https://catalogofbias.org/biases/
+
+If the data does contain signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor ... . Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is a important measure for the quality of the predictive model.
+
 ### Retrospective studies: coding and classification
-- introduction for some of the data providers in Denmark
+
+DROPPED: I don't think it makes sense and it becomes to narrow for the course.
+
+Given the idea of "base content around the exercises", then the coding does not live up to that imo.
 
 ### Prospective Studies: FAIR Data Principles
-- Introduction to FAIR
-	- Findable
-	- Accessible
-	- Interoperable
-	- Reusable
+
+As the amount of data produced in world keeps increasing, there are a need to makesure data can be found, accessed, are interoperable and can be reused.
+To have principals for good practice for the data, the metadata and the infrastructure is a important matter in navigating in the vast amount of data available, both working with datasets separately and in merging data
+In 2016 the FAIR principals was introduced [!!!!!!!!!! REF !!!!!!!!!!]
+The FAIR principals is a acronym for:
+
+	- Findable: Information about data and the metadata should be public and referenced
+	- Accessible: Data should be possible to access
+	- Interoperable: Use standardized data formats
+	- Reusable: Through extensive documentation make data resuable
+
+FAIR data principles have been broadly adopted, while also been part of international -, national and local strategies for data managenment.
+
+Example of iniatives utalizing FAIR data principle:
+
+    - National strategi for data management baseret på FAIR-principper
+    - Aalborg university (AAU) FAIR strategy
+    - The Beacon Network
+    - Genomic Data Commons (GDC) Data Portal
+    - European Genome-Phenome (EGA) Archive
+
+For more information, please find the links to the official FAIR page and these iniatives in the footnote list at the end of this section.
+
+
+
 - Motivation for FAIR
 - Examples of FAIR
 - Limitations of FAIR
+
 ### PROSPECTIVE STUDIES: Relational Databases and REDCap
+
 - introduction to Relational Databases
 - Introduction to REDCap
 
@@ -222,3 +256,14 @@ Solutions to the exercises can be found here:
 </p>
 
 &nbsp;
+
+
+
+
+# Footnotes
+https://www.go-fair.org/fair-principles/
+https://www.deic.dk/da/data-management/nationalt-samarbejde/National-strategi-for-FAIR-data-management
+https://www.aau.dk/om-aau/strategi/digitalisering/forskning/masterplan
+https://beacon-network.org/#/
+https://portal.gdc.cancer.gov/
+https://ega-archive.org/
