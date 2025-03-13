@@ -144,11 +144,15 @@ Before we decide on which data source we want to use for our predictive model we
 
 ## Bias and limitations
 
-The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. Originally, the DNPR was designed to assist in the administrative processes rather than being used in clinical research. It captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the population. In medical research based on DNPR, it can give a presence bias because there are only observations with some illness in the dataset, and it gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading Goldstein, et al. 2016 [Link: Controlling for Informed Presence Bias Due to the Number of Health Encounters in an Electronic Health Record - PMC (nih.gov)].
-Another issue is to consider the coding practice within the DNPR. Being originally an administrative tool, the data collection could be driven by financial motivation. This might lead to certain conditions being coded more frequently or in specific ways, not necessarily because they reflect the exact medical status of a patient but because of financial implications for the healthcare institution. It has unfortunately been an issue in Danish healthcare that, in some cases, healthcare professionals use codes or treatments that are not appropriate for a given patient for personal financial gain. The problem, therefore, becomes twofold as the Danish regions will pay for unnecessary treatments, and the data contains more noise.  Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination, which affects the quality.  Autopsies is a detailed examination of a deceased individual to determine the cause of death. Doctors with sparse experience might lack the knowledge or expertise to pinpoint the precise cause of death in cases of a complex nature, which can cause low-quality death certificates. Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it. Also, relying on prescription data to indicate a patient's health condition is challenging.
-Many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This interprets drug prescription data complex and can create noise for a model.
+The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals.
+The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the population. In medical research based on DNPR, it can give a presence bias because there are only observations with some illness in the dataset, and it gives a higher presence of illness in the data analysis for the people who encounter the hospital.
+For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
-In addition to the biases already discussed, there is a long list of biases to consider when conducting research. It is beyound the scope of this course to cover the full list, but here are a few important biases to be aware of:
+Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination, which affects the quality as more experienced doctors does have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
+Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefor, relying on prescription data to indicate a patient's health condition is challenging and have to be considered when deploying a predictive model.
+Additional, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This interprets drug prescription data complex and can create noise for a model.
+
+Beside the biases already discussed, there is a long list of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
 
 |Type of bias  | Description |
 |:----|:----|
@@ -158,7 +162,7 @@ In addition to the biases already discussed, there is a long list of biases to c
 | Attritition bias   | Systematic dropout from long-term studies which over time will create class imbalanace |
 | Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
 
-For more information about biases, please check out this comprehensive list from University of Oxford: https://catalogofbias.org/biases/
+For more information about biases, please check out this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
 
 If the data does contain signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor ... . Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is a important measure for the quality of the predictive model.
 
@@ -171,34 +175,41 @@ Given the idea of "base content around the exercises", then the coding does not 
 ### Prospective Studies: FAIR Data Principles
 
 As the amount of data produced in world keeps increasing, there are a need to makesure data can be found, accessed, are interoperable and can be reused.
-To have principals for good practice for the data, the metadata and the infrastructure is a important matter in navigating in the vast amount of data available, both working with datasets separately and in merging data
-In 2016 the FAIR principals was introduced [!!!!!!!!!! REF !!!!!!!!!!]
+To have principals for good practice for the data, the metadata and the infrastructure is a important matter in navigating in the vast amount of data available, both working with datasets separately and in merging data.
+[In 2016, the FAIR principles were introduced in the famous journal Nature.](https://www.nature.com/articles/sdata201618) and it was a successful attempt to address the changes of the vast amount of data. FAIR data principals was guide on how to navigate in this data while how to optimize the usage of the data.
 The FAIR principals is a acronym for:
 
-	- Findable: Information about data and the metadata should be public and referenced
-	- Accessible: Data should be possible to access
-	- Interoperable: Use standardized data formats
-	- Reusable: Through extensive documentation make data resuable
+- Findable: Information about data and the metadata should be public and referenced
+- Accessible: Data should be possible to access
+- Interoperable: Use standardized data formats
+- Reusable: Through extensive documentation make data resuable
 
 FAIR data principles have been broadly adopted, while also been part of international -, national and local strategies for data managenment.
 
 Example of iniatives utalizing FAIR data principle:
 
-    - National strategi for data management baseret på FAIR-principper
-    - Aalborg university (AAU) FAIR strategy
-    - The Beacon Network
-    - Genomic Data Commons (GDC) Data Portal
-    - European Genome-Phenome (EGA) Archive
+- [National strategi for data management baseret på FAIR-principper](https://www.deic.dk/da/data-management/nationalt-samarbejde/National-strategi-for-FAIR-data-management)
+- [Aalborg University (AAU) FAIR strategy](https://www.aau.dk/om-aau/strategi/digitalisering/forskning/masterplan)
+- [The Beacon Network](https://beacon-network.org/#/)
+- [Genomic Data Commons (GDC) Data Portal](https://portal.gdc.cancer.gov/)
+- [European Genome-Phenome Archive (EGA)](https://ega-archive.org/)
 
-For more information, please find the links to the official FAIR page and these iniatives in the footnote list at the end of this section.
+For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
+However, while FAIR data principals have a significant impact of the quality and accessibility of data, there are some **limitations** which have to be taken into consideration.
+The legal about data sharing is complex and this may provide boundaries on the level of details which can be shared while also limit the access to data further.
+Another significant limitation is the amount of work necessary to create the comprehensive documentation needed to live up to the FAIR data principals. Also, there might be a gab in the technical skill level of people who want's to use FAIR which can mean that some not meet the requirements of the FAIR principals.
 
+So far we have introduced some theoretical concepts to be aware of and principals for gathering, documenting and make most of the data.
 
-- Motivation for FAIR
-- Examples of FAIR
-- Limitations of FAIR
+In the next section will some concrete tools for storing data be introduced
 
 ### PROSPECTIVE STUDIES: Relational Databases and REDCap
+
+Databases is a digital platform to store the data that we want to use. Often when doing certain analysis, a `dataset` is used, but this dataset is a problably not enough to make serious modelling.
+When dealing with multiple datasets, it becomes more handy to store them at one place and to draw the necessary data when needed. This is where the database come in.
+The database can hold multiple datasets, which is called `tables` in database terms. These tables can be customised, merged, filtered, etc. as the data are pulled into the software where the analysis is made.
+To make these data management operation for the database, one have to use the querying language Structured Query Language (SQL).
 
 - introduction to Relational Databases
 - Introduction to REDCap
@@ -217,18 +228,18 @@ This workshop focusses on preparing data for non-recurrent models, i.e., the goa
 
 Go through the following steps:
 
-    1)	Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
-    2)	Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date; as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
-    3)	Add baseline variables (in baseline_data) to the dataset (join by patient id).
-    4)	Determine which patients goes into the training, validation, calibration, and test split (using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which split each observation belongs to or split your data into the four pieces.
-    5)	Perform feature engineering, for example:
-        a.	Do we want to remove some predictors? (e.g., due to missingness or weird values)
-        b.	One-hot encoding of categorical predictors
-        c.	Construct feature for age at each time point
-        d.	How to handle missing values? Imputation*, presence variables, …?
-        e.	Cap and normalise numerical predictors**
-        f.	Summary variables (aggregating historical information)
-    6)	Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
+1)	Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+2)	Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date; as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+3)	Add baseline variables (in baseline_data) to the dataset (join by patient id).
+4)	Determine which patients goes into the training, validation, calibration, and test split (using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which split each observation belongs to or split your data into the four pieces.
+5)	Perform feature engineering, for example:
+    a.	Do we want to remove some predictors? (e.g., due to missingness or weird values)
+    b.	One-hot encoding of categorical predictors
+    c.	Construct feature for age at each time point
+    d.	How to handle missing values? Imputation*, presence variables, …?
+    e.	Cap and normalise numerical predictors**
+    f.	Summary variables (aggregating historical information)
+6)	Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
 
 *If you use the mean or regression to impute variables, you should base this on the training set only*
 **The values you cap and the values you use to normalise should be based on the training set only**
@@ -259,11 +270,3 @@ Solutions to the exercises can be found here:
 
 
 
-
-# Footnotes
-https://www.go-fair.org/fair-principles/
-https://www.deic.dk/da/data-management/nationalt-samarbejde/National-strategi-for-FAIR-data-management
-https://www.aau.dk/om-aau/strategi/digitalisering/forskning/masterplan
-https://beacon-network.org/#/
-https://portal.gdc.cancer.gov/
-https://ega-archive.org/

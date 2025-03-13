@@ -204,11 +204,51 @@ Risk of event seldomly stationary, it is **dynamic**
 
 &rarr; a one-time prediction is not always precise enough
 
+Traditional risk models provide only a snapshot at a single point in time, while disease progression continuously and changes the risk profiles.
+
+The reasons why a dynamic prediction model is better suited for healthcare application rather then static prediction models is:
+
+- The treatment have a influence on the patients risk profile
+- Comorbidities develop or worsen with age and the disease duration
+- Patients differ a lot in terms of risk and treatment
+- Short-term decision support
+- Long-term decision support
+
+Continuous monitoring combined with a dynamic prediction model creates flexibility in healthcare delivery, making it a more reliable tool for clinicians.
+
+As these tools are not a replacement for clinicians, it can provide as a decision tool to help the clinicians making informed decisions and to raise the lower bar of the quality in healthcare.
+
 
 
 # Summary
 
-tba
+In this introduction, an overview was provided on how to access all the resources of this course.
+The structure for the entire course was presented, including all segments and their content.
+There was a brief introduction to the concept of dynamic risk prediction and how it differs from traditional risk prediction in healthcare.
+A high-level overview of the implementation of such a system was provided, where the main topics were introduced:
+
+- Data management
+- Modelling
+- Implementation
+
+A setup for dynamic risk assessment was presented along with an overview of the necessary materials to build dynamic risk models.
+A short description of the reasoning behind risk and dynamic models was provided.
+
+For continuing to next section of this course, please click on the the button:
+
+&nbsp;
+
+ <p align="center">
+  <a href="http://localhost:4707/lectures/data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Continue to
+    Data management
+  </a>
+</p>
+
+&nbsp;
+
+**Dev note: Change the link to the button when the actual webpage is launched**
+
 
 <!-- 
 <b>Please answer these [5 questions](https://forms.office.com/e/e6e3AA1u0D?origin=lprLink) for us before you head out for the day ^[*link activated on day one of the workshop*.].</b>
