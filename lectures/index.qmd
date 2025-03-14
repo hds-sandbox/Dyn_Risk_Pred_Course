@@ -87,13 +87,13 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 | Subjects |
 |:----|
-|Introduction the course |
+| Introduction the course |
+| Introduction to dynamic risk prediction	|
 
 ### Part 2 - Data management
 
 | Subjects |
 |:----|
-| Introduction to dynamic risk prediction	|
 | Data sources and biases	|
 | Data management	|
 | Exercises	|
@@ -164,11 +164,11 @@ Traditional risk prediction generates a risk estimate at a defined timepoint in 
 
 - Cohort of patients: A group of individuals being monitored over time for clinical outcomes or disease progression.
 - Prediction time points $t_{ij}$ for patient $i$ and $j_{th}$ time point: The specific moments when predictions are made for patient i at their jth time point.
-- Binary outcome $Y(t_{ij})$ for each prediction time: clinical outcome measures as "yes/no" (like disease, hospitalization, or recovery) at each prediction time point.
+- Binary outcome $Y(t_{ij})$ for each prediction time: clinical outcome measures as "yes/no" (like disease, hospitalization, or recovery, etc) at each prediction time point.
 <div style="overflow: auto;">
   <img src="../images/regular_inregular_time_patterns.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
   <p>
-    **Regularly or irregularly triggered?:** As the clinical measurements and prediction points can occur either at fixed, regular intervals (like every third months or once a year) or at irregular intervals based on patient visits or clinical events.
+    **Regularly or irregularly triggered?:** As the clinical measurements and prediction points can occur either at fixed, regular intervals (like every third months or once a year, etc) or at irregular intervals based on patient visits or clinical events.
   </p>
 </div>
 - Predictors
@@ -193,7 +193,8 @@ Estimating risk can help us:
 - Optimise use of health care ressources, e.g. in screening programs
 - Etc.
 
-Predictive analytics in healthcare applications offers value by providing proactive rather than reactive care. Using patient data and clinical patterns, these tools can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly. Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system.
+Predictive analytics in healthcare applications offers value by providing proactive rather than reactive care.
+Using patient data and clinical patterns, can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly. Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system.
 
 ## Why use dynamic risk prediction in health care?
 
@@ -214,7 +215,7 @@ The reasons why a dynamic prediction model is better suited for healthcare appli
 - Short-term decision support
 - Long-term decision support
 
-Continuous monitoring combined with a dynamic prediction model creates flexibility in healthcare delivery, making it a more reliable tool for clinicians.
+Continuous monitoring combined with a dynamic prediction model creates flexibility in healthcare delivery, making the model a more reliable tool for clinicians while also allocating clinicians time efficiently.
 
 As these tools are not a replacement for clinicians, it can provide as a decision tool to help the clinicians making informed decisions and to raise the lower bar of the quality in healthcare.
 
@@ -224,7 +225,7 @@ Applying Systemic Anti-Cancer Treatment (SACT) is a motivation for predictive mo
 <div style="overflow: auto;">
   <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
   <p>
-    **A model of health-related quality of life for a patient with limited survival:** A illustration of the possible scenarious in short-term survial predictions
+    **A model of health-related quality of life for a patient with limited survival:** A illustration of the possible scenarious in short-term survial predictions. The illustratin stems from [Vesteghem, 2022](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
   </p>
 </div>
 
@@ -234,7 +235,7 @@ Once access to these databases is secured, data preparation is the next step in 
 <div style="overflow: auto;">
   <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
   <p>
-    **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene; BMI, body mass index; COPD, chronic obstructive pulmonary disease; CRP, C-reactive protein; LDH, lactate dehydrogenase; Tx, treatment
+    **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene, BMI, chronic obstructive pulmonary disease, C-reactive protein, lactate dehydrogenase, treatment. The figure stems from [Vesteghem et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054).
   </p>
 </div>
 

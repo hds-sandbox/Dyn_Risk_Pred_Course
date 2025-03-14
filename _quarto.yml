@@ -9,7 +9,7 @@ website:
       - href: lectures/index.qmd
         text: Introduction
       - href: lectures/data_management.qmd
-        text: Data Management
+        text: Data
       - href: lectures/modelling.qmd
         text: Modelling
       - href: lectures/implementation.qmd
