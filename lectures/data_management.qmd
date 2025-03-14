@@ -187,14 +187,50 @@ In the next section will some concrete tools for storing data be introduced
 
 ### PROSPECTIVE STUDIES: Relational Databases and REDCap
 
-Databases is a digital platform to store the data that we want to use. Often when doing certain analysis, a `dataset` is used, but this dataset is a problably not enough to make serious modelling.
+Databases is a digital platform to store the data that we want to use. Often when doing certain analysis, a **dataset** is used, but this dataset is a problably not enough to make serious modelling.
 When dealing with multiple datasets, it becomes more handy to store them at one place and to draw the necessary data when needed. This is where the database come in.
-The database can hold multiple datasets, which is called `tables` in database terms. These tables can be customised, merged, filtered, etc. as the data are pulled into the software where the analysis is made.
+The database can hold multiple datasets, which is called **tables** in database terms. These tables can be customised, merged, filtered, etc. as the data are pulled into the software where the analysis is made.
 To make these data management operation for the database, one have to use the querying language Structured Query Language (SQL).
 
-- introduction to Relational Databases
-- Introduction to REDCap
+A simple example of a sql query would be if we wanted a table consisting of patients who are between 18 and 100 years old.
+We want all the the columns of the table, so we use * and we want the table caled TUMOUR_DATA. So we write the query:
 
+```{SQL}
+SELECT *
+FROM TUMOUR_DATA
+WHERE age BETWEEN 18 AND 100;
+```
+
+There are different types of databases and the choice of database is based about on the use case and preference.
+A popular database type is the **relational database** which is a database consisting of tabular datasets (tables) where there are connections among the tables, so every table can be connected one way or another.
+<div style="overflow: auto;">
+  <img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
+</div>
+To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
+
+There is also different types of relational database management software solutions, where Postgres is a popular free solution, or Oracle which is a more a corporate software solution and SQLite which is a rather lightweight free solution, etc.
+These software solutions are beyond the scope of this course. To learn more about these software's, please read about them [here](https://medium.com/@longjohn1337/comparing-sql-database-technologies-mysql-mssql-postgresql-sqlite-and-oracle-sql-95699b9c805e).
+
+### Introduction to REDCap
+
+Data collection tools play a crucial role in clinical research as they are the foundation for the accuracy and utility of gathered information.
+Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to fit the unique characteristics of clinical data.
+The purpose of REDCap is to ease collecting and managing clinical data with standard quality standards.
+REDCap have a range of tools which ease the process of manageging clinical data while also providing high security for handling the data with REDCap. Some of these tools are:
+
+- [Arms](https://help.redcap.ualberta.ca/help-and-faq/what-are-arms)
+- [Longitudinal data collection](https://www.iths.org/news/redcap-tip/longitudinal-projects-in-redcap/)
+- [API access for programming](https://projectredcap.org/wp-content/resources/REDCapTechnicalOverview.pdf)
+
+These tools makes it easy to work with clinical data compared to not using REDCap as:
+    1) REDCap have a simple interface
+    2) REDCap can store sensitive information
+    3) [REDCap is widely adopted](https://projectredcap.org/)
+
+However, like all tools, REDCap is not without its limitations, as it does not fully embrace of relational data.
+This can be a limitation in clinical research, where data points often have complex relationships.
+
+For a practical implementation of REDCap and the FAIR data principals, then check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
 
 
 # Data management
