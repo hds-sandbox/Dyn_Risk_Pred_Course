@@ -239,7 +239,19 @@ For a practical implementation of REDCap and the FAIR data principals, check out
 
 # Data management
 
+In this subsection of the course, there will be a practical approach to the data management aspect.
+In the previous section there was a comprehensive introduction to some of the considerations needed to work wit data before and after pulling the data from a source.
+There was provided a introduction to some of the sources and some of the biases within the the data collection.
+
+Now, the data is collected in is raw form and now it have to be prepared for the actual modelling.
+This part is critical as the data management have a significant influence to the modelling.
+There is a saying of **"Garbage in, garbage out"**, which is a well-known slogan in data science and which emphasis the matter of having clean data.
+
+This subsection will cover the challenges of data, data representation, data bundling, splitting data, missing data and feature engineering.
+
 ## Starting point
+
+Returning to the example of predicting when to provide SACT treatment of palliative cancer patients, there have to be some clear setting to
 
 - Setting
 
