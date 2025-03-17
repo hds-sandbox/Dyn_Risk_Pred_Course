@@ -251,17 +251,67 @@ This subsection will cover the challenges of data, data representation, data bun
 
 ## Starting point
 
-Returning to the example of predicting when to provide SACT treatment of palliative cancer patients, there have to be some clear setting to
+Returning to the example of predicting when to provide SACT treatment of palliative cancer patients, in order to most efficiently build model applications, it is wise to follow a well establish framework.
+A advanced example of such framework can be found here: [Tomašev et al. (2021) Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records](https://www.nature.com/articles/s41596-021-00513-5).
+Which is a great example of a end-to-end dynamic prediction model.
 
-- Setting
+Let us consider how to design such framework for our SACT prediction model:
 
-- 30-days mortality example
+| Setting | 30-day martality example |
+|:----|:----|
+| A clinical relevant problem is identified | Can it be predicted which patients with advanced cancer die within 30 days? |
+| It has been decided how the outcome will be evaluated | Date of death (of any cause) extracted from the CPR register |
+| Inclusion and exclusion criteria are set (OBS: It need to be generalisable to a prospective setting, criteria assessable from the point where model inference begins) | Include patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer |
+| Prediction time points are defined | Every registered contact the patient has with Department of Oncology |
+| Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
+
 
 ## Challenges with data
 
-- Missing data
+After data has been received and loaded into the computer of the researcher, the first thing to identify is the flaws of the dataset.
 
-- Irregurlarly sampling
+Real world datasets is rarely cleaned and ready to be inputted in a pipeline. Therefor, it becomes crucial for the data management to understand the flaws of the dataset as it the foundation of the data management strategy to be aware of the weaknesses of the dataset.
+
+### Missing data
+
+As the data collected for the predictive modelling is collected, it may visable that some columns have more values than other and this is the first sign that there are missing values.
+
+Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset and they do often occur in data and the amount of missing data does often increase as the complexity of the dataset increases. Which should be understod as the amount of columns, rows, registries the data is pulled from and the data types.
+
+Missing data should not only be seen as a negative feature of the dataset. Missing data can also contain some information which can be interpreted in a analysis or model.
+
+However, missing data cannot be ignored as multiple models need the researchers to make decisions about the missing data, as the models simply cannot accept datasets with missing data.
+To handle missing data can many strategies be used, such as:
+
+- **Deletion**: Remove rows or columns with missing values
+- **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or most frequent value.
+- **Constant Value Imputation**: Fill missing values with a specific constant (like zero or a designated "missing" value).
+- **Predictive Modeling**: Use machine learning algorithms to predict missing values based on other features.
+- **Multiple Imputation**: Generate multiple complete datasets with different plausible values for the missing data.
+
+More advanced strategies can also be applied:
+
+- **Multivariate imputation by chained equations (MICE):** This is an iterative approach that models each variable with missing values as a function of the other variables and imputes the missing values based on these models.
+- **Gaussian processes:** These are probabilistic models that can be used to predict missing values based on the observed data, also providing a measure of uncertainty for the imputed values.
+- **Generative adversarial networks (GANs):** GANs are a type of deep learning model that can learn the underlying data distribution and generate plausible values for missing data points.
+
+These suggestions can be found in the paper mentioned in the beginning of this subsection, [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5).
+
+### Irregurlarly sampling
+
+As addressed in the motivation about dynamic modelling, are the healthcare sector a huge source of irregularly sampling, as the data depends on health and people.
+Health and people are two dynamic factors as sickness can develop in many ways, whereas people are hard to predict as the ideal behavior and the real behavior is not the same.
+
+Due to all the uncertainty regarding health and people, there is no regular pattern in contact with the hospitals, therefor the need for dynamic models.
+
+these irregularities is not entirely an issue, but the distance between events may also hold valuable information.
+
+In order to structure irregularly samples, there can be employeed different strategies like:
+
+- Resampling the data into uniform interfaces.
+- Aggregating the data into uniform chunks.
+- Using models which can handle these irregularities.
+
 
 - Data quality
 
