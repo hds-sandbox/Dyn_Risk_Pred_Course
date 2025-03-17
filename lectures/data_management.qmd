@@ -215,6 +215,9 @@ These software solutions are beyond the scope of this course. To learn more abou
 
 Data collection tools play a crucial role in clinical research as they are the foundation for the accuracy and utility of gathered information.
 Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to fit the unique characteristics of clinical data.
+<div style="overflow: auto;">
+  <img src="../images/redcap.PNG" alt="Image" style="margin-bottom: 15px; width: 45%;">
+</div>
 The purpose of REDCap is to ease collecting and managing clinical data with standard quality standards.
 REDCap have a range of tools which ease the process of manageging clinical data while also providing high security for handling the data with REDCap. Some of these tools are:
 
@@ -223,17 +226,118 @@ REDCap have a range of tools which ease the process of manageging clinical data 
 - [API access for programming](https://projectredcap.org/wp-content/resources/REDCapTechnicalOverview.pdf)
 
 These tools makes it easy to work with clinical data compared to not using REDCap as:
-    1) REDCap have a simple interface
-    2) REDCap can store sensitive information
-    3) [REDCap is widely adopted](https://projectredcap.org/)
+
+1) REDCap have a simple interface
+2) REDCap can store sensitive information
+3) [REDCap is widely adopted](https://projectredcap.org/)
 
 However, like all tools, REDCap is not without its limitations, as it does not fully embrace of relational data.
 This can be a limitation in clinical research, where data points often have complex relationships.
 
-For a practical implementation of REDCap and the FAIR data principals, then check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
+For a practical implementation of REDCap and the FAIR data principals, check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
 
 
 # Data management
+
+## Starting point
+
+- Setting
+
+- 30-days mortality example
+
+## Challenges with data
+
+- Missing data
+
+- Irregurlarly sampling
+
+- Data quality
+
+- Data collected for other purpose than modelling
+
+## Check your data
+
+- Talk to personal
+
+- Make summary stat
+
+- Pattern or random in missing?
+
+- Is the recording of te outcome good enough?
+
+## Data representation
+
+- discrete time step to bundle data within (Prolly to standardize the time)
+
+- Aggregate repeated measurements within certain time steps
+
+- coarser time stamp -> avoid data leakage?
+
+### Avoid information
+
+- Timestamp for an entry is not equal to true time data was available
+
+- time stamps may be based on the day of admission rather than the day of diagnosis
+
+## Data bundling in case of  regular triggering + small time steps
+
+- bundling using 6 hour time steps
+
+## Data bundling - irregular triggering
+
+- bundle with mean + using 1-day time steps
+
+## Historical data
+
+- Aggregate historical features
+
+- lookback window
+
+- Aggregation options
+
+- VISUALIZE
+
+## Splitting data - Holdout method
+
+- train
+
+- Val
+
+- Cal
+
+- Test
+
+## Splitting data - k fold cross validation
+
+- explain + use visualization
+
+## Splitting data - nested cross val
+
+- explain + use visualization
+
+## Missing data
+
+- Complete case analysis
+
+- Imputation
+
+- Presence features
+
+## Feature engineering
+
+- Identify useful features
+
+- Data quality
+
+- Construct manual features
+    - ratio between two biochemical values
+    - Add annotations to the continuous vars
+    - collapse infreaquent values for discrete vars?
+    - Create one-hot encoded vars for all discrete vars
+
+- Outliers
+
+- Feature scaling
 
 
 # Exercise
