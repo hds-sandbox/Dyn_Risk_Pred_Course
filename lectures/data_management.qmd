@@ -308,22 +308,65 @@ these irregularities is not entirely an issue, but the distance between events m
 
 In order to structure irregularly samples, there can be employeed different strategies like:
 
-- Resampling the data into uniform interfaces.
+- Resampling the data into uniform intervals.
 - Aggregating the data into uniform chunks.
 - Using models which can handle these irregularities.
 
+The basic idea is to gather all the small pieces into fewer larger pieces which can be standardized as input for the model.
 
-- Data quality
+### Data quality
 
-- Data collected for other purpose than modelling
+When working with registries data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare there are different actors like doctors, secretaries, nurses, etc.
+These people work at any hour of the day and they have different degrees of expertise. Additionally, as time progress, new diagnosis are added, others are edited, treatments changes, etc. With all these considerations, there is a high probability that the data quality may be influenced by these factors.
+
+To sum up the data quality, the researcher whom want to build a model most be aware of:
+
+- Data entry errors
+- Inconsistencies in the data
+- Missing data
+- Outliers (Due to mistakes)
+- Biases
+
+For a analyst, it may be different to distinguish good and poor data quality, which makes it important to work close with clinicians and use their expertise to understand the data.
+
+### Data collected for other purpose than modelling
+
+The data collection have been made on the behalf of administration and to journal a patient, if we look at patient registry.
+These registries was not created for the purpose of storing data for predictive modelling, as for many other data sources.
+This is why the data management part is so crucial and take up so much time.
+
+This also means that relevant predictors may be missing and potential hidden biases can cause trouble for the modelling.
+
+So now, there are a lot of pitfalls being presented already and this leads to the natural question of **what to do about it?**
 
 ## Check your data
 
-- Talk to personal
+To make sure we get a good output of the model, there needs to be a good input. This can be found by taking several measures:
 
-- Make summary stat
+### Talk to personal
 
-- Pattern or random in missing?
+Talking to the experts and the people at the front is significant for the preprocessing of the data. To understand how the clinicians collect the data,
+the dilemmas regarding the data collection, understand potential flaws or why some data seem unusual.
+
+### Make summary stat
+
+Making summary statistics can offer a lot of information regarding the dataset where are working with. As analyst there are some expectations to the data and the shape oif the data.
+When looking at the summary, it becomes easy to compare the expectation - with the reality of the data.
+
+Some of the things that becomes present when looking at the data is the degree of:
+
+- Missing data
+- Outliers
+- abnormally frequent values
+- etc.
+
+When there is a overview of these flaws, the next step is to make a data management strategy which take these considerations into account.
+
+
+### Pattern or random in missing?
+
+Missing data is a tricky problem and before any imputation, removal or similar is considered, should the missing values be studied for patterns.
+
 
 - Is the recording of te outcome good enough?
 
