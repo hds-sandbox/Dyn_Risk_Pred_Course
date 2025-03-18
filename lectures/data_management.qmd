@@ -366,9 +366,38 @@ When there is a overview of these flaws, the next step is to make a data managem
 ### Pattern or random in missing?
 
 Missing data is a tricky problem and before any imputation, removal or similar is considered, should the missing values be studied for patterns.
+Does one missing data keep occur in the same intervals?
 
+Often when addressing missing values, there are used three categories:
 
-- Is the recording of te outcome good enough?
+#### Missing completely at random:
+The data is missing completely at random, meaning there is no relationship between the missing data and other values in the dataset.
+
+#### Missing at random:
+The data is missing due to a underlying systematic structure of the data. A example could be that a registry about depression may have surveys where a lot of the surveys have missing data.
+However, if the surveys are conditioned on the genders, it can be seen that there is a pattern of males not completing the survey compared to females.
+
+#### Missing not at random:
+THe data have a pattern of the missing data, where it becomes visible that the missing data is connected to the observed data.
+Let us return to the registry over depression and look at those who have severe depression, those people have a high probability of not completing a survey.
+
+These three categories of missing data was briefly introduced in this course. If more information is desired or details about the example case of the registry for depression, please read more [here](https://www.ncbi.nlm.nih.gov/books/NBK493614/)
+
+### Is the recording of the outcome good enough?
+
+A analyst should be critical when picking a data source, as the quality of these sources can vary and there make incorrect input hence wrong predictions.
+
+A example of such problem is the danish register of causes of death. A study showed that a significant amount of the causes of death was wrong:
+
+<div style="overflow: auto;">
+  <img src="../images/Autopsy_case_30percent.PNG" alt="Image" style="margin-bottom: 15px; width: 45%;">
+</div>
+
+What the researchers found was that there have been a rather unstructured approach to determining the causes of death which ultimately meant that 30% of the cases had the wrong cause of death after a autopsy was performed.
+
+The lesson here is that a analyst may be cautious to choose the danish register of causes of death for a analysis and also to be critical of even well established data sources.
+
+For more information about the case used as example in this subsection, please read the full paper of [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 
 ## Data representation
 
