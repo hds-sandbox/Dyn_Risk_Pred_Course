@@ -402,23 +402,28 @@ For more information about the case used as example in this subsection, please r
 
 ## Data representation
 
+To work with dynamic risk prediction and with the unstructured data healthcare data that arrives in irregular intervals, is time discretization a effective solution.
 
+As patients come at varying timepoints during the day and they are through different parts of the healthcare, a analyst may consider to transform the data into something with a structured dataformat, which makes the prediction model process the data efficiently.
 
-- discrete time step to bundle data within (Prolly to standardize the time)
+Choosing a standard range where data can be discretized into, would make help structuring the random data. It depends on the amount of data, but some ranges could be to look at hourly data, daily, weekly, etc. It all depends on the frequency of data. If there are plenty of datapoint every hour, the data should be in hourly format.
 
-- Aggregate repeated measurements within certain time steps
+To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The choice of the discretization bundeling depends on the amount of data, the frequancies and the preprocessing of the data.
 
-- coarser time stamp -> avoid data leakage?
+However, as a time chunk have been established, some patient may have multiple values within a parameter in the given time bundle. Let us pretend a patient is being followed a day of hospitalization where the blood pressure is measured multiple times.
+if the time is in 12 hours bundles, then the blood pressure values needs to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
+To make a decision regarding the aggregation of repeating values, the data analyst should get a overview of the statistical techniques to do this opration and base the decision on collaboration with relevant experts.
 
-### Avoid information
-
-- Timestamp for an entry is not equal to true time data was available
-
-- time stamps may be based on the day of admission rather than the day of diagnosis
+Another concept to be aware of id the possibility of **Data Leaking** which is when some information in the test data can be found in the training data.
+When building a prediction model, one would have a fraction of the dataset to train the model and a fraction of the data to be test the models performance. The model is trained on data it can see and it is tested on data it cannot see.
+The problem about data leaking is when some information of the unseen data is present in the seen data. A example of this could be a patient who get sick and then go to the hospital, where the person is registrered.
+This mean that can be a gab of hour to days between a person is getting sick till it is registered. A solution here is to choose a choice of the time bundles which account for this difference.
 
 ## Data bundling in case of  regular triggering + small time steps
 
-- bundling using 6 hour time steps
+<div style="overflow: auto;">
+  <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
 
 ## Data bundling - irregular triggering
 
