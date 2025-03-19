@@ -1,7 +1,9 @@
-1) Åben terminalen i R studio (Top bar -> Tools -> Terminal -> New Terminal)
+1) Åben Rstudio med 'audited privileges'
 
-2) skriv i terminalen: "git pull"
+2) Åben terminalen i R studio (Top bar -> Tools -> Terminal -> New Terminal)
 
-3) skriv i terminalen: "quarto preview lectures/index.qmd"
+3) skriv i terminalen: "git pull"
 
-4) (HVIS DER BLIVER ÆNDRET NOGET) Skriv i terminalen: "git add ." -> "git commit -m "skriv en kommentar", "git push"
+4) skriv i terminalen: "quarto preview lectures/index.qmd"
+
+5) (HVIS DER BLIVER ÆNDRET NOGET) Skriv i terminalen: "git add ." -> "git commit -m "skriv en kommentar", "git push"
