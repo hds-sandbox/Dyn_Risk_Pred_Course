@@ -414,16 +414,17 @@ However, as a time chunk have been established, some patient may have multiple v
 if the time is in 12 hours bundles, then the blood pressure values needs to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
 To make a decision regarding the aggregation of repeating values, the data analyst should get a overview of the statistical techniques to do this opration and base the decision on collaboration with relevant experts.
 
+<div style="overflow: auto;">
+  <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
 Another concept to be aware of id the possibility of **Data Leaking** which is when some information in the test data can be found in the training data.
 When building a prediction model, one would have a fraction of the dataset to train the model and a fraction of the data to be test the models performance. The model is trained on data it can see and it is tested on data it cannot see.
 The problem about data leaking is when some information of the unseen data is present in the seen data. A example of this could be a patient who get sick and then go to the hospital, where the person is registrered.
 This mean that can be a gab of hour to days between a person is getting sick till it is registered. A solution here is to choose a choice of the time bundles which account for this difference.
 
-## Data bundling in case of  regular triggering + small time steps
+**More information can be found on a paper, which have yet to be found**
 
-<div style="overflow: auto;">
-  <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
-</div>
 
 ## Data bundling - irregular triggering
 
