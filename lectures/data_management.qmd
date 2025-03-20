@@ -140,7 +140,7 @@ Beside the biases already discussed, there is a long list of biases to consider 
 | Sampling bias         | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
 | Susceptibility bias  | when certain groups are more prone to a particular outcome, due to some other external factors  |
 | Confirmation bias          | cognitive bias where researchers might unintentionally seek out or interpret data in ways that affirm their existing beliefs or hypotheses |
-| Attritition bias   | Systematic dropout from long-term studies which over time will create class imbalanace |
+| Attrition bias   | Systematic dropout from long-term studies which over time will create class imbalanace |
 | Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
 
 For more information about biases, please check out this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
@@ -410,15 +410,39 @@ Choosing a standard range where data can be discretized into, would make help st
 
 To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The choice of the discretization bundeling depends on the amount of data, the frequancies and the preprocessing of the data.
 
-However, as a time chunk have been established, some patient may have multiple values within a parameter in the given time bundle. Let us pretend a patient is being followed a day of hospitalization where the blood pressure is measured multiple times.
-if the time is in 12 hours bundles, then the blood pressure values needs to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
-To make a decision regarding the aggregation of repeating values, the data analyst should get a overview of the statistical techniques to do this opration and base the decision on collaboration with relevant experts.
-
 <div style="overflow: auto;">
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Another concept to be aware of id the possibility of **Data Leaking** which is when some information in the test data can be found in the training data.
+However, as a time chunk have been established, some patient may have multiple values within a parameter in the given time bundle. Let us pretend a patient is being followed a day of hospitalization where the blood pressure is measured multiple times.
+if the time is in 12 hours bundles, then the blood pressure values needs to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
+
+<div style="overflow: auto;">
+  <img src="../images/data_aggregation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+A strategy to work with historical data as for the case with the dynamic prediction models is to consider to have a lookback window for each prediction.
+<div style="overflow: auto;">
+  <img src="../images/Lookback_window.PNG" alt="Image" style="margin-bottom: 15px; width: 35%;">
+</div> # Put it in the center somehow
+
+It can be helpful for multiple models to only look back a short period of time for each prediction for some variables while other variables needs a window which goes further back in time.
+It is a question of subject, like blood measurement which do not needs to look as far back as a diagnosis (add more context here), the amount of data available and the models used.
+Some models like Recurrent Neural Networks, are better built for long sequences while linear models are better off with some shorter sequences. For
+When working with lookback windows and some values needs aggregation as described already, the options of aggregation depends on the datatype:
+Some aggregation options:
+
+- For continuous values: count, median, mean, standard deviation, max/min/average difference between subsequent entries
+- For categorical values: binary variable for present or not during lookback window
+
+
+
+To make a decision regarding the aggregation of repeating values, the data analyst should get a overview of the statistical techniques to do this opration and base the decision on collaboration with relevant experts.
+
+
+
+
+Another concept to be aware of is the possibility of **Data Leaking** which is when some information in the test data can be found in the training data.
 When building a prediction model, one would have a fraction of the dataset to train the model and a fraction of the data to be test the models performance. The model is trained on data it can see and it is tested on data it cannot see.
 The problem about data leaking is when some information of the unseen data is present in the seen data. A example of this could be a patient who get sick and then go to the hospital, where the person is registrered.
 This mean that can be a gab of hour to days between a person is getting sick till it is registered. A solution here is to choose a choice of the time bundles which account for this difference.
@@ -426,29 +450,30 @@ This mean that can be a gab of hour to days between a person is getting sick til
 **More information can be found on a paper, which have yet to be found**
 
 
-## Data bundling - irregular triggering
-
-- bundle with mean + using 1-day time steps
-
-## Historical data
-
-- Aggregate historical features
-
-- lookback window
-
-- Aggregation options
-
-- VISUALIZE
-
 ## Splitting data - Holdout method
 
-- train
+To get the best performing model, it needs to be a model which can be trained on some data and tested on some unseen data, without any significant difference in performance.
+This means that a data analyst cannot make a model on some data and set the model in production, as this would lead **overfitting** as the model would have great performance on the data it was trained on, but most likely not on the real data.
+<div style="overflow: auto;">
+  <img src="../images/Data_split.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+The splitting of the data vary, depending on the task. The most basic approach is to have a training set and validation set.
+The ratio between train and test is often 80/20 percentage of the data. This ratio can vary and there can be instances depending on the amount of data and the choice of the author.
 
-- Val
+The validation set is a pre test set as it is used for optimization of hyperparemeters. Many models have a range of hyperparameters to adjust when training the model to increase the performance.
+As models becomes more complex, the hyperparameter tuning is becoming more important for the model. To properly evaluate the hyperparameters the validation set is used to optimize the hyperparameters until some stopping criteria is meet.
+When the best performing hyperparameters are found within the given stopping criteria, the model is then evaluated on the test set.
+To sum the process, model is trained with the training data, optimized with the validation set and evaluated on the test set.
 
-- Cal
 
-- Test
+
+I other words, a held-out set will provide an unbiased estimate on how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
+These splits are also known as "*folds*" and the method used for testing these different splits of the data is know as "*K fold cross validation*". In practice are a k=5 enough, but some suggest a k=10.
+<div style="overflow: auto;">
+  <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+
 
 ## Splitting data - k fold cross validation
 
@@ -486,7 +511,7 @@ This mean that can be a gab of hour to days between a person is getting sick til
 # Exercise
 
 ## Data management
-In this workshop you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in PAD-introduction.html and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
+In this exercise you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in [PAD-introduction.html]() and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
 
 This workshop focusses on preparing data for non-recurrent models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome you can for example choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
 
