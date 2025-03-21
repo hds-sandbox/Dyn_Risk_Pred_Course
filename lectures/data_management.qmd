@@ -79,7 +79,7 @@ As can be seen, annotations are a kind of footnote to provide an overview of the
 
 Data providers are the data holders of certain data. As developers of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health-related data. As we are located in Denmark and our application is built on Danish patients, the data sources will be Danish. A few examples of some of the major holders of health data in Denmark are:
 
-**Health Data Authority (SDS)**
+[**Health Data Authority (SDS)**](https://english.sundhedsdatastyrelsen.dk/)
 
 - Register of causes of death
 - LPR (diagnoses, procedures...)
@@ -87,19 +87,19 @@ Data providers are the data holders of certain data. As developers of dynamic pr
 - Pathology register
 - MiBA database (with COVID data)
 - LABKA
-- etc.
+- **Many more**
 
-**RKKP**
+[**RKKP**](https://www.sundk.dk/about/)
 
 - Quality databases for cancers (more than 40...)
 
-**Statistics Denmark (DST)**
+[**Statistics Denmark (DST)**](https://www.dst.dk/en)
 
 - Civil status register
 - Income register
 - Social benefit register
 - Education register
-- etc.
+- **Many more**
 
 **Others**
 
@@ -107,14 +107,18 @@ Data providers are the data holders of certain data. As developers of dynamic pr
 - Local databases
 - etc.
 
-These databases are national, regional, and local examples of potential data providers. International databases are beyond the scope of this course. However, there are many initiatives in the EU which make it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy-preserving synthetic data and federated learning.
+These databases are national, regional, and local examples of potential data providers. 
+These data providers offers a wide range a databases, where SDS and RKKP is centereed around health data. 
+Sometimes health data needs additional data for analysis like variable which could be used to check for confunding effects, social background, family relation, geolocations, etc. 
+For this matter are DST the largest and most comprehensive data provider in Denmark. 
+International databases are beyond the scope of this course. However, there are many initiatives in the EU which make it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy-preserving synthetic data and federated learning.
 
 Before we decide on which data source we want to use for our predictive model, we should be aware of the potential biases and limitations, which is what the next section will cover in depth.
 
 
 ## Bias and Limitations """ Provide more examples of how bias affect patients """
 
-The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
 Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
 
@@ -168,16 +172,20 @@ However, while FAIR data principles have a significant impact on the quality and
 
 So there have been introduced some theoretical concepts to be aware of and principles for gathering, documenting, and making the most of the data. In the next section, some concrete tools for storing data will be introduced.
 
-# PROSPECTIVE STUDIES: Relational Databases and REDCap
+## PROSPECTIVE STUDIES: Relational Databases and REDCap
 
-Databases are digital platforms to store the data that we want to use. Often when doing certain analyses, a **dataset** is used, but this dataset is probably not enough to make serious modeling. When dealing with multiple datasets, it becomes more handy to store them in one place and to draw the necessary data when needed. This is where the database comes in.
+Databases are digital platforms to store the data that will be used for the model. Often when doing certain analyses, a **dataset** is used, but this dataset is probably not enough to make serious modeling. When dealing with multiple datasets, it becomes more handy to store them in one place and to draw the necessary data when needed. This is where the database comes in.
 
 The database can hold multiple datasets, which are called **tables** in database terms. These tables can be customized, merged, filtered, etc. as the data are pulled into the software where the analysis is made. To perform these data management operations for the database, one has to use the querying language Structured Query Language (SQL).
 
 A simple example of an SQL query would be if we wanted a table consisting of patients who are between 18 and 100 years old. We want all the columns of the table, so we use * and we want the table called TUMOUR_DATA. So we write the query:
 
 ```SQL
-SELECT * FROM TUMOUR_DATA WHERE age BETWEEN 18 AND 100;
+SELECT * 
+
+FROM TUMOUR_DATA 
+
+WHERE age BETWEEN 18 AND 100;
 ```
 
 There are different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database** which is a database consisting of tabular datasets (tables) where there are connections among the tables, so every table can be connected one way or another.
@@ -448,28 +456,96 @@ These splits are also known as "*folds*" and the method used for testing these d
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-A approach for
+However, even if k-fold cross validation is a powerful technique, it can still lead to overfitting. As the models is repeatly trained on the data, the model starts to recordnize patterns of the training data. To overcome this challenge of potential overfitting another measuere can be used, which is the [**nested Cross-validation**](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/).
+The basic idea is that there is a additonal loop in the cross validation where there is a outer loop which is the same approach as a ordinary k-fold cross validation. But this time is a inner loop added to the individual folds, where there is a additional k-fold cross validation for each k of the other loop. The inner cross validation is used to find the best model in that particular part of the outer split and which will be tested on the testing set of the outer loop. Graphically it looks like this:
 
-## Splitting data - nested cross val
+<div style="overflow: auto;">
+  <img src="../images/nested_cross_validation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
 
-- explain + use visualization
-
+As only a subset of the dataset, one fold at a time, is evaluated with a additional k-fold cross validation, the risk of the models overfitting the data is greatly reduced. 
 
 ## Feature engineering
 
-- Identify useful features
+Feature engineering is a crusial step in the data management step, as it is the time where the data can be cleaned, where features can be selected, transformed into the best possible input and to help additional featueres based on the existing features to support the models understanding of the features scales or interactions.
 
-- Data quality
+One of the first to do when the data for the prediction model is secured is to **identify useful features**. 
+The most efficient way to measure the importance of the features is to discuess with the clinicians as they are better suited to provide insight to what they think are important for the specific case. This is especially important as some predictors may demand a lot of work. The clinicians becomes essential for this matter to state if predictors are worth to keep and if so, what would the most appropriate strategy be to repair the predictor. This means that another important factor for choosing features is the **Data quality** of the features. Some features with low quality would be better to remove if there is not a expected gain from keeping the feature. 
 
-- Construct manual features
-    - ratio between two biochemical values
-    - Add annotations to the continuous vars
-    - collapse infreaquent values for discrete vars?
-    - Create one-hot encoded vars for all discrete vars
+When the features is sorted and and it is time to work with the remaining features, there might be motivations to add more features based on the existing features. The reason is that some models need data to be in a certain way and other models can improve performance if there is some "helper" features to add additional information to the model. Some features to be added could be a ratio variable between two biochemical values !!!!!!!!!!! WAITING FOR HEIDI !!!!!!!!!!!. Another measure could be to make a binary or categorical value based on some continuous variables, to annotate of a value is low, normal or high. A example of this could be blood pressure
 
-- Outliers
 
-- Feature scaling
+| BLOOD PRESSURE CATEGORY | SYSTOLIC mm Hg (upper number) | and/or | DIASTOLIC mm Hg (lower number) |
+|:---|:---|:---|:---|
+| NORMAL | LESS THAN 120 | and | LESS THAN 80 |
+| ELEVATED | 120 - 129 | and | LESS THAN 80 |
+| HIGH BLOOD PRESSURE STAGE 1 | 130 - 139 | or | 80 - 89 |
+| HIGH BLOOD PRESSURE STAGE 2 | 140 OR HIGHER | or | 90 OR HIGHER |
+| HYPERTENSIVE CRISIS (consult your doctor immediately) | HIGHER THAN 180 | and/or | HIGHER THAN 120 |
+
+More about the table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings)
+
+Adding these annotation can help the model to better understand the implications of the ranges of a continuous variable. 
+
+Categorical can also cause problem, as there can be some categorical with few observations. These few observation can make it hard for the model to find any meaningful realations while also cause the model to overfit on these cases, so the model learns patterns related to these few observations, which could be random as there is not enough information to confirm a relation. Furthermore can there be some privacy issues as health data is sensitive data and the model cannot reveal anything about certain individuals. This is why it can be beneficial to collapse some of the categorice into fewer and larger ones. A example could be some type of cancer 
+
+#### Original Dataset: Patient Primary Symptoms
+
+| Primary Symptom | Patient Count | 
+|:---|:---|
+| Headache | 450 |
+| Dry Cough | 280 | 
+| Fever | 150 | 
+| Skin rash | 15 | 
+| Body ache | 2 | 
+
+#### After Collapsing Infrequent Values 
+
+| Primary Symptom | Patient Count | 
+|:---|:---|
+| Headache | 450 |
+| Dry Cough | 280 | 
+| Fever | 150 | 
+| **Other Symptoms** | 17 |
+
+The two tables fictionational and used to show how rare occuring event can be collapsed together. 
+
+Another approach to handle catorical values is to transform them into binary variables which represent each category in a variable. This is to provide the model with additonal information and it is a way for linear models to handle categorical variables, which they are normally unable to use as input if the categorice are nominal or represented as text. One hot encoding also helps in terms of the distance in categorical variables. A model may interprete a categorical value to have some type of ordering among the variables, but by splitting the categorize into seperate binary features, the model can handle the categorize more efficiently. A example could be a gender variable: 
+
+### Before One-Hot Encoding
+| Gender |
+|:---|
+| Male   |
+| Female |
+| Male   |
+| Female |
+| Male   |
+
+### After One-Hot Encoding
+| Male | Female |
+|:--- |:--- |
+| 1    | 0  |
+| 0    | 1  |
+| 1    | 0  |
+| 0    | 1  |
+| 1    | 0  |
+
+However, there are some consideration about how the dimensions of a dataset can grow rapidly and lead to consequnces like [Curse of dimensionality](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). Despite this consideration, does One-Hot encoding remains as a popular and effective tool in the feature engineering toolbox. 
+
+**Outliers** is something whihc also calls for feature engineering. Some outliers are legit, but it can be expected that some other outliers are there by mistake. It could be a BMI of 200 or a age of 150. Some outliers may be legit, but it can be convient to leave them out of the model if they deviate much. This is obviously a case-by-base consideration. To find outliers it can be helpful to look at upper percentiles in the summary statistics and see if there is a unexpectated distance from the mean to upper percentiles and if the values seem to me a product of a mistake, the model would be better with the upper percentile cutted. 
+
+**Feature scaling:** The scaling of feature values are crucial for models performance. By scaling the features can make them contribute to the model more proportionally, as features can come in all sorts of unit sizes. Variables with larger ranges will have a heavier influence on the models. The scaling does also improve the convergence speed as the optimization space becomes more smooth compared to unscalled inputs. Some of the common scaling methods are: 
+
+- **Normalization:** Not sure here.... !!!!!!!!!!!!!!! HEIDI!!!!!!!!!!!!!!!
+- **[Standardisation:](https://www.geeksforgeeks.org/what-is-standardization-in-machine-learning/)** Transform the data by subtracting the datapoint from the mean of the data and divide it with the standard deviation 
+$$X_{new} = \frac{x_i - \mu}{\sigma}$$
+- **[Min-max scaling:](https://medium.com/@iamkamleshrangi/how-min-max-scaler-works-9fbebb9347da)** Rescales features to a range between 0 and 1, based on the minimum and maximum values of the dataset
+$$X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
+
+
+**...................Write short outro....................** 
+
+
 
 
 # Exercise
