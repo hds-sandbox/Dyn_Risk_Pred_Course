@@ -87,7 +87,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 | Subjects |
 |:----|
-| Introduction the course |
+| Introduction to the course |
 | Introduction to dynamic risk prediction	|
 
 ### Part 2 - Data management
@@ -194,7 +194,8 @@ Estimating risk can help us:
 - Etc.
 
 Predictive analytics in healthcare applications offers value by providing proactive rather than reactive care.
-Using patient data and clinical patterns, can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly. Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system.
+Using patient data and clinical patterns, can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly.
+Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system.
 
 ## Why use dynamic risk prediction in health care?
 
@@ -203,8 +204,6 @@ Risk of event seldomly stationary, it is **dynamic**
 - Risk of adverse event can e.g. increase the longer the patient has suffered from the disease
 - Risk of dying within the next year can depend on how long the patient has survived so far with the disease and the patient’s current health
 
-&rarr; a one-time prediction is not always precise enough
-
 Traditional risk models provide only a snapshot at a single point in time, while disease progression continuously and changes the risk profiles.
 
 The reasons why a dynamic prediction model is better suited for healthcare application rather then static prediction models is:
@@ -212,8 +211,6 @@ The reasons why a dynamic prediction model is better suited for healthcare appli
 - The treatment have a influence on the patients risk profile
 - Comorbidities develop or worsen with age and the disease duration
 - Patients differ a lot in terms of risk and treatment
-- Short-term decision support
-- Long-term decision support
 
 Continuous monitoring combined with a dynamic prediction model creates flexibility in healthcare delivery, making the model a more reliable tool for clinicians while also allocating clinicians time efficiently.
 

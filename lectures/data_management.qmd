@@ -13,9 +13,8 @@ Data collection and management are crucial and often the most difficult part of 
 There are usually some obstacles in getting the data, which can take time and effort.
 There can also be problems when the expectation is met about the data if it contains a lot of missing values, or the data format is different.
 There can become issues when multiple datasets are gathered as similar variables can have different measures, names are different, different periods (some may collect their data containing time of the day, others may only state what day it is collected), etc.
-Many of these issues can be addressed in data management. However, some tradeoffs are needed to make the data work.
-
-This lecture will cover:
+Many of these issues can be addressed in data management. However, some tradeoffs are needed to make the data work in practice.
+These concepts will be covered in this section of the course where the main topics regarding data management is:
 
 - The motivation
 - Data sources and biases
@@ -23,12 +22,11 @@ This lecture will cover:
 - Exercises
 
 
-# Data sources and biases
 
-It is said that a data scientist spend about 80% of their time preparing the data for the actual modelling task. This 80/20 ratio vary, as some may use more time and others less.
-Regardless is there a common knowlegde that data management takes time. Data management does not only consist of handling missings, transforming data, etc. Data sources, data collection and managing data biases is also a significant part of data management hence modelling as a whole.
+# Data sources and biases """Maybe explain what retrospective - and prospective studies is JBKS"""
 
-In this section of the course, there will be introduced Data collection and the potential biases in regard to:
+It is said that data scientists spend about 80% of their time preparing data for the actual modeling task. This 80/20 ratio varies, as some may use more time and others less. Regardless, there is a common knowledge that data management takes time. Data management does not only consist of handling missing values, transforming data, etc. Data sources, data collection, and managing data biases are also significant parts of data management and hence modeling as a whole.
+In this section of the course, we will introduce data collection and the potential biases with regard to:
 
 **Retrospective studies**
 
@@ -42,24 +40,21 @@ In this section of the course, there will be introduced Data collection and the 
 - Introduction to databases and REDCap
 - Data structure for collection
 
-The difference in these types of studies lays in the time and control. First we want be able to understand the existing data and how to work with the data we are collecting.
-Next, when looking forward we want to put this data in frameworks that allow for better research designs while ensuring solid data quality.
+The difference between these types of studies lies in the timing and control. First, we want to be able to understand existing data and how to work with the data we are collecting. Next, will the data be set in a frameworks that allow for better research designs while ensuring solid data quality.
 
-## Data vs Metadata vs Annotations
+## Data vs Metadata vs Annotations """ briefly mention why these distinctions matter specifically for dynamic risk prediction models JBKS"""
 
-When working with data management, one should be able to differ between data, metadata, and annotations.
-Data is the actual subject of interest as it is the raw information which is gathered and which can gain valuable insight, if there is enough data.
-Most people knows about data, but metadata and annotations is also critical to make vast amounts of data understandable and usable.
-Metadata can be seen as the information data about the data.
-An example of metadata could be that some blood samples have been gathered:
+When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight, if there is enough of it. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
 
-|Test Name  | Result |
+Metadata can be seen as information about the data. An example of metadata could be related to blood samples that have been gathered:
+
+|Test Name | Result |
 |:----|:----|
-| Hemoglobin         | 14.2 g/dL |
-| White Blood Cells  | 7.8/mL  |
-| Platelets          | 250/mL|
+| Hemoglobin | 14.2 g/dL |
+| White Blood Cells | 7.8/mL |
+| Platelets | 250/mL|
 
-This data could have some additional data explaining the circumstances and gathering of the data:
+This data could have some additional information explaining the circumstances and gathering of the data:
 
 | Metadata |
 |:----|
@@ -69,42 +64,36 @@ This data could have some additional data explaining the circumstances and gathe
 | Ordering Physician: Dr. House |
 | Laboratory: Princeton-Plainsboro Teaching Hospital |
 
-Annotations is a like providing data with labels. It can be helpful for the data management and the modelling to understand the values of the data.
-With collaborations from the healthcare staff, the data collectors, the clinicians, add a extra column to the data, providing a label which categorises the data, to make it easier to understand for non-experts and models.
-A example of this could be:
+Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add an extra column to the data, providing a label which categorizes the data to make it easier to understand for non-experts and models. An example of this could be:
 
-|Test Name  | Result | Annotation |
+|Test Name | Result | Annotation |
 |:----|:----|:----|
-| Hemoglobin         | 14.2 g/dL | Within normal limits |
-| White Blood Cells  | 7.8/mL  | Normal, no indication of infection |
-| Platelets          | 250/mL| Normal platelet count |
+| Hemoglobin | 14.2 g/dL | Within normal limits |
+| White Blood Cells | 7.8/mL | Normal, no indication of infection |
+| Platelets | 250/mL| Normal platelet count |
 
-As can be seen are annotation a kind of footnote to provide a overview of the meaning behind the values which are displayed in the data.
+As can be seen, annotations are a kind of footnote to provide an overview of the meaning behind the values which are displayed in the data. With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
 
-With these central definition explained, the next step is to understand the who provides the data we are interested in when building dynamic prediction models for healthcare applications
 
-## Data Providers
+## Data Providers """ Explain the data providers and perhaps the why to choose some of the providers """
 
-Data providers are the data holders of certain data.
-As the developer of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health related data.
-As we are located in Denmark and our application is build on danish patients, the data sources will be danish.
+Data providers are the data holders of certain data. As developers of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health-related data. As we are located in Denmark and our application is built on Danish patients, the data sources will be Danish. A few examples of some of the major holders of health data in Denmark are:
 
-A few example of some of the major data holders of health data in Denmark are:
-
-Health Data Authority (SDS), transferable to DST
+**Health Data Authority (SDS)**
 
 - Register of causes of death
-- LPR (diagnoses, procedures…)
+- LPR (diagnoses, procedures...)
 - Prescription register
 - Pathology register
 - MiBA database (with COVID data)
 - LABKA
 - etc.
 
-RKKP
-- Quality databases for cancers (more than 40…)
+**RKKP**
 
-Statistics Denmark (DST)
+- Quality databases for cancers (more than 40...)
+
+**Statistics Denmark (DST)**
 
 - Civil status register
 - Income register
@@ -112,40 +101,39 @@ Statistics Denmark (DST)
 - Education register
 - etc.
 
-Others
+**Others**
 
 - Your own collected data
 - Local databases
 - etc.
 
-These databases are both national, regional and local examples potential data providers. In regard to international databases are beyond the scope of this course.
-However, there are many initiatives in the EU which makes it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy preserving synthetic data and federated learning.
+These databases are national, regional, and local examples of potential data providers. International databases are beyond the scope of this course. However, there are many initiatives in the EU which make it easier to gather data across borders. These initiatives are made possible by new technologies and the progress within technologies such as privacy-preserving synthetic data and federated learning.
 
-Before we decide on which data source we want to use for our predictive model we should be aware of the potential bias and limitations, which is what the section will cover in depth.
+Before we decide on which data source we want to use for our predictive model, we should be aware of the potential biases and limitations, which is what the next section will cover in depth.
 
-## Bias and limitations
 
-The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals.
-The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the population. In medical research based on DNPR, it can give a presence bias because there are only observations with some illness in the dataset, and it gives a higher presence of illness in the data analysis for the people who encounter the hospital.
-For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+## Bias and Limitations """ Provide more examples of how bias affect patients """
 
-Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination, which affects the quality as more experienced doctors does have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
-Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefor, relying on prescription data to indicate a patient's health condition is challenging and have to be considered when deploying a predictive model.
-Additional, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This interprets drug prescription data complex and can create noise for a model.
+The Danish National Patient Registry (DNPR), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
-Beside the biases already discussed, there is a long list of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
+Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
 
-|Type of bias  | Description |
+Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when deploying a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
+
+Besides the biases already discussed, there is a long list of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
+
+|Type of bias | Description |
 |:----|:----|
-| Sampling bias         | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
-| Susceptibility bias  | when certain groups are more prone to a particular outcome, due to some other external factors  |
-| Confirmation bias          | cognitive bias where researchers might unintentionally seek out or interpret data in ways that affirm their existing beliefs or hypotheses |
-| Attrition bias   | Systematic dropout from long-term studies which over time will create class imbalanace |
+| Sampling bias | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
+| Susceptibility bias | When certain groups are more prone to a particular outcome, due to some other external factors |
+| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that affirm their existing beliefs or hypotheses |
+| Attrition bias | Systematic dropout from long-term studies which over time will create class imbalance |
 | Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
 
 For more information about biases, please check out this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
 
-If the data does contain signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor ... . Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is a important measure for the quality of the predictive model.
+If the data does contain signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor. Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is an important measure for the quality of the predictive model.
+
 
 ### Retrospective studies: coding and classification
 
@@ -153,21 +141,20 @@ DROPPED: I don't think it makes sense and it becomes to narrow for the course.
 
 Given the idea of "base content around the exercises", then the coding does not live up to that imo.
 
-### Prospective Studies: FAIR Data Principles
+# Prospective Studies: FAIR Data Principles  """ Perhaps provide more example of FAIR in practice JBKS """
 
-As the amount of data produced in world keeps increasing, there are a need to makesure data can be found, accessed, are interoperable and can be reused.
-To have principals for good practice for the data, the metadata and the infrastructure is a important matter in navigating in the vast amount of data available, both working with datasets separately and in merging data.
-[In 2016, the FAIR principles were introduced in the famous journal Nature.](https://www.nature.com/articles/sdata201618) and it was a successful attempt to address the changes of the vast amount of data. FAIR data principals was guide on how to navigate in this data while how to optimize the usage of the data.
-The FAIR principals is a acronym for:
+As the amount of data produced in the world keeps increasing, there is a need to make sure data can be found, accessed, is interoperable and can be reused. Having principles for good practice for the data, the metadata, and the infrastructure is an important matter in navigating the vast amount of data available, both when working with datasets separately and in merging data.
 
-- Findable: Information about data and the metadata should be public and referenced
-- Accessible: Data should be possible to access
-- Interoperable: Use standardized data formats
-- Reusable: Through extensive documentation make data resuable
+[In 2016, the FAIR principles were introduced in the famous journal Nature](https://www.nature.com/articles/sdata201618), and it was a successful attempt to address the challenges of the vast amount of data. FAIR data principles provide a guide on how to navigate this data while optimizing the usage of the data.
 
-FAIR data principles have been broadly adopted, while also been part of international -, national and local strategies for data managenment.
+The FAIR principles is an acronym for:
 
-Example of iniatives utalizing FAIR data principle:
+- **Findable**: Information about data and the metadata should be public and referenced
+- **Accessible**: Data should be possible to access
+- **Interoperable**: Use standardized data formats
+- **Reusable**: Through extensive documentation make data reusable
+
+FAIR data principles have been broadly adopted, while also being part of international, national, and local strategies for data management. Examples of initiatives utilizing FAIR data principles:
 
 - [National strategi for data management baseret på FAIR-principper](https://www.deic.dk/da/data-management/nationalt-samarbejde/National-strategi-for-FAIR-data-management)
 - [Aalborg University (AAU) FAIR strategy](https://www.aau.dk/om-aau/strategi/digitalisering/forskning/masterplan)
@@ -177,39 +164,34 @@ Example of iniatives utalizing FAIR data principle:
 
 For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
-However, while FAIR data principals have a significant impact of the quality and accessibility of data, there are some **limitations** which have to be taken into consideration.
-The legal about data sharing is complex and this may provide boundaries on the level of details which can be shared while also limit the access to data further.
-Another significant limitation is the amount of work necessary to create the comprehensive documentation needed to live up to the FAIR data principals. Also, there might be a gab in the technical skill level of people who want's to use FAIR which can mean that some not meet the requirements of the FAIR principals.
+However, while FAIR data principles have a significant impact on the quality and accessibility of data, there are some **limitations** which have to be taken into consideration. The legal aspects of data sharing are complex, and this may provide boundaries on the level of details which can be shared while also limiting the access to data further. Another significant limitation is the amount of work necessary to create the comprehensive documentation needed to live up to the FAIR data principles. Also, there might be a gap in the technical skill level of people who want to use FAIR, which can mean that some do not meet the requirements of the FAIR principles.
 
-So far we have introduced some theoretical concepts to be aware of and principals for gathering, documenting and make most of the data.
+So there have been introduced some theoretical concepts to be aware of and principles for gathering, documenting, and making the most of the data. In the next section, some concrete tools for storing data will be introduced.
 
-In the next section will some concrete tools for storing data be introduced
+# PROSPECTIVE STUDIES: Relational Databases and REDCap
 
-### PROSPECTIVE STUDIES: Relational Databases and REDCap
+Databases are digital platforms to store the data that we want to use. Often when doing certain analyses, a **dataset** is used, but this dataset is probably not enough to make serious modeling. When dealing with multiple datasets, it becomes more handy to store them in one place and to draw the necessary data when needed. This is where the database comes in.
 
-Databases is a digital platform to store the data that we want to use. Often when doing certain analysis, a **dataset** is used, but this dataset is a problably not enough to make serious modelling.
-When dealing with multiple datasets, it becomes more handy to store them at one place and to draw the necessary data when needed. This is where the database come in.
-The database can hold multiple datasets, which is called **tables** in database terms. These tables can be customised, merged, filtered, etc. as the data are pulled into the software where the analysis is made.
-To make these data management operation for the database, one have to use the querying language Structured Query Language (SQL).
+The database can hold multiple datasets, which are called **tables** in database terms. These tables can be customized, merged, filtered, etc. as the data are pulled into the software where the analysis is made. To perform these data management operations for the database, one has to use the querying language Structured Query Language (SQL).
 
-A simple example of a sql query would be if we wanted a table consisting of patients who are between 18 and 100 years old.
-We want all the the columns of the table, so we use * and we want the table caled TUMOUR_DATA. So we write the query:
+A simple example of an SQL query would be if we wanted a table consisting of patients who are between 18 and 100 years old. We want all the columns of the table, so we use * and we want the table called TUMOUR_DATA. So we write the query:
 
-```{SQL}
-SELECT *
-FROM TUMOUR_DATA
-WHERE age BETWEEN 18 AND 100;
+```SQL
+SELECT * FROM TUMOUR_DATA WHERE age BETWEEN 18 AND 100;
 ```
 
-There are different types of databases and the choice of database is based about on the use case and preference.
-A popular database type is the **relational database** which is a database consisting of tabular datasets (tables) where there are connections among the tables, so every table can be connected one way or another.
+There are different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database** which is a database consisting of tabular datasets (tables) where there are connections among the tables, so every table can be connected one way or another.
+
 <div style="overflow: auto;">
-  <img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
+<img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
 </div>
+
+Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, track changes over time, and integrate diverse data sources. For instance, when developing a risk model for hospital readmission, a researcher could query patients with specific diagnoses, medication histories, and demographic characteristics all at once, rather than manually combining separate datasets.
+
 To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
 
-There is also different types of relational database management software solutions, where Postgres is a popular free solution, or Oracle which is a more a corporate software solution and SQLite which is a rather lightweight free solution, etc.
-These software solutions are beyond the scope of this course. To learn more about these software's, please read about them [here](https://medium.com/@longjohn1337/comparing-sql-database-technologies-mysql-mssql-postgresql-sqlite-and-oracle-sql-95699b9c805e).
+There are also different types of relational database management software solutions, where Postgres is a popular free solution, Oracle is more of a corporate software solution, and SQLite is a rather lightweight free solution, etc. These software solutions are beyond the scope of this course. To learn more about these software options, please read about them [here](https://medium.com/@longjohn1337/comparing-sql-database-technologies-mysql-mssql-postgresql-sqlite-and-oracle-sql-95699b9c805e).
+
 
 ### Introduction to REDCap
 
@@ -237,36 +219,29 @@ This can be a limitation in clinical research, where data points often have comp
 For a practical implementation of REDCap and the FAIR data principals, check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
 
 
-# Data management
+# Data Management
 
-In this subsection of the course, there will be a practical approach to the data management aspect.
-In the previous section there was a comprehensive introduction to some of the considerations needed to work wit data before and after pulling the data from a source.
-There was provided a introduction to some of the sources and some of the biases within the the data collection.
+In this subsection of the course, there will be a practical approach to the data management aspect. In the previous section, there was a comprehensive introduction to some of the considerations needed to work with data before and after pulling the data from a source. There was provided an introduction to some of the sources and some of the biases within the data collection. Now, the data is collected in its raw form and it has to be prepared for the actual modeling. This part is critical as data management has a significant influence on the modeling.
 
-Now, the data is collected in is raw form and now it have to be prepared for the actual modelling.
-This part is critical as the data management have a significant influence to the modelling.
-There is a saying of **"Garbage in, garbage out"**, which is a well-known slogan in data science and which emphasis the matter of having clean data.
+There is a saying of **"Garbage in, garbage out"**, which is a well-known slogan in data science and which emphasizes the importance of having clean data. This subsection will cover the challenges of data, data representation, data bundling, splitting data, missing data and feature engineering.
 
-This subsection will cover the challenges of data, data representation, data bundling, splitting data, missing data and feature engineering.
 
-## Starting point
+## Starting Point """ Maybe go more into how the framework is connected to data management and this section in general JBKS """
 
-Returning to the example of predicting when to provide SACT treatment of palliative cancer patients, in order to most efficiently build model applications, it is wise to follow a well establish framework.
-A advanced example of such framework can be found here: [Tomašev et al. (2021) Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records](https://www.nature.com/articles/s41596-021-00513-5).
-Which is a great example of a end-to-end dynamic prediction model.
+Returning to the example of predicting when to provide SACT treatment of palliative cancer patients, in order to most efficiently build model applications, it is wise to follow a well-established framework. An advanced example of such framework can be found here: [Tomašev et al. (2021) Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records](https://www.nature.com/articles/s41596-021-00513-5). This is a great example of an end-to-end dynamic prediction model.
 
 Let us consider how to design such framework for our SACT prediction model:
 
-| Setting | 30-day martality example |
+| Setting | 30-day mortality example |
 |:----|:----|
-| A clinical relevant problem is identified | Can it be predicted which patients with advanced cancer die within 30 days? |
+| A clinically relevant problem is identified | Can it be predicted which patients with advanced cancer die within 30 days? |
 | It has been decided how the outcome will be evaluated | Date of death (of any cause) extracted from the CPR register |
-| Inclusion and exclusion criteria are set (OBS: It need to be generalisable to a prospective setting, criteria assessable from the point where model inference begins) | Include patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer |
+| Inclusion and exclusion criteria are set (OBS: It needs to be generalizable to a prospective setting, criteria assessable from the point where model inference begins) | Include patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer |
 | Prediction time points are defined | Every registered contact the patient has with Department of Oncology |
 | Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
 
 
-## Challenges with data
+## Challenges with data """ From this point and down needs a need a extra read through JBKS """
 
 After data has been received and loaded into the computer of the researcher, the first thing to identify is the flaws of the dataset.
 
@@ -473,23 +448,12 @@ These splits are also known as "*folds*" and the method used for testing these d
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-
-
-## Splitting data - k fold cross validation
-
-- explain + use visualization
+A approach for
 
 ## Splitting data - nested cross val
 
 - explain + use visualization
 
-## Missing data
-
-- Complete case analysis
-
-- Imputation
-
-- Presence features
 
 ## Feature engineering
 
