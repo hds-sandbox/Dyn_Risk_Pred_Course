@@ -9,9 +9,9 @@ format: html
 
 # Introduction to dynamic risk prediction
 
-Data collection and management are crucial and often the most difficult part of creating a predictive model.
+Data collection and - management are crucial and often the most challenging part of creating a predictive model.
 There are usually some obstacles in getting the data, which can take time and effort.
-There can also be problems when the expectation is met about the data if it contains a lot of missing values, or the data format is different.
+There can be problems to meet expectation about the data if it contains a lot of missing values, or the data format is different.
 There can become issues when multiple datasets are gathered as similar variables can have different measures, names are different, different periods (some may collect their data containing time of the day, others may only state what day it is collected), etc.
 Many of these issues can be addressed in data management. However, some tradeoffs are needed to make the data work in practice.
 These concepts will be covered in this section of the course where the main topics regarding data management is:
@@ -472,7 +472,7 @@ Feature engineering is a crusial step in the data management step, as it is the 
 One of the first to do when the data for the prediction model is secured is to **identify useful features**. 
 The most efficient way to measure the importance of the features is to discuess with the clinicians as they are better suited to provide insight to what they think are important for the specific case. This is especially important as some predictors may demand a lot of work. The clinicians becomes essential for this matter to state if predictors are worth to keep and if so, what would the most appropriate strategy be to repair the predictor. This means that another important factor for choosing features is the **Data quality** of the features. Some features with low quality would be better to remove if there is not a expected gain from keeping the feature. 
 
-When the features is sorted and and it is time to work with the remaining features, there might be motivations to add more features based on the existing features. The reason is that some models need data to be in a certain way and other models can improve performance if there is some "helper" features to add additional information to the model. Some features to be added could be a ratio variable between two biochemical values !!!!!!!!!!! WAITING FOR HEIDI !!!!!!!!!!!. Another measure could be to make a binary or categorical value based on some continuous variables, to annotate of a value is low, normal or high. A example of this could be blood pressure
+When the features is sorted and and it is time to work with the remaining features, there might be motivations to add more features based on the existing features. The reason is that some models need data to be in a certain way and other models can improve performance if there is some "helper" features to add additional information to the model. Another measure could be to make a binary or categorical value based on some continuous variables, to annotate of a value is low, normal or high. A example of this could be blood pressure
 
 
 | BLOOD PRESSURE CATEGORY | SYSTOLIC mm Hg (upper number) | and/or | DIASTOLIC mm Hg (lower number) |
@@ -542,11 +542,7 @@ $$X_{new} = \frac{x_i - \mu}{\sigma}$$
 - **[Min-max scaling:](https://medium.com/@iamkamleshrangi/how-min-max-scaler-works-9fbebb9347da)** Rescales features to a range between 0 and 1, based on the minimum and maximum values of the dataset
 $$X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
 
-
-**...................Write short outro....................** 
-
-
-
+The choice between the scaling methods depends on the disrtibution of the data. If the data is **normal distributed** pick standardization and if the data is **not normal distributed** go with Min-max scaling.
 
 # Exercise
 

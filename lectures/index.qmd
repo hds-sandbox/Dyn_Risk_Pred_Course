@@ -120,11 +120,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 
 
-
-# Description
-
-Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care. The course includes the following topics:
-
 ## The journey from raw data to implementation
 
 Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care. The course includes the following topics:

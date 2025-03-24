@@ -1,0 +1,375 @@
+---
+title: "AI intro - exercise"
+author: "Martin Bøgsted & Rasmus Brøndum"
+date: "2022-09-12"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+This note has been written in R Markdown to facilitate an annotated 
+introduction to predictive modeling in the statistical programming language R. 
+
+# What is real world data
+Real world data are according to [Wikipedia](https://en.wikipedia.org/wiki/Real_world_data):
+"Data derived from a number of sources that are 
+associated with outcomes in a heterogeneous patient population in 
+real-world settings, such as patient surveys, clinical trials, 
+and observational cohort studies."
+
+# What is personalized medicine
+Personalized medicine is the tailoring diagnosis, prognosis, and medical 
+treatment to the individual  characteristics of each patient. 
+Practical implementation of this implies, we have to build models that predict 
+outcomes on an individual basis, aka predictive modeling.
+
+# Install and require packages
+If a package is installed, it will be loaded. If it is not, the missing 
+package will be installed from CRAN and then loaded.
+
+```{r install and require}
+## First specify the packages of interest
+packages = c("tidyverse", "tidymodels", "vip", "tune", "yardstick", "parsnip", "workflows", "dials", "rsample", "ranger", "recipes", "xgboost")
+
+## Now load or install and load all
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+```
+
+
+
+# Example data set
+For this exercise we use the pima_diabetes dataset.  This data set is originally from the National Institute of Diabetes and Digestive and Kidney Diseases and can be used to predict whether a patient has diabetes based on certain diagnostic factors.
+
+The dataset was retrieved from [Kaggle](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
+
+we load the data and take a quick glimpse of the variables. Here we notice zero values for e.g. skin thickness, these indicate missing values. The outcome variable shows diabetes (1) or not (0)
+```{r}
+pima_diabetes <- read_csv("diabetes.csv")
+glimpse(pima_diabetes)
+```
+
+We recode some variables for the initial modeling. In particular for a number of columns NA variables have been coded as zeros, which we revert to NA, and the BMI variable is split into categories. A second glimpse confirms the results
+```{r}
+pima_diabetes <- pima_diabetes %>% 
+  mutate(across(Glucose:Age, ~ ifelse(.x == 0, NA, .x))) %>% 
+  mutate(weight_class = case_when(BMI <19 ~ "underweight",
+                                  BMI >= 19 & BMI < 25 ~ "normal",
+                                  BMI >= 25 & BMI < 30 ~ "overweight",
+                                  BMI >= 30 & BMI < 40 ~ "obese",
+                                  BMI >= 40 ~ "morbidly obese"), 
+         Outcome = factor(Outcome, levels = c(1,0)))
+glimpse(pima_diabetes)
+```
+
+
+## Predictive modeling
+Predictive modeling is the process of applying
+a statistical model or machine learning algorithm to data
+for the purpose of predicting new or future observations.
+In particular, where the goal is to predict
+the output value for new observations given their
+input values.
+
+### Training / validation
+When testing predictive modeling it is customary to split the dataset into training, validation and test datasets. In most cases in predictive modelling, the models include some tuning parameters that can be adjusted to improve the performance in data that are not used to train the model. These unseen data are usually referred to as validation data. After the parameter tuning the model can be refit with the optimal tuning parameters on the combined training and test data, and the performance is evaluated on an independent test data set. In this case we do a 5-fold cross validation for the parameter tuning, meaning we randomly split the data into 5 parts, train the model on 4 of them and use the hold out set for evaluation. This is repeated for all 5 chunks.
+```{r}
+set.seed(42)
+
+# Create random samples of the rows with 20% set aside for testing
+pima_diabetes_split <- pima_diabetes %>% 
+  select(-weight_class) %>% 
+  initial_split(prop = 0.8)
+
+# Extract the datasets
+pima_diabetes_other <- training(pima_diabetes_split)
+pima_diabetes_test  <- testing(pima_diabetes_split)
+
+# For the parameter tuning we set up 5-fold cross validation
+pima_diabetes_val <- vfold_cv(pima_diabetes_other, v = 5, strata = Outcome)
+```
+
+### Elastic net Logistic Regression
+Setup a model for logistic regression with elastic net. This is an extension of the traditional parametric model for logistic regression, with two tuning parameters: Penalty (lambda) which specifies how hard the model is penalized for including more features, and the mixture which sets the proportion of L1 and L2 penalty. The tuning parameteres allows the model to do variable selection, i.e. pick out the most important variables for prediction.
+```{r}
+lr_mod <- 
+  logistic_reg(penalty = tune(), mixture = tune()) %>% 
+  set_engine("glmnet")
+```
+
+Create a recipe for data pre-processing. As mentioned above we remove variables with no variation, and replace missing values with the median. For elastic net all features should be on the same scale so we normalize them to have zero mean and variance of 1.
+```{r}
+lr_recipe <- 
+  recipe(Outcome ~ ., data = pima_diabetes_other) %>% 
+  step_zv(all_predictors()) %>%                # Remove variables with no variation
+  step_impute_median(all_predictors()) %>%     # Impute missing values with median from training set
+  step_normalize(all_predictors())             # Center and scale predictors
+```
+
+The model and recipe is combined into a workflow to be used for the parameter tuning in the training phase.
+```{r}
+lr_workflow <- workflow() %>% 
+  add_model(lr_mod) %>% 
+  add_recipe(lr_recipe)
+```
+
+Setup a manual grid for hyperparameter tuning. The expand grid command, provides a sorted data.frame with all combinations of the two variables.
+```{r}
+lr_reg_grid <- expand_grid(penalty = 10^seq(-4, -1, length.out = 20), mixture = seq(0,1, length = 11))
+```
+
+Tune the model over the grid, i.e. train a model on the training data for each combination of the penalty and mixing parameters, and evaluate the performance on the validation data.
+```{r}
+lr_res <- 
+  lr_workflow %>% 
+  tune_grid(pima_diabetes_val,
+            grid = lr_reg_grid,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+```
+
+We can print the metrics from the model training using the collect_metrics command.
+```{r}
+lr_res %>% 
+  collect_metrics()
+```
+
+```{r}
+autoplot(lr_res)
+```
+
+```{r}
+lr_best <- show_best(lr_res, n = 1)
+lr_best
+```
+
+Finally we can plot the ROC for the best model
+```{r}
+lr_auc <- 
+  lr_res %>% 
+  collect_predictions(parameters = lr_best) %>% 
+  roc_curve(Outcome, .pred_1) %>% 
+  mutate(model = "Logistic Regression")
+
+autoplot(lr_auc)
+```
+
+# Random Forest
+In this section we show an alternative model to the parametric model from the section above. In random forest we train a number of decision trees where each tree is based on a random subset (size is mtry) of the available features and split the nodes until the number of observations in is below a fixed number (min_n). Each of the trees is likely to have poor predictice performance (weak learner), but by training multiple trees and averaging across this ensemble we get a stronger learner.
+
+
+We start by setting up a model for random forest, with 100 trees and tune the subset size and minimum number of observations in each node. We setup the model for classification since we are dealing with a categorical outcome.
+```{r}
+# This step sets up parallelization to speed up computations
+cores <- parallel::detectCores()
+cores
+
+rf_mod <- 
+  rand_forest(mtry = tune(), min_n = tune(), trees = 100) %>% 
+  set_engine("ranger", num.threads = cores) %>% 
+  set_mode("classification")
+```
+
+Create a recipe for data pre-processing similar to above, but for random forest the features do not have to be normalized.
+```{r}
+rf_recipe <- 
+  recipe(Outcome ~ ., data = pima_diabetes_other) %>% 
+  step_zv(all_predictors()) %>%                      # Remove variables with no variation
+  step_impute_median(all_predictors())               # Impute missing values with median from training set
+```
+
+Create a workflow
+```{r}
+rf_workflow <- workflow() %>% 
+  add_model(rf_mod) %>% 
+  add_recipe(rf_recipe)
+```
+
+Tune the model over the grid. We let the tuning framework automatically select 25 combinations of mtry and min_n.
+```{r}
+rf_res <- 
+  rf_workflow %>% 
+  tune_grid(pima_diabetes_val,  # Could use tune_bayes
+            grid = 25, # COuld set this manually instead
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+```
+
+Print the top performing models
+```{r}
+show_best(rf_res)
+```
+
+We can plot the performance against the tuning parameters
+```{r}
+autoplot(rf_res)
+```
+
+ROC for the best model
+```{r}
+rf_best <- show_best(rf_res, n = 1)
+  
+rf_auc <- 
+  rf_res %>% 
+  collect_predictions(parameters = rf_best) %>% 
+  roc_curve(Outcome, .pred_1) %>% 
+  mutate(model = "Random Forest")
+
+autoplot(rf_auc)
+```
+
+
+
+# Last model
+This section demonstrates how to retrain the model on the combined training and validation set, using the optimal tuning parameters, and evaluating the performance on the test set.
+
+## LR
+```{r}
+# Create model with best parameter
+lr_final_mod <- logistic_reg(penalty = lr_best$penalty, mixture = lr_best$mixture) %>% 
+  set_engine("glmnet") 
+
+# Create final workflow
+lr_final_workflow <- workflow() %>% 
+ add_model(lr_final_mod) %>% 
+  add_recipe(lr_recipe)
+
+# Last fit
+lr_last_fit <- last_fit(lr_final_workflow, split = pima_diabetes_split,
+                        metrics = metric_set(accuracy, roc_auc, pr_auc))
+lr_last_fit %>% collect_metrics()
+```
+
+We can print the most important features used for the prediction using the variable importance function. Vip depends on the type of model, so we include the type of variable importance score. For the EN model, which is a paramatric model, we get the model coefficients.
+```{r}
+lr_last_fit %>% 
+  pluck(".workflow", 1) %>%   
+  extract_fit_parsnip() %>% 
+  vip(num_features = 20, include_type = T)
+```
+
+## RF
+```{r}
+# Create model with best parameter
+# In order to extract the variable importance we need to specify it in set_engine
+rf_final_mod <- 
+  rand_forest(mtry = rf_best$mtry, min_n = rf_best$min_n, trees = 100) %>% 
+  set_engine("ranger", num.threads = cores, importance = "impurity") %>% 
+  set_mode("classification")
+
+# Create final workflow
+rf_final_workflow <- workflow() %>% 
+ add_model(rf_final_mod) %>% 
+  add_recipe(rf_recipe)
+
+# Last fit
+rf_last_fit <- last_fit(rf_final_workflow, split = pima_diabetes_split,
+                        metrics = metric_set(accuracy, roc_auc, pr_auc))
+rf_last_fit %>% collect_metrics()
+```
+
+```{r}
+rf_last_fit %>% 
+  pluck(".workflow", 1) %>%   
+  extract_fit_parsnip() %>% 
+  vip(num_features = 20, include_type = T)
+```
+
+# Questions
+1) Which model performs the best based on the cross validation results
+2) Which model performs the best on the final test set?
+3) What are the 3 most important variables for respectively the LR and RF models? Why might they be different?
+
+## Advanced
+4) Change the ROC curves to PR curves. See code in the ai_presentation lines 247-249.
+5) Try to change the tuning metric from roc_auc to pr_auc in lines 135 and 200. Does this affect the final results? Why / Why not?
+
+
+```{r}
+lr_last_fit %>% collect_predictions() %>% 
+  select("Predicted_class" = .pred_class, "Predicted_prob." = .pred_1, "True_class" = Outcome)
+
+rf_last_fit %>% collect_predictions() %>% 
+  select("Predicted_class" = .pred_class, "Predicted_prob." = .pred_1, "True_class" = Outcome)
+```
+
+
+# Gradient Boost
+https://www.r-bloggers.com/2020/05/using-xgboost-with-tidymodels/
+https://juliasilge.com/blog/xgboost-tune-volleyball/ 
+
+```{r}
+set.seed(42)
+
+# Create random samples of the rows with 20% set aside for testing
+df_split <- pima_diabetes %>% 
+  initial_split(prop = 0.8)
+
+# Extract the datasets
+df_other <- training(df_split)
+df_test  <- testing(df_split)
+
+# For the non testing set we create a 75/25 train/validation split
+# The original data is then split into 60/20/20 proportions for training, validation and testing
+df_val <- validation_split(df_other, prop = 0.75)
+```
+
+
+
+```{r}
+# XGBoost model specification
+xgboost_model <- 
+  parsnip::boost_tree(
+    trees = 1000,
+    min_n = tune(),
+    tree_depth = tune(),
+    learn_rate = tune(),
+    loss_reduction = tune()
+  ) %>%
+    set_engine("xgboost") %>% 
+  set_mode("classification")
+
+# grid specification
+xgboost_params <- 
+  dials::parameters(
+    min_n(),
+    tree_depth(),
+    learn_rate(),
+    loss_reduction()
+  )
+
+xgboost_grid <- 
+  dials::grid_max_entropy(
+    xgboost_params, 
+    size = 60
+  )
+```
+
+
+Combine with RF recipe
+```{r}
+xgb_workflow <- workflow() %>% 
+  add_model(xgboost_model) %>% 
+  add_recipe(rf_recipe)
+```
+
+Tune
+```{r}
+# hyperparameter tuning
+xgboost_tuned <- tune_grid(
+  object = xgb_workflow,
+  resamples = df_val,
+  grid = xgboost_grid,
+  metrics = metric_set(roc_auc),
+  control = control_grid(verbose = TRUE)
+)
+```
