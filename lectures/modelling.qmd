@@ -38,13 +38,41 @@ format: html
 ##### Tab Transformer 
 ##### Medic-Bert 
 
-
-
+### Bayesian Networks
 
 
 # Model training
 
+## Classification problems
+### Sensitivity, Precision, Specificity, F1 score
+### Bias-variance trade-off
+### Train, Val & Test
+
+## Loss Function
+### Binary cross entropy
+### Log likelihood
+### AUC metrics
+
+## Hyperparameters Optimization
+### Logistic Regression with Elastic Net Regularisation
+### Random forest optimization
+### Neural Network hyperparameters
+## Hyperparemeters optimization
+### Grid search
+### Random search
+### Bayesian optimization
+
+
+
 # Utility and explainability
+
+## Utility
+### Usefulness
+### Calibration
+### Explainability
+#### SHAP
+
+
 
 # Exercises
 ## Modelling
