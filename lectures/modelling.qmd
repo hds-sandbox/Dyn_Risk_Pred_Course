@@ -10,6 +10,38 @@ format: html
 
 # Machine learning models
 
+## Regression vs. Classification 
+
+## Logistic regression 
+
+## Penalization 
+
+## Elastic net 
+
+## Classification Trees
+### Pros  
+
+## Ensemble methods 
+### Bagging 
+### Random Forest 
+### Gradient Boosted Trees
+
+## Neural Networks 
+
+### Train neural networks
+
+### Hyperparameters for Neural Networks 
+
+### RNN
+#### LSTM
+#### Transformer 
+##### Tab Transformer 
+##### Medic-Bert 
+
+
+
+
+
 # Model training
 
 # Utility and explainability
