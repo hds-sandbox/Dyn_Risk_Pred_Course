@@ -74,24 +74,31 @@ Annotations are like providing data with labels. They can be helpful for data ma
 
 More about the blood pressure table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings)
 
-As can be seen, annotations are a kind of footnote to provide an overview of the meaning behind the values which are displayed in the data. With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
+As can be seen, annotations are a kind of footnote to provide an overview of the meaning behind the values which are displayed in the data.
+With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
 
 
 ## Data Providers """ Explain the data providers and perhaps the why to choose some of the providers """
 
 Data providers are the data holders of certain data. As developers of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health-related data. As we are located in Denmark and our application is built on Danish patients, the data sources will be Danish. A few examples of some of the major holders of health data in Denmark are:
 
-[**Health Data Authority (SDS)**](https://english.sundhedsdatastyrelsen.dk/)
+
+
+[**Health Data Authority (SDS)**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers)
+
+The Danish Health Data Authority (SDS) is one of the most comprehensive data holders within health data in Denmark. The SDS have a wide range of registries, as:
 
 - Register of causes of death
-- LPR (diagnoses, procedures...)
+- THe National Patient Register (LPR) (diagnoses, procedures...)
 - Prescription register
 - Pathology register
 - MiBA database (with COVID data)
-- LABKA
+- THe Clinical Laboratory Information Register (LABKA)
 - **Many more**
 
 [**RKKP**](https://www.sundk.dk/about/)
+
+
 
 - Quality databases for cancers (more than 40...)
 
