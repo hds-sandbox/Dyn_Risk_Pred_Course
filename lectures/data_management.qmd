@@ -23,18 +23,18 @@ These concepts will be covered in this section of the course where the main topi
 
 
 
-# Data sources and biases """Maybe explain what retrospective - and prospective studies is JBKS"""
+# Data sources and biases
 
-It is said that data scientists spend about 80% of their time preparing data for the actual modeling task. This 80/20 ratio varies, as some may use more time and others less. Regardless, there is a common knowledge that data management takes time. Data management does not only consist of handling missing values, transforming data, etc. Data sources, data collection, and managing data biases are also significant parts of data management and hence modeling as a whole.
-In this section of the course, we will introduce data collection and the potential biases with regard to:
+Data management does not only consist of handling missing values, transforming data, etc. Data sources, data collection, and managing data biases are also significant parts of data management and hence modeling as a whole.
+In this section of the course, there will be a introduction to data collection and the potential biases with regard to:
 
-**Retrospective studies**
+**[Retrospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
 
 - Data sources
 - Biases and known limitations
 - Coding/Classifications
 
-**Prospective studies**
+**[Prospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
 
 - FAIR data principles
 - Introduction to databases and REDCap
@@ -46,13 +46,14 @@ The difference between these types of studies lies in the timing and control. Fi
 
 When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight, if there is enough of it. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
 
+These distinctions are important for the dynamic medicine prediction as the interplay are what gets most out of the data. There are the raw data, where we need some information about the data to work with it (metadata) and the annotations provides more intuitive scaling of the data.
+
 Metadata can be seen as information about the data. An example of metadata could be related to blood samples that have been gathered:
 
-|Test Name | Result |
-|:----|:----|
-| Hemoglobin | 14.2 g/dL |
-| White Blood Cells | 7.8/mL |
-| Platelets | 250/mL|
+| **Measurement** | **Result** |
+|:------------|:-------|
+| Systolic Pressure | 120 mmHg |
+| Diastolic Pressure | 80 mmHg |
 
 This data could have some additional information explaining the circumstances and gathering of the data:
 
@@ -66,11 +67,12 @@ This data could have some additional information explaining the circumstances an
 
 Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add an extra column to the data, providing a label which categorizes the data to make it easier to understand for non-experts and models. An example of this could be:
 
-|Test Name | Result | Annotation |
-|:----|:----|:----|
-| Hemoglobin | 14.2 g/dL | Within normal limits |
-| White Blood Cells | 7.8/mL | Normal, no indication of infection |
-| Platelets | 250/mL| Normal platelet count |
+| Measurement | Result | Annotation |
+|:------------|:-------|:-----------|
+| Systolic Pressure | 120 mmHg | Normal range (90-120 mmHg) |
+| Diastolic Pressure | 80 mmHg | Normal range (60-80 mmHg) |
+
+More about the blood pressure table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings)
 
 As can be seen, annotations are a kind of footnote to provide an overview of the meaning behind the values which are displayed in the data. With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
 
