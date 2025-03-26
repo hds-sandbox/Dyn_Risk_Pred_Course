@@ -8,13 +8,32 @@ format: html
 :::
 
 
+
+
+
 # Machine learning models
 
-## Regression vs. Classification 
+In the first part of the modeling section, the goal is to cover machine learning models, beginning with understanding the difference between regression and classification.
+
+## Regression vs. Classification
+Regression is concerned with predicting a continuous outcome. Regression is a task where some feature variables is used to train a model to predict some target variable. It could be anything from prediction of house priced based on some relevant features, to prediction of blood pressure on some features. Classification is about predicting which feature variable fits best to some target variable categorise. This also means that it is a discrete value which will be predicted. It can be binary categorise or multiclass categorise. Essentially, this task involves assigning a probability value to each class. Examples of these binary events are most often positive/negative – or true/negative. These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11). In terms of healthcare application is the idea that, some model have been trained with a lot a realistic clean data and this model can be feed some information about a patient, which can be used for some prediction. So if a patient have some different values rising, like blood pressure, body temperature, etc. The model might suggest that it is a sign of some illness coming up. Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing SACT for palliative patients. Such a model could assist the clinicians in making the decision of providing SACT or not. The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision process.
 
 ## Logistic regression 
+Different models can be used for classification, but a popular model for classification is the logistic regression model. Logistic regression is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the strong explainability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, if benchmarking multiple models to find the best risk prediction model.
 
-## Penalization 
+In more details are logistic regression a linear models which outputs a probability score instead of a linear combination. To put this in a formula:
+$$\hat{p} = \sigma(\theta^T \cdot \mathbf{x})$$
+In general for linear models are the aim to find the $theta$ (or beta or weight) which
+The probability function showed in the formula, $\sigma$, is a function which takes the linear combination and transform it into a probability between 0 and 1. To understand the function better, let's look at the formula:
+$$\sigma(t) = \frac{1}{1 + \exp(-t)}$$
+
+The idea is that as t goes towards positive infinity, the sigmoid function approaches 1 and vice versa.
+
+Another detail is the threshold on the range for the probabilities. Normally it is a 50/50 percentages range on which class to predict, but it can be changed, according to the task.
+
+
+
+## Penalization
 
 ## Elastic net 
 

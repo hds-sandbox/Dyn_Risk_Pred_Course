@@ -80,7 +80,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-
 # Course Agenda
 
 ### Part 1 - Introduction
@@ -131,17 +130,6 @@ To give an idea, a illustration of the complex decision-making process clinician
 <div style="overflow: auto;">
   <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
 
-</div>
-
-&nbsp;
-**An overview of the course A simplified illustration of the process of making raw data into a product, by formatting the data and build a model which takes the data as input.
-
-<div style="overflow: auto;">
-  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
-
-</div>
-
-&nbsp;
 
 ## Course lectures
 </div>
