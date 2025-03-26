@@ -120,9 +120,43 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 
 
-## The journey from raw data to implementation
+## Motivation for Dynamic Risk Prediction
 
-Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care. The course includes the following topics:
+Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care.
+
+To give an idea, a illustration of the complex decision-making process clinicians navigate during patient interactions, with focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
+
+**AIM:** Providing risk estimates of specifiv event and update these over time
+
+<div style="overflow: auto;">
+  <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
+
+</div>
+
+&nbsp;
+**An overview of the course A simplified illustration of the process of making raw data into a product, by formatting the data and build a model which takes the data as input.
+
+<div style="overflow: auto;">
+  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
+
+</div>
+
+&nbsp;
+
+## Course lectures
+</div>
+
+&nbsp;
+**An overview of the course concepts:** A simplified illustration of the process of making raw data into a product, by formatting the data and build a model which takes the data as input.
+
+<div style="overflow: auto;">
+  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
+
+</div>
+
+&nbsp;
+
+The course includes the following topics:
 
 - 1) Data management: This part of the course considers the challenges of preparing heterogenous longitudinal health data for prediction. We will cover the various steps involved in this process, including data formatting, feature engineering, and splitting strategies for model validation. This will include discussion about how to handle irregularly sampled health data, data leakage, class imbalance, temporal robustness, normalization, and other potential biases.
 
@@ -130,29 +164,6 @@ Traditional risk prediction generates a risk estimate at a defined timepoint in 
 
 - 3) Implementation: In the last part of the course, we will consider the challenges associated with the implementation of predictive tools in the clinic. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the FHIR standard. Regulatory and organizational issues will also be discussed. During the project the participants will get hands on experience covering realistic scenarios related to the subjects discussed. This will include data management of representative data sets, training models and hands on introduction to the FHIR set-up.
 
-&nbsp;
-
-<div style="overflow: auto;">
-  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
-  <p>
-    **Illustration of a journey from raw data to implementation**: A simplified illustration of the process of making raw data into a product, by formatting the data and build a model which takes the data as input.
-  </p>
-</div>
-
-&nbsp;
-
-# Dynamic risk prediction in a nutshell
-
-
-
-**AIM:** Providing risk estimates of specifiv event and update these over time
-
-<div style="overflow: auto;">
-  <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
-  <p>
-    **Example of setup**: Illustration of the complex decision-making process clinicians navigate during patient interactions, with focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
-  </p>
-</div>
 
 
 ## What do we need in the setup of dynamic risk
@@ -211,7 +222,7 @@ Continuous monitoring combined with a dynamic prediction model creates flexibili
 
 As these tools are not a replacement for clinicians, it can provide as a decision tool to help the clinicians making informed decisions and to raise the lower bar of the quality in healthcare.
 
-## Motivation
+## Motivational example
 Applying Systemic Anti-Cancer Treatment (SACT) is a motivation for predictive modeling for cancer patients, as it ensures patients receive the right SACT at the right time. Not only does this optimize survival rates, but it also potentially maximizes the quality of remaining life for patients. There is a fine balance between when to provide a patient with SACT as it can decrease a patient’s life quality over time. The purpose of using SACT should be to make a patient able to recover and survive (Best-case scenario). It can cause a patient to suffer more in the remaining lifetime, which could mean that a patient's outcome would be worse with SACT than without (Worst-case scenario). Therefor are dynamic predictive models a important measure to help the clinicians make a better informed decision to either save the point or to spare them suffering.
 
 <div style="overflow: auto;">
