@@ -42,11 +42,11 @@ In this section of the course, there will be a introduction to data collection a
 
 The difference between these types of studies lies in the timing and control. First, we want to be able to understand existing data and how to work with the data we are collecting. Next, will the data be set in a frameworks that allow for better research designs while ensuring solid data quality.
 
-### Data vs Metadata vs Annotations """ briefly mention why these distinctions matter specifically for dynamic risk prediction models JBKS"""
+### Data vs Metadata vs Annotations
 
-When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight, if there is enough of it. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
+When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
 
-These distinctions are important for the dynamic medicine prediction as the interplay are what gets most out of the data. There are the raw data, where we need some information about the data to work with it (metadata) and the annotations provides more intuitive scaling of the data.
+These distinctions are important for the dynamic medicine prediction as the interplay are what gets most out of the data. There are the raw data, where we need some information about the data to work with it (metadata) and the annotations provides more intuition about the meaning of the ranges in the data.
 
 Metadata can be seen as information about the data. An example of metadata could be related to blood samples that have been gathered:
 
@@ -65,12 +65,12 @@ This data could have some additional information explaining the circumstances an
 | Ordering Physician: Dr. House |
 | Laboratory: Princeton-Plainsboro Teaching Hospital |
 
-Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add an extra column to the data, providing a label which categorizes the data to make it easier to understand for non-experts and models. An example of this could be:
+Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add extra columns to the data, providing a label which categorizes the data to make it easier to understand for non-experts and models. An example of this could be:
 
 | Measurement | Result | Annotation |
 |:------------|:-------|:-----------|
-| Systolic Pressure | 120 mmHg | Normal range (90-120 mmHg) |
-| Diastolic Pressure | 80 mmHg | Normal range (60-80 mmHg) |
+| Systolic Pressure | 110 mmHg | Normal range (90-120 mmHg) |
+| Diastolic Pressure | 70 mmHg | Normal range (less than 80 mmHg) |
 
 More about the blood pressure table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings)
 
@@ -78,7 +78,7 @@ As can be seen, annotations are a kind of footnote to provide an overview of the
 With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
 
 
-### Data Providers """ Explain the data providers and perhaps the why to choose some of the providers """
+### Data Providers
 
 Data providers are the data holders of certain data. As developers of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health-related data. As we are located in Denmark and our application is built on Danish patients, the data sources will be Danish. A few examples of some of the major holders of health data in Denmark are:
 
@@ -93,7 +93,7 @@ The Danish Health Data Authority is one of the most comprehensive data holders w
 - Prescription register
 - Pathology register
 - MiBA database (with COVID data)
-- THe Clinical Laboratory Information Register (LABKA)
+- THe Clinical Laboratory Information Register
 - **Many more**
 
 In the same vein as The danish data authority are there also institutions as:
@@ -126,13 +126,13 @@ However, as there are many official places to find such data, there are also **o
 Before we decide on which data source we want to use for our predictive model, we should be aware of the potential biases and limitations, which is what the next section will cover in depth.
 
 
-### Bias and Limitations """ Provide more examples of how bias affect patients """
+### Bias and Limitations
 
-[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), which is also referred to as Landspatientregisteret (LPR) or Patient Administration Systems (PAS), is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), which is also referred to as Patient Administration Systems, is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called informed presence bias. It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
-Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
+**Level of expertice for clinicians:** Another area for improvement in working with health data is consistency in some medical areas, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
 
-Also, when considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when deploying a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
+**Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when deploying a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
 
 Besides the biases already discussed, there is a long list of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
 
@@ -155,7 +155,7 @@ DROPPED: I don't think it makes sense and it becomes to narrow for the course.
 
 Given the idea of "base content around the exercises", then the coding does not live up to that imo.
 
-# Prospective Studies: FAIR Data Principles  """ Perhaps provide more example of FAIR in practice JBKS """
+## Prospective Studies: FAIR Data Principles
 
 As the amount of data produced in the world keeps increasing, there is a need to make sure data can be found, accessed, is interoperable and can be reused. Having principles for good practice for the data, the metadata, and the infrastructure is an important matter in navigating the vast amount of data available, both when working with datasets separately and in merging data.
 
@@ -186,9 +186,9 @@ So there have been introduced some theoretical concepts to be aware of and princ
 
 Databases are digital platforms to store the data that will be used for the model. Often when doing certain analyses, a **dataset** is used, but this dataset is probably not enough to make serious modeling. When dealing with multiple datasets, it becomes more handy to store them in one place and to draw the necessary data when needed. This is where the database comes in.
 
-The database can hold multiple datasets, which are called **tables** in database terms. These tables can be customized, merged, filtered, etc. as the data are pulled into the software where the analysis is made. To perform these data management operations for the database, one has to use the querying language Structured Query Language (SQL).
+The database can hold multiple datasets, which are called **tables** in database terms. These tables can be customized, merged, filtered, etc. as the data are pulled into the software where the analysis is made. To perform these data management operations for the database, one has to use Structured Query Language (SQL) which is a way to communicate and extract the desired data.
 
-A simple example of an SQL query would be if we wanted a table consisting of patients who are between 18 and 100 years old. We want all the columns of the table, so we use * and we want the table called TUMOUR_DATA. So we write the query:
+A simple example of an SQL query would be if we wanted a table consisting of patients who are between 18 and 100 years old, which means there would be a age variable to filter on. We want all the columns of the table, so we use * and we want the table called TUMOUR_DATA. So we write the query:
 
 ```SQL
 SELECT * 
@@ -236,10 +236,11 @@ This can be a limitation in clinical research, where data points often have comp
 
 For a practical implementation of REDCap and the FAIR data principals, check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
 
+In the this section, there was a comprehensive introduction to some of the considerations needed to work with data before and after pulling the data from a source. There was provided an introduction to some of the sources and some of the biases within the data collection. Now, the data is collected in its raw form and it has to be prepared for the actual modeling. This will be addressed in next major topic of this section.
 
 ## Data Management
 
-In this subsection of the course, there will be a practical approach to the data management aspect. In the previous section, there was a comprehensive introduction to some of the considerations needed to work with data before and after pulling the data from a source. There was provided an introduction to some of the sources and some of the biases within the data collection. Now, the data is collected in its raw form and it has to be prepared for the actual modeling. This part is critical as data management has a significant influence on the modeling.
+In this subsection of the course, there will be a practical approach to the data management aspect. This part is critical as data management has a significant influence on the modeling.
 
 There is a saying of **"Garbage in, garbage out"**, which is a well-known slogan in data science and which emphasizes the importance of having clean data. This subsection will cover the challenges of data, data representation, data bundling, splitting data, missing data and feature engineering.
 
@@ -258,8 +259,11 @@ Let us consider how to design such framework for our SACT prediction model:
 | Prediction time points are defined | Every registered contact the patient has with Department of Oncology |
 | Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
 
+So now there is established a framework which is the design used for the study and which provides a solid overview of what the study tries to achieve and how the study will achieve it.
 
-### Challenges with data """ From this point and down needs a need a extra read through JBKS """
+But a strategy needs to consider the potential issues with the data and how to account for that, so the next section will cover some potential issue and some countermeasure.
+
+### Challenges with data
 
 After data has been received and loaded into the computer of the researcher, the first thing to identify is the flaws of the dataset.
 
@@ -267,9 +271,30 @@ Real world datasets is rarely cleaned and ready to be inputted in a pipeline. Th
 
 #### Missing data
 
-As the data collected for the predictive modelling is collected, it may visable that some columns have more values than other and this is the first sign that there are missing values.
+As the data collected for the predictive modelling is collected, it may visible that some columns have more values than other and this is the first sign that there are missing values.
 
-Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset and they do often occur in data and the amount of missing data does often increase as the complexity of the dataset increases. Which should be understod as the amount of columns, rows, registries the data is pulled from and the data types.
+Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset and they do often occur in data and the amount of missing data does often increase as the complexity of the dataset increases. Which should be understood as the amount of columns, rows, registries the data is pulled from and the data types. Missing data are often present as empty cells of which the word 'nan':
+
+
+
+##### Blood Pressure Table with Empty Cells
+
+| Systolic (mmHg) | Diastolic (mmHg) |
+|----------------|------------------|
+|                | 78               |
+| 142            |                  |
+| 118            | 75               |
+| 128            | 82               |
+
+##### Blood Pressure Table with "nan" Values
+
+| Systolic (mmHg) | Diastolic (mmHg) |
+|----------------|------------------|
+| nan            | 78               |
+| 142            | nan              |
+| 118            | 75               |
+| 128            | 82               |
+
 
 Missing data should not only be seen as a negative feature of the dataset. Missing data can also contain some information which can be interpreted in a analysis or model.
 
