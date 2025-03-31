@@ -129,7 +129,7 @@ Before the decision about which data source should be used for the dynamic predi
 
 [The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), which is also referred to as Patient Administration Systems, is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
-**Level of expertice for clinicians:** Another consideration regarding health data, which have to be accounted for, is consistency in some medical expertise, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
+**Level of expertise for clinicians:** Another consideration regarding health data, which have to be accounted for, is consistency in some medical expertise, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
 
 **Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine, it is difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when deploying a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
 
@@ -218,7 +218,7 @@ Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to
   <img src="../images/redcap.PNG" alt="Image" style="margin-bottom: 15px; width: 60%;">
 </div>
 The purpose of REDCap is to ease collecting and managing clinical data with standard quality standards.
-REDCap have a range of tools which ease the process of manageging clinical data while also providing high security for handling the data with REDCap. Some of these tools are:
+REDCap have a range of tools which ease the process of managing clinical data while also providing high security for handling the data with REDCap. Some of these tools are:
 
 - [Arms](https://help.redcap.ualberta.ca/help-and-faq/what-are-arms)
 - [Longitudinal data collection](https://www.iths.org/news/redcap-tip/longitudinal-projects-in-redcap/)
@@ -314,7 +314,7 @@ More advanced strategies can also be applied:
 
 These suggestions can be found in the paper, [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5).
 
-#### Irregurlarly sampling
+#### Irregularly sampling
 
 As addressed in the motivation about dynamic modelling, are the healthcare sector a huge source of irregularly sampling, as the data depends on health and people.
 Health and people are two dynamic factors as sickness can develop in many ways, whereas people are hard to predict as the ideal behavior and the real behavior is not the same.
@@ -425,7 +425,7 @@ As patients come at varying timepoints during the day and they are through diffe
 
 Choosing a standard range where data can be discretized into, would make help structuring the random data. It depends on the amount of data, but some ranges could be to look at hourly data, daily, weekly, etc. It all depends on the frequency of data. If there are plenty of datapoint every hour, the data should be in hourly format.
 
-To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The choice of the discretization bundeling depends on the amount of data, the frequancies and the preprocessing of the data.
+To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The choice of the discretization bundling depends on the amount of data, the frequencies and the preprocessing of the data.
 
 <div style="overflow: auto;">
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -434,14 +434,14 @@ To increase the performance of the prediction model, it is better to have the da
 However, as a time chunk have been established, some patient may have multiple values within a parameter in the given time bundle. Let us pretend a patient is being followed a day of hospitalization where the blood pressure is measured multiple times.
 if the time is in 12 hours bundles, then the blood pressure values needs to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
 
-<div style="text-align: center;">
-    <img src="../images/data_aggregation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+<div style="overflow: auto;">
+  <img src="../images/data_aggregation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
 A strategy to work with historical data as for the case with the dynamic prediction models is to consider to have a lookback window for each prediction.
-<div style="overflow: auto;">
+<div style="text-align: center;">
   <img src="../images/Lookback_window.PNG" alt="Image" style="margin-bottom: 15px; width: 35%;">
-</div> # Put it in the center somehow
+</div>
 
 It can be helpful for multiple models to only look back a short period of time for each prediction for some variables while other variables needs a window which goes further back in time.
 It is a question of subject, like blood measurement which do not needs to look as far back as a diagnosis. The reason is some subjects are more 'predictable' and can be explained with many simple interactions between feature variables. A more complex topic as predicting a diagnosis needs more factors to consider while more data in longer time horizons, to offer the best prediction possible, still with a lot of uncertainty.
@@ -458,7 +458,7 @@ To make a decision regarding the aggregation of repeating values, the data analy
 
 Another concept to be aware of is the possibility of **Data Leaking** which is when some information in the test data can be found in the training data.
 When building a prediction model, one would have a fraction of the dataset to train the model and a fraction of the data to be test the models performance. The model is trained on data it can see and it is tested on data it cannot see.
-The problem about data leaking is when some information of the unseen data is present in the seen data. A example of this could be a patient who get sick and then go to the hospital, where the person is registrered.
+The problem about data leaking is when some information of the unseen data is present in the seen data. A example of this could be a patient who get sick and then go to the hospital, where the person is registered.
 This mean that can be a gab of hour to days between a person is getting sick till it is registered. A solution here is to choose a choice of the time bundles which account for this difference.
 
 **More information can be found on a paper, which have yet to be found**
@@ -487,7 +487,7 @@ These splits are also known as "*folds*" and the method used for testing these d
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-However, even if k-fold cross validation is a powerful technique, it can still lead to overfitting. As the models is repeatly trained on the data, the model starts to recordnize patterns of the training data. To overcome this challenge of potential overfitting another measuere can be used, which is the [**nested Cross-validation**](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/).
+However, even if k-fold cross validation is a powerful technique, it can still lead to overfitting. As the models is repeatedly trained on the data, the model starts to recordnize patterns of the training data. To overcome this challenge of potential overfitting another measure can be used, which is the [**nested Cross-validation**](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/).
 The basic idea is that there is a additonal loop in the cross validation where there is a outer loop which is the same approach as a ordinary k-fold cross validation. But this time is a inner loop added to the individual folds, where there is a additional k-fold cross validation for each k of the other loop. The inner cross validation is used to find the best model in that particular part of the outer split and which will be tested on the testing set of the outer loop. Graphically it looks like this:
 
 <div style="overflow: auto;">
@@ -498,10 +498,10 @@ As only a subset of the dataset, one fold at a time, is evaluated with a additio
 
 ### Feature engineering
 
-Feature engineering is a crusial step in the data management step, as it is the time where the data can be cleaned, where features can be selected, transformed into the best possible input and to help additional featueres based on the existing features to support the models understanding of the features scales or interactions.
+Feature engineering is a crucial step in the data management step, as it is the time where the data can be cleaned, where features can be selected, transformed into the best possible input and to help additional features based on the existing features to support the models understanding of the features scales or interactions.
 
 One of the first to do when the data for the prediction model is secured is to **identify useful features**. 
-The most efficient way to measure the importance of the features is to discuess with the clinicians as they are better suited to provide insight to what they think are important for the specific case. This is especially important as some predictors may demand a lot of work. The clinicians becomes essential for this matter to state if predictors are worth to keep and if so, what would the most appropriate strategy be to repair the predictor. This means that another important factor for choosing features is the **Data quality** of the features. Some features with low quality would be better to remove if there is not a expected gain from keeping the feature. 
+The most efficient way to measure the importance of the features is to discuss with the clinicians as they are better suited to provide insight to what they think are important for the specific case. This is especially important as some predictors may demand a lot of work. The clinicians becomes essential for this matter to state if predictors are worth to keep and if so, what would the most appropriate strategy be to repair the predictor. This means that another important factor for choosing features is the **Data quality** of the features. Some features with low quality would be better to remove if there is not a expected gain from keeping the feature.
 
 After sorting through features and deciding which ones to keep, you may need to create additional features based on existing ones. This step is often necessary because some models require data in specific formats, while other models can achieve better performance with 'helper' features that provide supplementary information. For example, you might transform continuous variables into binary or categorical values to indicate whether a measurement falls into low, normal, or high ranges—as commonly done with blood pressure readings:
 
@@ -538,9 +538,9 @@ Categorical can also cause problem, as there can be some categorical with few ob
 | Fever | 150 | 
 | **Other Symptoms** | 17 |
 
-The two tables fictionational and used to show how rare occuring event can be collapsed together. 
+The two tables fictional and used to show how rare occurring event can be collapsed together.
 
-Another approach to handle catorical values is to transform them into binary variables which represent each category in a variable. This is to provide the model with additonal information and it is a way for linear models to handle categorical variables, which they are normally unable to use as input if the categorice are nominal or represented as text. One hot encoding also helps in terms of the distance in categorical variables. A model may interprete a categorical value to have some type of ordering among the variables, but by splitting the categorize into seperate binary features, the model can handle the categorize more efficiently. A example could be a gender variable: 
+Another approach to handle categorical values is to transform them into binary variables which represent each category in a variable. This is to provide the model with additional information and it is a way for linear models to handle categorical variables, which they are normally unable to use as input if the categorize are nominal or represented as text. One hot encoding also helps in terms of the distance in categorical variables. A model may interpret a categorical value to have some type of ordering among the variables, but by splitting the categorize into separate binary features, the model can handle the categorize more efficiently. A example could be a gender variable:
 
 #### Before One-Hot Encoding
 | Gender |
@@ -560,9 +560,9 @@ Another approach to handle catorical values is to transform them into binary var
 | 0    | 1  |
 | 1    | 0  |
 
-However, there are some consideration about how the dimensions of a dataset can grow rapidly and lead to consequnces like [Curse of dimensionality](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). Despite this consideration, does One-Hot encoding remains as a popular and effective tool in the feature engineering toolbox. 
+However, there are some consideration about how the dimensions of a dataset can grow rapidly and lead to consequences like [Curse of dimensionality](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). Despite this consideration, does One-Hot encoding remains as a popular and effective tool in the feature engineering toolbox.
 
-**Outliers** is something which also calls for feature engineering. Some outliers are legitimate, but other outliers can there by mistake. It could be a BMI of 200 or a age of 150, which could be due to a typo when a clinicians had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate much. This is a case-by-base consideration. To find outliers it can be helpful to look at upper percentiles in the summary statistics and see if there is a unexpectated distance from the mean to upper percentiles and if the values seem to me a product of a mistake, the model would be better with the upper percentile cutted.
+**Outliers** is something which also calls for feature engineering. Some outliers are legitimate, but other outliers can there by mistake. It could be a BMI of 200 or a age of 150, which could be due to a typo when a clinicians had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate much. This is a case-by-base consideration. To find outliers it can be helpful to look at upper percentiles in the summary statistics and see if there is a unexpected distance from the mean to upper percentiles and if the values seem to me a product of a mistake, the model would be better with the upper percentile cut.
 
 **Feature scaling:** The scaling of feature values are crucial for models performance. By scaling the features can make them contribute to the model more proportionally, as features can come in all sorts of unit sizes. Variables with larger ranges will have a heavier influence on the models. The scaling does also improve the convergence speed as the optimization space becomes more smooth compared to unscalled inputs. Some of the common scaling methods are: 
 
@@ -573,12 +573,28 @@ $$X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
 
 The choice between the scaling methods depends on the distribution of the data. If the data is **normal distributed** pick standardization and if the data is **not normal distributed** go with Min-max scaling.
 
+#### Summary
+This segment of the course have provided a comprehensive insight into the process of gathering data, retrospective - and prospective studies. There have been provided a comprehensive overview of data management. The aim of this section was to provide a understanding of data and how to process the data before the actual modelling. In the next section will models be describes and a wide range of methods to choose.
+
+But before continuing to the next section, please check the exercise below and try to solve it.
+
+When the exercise is solved, the next section "Modelling" can be found in the top bar or by pressing this button:
+
+&nbsp;
+
+ <p align="center">
+  <a href="http://localhost:7276/lectures/modelling.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Continue to
+    Data management
+  </a>
+</p>
+
 # Exercise
 
 ## Data management
 In this exercise you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in [PAD-introduction.html]() and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
 
-This workshop focusses on preparing data for non-recurrent models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome you can for example choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
+This workshop focuses on preparing data for non-recurrent models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome you can for example choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
 
 Go through the following steps:
 
