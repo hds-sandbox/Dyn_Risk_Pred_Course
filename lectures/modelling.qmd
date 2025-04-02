@@ -21,21 +21,71 @@ Regression is concerned with predicting a continuous outcome. Regression is a ta
 ## Logistic regression 
 Different models can be used for classification, but a popular model for classification is the logistic regression model. Logistic regression is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the strong explainability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, if benchmarking multiple models to find the best risk prediction model.
 
-In more details are logistic regression a linear models which outputs a probability score instead of a linear combination. To put this in a formula:
+Logistic regression is a linear model which outputs a probability score instead of a direct linear combination. To express this mathematically:
+
 $$\hat{p} = \sigma(\theta^T \cdot \mathbf{x})$$
-In general for linear models are the aim to find the $theta$ (or beta or weight) which
-The probability function showed in the formula, $\sigma$, is a function which takes the linear combination and transform it into a probability between 0 and 1. To understand the function better, let's look at the formula:
+
+In general, linear models aim to find the parameters $\theta$ (also called beta or weights) that optimize the model. The probability function shown in the formula, $\sigma$, transforms the linear combination into a probability between 0 and 1. To understand this function better, let's examine its formula:
+
 $$\sigma(t) = \frac{1}{1 + \exp(-t)}$$
 
-The idea is that as t goes towards positive infinity, the sigmoid function approaches 1 and vice versa.
+The main insight is that as $t$ approaches positive infinity, the sigmoid function approaches 1, and as $t$ approaches negative infinity, it approaches 0.
 
-Another detail is the threshold on the range for the probabilities. Normally it is a 50/50 percentages range on which class to predict, but it can be changed, according to the task.
+To transform linear combinations into probabilities, the logarithm of the odds ratio is used. This converts the output of a linear model into a probability value between 0 and 1 by applying the logistic function. The logarithm of the odds ratio can be expressed as:
 
+$$ \log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1 x $$
 
+Where:
+- $p(x)$ is the probability of the outcome
+- $\log \left( \frac{p(x)}{1-p(x)} \right)$ is the logarithm of odds function (logit)
+- $\beta_0$ is the bias (intercept) parameter
+- $\beta_1$ is the weight (slope) parameter
+- $x$ is the feature (explanatory) variable
 
-## Penalization
+The sigmoid function creates an S-shaped curve that pushes the data points toward either 0 or 1, which facilitates binary classification. The *linear* part of the model creates the decision boundary, which serves as the threshold determining whether a data point belongs to class 0 or class 1.
 
-## Elastic net 
+ The sigmoid function creates the S-shaped curve, which pushes the data points to the top of the bottom bar, which makes the binary outcome where the *linear* part is the decision boundary which is the threshold for data being part of class 0 or class 1. The sigmoid function and the dynamic between threshold and decision boundary looks as follow:
+
+<div style="text-align: center;">
+  <img src="../images/Log_reg_decision_boundary.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+The visualization stems from this [mini course](https://ds100.org/course-notes-su23/logistic_regression_2/logistic_reg_2.html)
+
+Another detail is the threshold on the range for the probabilities. Normally it is a 50/50 percentages range on which class to predict, but it can be changed, according to the task and if there is a emphasis on either [type 1 - or type 2 errors.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors) Examples of making this consideration cases where balancing type 1 - or type 2 error could be for **medical diagnosis** where minimizing false negatives is preferred so patient who are critical ill or about to be critical ill will not be missed in a screening. Or email spam filter, where minimizing false positives is preferred as people would not miss any important emails. More example can be found of type 1 - and type 2 errors can be found [here.](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676)
+
+Logistic regression is trained with optimization, which essentially means that the optimal parameters are found through 'trail-and-error' where the models change parameters, tries to fit and repeats until the optimal parameters is found. The optimization can be a basic Gradient descent optimization or more sophisticated implementation. Learn more about optimization algorithms for finding the optimal parameters in logistic regression [here](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d). To measure the progression of the performance of the changing parameters, a evaluation function have to be applied. This is what known as a *loss function* (or cost function) which is measuring the error the models make. There are many different types of loss function, but for the logistic regression, a well known loss function is **The log loss** (which is also known as Cross Entropy loss). Mathematically are this function expressed like:
+
+$$
+\min_{\beta} \sum_{i|y_i=1} \log(1-p(x_i)) + \sum_{i|y_i=0} \log(p(x_i))
+$$
+The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. Min terms of the notation $\min_{\beta}$ means that our loss function is made with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
+
+When trying to predict an outcome with a multitude of predictor variables, there becomes a significant challenge if the number of these potential predictors surpasses the number of actual observations or data points in the dataset. In other words, this is when the predictors (represented by 'p') exceed the observations (denoted by 'n'). Regularization is essential to manage this imbalance effectively, and it is a must for building a predictive model (Hastie et al. 2001:649-664).  Regularization is not only needed when p > n but also to reduce the overfitting of a model. Overfitting is more frequently occurring in more complex models. In training, the model learned to fit the data points perfectly but fit real data terribly because the curve was too customized to the training data. Then, some bias is introduced to the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
+$$
+\sum_{j=1}^{p} \beta_{j}^{2}
+$$
+The idea is to penalize the weights of the model and in the case of ridge, it would be with the sum of the squared coefficients, times a tuning parameter $\lambda$ to decide the strength of the regularization. The quality of Ridge regression is that it pushes the weights towards zero, relative to the size. This means that large weights are heavily penalized and small weights rarely hits zero.
+
+It is also possible to penalize the weight after the absolute value instead of the squared sum, this would mean that alle weight are treated equally. The is called the least absolute shrinkage and selection operator (LASSO) or L1. Lasso is similar to Ridge when considered mathematically:
+$$
+\sum_{j=1}^{p} |\beta_j|
+$$
+This type of regularization is especially powerful in both in terms of regularizing the model, but also to do feature selection. As the weight are penalized with a absolute rate, the weights are able to hit zero. This means that small weights which may course more noise than accuracy, can be removed from the model.
+These regularization techniques are also important in terms of reducing overfitting, which is when the model learns to fit the data perfectly in the training set, but then does not perform well in fitting the test data.
+
+The effects of LASSO and Ridge can be visualized as follow:
+<div style="text-align: center;">
+  <img src="../images/L1L2.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+Where it can be seen that Ridge is wider compared to LASSO and LASSO is taller compared to Ridge. The visualization is a illustration of the ridge regression ability to reduce large weights at a large rate, where LASSO have to ability to reduce weights to zero.
+
+In some cases it can be a advanced to both be able to get a sparse model by removing small weights while also reduce larger weights at a larger rate. To provide a flexible approach to balance between Ridge - and Lasso regression can a method called **Elastic net** be applied, which have a hyperparameter for having most emphasis on LASSO or Ridge. The mixture parameter is $\alpha$. Elastic net can mathematically be expressed like:
+$$
+\min_{\beta} \frac{1}{N} \sum_{i=1}^{N} l(y_i, \beta, x_i) + \lambda \sum_{j=1}^{p} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|)
+$$
+
+Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter.
 
 ## Classification Trees
 ### Pros  
