@@ -42,6 +42,10 @@ The difference between retrospective and prospective studies lies in their timin
 
 When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
 
+<div style="text-align: center;">
+<img src="../images/data_meta_annotations.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
+</div>
+
 These distinctions are important for dynamic medicine prediction as their interplay is what gets the most out of the data. There is the raw data, where we need some information about the data to work with it (metadata), and the annotations provide more intuition about the meaning of the ranges in the data.
 
 Metadata can be seen as information about the data. An example of metadata could be related to blood samples that have been gathered:
@@ -79,6 +83,10 @@ Data providers are the data holders of certain data. As developers of dynamic pr
 
 [**Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers)
 
+<div style="overflow: auto;">
+<img src="../images/stat_dk.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
+</div>
+
 The Danish Health Data Authority stands as one of Denmark's largest organizations for collecting, maintaining, and safeguarding comprehensive healthcare data. The Danish Health Data Authority has a wide range of registries, such as:
 
 - Register of causes of death
@@ -98,6 +106,10 @@ The Danish Healthcare Quality Institute is an organization that collaborates acr
 In case additional data is needed about patients, such as their social background, education, etc., the most comprehensive and data-rich provider in Denmark is:
 
 [**Statistics Denmark**](https://www.dst.dk/en)
+
+<div style="overflow: auto;">
+<img src="../images/stat_dk.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
+</div>
 
 It is not strictly reserved for healthcare but heavily revolves around society, workforce, education, culture, energy, etc. The organization has existed for [almost 200 years](https://www.dst.dk/en/OmDS/historie), so the data horizon in terms of time goes far back.
 
