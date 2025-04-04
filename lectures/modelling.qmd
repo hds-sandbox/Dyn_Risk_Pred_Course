@@ -16,6 +16,73 @@ format: html
 In the first part of the modeling section, the goal is to cover machine learning models, beginning with understanding the difference between regression and classification.
 
 ## Regression vs. Classification
+This section covers `supervised learning` which are one of two primary approaches in Machine Learning, where the other is `unsupervised learning`. Supervised leaning is when there is a lot of data with labels, then a model are trained to recognizing the characteristics (or features) belonging to these labels. Then data without labels are presented to the model and it is the models task to provide the correct labels to the data. Machine learning models does have two primary problems, which is either regarding the prediction of continuous values, called `regression` or the `classification` of discrete outcomes.
+
+```{python}
+#| fig-align: center
+#| fig-width: 8
+
+
+# code stems from: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.datasets import make_blobs, make_regression
+from sklearn.svm import LinearSVC, LinearSVR
+import warnings
+warnings.filterwarnings("ignore")
+
+title_size = 16
+axis_label_size = 12
+params = {'legend.fontsize': 7,
+          'figure.figsize': (7, 3),
+          'axes.labelsize': 8,
+          'axes.titlesize': 9,
+          'xtick.labelsize': 10,
+          'ytick.labelsize': 10}
+plt.rcParams.update(params)
+
+def make_classification_example(axis, random_state):
+    X, y = make_blobs(n_samples=100, n_features=2, centers=2, cluster_std=2.7, random_state=random_state)
+    axis.scatter(X[y == 0, 0], X[y == 0, 1], color="red", s=10, label="Disease")
+    axis.scatter(X[y == 1, 0], X[y == 1, 1], color="blue", s=10, label="Healthy")
+
+    clf = LinearSVC().fit(X, y)
+
+    # get the separating hyperplane
+    w = clf.coef_[0]
+    a = -w[0] / w[1]
+    xx = np.linspace(-5, 7)
+    yy = a * xx - (clf.intercept_[0]) / w[1]
+
+    # plot the line, the points, and the nearest vectors to the plane
+    axis.plot(xx, yy, 'k-', color="black", label="Model")
+    ax1.tick_params(labelbottom='off', labelleft='off')
+    ax1.set_xlabel("Gene 1")
+    ax1.set_ylabel("Gene 2")
+    ax1.legend()
+
+def make_regression_example(axis, random_state):
+    X, y = make_regression(n_samples=100, n_features=1, noise=30.0, random_state=random_state)
+    axis.scatter(X[:, 0], y, color="blue", s=10, label="Patients")
+
+    clf = LinearSVR().fit(X, y)
+    axis.plot(X[:, 0], clf.predict(X), color="black", label="Model")
+    ax2.tick_params(labelbottom='off', labelleft='off')
+    ax2.set_xlabel("Gene 1")
+    ax2.set_ylabel("Survived (years)")
+    ax2.legend()
+
+random_state = np.random.RandomState(42)
+f, (ax1, ax2) = plt.subplots(ncols=2)
+ax1.set_title("Classification")
+make_classification_example(ax1, random_state)
+ax2.set_title("Regression")
+make_regression_example(ax2, random_state)
+plt.show()
+```
+
+**Devnote: Make a option where people can look at both R code and Python code**
+
 Regression is concerned with predicting a continuous outcome. Regression is a task where some feature variables is used to train a model to predict some target variable. It could be anything from prediction of house priced based on some relevant features, to prediction of blood pressure on some features. Classification is about predicting which feature variable fits best to some target variable categorise. This also means that it is a discrete value which will be predicted. It can be binary categorise or multiclass categorise. Essentially, this task involves assigning a probability value to each class. Examples of these binary events are most often positive/negative – or true/negative. These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11). In terms of healthcare application is the idea that, some model have been trained with a lot a realistic clean data and this model can be feed some information about a patient, which can be used for some prediction. So if a patient have some different values rising, like blood pressure, body temperature, etc. The model might suggest that it is a sign of some illness coming up. Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing SACT for palliative patients. Such a model could assist the clinicians in making the decision of providing SACT or not. The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision process.
 
 ## Logistic regression 
@@ -87,8 +154,23 @@ $$
 
 Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter.
 
+Now there should be a understanding of the basic behind creating a linear model like logistic regression and how to regularize the parameters for better performance with Ridge, LASSO and Elastic net.
+
+In the next part, will a more flexible but also very powerful model be presented. The **Classification Trees**.
+
 ## Classification Trees
-### Pros  
+The classification trees, are non-parametric models that split data iteratively, which means that the model does not assume any structure, but let the data determine the structure of the model. The models finds the structure by examining the data through iteration. This involves deciding on nodes and leaf nodes by applying recursive binary splitting, ... and the model will keep splitting the data into groups until some criteria are met ... ADD MORE. The goal is to select features and a threshold that provide as high an impurity in child nodes as possible. The child nodes are subsequent nodes created after each split. The term impurity covers the degree of heterogeneity in each node or the diversity of the classes within the node. High diversity is when the node contains a diverse selection of classes.  The degree of impurity is measured with the Gini index as a metric, which calculates the probability of a randomly chosen element in the node being incorrectly classified according to the distribution of elements in the node. The Gini index outputs a value between 0.0 and 1.0, where 0 is perfect purity when all the elements in the node belong to the same class. A value close to 1 is impurity and indicates mixed labels... ADD MORE. The splitting process continues until specific criteria are met, after which pruning can be used to optimize the tree further.
+<div style="text-align: center;">
+  <img src="../images/Decision_trees.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+  <div>
+  **Note**: Decision notes are <u>Blue</u> and the Leaf notes are <u>Green</u>.
+  </div>
+</div>
+
+While decision trees come with advantages, like simplicity, the ability to handle complex variable interactions, informative visualizing, and efficiency in fitting data, there are also problems with the increased flexibility in the prediction... WHY. Overfitting is a challenge, especially for flexible models, as the training data can fit perfectly, but then the model needs to gain the ability to fit on unseen data. Regularization is a option to  reduce overfitting, but another option is the use an ensemble method. The idea of an ensemble is based on bootstrap sampling, whereby overfitting can be decreased by averaging predictions across multiple trees constructed by sampling. ... . When these predictions are aggregated, the resulting model is often more robust and less prone to overfitting than a single decision tree. Techniques like bagging involve drawing several bootstrap samples from the training data, training a decision tree on each, and then predicting based on a majority vote from these trees. **Random forest**, **Gradient boosting**.
+
+
+
 
 ## Ensemble methods 
 ### Bagging 
@@ -99,15 +181,7 @@ Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture
 
 ### Train neural networks
 
-### Hyperparameters for Neural Networks 
-
-### RNN
-#### LSTM
-#### Transformer 
-##### Tab Transformer 
-##### Medic-Bert 
-
-### Bayesian Networks
+### Hyperparameters for Neural Networks
 
 
 # Model training
@@ -132,17 +206,6 @@ Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture
 ### Bayesian optimization
 
 
-
-# Utility and explainability
-
-## Utility
-### Usefulness
-### Calibration
-### Explainability
-#### SHAP
-
-
-
 # Exercises
 ## Modelling
 In this workshop you will train and test at least one prediction model based on the datasets you prepared in Workshop 1 (in case you did not succeed with Workshop 1, a prepared data set is available on PhD Moodle under Day 2/Workshop 2. In this dataset there is a variable called split, indicating which split the observation belongs too). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”).
@@ -152,3 +215,9 @@ Go through the following steps:
 3)	Train model and tune hyper parameters.
 4)	How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did we predict both positive and negative outcomes well?
 5)	Train a calibration model. How well is the model calibrated, considering the test set?
+
+
+
+## Reference
+
+[^1]: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn
