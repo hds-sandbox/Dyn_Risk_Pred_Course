@@ -254,14 +254,8 @@ For continuing to next section of this course, please click on the the button:
 <b>Please answer these [5 questions](https://forms.office.com/e/e6e3AA1u0D?origin=lprLink) for us before you head out for the day ^[*link activated on day one of the workshop*.].</b>
 -->
 
-&nbsp;
-
-:::{.callout-note  appearance="simple" icon=false} 
-<h4 align=center>Nice meeting you and we hope to see you again!</h4> 
-::: 
 
 
-## References
 
 [^1]: Vesteghem, C. P. E. (2022). 30-day mortality of patients with advanced cancer: monitoring and machine learning models using extensive health data. Aalborg Universitetsforlag. https://doi.org/10.54337/aau468602374
 [^2]: Charles Vesteghem et al. Dynamic Risk Prediction of 30-Day Mortality in Patients With Advanced Lung Cancer: Comparing Five Machine Learning Approaches. JCO Clin Cancer Inform 6, e2200054(2022).

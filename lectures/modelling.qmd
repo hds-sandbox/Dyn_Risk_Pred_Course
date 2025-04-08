@@ -13,10 +13,10 @@ format: html
 
 # Machine learning models
 
-In the first part of the modeling section, the goal is to cover machine learning models, beginning with understanding the difference between regression and classification.
+In the first part of the modeling section, a range of machine learning models from simple to complex will be presented. A comprehensive introduction to modeling topics will be provided, beginning with supervised learning, followed by an examination of a simple statistical model.
 
 ## Regression vs. Classification
-This section covers `supervised learning` which are one of two primary approaches in Machine Learning, where the other is `unsupervised learning`. Supervised leaning is when there is a lot of data with labels, then a model are trained to recognizing the characteristics (or features) belonging to these labels. Then data without labels are presented to the model and it is the models task to provide the correct labels to the data. Machine learning models does have two primary problems, which is either regarding the prediction of continuous values, called `regression` or the `classification` of discrete outcomes.
+This section covers `supervised learning` which are one of two primary approaches in Machine Learning, where the other is `unsupervised learning`. Supervised leaning is when there is some data with labels, then a model is trained to recognizing the characteristics (or features) belonging to these labels. Then data without labels are presented to the model and it is the models task to provide the correct labels to the data. Recall the last section where training a test sets of the data was introduced. In supervised learning are training data the data with the labels and the test set is the data without labels, where the model have to predict the labels. Machine learning models does have two primary problems, which is either regarding the prediction of continuous values, called `regression` or the `classification` of discrete outcomes.
 
 ```{python}
 #| fig-align: center
@@ -83,7 +83,7 @@ plt.show()
 
 **Devnote: Make a option where people can look at both R code and Python code**
 
-Regression is concerned with predicting a continuous outcome. Regression is a task where some feature variables is used to train a model to predict some target variable. It could be anything from prediction of house priced based on some relevant features, to prediction of blood pressure on some features. Classification is about predicting which feature variable fits best to some target variable categorise. This also means that it is a discrete value which will be predicted. It can be binary categorise or multiclass categorise. Essentially, this task involves assigning a probability value to each class. Examples of these binary events are most often positive/negative – or true/negative. These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11). In terms of healthcare application is the idea that, some model have been trained with a lot a realistic clean data and this model can be feed some information about a patient, which can be used for some prediction. So if a patient have some different values rising, like blood pressure, body temperature, etc. The model might suggest that it is a sign of some illness coming up. Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing SACT for palliative patients. Such a model could assist the clinicians in making the decision of providing SACT or not. The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision process.
+Regression is concerned with predicting a continuous outcome. Regression is a task where some feature variables is used to train a model to predict some target variable. It could be anything from prediction of house priced based on some relevant features, to prediction of blood pressure on some features. Classification is about predicting which feature variable fits best to some target variable categorise. This also means that it is a discrete value which will be predicted. It can be binary categorise or multiclass categorise. Essentially, this task involves assigning a probability value to each class. Examples of these binary events are most often positive/negative – or true/negative. These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11). In terms of healthcare application is the idea that, a model have been trained with a lot a of clean high quality data and this model can be feed some information (features) about a patient, which can be used for some prediction (providing a label). So if a patient have some different values rising, like blood pressure, body temperature, etc. The model might suggest that it is a sign of some illness coming up. Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing SACT for palliative patients. Such a model could assist the clinicians in making the decision of providing SACT or not. The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision process.
 
 ## Logistic regression 
 Different models can be used for classification, but a popular model for classification is the logistic regression model. Logistic regression is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the strong explainability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, if benchmarking multiple models to find the best risk prediction model.
@@ -92,22 +92,23 @@ Logistic regression is a linear model which outputs a probability score instead 
 
 $$\hat{p} = \sigma(\theta^T \cdot \mathbf{x})$$
 
-In general, linear models aim to find the parameters $\theta$ (also called beta or weights) that optimize the model. The probability function shown in the formula, $\sigma$, transforms the linear combination into a probability between 0 and 1. To understand this function better, let's examine its formula:
+In general, linear models aim to find the parameters $\theta$ (also called beta or weights) that optimize the model. The probability function shown in the formula, $\sigma$, transforms the linear combination into a probability between 0 and 1. Mathematically the Sigmoid function is defined as:
 
 $$\sigma(t) = \frac{1}{1 + \exp(-t)}$$
 
-The main insight is that as $t$ approaches positive infinity, the sigmoid function approaches 1, and as $t$ approaches negative infinity, it approaches 0.
+As $t$ approaches positive infinity, the sigmoid function approaches 1, and as $t$ approaches negative infinity, the Sigmoid function approaches 0.
 
 To transform linear combinations into probabilities, the logarithm of the odds ratio is used. This converts the output of a linear model into a probability value between 0 and 1 by applying the logistic function. The logarithm of the odds ratio can be expressed as:
 
 $$ \log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1 x $$
 
 Where:
+
 - $p(x)$ is the probability of the outcome
 - $\log \left( \frac{p(x)}{1-p(x)} \right)$ is the logarithm of odds function (logit)
-- $\beta_0$ is the bias (intercept) parameter
-- $\beta_1$ is the weight (slope) parameter
-- $x$ is the feature (explanatory) variable
+- $\beta_0$ is the bias parameter
+- $\beta_1$ is the weight parameter
+- $x$ is the feature variable
 
 The sigmoid function creates an S-shaped curve that pushes the data points toward either 0 or 1, which facilitates binary classification. The *linear* part of the model creates the decision boundary, which serves as the threshold determining whether a data point belongs to class 0 or class 1.
 
@@ -125,9 +126,9 @@ Logistic regression is trained with optimization, which essentially means that t
 $$
 \min_{\beta} \sum_{i|y_i=1} \log(1-p(x_i)) + \sum_{i|y_i=0} \log(p(x_i))
 $$
-The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. Min terms of the notation $\min_{\beta}$ means that our loss function is made with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
+The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. The min terms of the notation $\min_{\beta}$ means that the loss function is computed with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
 
-When trying to predict an outcome with a multitude of predictor variables, there becomes a significant challenge if the number of these potential predictors surpasses the number of actual observations or data points in the dataset. In other words, this is when the predictors (represented by 'p') exceed the observations (denoted by 'n'). Regularization is essential to manage this imbalance effectively, and it is a must for building a predictive model (Hastie et al. 2001:649-664).  Regularization is not only needed when p > n but also to reduce the overfitting of a model. Overfitting is more frequently occurring in more complex models. In training, the model learned to fit the data points perfectly but fit real data terribly because the curve was too customized to the training data. Then, some bias is introduced to the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
+When trying to predict an outcome with a multitude of predictor variables, there becomes a significant challenge if the number of these potential predictors surpasses the number of actual observations or data points in the dataset. In other words, this is when the predictors (represented by 'p') exceed the observations (denoted by 'n'). Regularization is essential to manage this imbalance effectively,as it can be used for making a sparse model, which means to remove features with almost no influence and only keep a few important features (Hastie et al. 2001:649-664).  Regularization is not only needed when p > n but also to reduce the overfitting of a model. Overfitting is more frequently occurring in more complex models. In training, the model learns to fit the data points perfectly but fit real data terribly because the curve was too customized to the training data. Then, some bias is introduced to the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
 $$
 \sum_{j=1}^{p} \beta_{j}^{2}
 $$
@@ -137,7 +138,7 @@ It is also possible to penalize the weight after the absolute value instead of t
 $$
 \sum_{j=1}^{p} |\beta_j|
 $$
-This type of regularization is especially powerful in both in terms of regularizing the model, but also to do feature selection. As the weight are penalized with a absolute rate, the weights are able to hit zero. This means that small weights which may course more noise than accuracy, can be removed from the model.
+This type of regularization is especially powerful in terms of regularizing the model, but also to do feature selection. As the weight are penalized with a absolute rate, the weights are able to shrink to zero. This means that small weights which may course more noise than accuracy, can be removed from the model.
 These regularization techniques are also important in terms of reducing overfitting, which is when the model learns to fit the data perfectly in the training set, but then does not perform well in fitting the test data.
 
 The effects of LASSO and Ridge can be visualized as follow:
@@ -145,21 +146,21 @@ The effects of LASSO and Ridge can be visualized as follow:
   <img src="../images/L1L2.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Where it can be seen that Ridge is wider compared to LASSO and LASSO is taller compared to Ridge. The visualization is a illustration of the ridge regression ability to reduce large weights at a large rate, where LASSO have to ability to reduce weights to zero.
+Where it can be seen that Ridge is wider compared to LASSO and LASSO is taller compared to Ridge. The visualization is a illustration of the ridge regression ability to reduce large weights at a large rate, where LASSO have to ability to reduce weights to zero. **Provide a better explanation**
 
-In some cases it can be a advanced to both be able to get a sparse model by removing small weights while also reduce larger weights at a larger rate. To provide a flexible approach to balance between Ridge - and Lasso regression can a method called **Elastic net** be applied, which have a hyperparameter for having most emphasis on LASSO or Ridge. The mixture parameter is $\alpha$. Elastic net can mathematically be expressed like:
+In some cases it can be an advantage to combine the power of Ridge and Lasso, while being able to customize the weighting of the two methods. To provide a flexible approach to balance between Ridge - and Lasso regression can a method called **Elastic net** be applied, which have a hyperparameter for having most emphasis on LASSO or Ridge. Elastic net can mathematically be expressed like:
 $$
 \min_{\beta} \frac{1}{N} \sum_{i=1}^{N} l(y_i, \beta, x_i) + \lambda \sum_{j=1}^{p} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|)
 $$
 
-Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter.
+Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter. Alpha goes between 0.0 and 1.0, where the weight is going from Ridge to LASSO.
 
 Now there should be a understanding of the basic behind creating a linear model like logistic regression and how to regularize the parameters for better performance with Ridge, LASSO and Elastic net.
 
 In the next part, will a more flexible but also very powerful model be presented. The **Classification Trees**.
 
-## Classification Trees
-The classification trees, are non-parametric models that split data iteratively, which means that the model does not assume any structure, but let the data determine the structure of the model. The models finds the structure by examining the data through iteration. This involves deciding on nodes and leaf nodes by applying recursive binary splitting, ... and the model will keep splitting the data into groups until some criteria are met ... ADD MORE. The goal is to select features and a threshold that provide as high an impurity in child nodes as possible. The child nodes are subsequent nodes created after each split. The term impurity covers the degree of heterogeneity in each node or the diversity of the classes within the node. High diversity is when the node contains a diverse selection of classes.  The degree of impurity is measured with the Gini index as a metric, which calculates the probability of a randomly chosen element in the node being incorrectly classified according to the distribution of elements in the node. The Gini index outputs a value between 0.0 and 1.0, where 0 is perfect purity when all the elements in the node belong to the same class. A value close to 1 is impurity and indicates mixed labels... ADD MORE. The splitting process continues until specific criteria are met, after which pruning can be used to optimize the tree further.
+## Decision Trees
+The Decision trees, are non-parametric models that split data iteratively, which means that the model does not assume any structure, but let the data determine the structure of the model. The models finds the structure by examining the data through iteration. Decision trees are versatile machine learning models, which means they can be used for regression and classification tasks. ... This involves deciding on nodes and leaf nodes by applying recursive binary splitting, ... and the model will keep splitting the data into groups until some criteria are met ... ADD MORE. The goal is to select features and a threshold that provide as high an impurity in child nodes as possible. The child nodes are subsequent nodes created after each split. The term impurity covers the degree of heterogeneity in each node or the diversity of the classes within the node. High diversity is when the node contains a diverse selection of classes.  The degree of impurity is measured with the Gini index as a metric, which calculates the probability of a randomly chosen element in the node being incorrectly classified according to the distribution of elements in the node. The Gini index outputs a value between 0.0 and 1.0, where 0 is perfect purity when all the elements in the node belong to the same class. A value close to 1 is impurity and indicates mixed labels... ADD MORE. The splitting process continues until specific criteria are met, after which pruning can be used to optimize the tree further.
 <div style="text-align: center;">
   <img src="../images/Decision_trees.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
   <div>
