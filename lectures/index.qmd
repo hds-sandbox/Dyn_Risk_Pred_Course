@@ -121,36 +121,18 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 ## About Dynamic Risk Prediction
 
-Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. This allows to continuously monitor a patient’s risk profile and forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care.
+Traditional risk prediction generates a risk estimate at a defined timepoint in a patient’s disease trajectory, for example the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables prediction of risk at any time point. Risk prediction helps detect disease early, prevent illness, and target treatments efficiently.
+Predictive analytics enables proactive care by identifying at-risk patients before symptoms worsen, allowing earlier intervention when treatments are most effective.
+Risk is dynamic, not static. It changes with disease duration and patient health status. Traditional single-snapshot models fail to capture this evolution.
+Dynamic prediction models are effective because it can:
 
-Estimating risk can help us:
+- Detect diseases on early stages
+- Prevent development of the diseases
+- Provide the appropriate treatment
+- Help allocate resources efficiently
 
-- Detect disease on early stage
-- Prevent disease
-- Target treatment
-- Optimise use of health care ressources, e.g. in screening programs
-- Etc.
 
-Predictive analytics in healthcare applications offers value by providing proactive rather than reactive care.
-Using patient data and clinical patterns, can identify individuals at risk before symptoms worsen or happen, allowing for earlier interventions when treatments are typically more effective and less costly.
-Predictive models help healthcare systems allocate limited resources more efficiently, emphasizing the patient who needs intensive care. Predictive models can significantly improve patient outcomes while potentially preventing costly emergency interventions and hospitalizations in the healthcare system.
-
-Risk of event seldomly stationary, it is **dynamic**
-
-- Risk of adverse event can e.g. increase the longer the patient has suffered from the disease
-- Risk of dying within the next year can depend on how long the patient has survived so far with the disease and the patient’s current health
-
-Traditional risk models provide only a snapshot at a single point in time, while disease progression continuously and changes the risk profiles.
-
-The reasons why a dynamic prediction model is better suited for healthcare application rather then static prediction models is:
-
-- The treatment have a influence on the patients risk profile
-- Comorbidities develop or worsen with age and the disease duration
-- Patients differ a lot in terms of risk and treatment
-
-Continuous monitoring combined with a dynamic prediction model creates flexibility in healthcare delivery, making the model a more reliable tool for clinicians while also allocating clinicians time efficiently.
-
-As these tools are not a replacement for clinicians, it can provide as a decision tool to help the clinicians making informed decisions and to raise the lower bar of the quality in healthcare.
+These tools support clinicians' decision-making, and they allows to continuously monitor a patient’s risk which forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care.
 
 In the following figure you see an illustration of the complex decision-making process clinicians navigate during patient interactions, with a focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
 
@@ -210,9 +192,11 @@ Administration of Systemic Anti-Cancer Treatment (SACT) is a motivation for pred
   <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
 </div>
 
-## Using Extensice Health Data
-Predictive modeling demands data in vast amounts, while also the data must be high quality and organized sequentially. This ensures that the model recognizes patterns and makes accurate predictions based on historical trends. The data sourcing is comprehensive and complex in terms of multiple stakeholders are involved. There is a necessary to access specialized and highly restrictive health databases such as PAS (Patient Administration System), MedOnc (Medical Oncology database), LABKA (Lab Information System), and Patobank (Pathology Registry). These databases offer in-depth patient-related information crucial for accurate predictions. It is important to acknowledge that this data extraction and integration is challenging.
-Once access to these databases is secured, data preparation is the next step in the predictive modeling process. Relevant variables from these databases are identified and merged into a unified dataframe for a streamlined analysis. Time factors are some of the most important variables to understand and define before executing predictive modeling. For instance, when predicting the short-term likelihood of a patient's death within 30 days, it is essential to have certain important events for the time series analysis. This includes the time of diagnosis, the initiation of palliative treatments, and the actual time of death, among other relevant markers.
+## Health Data for Prediction Models
+
+Prediction models need large amounts of high-quality, sequential data to recognize patterns and make accurate forecasts based on past trends.
+Data collection involves multiple stakeholders and requires access to restricted health databases like PAS (Patient Administration System), MedOnc (Medical Oncology), LABKA (Lab Information System), and Patobank (Pathology Registry). These sources provide important patient information for accurate predictions.
+After securing database access, relevant variables must be identified and combined into a unified framework for analysis. Time factors are critical variables for prediction models. For example, predicting 30-day mortality requires specific temporal markers such as diagnosis date, palliative treatment initiation, and time of death, among other relevant markers.
 
 **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene, BMI, chronic obstructive pulmonary disease, C-reactive protein, lactate dehydrogenase, treatment. The figure stems from [Vesteghem, et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
 
