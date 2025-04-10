@@ -8,16 +8,17 @@ format: html
 
 ## Introduction to dynamic risk prediction
 
-Data collection and management are crucial and often the most challenging parts of creating a predictive model.
-There are usually obstacles in getting the data, which can take time and effort.
-There can be problems meeting expectations about the data if it contains many missing values, or if the data format is different than anticipated.
-Issues can arise when multiple datasets are gathered, as similar variables can have different measures, names can differ, and periods can vary (different degrees of granularity), etc.
-Many of these issues can be addressed in data management. However, some tradeoffs are needed to make the data work in practice.
-These concepts will be covered in this section of the course where the main topics regarding data management are:
+Data collection and management constitute the foundation of predictive modeling. These processes often present significant challenges including:
 
-- Data sources and biases
-- Data management
-- Exercises
+- Time-consuming data gathering
+- Mismatched expectations about data quality and completeness
+- Integration datasets containing varying measures, naming conventions, and granularity levels
+
+This section addresses these challenges through three main topics:
+
+Data sources and biases
+Data management principles
+Practical exercises
 
 ## Data sources and biases
 
@@ -40,22 +41,29 @@ The difference between retrospective and prospective studies lies in their timin
 
 ### Data vs Metadata vs Annotations
 
-When working with data management, one should be able to differentiate between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
+When working with data management, it is important to distinct between data, metadata, and annotations. Data is the actual subject of interest as it is the raw information which is gathered and which can provide valuable insight. Most people know about data, but metadata and annotations are also critical to make vast amounts of data understandable and usable.
 
 <div style="text-align: center;">
 <img src="../images/data_meta_annotations.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
 </div>
 
-These distinctions are important for dynamic medicine prediction as their interplay is what gets the most out of the data. There is the raw data, where we need some information about the data to work with it (metadata), and the annotations provide more intuition about the meaning of the ranges in the data.
+Then there is the annotations which provide more intuition about the meaning of the ranges in the data.
 
-Metadata can be seen as information about the data. An example of metadata could be related to blood samples that have been gathered:
+These distinctions are important for dynamic medicine prediction as their interplay is what gets the most out of the data.
+
+There is the raw data which consists of the actual measurements taken from patients, such as specific values like blood pressure readings.
+
+
+Example of data about blood pressure:
 
 | **Measurement** | **Result** |
 |:------------|:-------|
 | Systolic Pressure | 120 mmHg |
 | Diastolic Pressure | 80 mmHg |
 
-This data could have some additional information explaining the circumstances and gathering of the data:
+Then there is inherent information about the data, which is called the `metadata`.
+
+Example of metadata of blood pressure:
 
 | Metadata |
 |:----|
@@ -65,7 +73,9 @@ This data could have some additional information explaining the circumstances an
 | Ordering Physician: Dr. House |
 | Laboratory: Princeton-Plainsboro Teaching Hospital |
 
-Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add extra columns to the data, providing labels which categorize the data to make it easier to understand for non-experts and models. An example of this could be:
+Annotations are like providing data with labels. They can be helpful for data management and modeling to understand the values of the data. With collaborations from healthcare staff and data collectors, clinicians add extra columns to the data, providing labels which categorize the data to make it easier to understand for non-experts and models.
+
+Example of Annotations:
 
 | Measurement | Result | Annotation |
 |:------------|:-------|:-----------|
@@ -74,17 +84,14 @@ Annotations are like providing data with labels. They can be helpful for data ma
 
 More about the blood pressure table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings)
 
-As can be seen, annotations are a kind of footnote to provide an overview of the meaning behind the values which are displayed in the data.
-With these central definitions explained, the next step is to understand who provides the data we are interested in when building dynamic prediction models for healthcare applications.
-
 ### Data Providers
 
-Data providers are the data holders of certain data. As developers of dynamic prediction models for healthcare applications, we are interested in data sources who can supply health-related data. As we are located in Denmark and our application is built on Danish patients, the data sources will be Danish. A few examples of some of the major holders of health data in Denmark are:
+Data providers in the context of dynamic prediction models within healthcare in Denmark, a selection of major organisations who gatekeep databases containing sensitive health information about patients, which is the most valuable resources for the predictive modelling. A few examples of some of the major holders of health data in Denmark are:
 
 [**Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers)
 
 <div style="overflow: auto;">
-<img src="../images/stat_dk.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
+<img src="../images/dhda.png" alt="Image" style="margin-bottom: 15px; width: 30%;">
 </div>
 
 The Danish Health Data Authority stands as one of Denmark's largest organizations for collecting, maintaining, and safeguarding comprehensive healthcare data. The Danish Health Data Authority has a wide range of registries, such as:
@@ -97,7 +104,7 @@ The Danish Health Data Authority stands as one of Denmark's largest organization
 - The Clinical Laboratory Information Register
 - **Many more**
 
-In the same vein as The Danish Health Data Authority, there are also institutions such as:
+There are also institutions such as:
 
 [**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/)
 
@@ -148,6 +155,13 @@ Besides the biases already discussed, there is a long list of biases to consider
 | Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
 
 For more information about biases, please check out this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
+
+The biggest risk is proceeding with analysis without recognizing these biases and limitations. As the data involves expertise beyond the analytical scope, including relevant experts as guides is essential.
+
+<div style="overflow: auto;">
+<img src="../images/Dunning-Kruger_effect.PNG" alt="Image" style="margin-bottom: 15px; width: 70%;">
+</div>
+Information about the Dunning-Kruger effect can be found [here](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)
 
 If the data contains signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor. Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is an important measure for the quality of the predictive model.
 
