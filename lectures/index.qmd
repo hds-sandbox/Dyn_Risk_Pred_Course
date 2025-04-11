@@ -126,15 +126,15 @@ Predictive analytics enables proactive care by identifying at-risk patients befo
 Risk is dynamic, not static. It changes with disease duration and patient health status. Traditional single-snapshot models fail to capture this evolution.
 Dynamic prediction models are effective because it can:
 
-- Detect diseases on early stages
+- Detect diseases continuously over time
 - Prevent development of the diseases
 - Provide the appropriate treatment
 - Help allocate resources efficiently
 
 
-These tools support clinicians' decision-making, and they allows to continuously monitor a patient’s risk which forms the basis for intervention if the predicted risk increases. In this course, we will explore methodological and technical solutions, as well as corresponding challenges, for developing and implementing such solutions in health care.
+Tools like dynamic risk prediction models support clinicians' decision-making, and they allows to continuously monitor a patient’s risk which forms the basis for intervention if the predicted risk increases. In this course, will the methodological and technical solutions be presented, as well as corresponding challenges, for developing and implementing such solutions in health care.
 
-In the following figure you see an illustration of the complex decision-making process clinicians navigate during patient interactions, with a focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
+In the following figure are an illustration of the complex decision-making process clinicians navigate during patient interactions, with a focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
 
 
 <div style="overflow: auto;">
@@ -156,11 +156,11 @@ In the following figure follows an illustration of the course content covering m
 
 In detail, the course includes the following topics::
 
-- 1) Data management: This part of the course considers the challenges of preparing heterogenous longitudinal health data for prediction. We will cover the various steps involved in this process, including data formatting, feature engineering, and splitting strategies for model validation. This will include discussion about how to handle irregularly sampled health data, data leakage, class imbalance, temporal robustness, normalization, and other potential biases.
+- 1) Data management: This part of the course considers the challenges of preparing heterogenous longitudinal health data for prediction. These steps involved in this process will be covered, including data formatting, feature engineering, and splitting strategies for model validation. Including discussion about how to handle irregularly sampled health data, data leakage, class imbalance, temporal robustness, normalization, and other potential biases.
 
-- 2) Modelling: In this part of the course, participants will be led through the process of building such models. We will introduce both basic and more advanced dynamic machine learning prediction algorithms, such as gradient tree boosting, random forest, and LSTM and discuss issues related to performance metrics and hyperparameter optimization, for example Bayesian optimization.
+- 2) Modelling: In this part of the course, participants will be led through the process of building such models. A introduction will be provided about the basic and more advanced dynamic machine learning prediction algorithms, such as gradient tree boosting, random forest, and LSTM. While the issues related to performance metrics and hyperparameter optimization, for example Bayesian optimization will be included.
 
-- 3) Implementation: In the last part of the course, we will consider the challenges associated with the implementation of predictive tools in the clinic. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the FHIR standard. Regulatory and organizational issues will also be discussed. During the project the participants will get hands on experience covering realistic scenarios related to the subjects discussed. This will include data management of representative data sets, training models and hands on introduction to the FHIR set-up.
+- 3) Implementation: In the last part of the course, will the challenges associated with the implementation of predictive tools in the clinic be considered. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the FHIR standard. Regulatory and organizational issues will also be discussed. During the project the participants will get hands on experience covering realistic scenarios related to the subjects discussed. This will include data management of representative data sets, training models and hands on introduction to the FHIR set-up.
 
 
 
@@ -196,9 +196,9 @@ Administration of Systemic Anti-Cancer Treatment (SACT) is a motivation for pred
 
 Prediction models need large amounts of high-quality, sequential data to recognize patterns and make accurate forecasts based on past trends.
 Data collection involves multiple stakeholders and requires access to restricted health databases like PAS (Patient Administration System), MedOnc (Medical Oncology), LABKA (Lab Information System), and Patobank (Pathology Registry). These sources provide important patient information for accurate predictions.
-After securing database access, relevant variables must be identified and combined into a unified framework for analysis. Time factors are critical variables for prediction models. For example, predicting 30-day mortality requires specific temporal markers such as diagnosis date, palliative treatment initiation, and time of death, among other relevant markers.
+After securing database access, relevant variables must be identified and combined into a unified framework for analysis. Time factors are critical variables for prediction models. For example, predicting 30-day mortality requires certain temporal markers such as diagnosis date, palliative treatment initiation, and time of death, among other relevant markers.
 
-**Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including ALK, anaplastic lymphoma kinase gene, BMI, chronic obstructive pulmonary disease, C-reactive protein, lactate dehydrogenase, treatment. The figure stems from [Vesteghem, et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
+**Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including Cancer dignoses, Side Effects, Comorbidities, Treatments, Biomarkers, etc. The figure stems from [Vesteghem, et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
 
 <div style="overflow: auto;">
   <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">

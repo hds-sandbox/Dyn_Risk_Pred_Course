@@ -182,23 +182,23 @@ To address these issues, can **[ensempling](https://en.wikipedia.org/wiki/Ensemb
 
 ## Ensemble learning methods
 
-Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor.
+Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor. This is also known as *wisdom of the crowd*.
 
 ### Bagging
 
-Bagging (Bootstrap Aggregating) builds many independent models from random data samples and averages their predictions. Each model trains on different data subsets created through random sampling with replacement.
+Bagging (Bootstrap Aggregating) builds many independent models from random data samples and averages their predictions. The aggregation function is most often the statistical mode, which is the most frequent prediction. Each model trains on different data subsets created through random sampling with replacement. It is called **pasting** when the sampling is performed *without* replacement.
 
 This approach reduces variance and helps avoid overfitting. The classic example is the basic bootstrap ensemble, where multiple decision trees make predictions that are then combined through voting (for classification) or averaging (for regression).
 
 ### Random Forest
 
-Random Forest extends bagging by adding another layer of randomness. Not only does it sample data points, but it also samples features when building each tree.
+[Random Forest](https://en.wikipedia.org/wiki/Random_forest) extends bagging by adding another layer of randomness. Not only does it sample data points, but it also samples features when building each tree.
 
 When growing trees, Random Forest considers only a random subset of features at each split point. This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise.
 
 ### Gradient Boosted Trees
 
-Unlike bagging methods that build independent models, boosting builds models sequentially. Each new model focuses on fixing the mistakes of combined previous models.
+Unlike bagging methods that build independent models, boosting builds models sequentially. Each new model focuses on fixing the mistakes of combined previous models. There are many boosting methods, but one of the more popular ones are [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting)
 
 Gradient Boosted Trees add new weak learners (typically shallow decision trees) that target the errors made by existing trees. Each step minimizes the loss function's gradient, hence the name "gradient" boosting.
 
