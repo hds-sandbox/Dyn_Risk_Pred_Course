@@ -180,19 +180,50 @@ Although decision trees are powerful models on their own, they are still limited
 
 To address these issues, can **[ensempling](https://en.wikipedia.org/wiki/Ensemble_learning)** be added to the trees and create methods like **Random forest** or **Gradient boosting**.
 
-## Ensemble methods
+## Ensemble learning methods
 
-Ensemble learning is know as *wisdom of the crowd*. The idea is that instead of running one model one time on all the data, there are runned several models and several subsets of the data. Then when all the models have been executed, the models "vote" on the classifications, which mean that the prediction which have been most frequent on the several training instances is chosen.
+Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor.
 
-### Bagging 
-### Random Forest 
+### Bagging
+
+Bagging (Bootstrap Aggregating) builds many independent models from random data samples and averages their predictions. Each model trains on different data subsets created through random sampling with replacement.
+
+This approach reduces variance and helps avoid overfitting. The classic example is the basic bootstrap ensemble, where multiple decision trees make predictions that are then combined through voting (for classification) or averaging (for regression).
+
+### Random Forest
+
+Random Forest extends bagging by adding another layer of randomness. Not only does it sample data points, but it also samples features when building each tree.
+
+When growing trees, Random Forest considers only a random subset of features at each split point. This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise.
+
 ### Gradient Boosted Trees
+
+Unlike bagging methods that build independent models, boosting builds models sequentially. Each new model focuses on fixing the mistakes of combined previous models.
+
+Gradient Boosted Trees add new weak learners (typically shallow decision trees) that target the errors made by existing trees. Each step minimizes the loss function's gradient, hence the name "gradient" boosting.
+
+This sequential improvement process creates highly accurate models but requires tuning hyperparameters to avoid overfitting.
 
 ## Neural Networks 
 
 ### Train neural networks
 
 ### Hyperparameters for Neural Networks
+Hyperparameters control how neural networks learn. They are set before training begins and greatly affect results.
+Key hyperparameters include:
+
+- Learning rate: Controls how much weights change with each update
+
+- Network structure: How many layers and nodes to use
+
+- Batch size: How many examples to process before updating weights
+
+- Regularization strength: How strongly to prevent overfitting
+
+- Activation functions: Which mathematical operations transform data between layers
+
+Finding the right hyperparameters often requires systematic testing. Small changes can potentially improve or harm performance, significantly. Due to tuning process being time consuming, there can be used different hyperparameter search algorithms to try a wide range of hyperparamaters, automatically.
+The choice of hyperparameters determines what the network can learn and how well it will perform on new data.
 
 
 # Model training
