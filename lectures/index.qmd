@@ -153,7 +153,7 @@ The figure below illustrates the course content, covering the journey from data 
 
 The course is divided into three main modules, covering the key stages shown above:
 
-1) Data management: This part of the course considers the challenges of preparing heterogeneous longitudinal health data for prediction. These steps include data formatting, feature engineering, and splitting strategies for model validation. This includes discussing how to handle:
+1) **Data management:** This part of the course considers the challenges of preparing heterogeneous longitudinal health data for prediction. These steps include data formatting, feature engineering, and splitting strategies for model validation. This includes discussing how to handle:
     - Irregularly sampled health data.
     - Data leakage.
     - Class imbalance.
@@ -161,9 +161,9 @@ The course is divided into three main modules, covering the key stages shown abo
     - Normalization.
     - Other potential biases.
 
-2) Modelling: In this part of the course, participants will be led through the process of building models. An introduction will be provided to the basic and more advanced dynamic machine learning prediction algorithms, such as gradient boosting, decision trees, and Recurrent Neural Networks. Topics include performance metrics and hyperparameter optimization, such as Bayesian optimization.
+2) **Modelling:** In this part of the course, participants will be led through the process of building models. An introduction will be provided to the basic and more advanced dynamic machine learning prediction algorithms, such as gradient boosting, decision trees, and Recurrent Neural Networks. Topics include performance metrics and hyperparameter optimization, such as Bayesian optimization.
 
-3) Implementation: In the final part of the course considers challenges associated with implementing predictive tools in the clinic. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the Fast Healthcare Interoperability Resources standard. Regulatory and organizational issues will also be discussed. During the project, the participants will get hands on experience with realistic scenarios related to these topics. This includes managing representative datasets, training models, and receiving a hands-on introduction to a FHIR setup.
+3) **Implementation:** In the final part of the course considers challenges associated with implementing predictive tools in the clinic. This includes technical aspects about hosting, user interface, and access to live data, including an introduction to the Fast Healthcare Interoperability Resources standard. Regulatory and organizational issues will also be discussed. During the project, the participants will get hands on experience with realistic scenarios related to these topics. This includes managing representative datasets, training models, and receiving a hands-on introduction to a FHIR setup.
 
 ## Setup Requirements for Dynamic Risk Prediction
 
@@ -185,9 +185,9 @@ The concept of multiple, irregularly prediction times for a single patient is sh
 ## Motivating example
 The administration of Systemic Anti-Cancer Treatment (SACT) to patients with cancer presents complex challenges involving dynamic risks, highlighting a significant need for predictive modeling. Ensuring that SACT is administered appropriately at the right time is crucial, as this can potentially lead to optimized survival rates and maximized quality of remaining life.
 
-The intended outcomes of SACT can have a positive outcome, but may also be fatal. In the best-case scenario, particularly within palliative care, the highest possible quality of life for the patient is achieved alongside optimal treatment effects. However, SACT administration can also result in increased suffering during a patient's remaining lifetime. This can lead to the worst-case scenario, wwhere the patient's overall outcome might be less favorable with SACT than without it, potentially involving increased suffering and even a shorter lifespan compared to supportive care alone.
+The intended outcomes of SACT can have a positive outcome, but may also be fatal. In the best-case scenario, particularly within palliative care, the highest possible quality of life for the patient is achieved alongside optimal treatment effects. However, SACT administration can also result in increased suffering during a patient's remaining lifetime. This can lead to the worst-case scenario, where the patient's overall outcome might be less favorable with SACT than without it, potentially involving increased suffering and even a shorter lifespan compared to supportive care alone.
 
-Given this potential variance in outcomes, difficult decisions must often be made by clinicians. Therefore, the development of dynamic predictive models is proposed as an important tool. Such models could support clinicians in making better-informed decisions regarding the optimal timing for SACT administration, or in assessing whether SACT is likely to cause more harm than benefit in a specific patient's case.
+Given the stakes related to these outcomes, difficult decisions must often be made by clinicians. Therefore, the development of dynamic predictive models is proposed as an important tool. Such models could support clinicians in making better-informed decisions regarding the optimal timing for SACT administration, or in assessing whether SACT is likely to cause more harm than benefit in a specific patient's case.
 
 The possible scenarios relevant to short-term survival prediction, which are central to this challenge, are illustrated below. This illustration has been adapted from [Vesteghem, 2022](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)[^1].
 
@@ -197,13 +197,13 @@ The possible scenarios relevant to short-term survival prediction, which are cen
 
 ## Health Data for Prediction Models
 
-For prediction models to effectively recognize patterns and generate accurate forecasts based on historical trends, large amounts of high-quality, sequential data are required. This type of detailed information is typically stored within restricted health databases. Multiple stakeholders are involved in the data collection process, and access to systems such as PAS (Patient Administration System), MedOnc (Medical Oncology), LABKA (Lab Information System), and Patobank (Pathology Registry) must be secured. Essential patient information, crucial for developing reliable predictive models, is provided by these sources.
+For prediction models to effectively recognize patterns and generate accurate predictions based on historical trends, large amounts of high-quality, sequential data are required. This type of detailed information is typically stored within restricted health databases. Multiple stakeholders are involved in the data collection process, and access to systems such as PAS (Patient Administration System), MedOnc (Medical Oncology), LABKA (Lab Information System), and Patobank (Pathology Registry) must be secured. Essential patient information, crucial for developing reliable predictive models, is provided by these sources.
 
 Once access to the necessary databases has been obtained, a crucial step involves the identification of relevant variables. These selected variables must then be integrated into a unified framework suitable for analysis. For example, the prediction of 30-day mortality requires the use of certain temporal markers such as the date of:
-- Diagnosis
-- The date palliative treatment was initiated
-- The recorded time of death
-- Other pertinent clinical indicators.
+    - Diagnosis.
+    - The date palliative treatment was initiated.
+    - The recorded time of death.
+    - Other pertinent clinical indicators.
 
 **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including Cancer diagnoses, Side Effects, Comorbidities, Treatments, Biomarkers, etc. The figure stems from [Vesteghem, et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
 
