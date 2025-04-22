@@ -200,10 +200,11 @@ The possible scenarios relevant to short-term survival prediction, which are cen
 For prediction models to effectively recognize patterns and generate accurate predictions based on historical trends, large amounts of high-quality, sequential data are required. This type of detailed information is typically stored within restricted health databases. Multiple stakeholders are involved in the data collection process, and access to systems such as PAS (Patient Administration System), MedOnc (Medical Oncology), LABKA (Lab Information System), and Patobank (Pathology Registry) must be secured. Essential patient information, crucial for developing reliable predictive models, is provided by these sources.
 
 Once access to the necessary databases has been obtained, a crucial step involves the identification of relevant variables. These selected variables must then be integrated into a unified framework suitable for analysis. For example, the prediction of 30-day mortality requires the use of certain temporal markers such as the date of:
-    - Diagnosis.
-    - The date palliative treatment was initiated.
-    - The recorded time of death.
-    - Other pertinent clinical indicators.
+
+- Diagnosis.
+- The date palliative treatment was initiated.
+- The recorded time of death.
+- Other pertinent clinical indicators.
 
 **Example of records for a patient:** This figure shows patient survival predictions made at various time points, where each dot represents a data point, with markers for clinical factors including Cancer diagnoses, Side Effects, Comorbidities, Treatments, Biomarkers, etc. The figure stems from [Vesteghem, et al., 2022](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
 
