@@ -86,8 +86,12 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 | Subjects |
 |:----|
-| Introduction to the course |
-| Introduction to dynamic risk prediction	|
+| About Dynamic Risk Prediction |
+| Course Overview	|
+| Setup Requirements for Dynamic Risk Prediction |
+| Motivating example |
+| Health Data for Prediction Models |
+
 
 ### Part 2 - Data management
 
@@ -212,7 +216,7 @@ Once access to the necessary databases has been obtained, a crucial step involve
   <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
 </div>
 
-# Summary
+## Summary
 
 In this introduction, an overview was provided on how to access all the resources of this course.
 The structure for the entire course was presented, including all segments and their content.
