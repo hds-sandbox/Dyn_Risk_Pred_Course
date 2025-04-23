@@ -169,7 +169,7 @@ Beyond the biases already discussed, there is a wide range of biases to consider
 
 For more information about biases, please check out this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
 
-If the data contains signs of bias or seems strange, contact the individuals who are involved in the data collection. This could be the secretaries or clinicians, where experience is a crucial factor. Communication is the most important measure for ensuring data quality and mutual understanding, which ultimately is an important measure for the quality of the predictive model.
+If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
 ### Retrospective studies: coding and classification
 
@@ -179,18 +179,18 @@ Given the idea of "base content around the exercises," then the coding does not 
 
 ## Prospective Studies: FAIR Data Principles
 
-As the amount of data produced in the world keeps increasing, there is a need to make sure data can be found, accessed, is interoperable, and can be reused. Having principles for good practice for the data, the metadata, and the infrastructure is an important matter in navigating the vast amount of data available, both when working with datasets separately and in merging data.
+With the continuous increasing amount of data being produced globally, a need exists for ensuring research data are findable, accessible, interoperable, and reusable. Principles for good data, metadata, and infrastructure practices are considered important for navigating all of the available information.
 
-[In 2016, the FAIR principles were introduced in the famous journal Nature](https://www.nature.com/articles/sdata201618), and it was a well-received attempt to address the challenges of the vast amount of data. FAIR data principles provide a guide on how to navigate this data while optimizing the usage of the data.
+[In 2016, the FAIR principles were introduced in the scientific journal Nature](https://www.nature.com/articles/sdata201618). These principles represented a well-received approach to addressing data management challenges. The FAIR data principles provide a guide on how to navigate in all of this data while optimizing the usage of the data.
 
 The FAIR principles is an acronym for:
 
-- **[Findable](https://www.go-fair.org/fair-principles/)**: Information about data and the metadata should be public and referenced
-- **[Accessible](https://www.go-fair.org/fair-principles/)**: Data should be possible to access
-- **[Interoperable](https://www.go-fair.org/fair-principles/)**: Use standardized data formats
-- **[Reusable](https://www.go-fair.org/fair-principles/)**: Through extensive documentation make data reusable
+- **[Findable](https://www.go-fair.org/fair-principles/)**: Information about data and the metadata should be public and referenced.
+- **[Accessible](https://www.go-fair.org/fair-principles/)**: Data and metadata should be possible to access.
+- **[Interoperable](https://www.go-fair.org/fair-principles/)**: Use standardized data formats.
+- **[Reusable](https://www.go-fair.org/fair-principles/)**: Through extensive documentation make data reusable.
 
-FAIR data principles have been broadly adopted, while also being part of international, national, and local strategies for data management. Examples of initiatives utilizing FAIR data principles:
+FAIR data principles have been broadly adopted and are included in international, national, and local strategies for data management. Examples of initiatives where FAIR data principles are utilized include:
 
 - [National strategi for data management baseret på FAIR-principper](https://www.deic.dk/da/data-management/nationalt-samarbejde/National-strategi-for-FAIR-data-management)
 - [Aalborg University (AAU) FAIR strategy](https://www.aau.dk/om-aau/strategi/digitalisering/forskning/masterplan)
@@ -200,17 +200,17 @@ FAIR data principles have been broadly adopted, while also being part of interna
 
 For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
-However, while FAIR data principles have a significant impact on the quality and accessibility of data, there are some **limitations** which have to be taken into consideration. The legal aspects of data sharing are complex, and this may provide boundaries on the level of details which can be shared while also limiting the access to data further. Another significant limitation is the amount of work necessary to create the comprehensive documentation needed to live up to the FAIR data principles. Also, there might be a gap in the technical skill level of people who want to use FAIR, which can mean that some do not meet the requirements of the FAIR principles.
+However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal aspects regarding data sharing may create boundaries on the level of detail that can be shared and may restrict data access. The  effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles, may be a limitation.
 
-So there have been introduced some theoretical concepts to be aware of and principles for gathering, documenting, and making the most of the data. In the next section, some concrete tools for storing data will be introduced.
+An introduction to theoretical concepts and principles related to data management, such as FAIR, has now been reviewed. In the next section, concrete tools for data storage will be presented.
 
-## PROSPECTIVE STUDIES: Relational Databases and REDCap
+## PROSPECTIVE STUDIES: Relational Databases
 
-Databases are digital platforms to store the data that will be used for the model. Often when doing certain analyses, a **dataset** is used, but this dataset is probably not enough to make serious modeling. When dealing with multiple datasets, it becomes more handy to store them in one place and to draw the necessary data when needed. This is where the database comes in.
+Digital platforms designed for the storage of data intended for modeling are known as databases. As a single dataset might be utilized for specific analyses, such a dataset is often found to be insufficient for comprehensive modeling. When multiple datasets are involved, a central storage from which necessary data can be drawn is convenient. This is where a database comes in.
 
-The database can hold multiple datasets, which are called **tables** in database terms. These tables can be customized, merged, filtered, etc. as the data are pulled into the software where the analysis is made. To perform these data management operations for the database, one has to use Structured Query Language (SQL), which is a way to communicate and extract the desired data.
+Multiple datasets, referred to as tables in database terminology, can be held within a database. Operations such as customization, merging, and filtering can be performed on these tables. Structured Query Language (SQL) must be employed to perform data management operations. SQL is a way of communicating with the database to extract the necessary data.
 
-A simple example of an SQL query would be if we wanted a table consisting of patients who are between 18 and 100 years old, which means there would be an age variable to filter on. We want all the columns of the table, so we use * and we want the table called TUMOUR_DATA. So we write the query:
+As a simple example, consider a requirement where data for patients aged between 18 and 100 years must be extracted from a table named TUMOUR_DATA. If data from all columns are needed, the symbol (*) is utilized. The corresponding SQL query is formulated as follows:
 
 ```SQL
 SELECT *
@@ -226,7 +226,11 @@ There are different types of databases, and the choice of database is based on t
 <img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
 </div>
 
-Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, track changes over time, and integrate diverse data sources. For instance, when developing a risk model for hospital readmission, a researcher could query patients with specific diagnoses, medication histories, and demographic characteristics all at once, rather than manually combining separate datasets.
+Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, track changes over time, and integrate diverse data sources. For instance, when developing a hospital readmission risk model, a researcher could simultaneously query patients based on specific diagnoses, medication histories, and demographic characteristics, rather than manually combining separate datasets.
+
+#############################
+########## HERTIL ###########
+#############################
 
 To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
 
