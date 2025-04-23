@@ -125,16 +125,13 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 ## About Dynamic Risk Prediction
 
-Predictive analytics provides tools for proactive healthcare. An important application is **risk prediction**, which aims to identify patients at risk before symptoms worsen. Identifying risk early allows for earlier interventions when treatments are most effective, helps prevent illness progression, and enables treatments to be targeted more efficiently.
-
-Traditional risk prediction generates a risk estimate at a defined time point in a patient’s disease trajectory, for example, the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables risk to be predicted at multiple or continuous time points throughout the disease trajectory.
-Risk is dynamic, not static. It changes with disease duration and patient health status. Traditional single-snapshot models fail to capture this evolution. Dynamic prediction models are effective because they can:
+Traditional risk prediction generates a risk estimate at a defined time point in a patient’s disease trajectory, for example, the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables risk to be predicted at multiple or continuous time points throughout the disease trajectory. Dynamic prediction models are effective because they can:
 
 - Continuously monitor changes in patient risk over time.
 - Inform timely interventions to help prevent disease progression by providing insights that assist clinicians in making treatment decisions appropriate to the patient's risk level.
 - Contribute to more efficient allocation of healthcare resources.
 
-**Dynamic risk prediction** models support clinicians' decision-making. They allow for the continuous monitoring of a patient’s risk, which forms the basis for intervention if the predicted risk increases. This course will present the methodological and technical approaches for developing and implementing dynamic risk prediction models in healthcare, along with the associated challenges.
+This course will present methodological and technical approaches for developing and implementing dynamic risk prediction models in healthcare, along with the associated challenges.
 
 The following figure illustrates the complex decision-making process clinicians navigate during patient interactions, with a focus on the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
 
@@ -158,12 +155,12 @@ The figure below illustrates the course content, covering the journey from data 
 The course is divided into three main modules, covering the key stages shown above:
 
 1) **Data management:** This part of the course considers the challenges of preparing heterogeneous longitudinal health data for prediction. These steps include data formatting, feature engineering, and splitting strategies for model validation. This includes discussing how to handle:
-    - Irregularly sampled health data.
-    - Data leakage.
-    - Class imbalance.
-    - Temporal robustness.
-    - Normalization.
-    - Other potential biases.
+    - Irregularly sampled health data
+    - Data leakage
+    - Class imbalance
+    - Temporal robustness
+    - Normalization
+    - Other potential biases
 
 2) **Modelling:** In this part of the course, participants will be led through the process of building models. An introduction will be provided to the basic and more advanced dynamic machine learning prediction algorithms, such as logistic regression, decision trees, and Recurrent Neural Networks. Topics include performance metrics and hyperparameter optimization, such as Bayesian optimization.
 
@@ -174,10 +171,10 @@ The course is divided into three main modules, covering the key stages shown abo
 To enable the setup of dynamic risk prediction, the following notation is introduced:
 
 - **Cohort of patients:** A group of individuals monitored over time for clinical outcomes or disease progression.
-- **Prediction time points $t_{ij}$:** for the patient $i$ and the $j$'th time point: The specific moments at which predictions are made.
+- **Prediction time points $t_{ij}$:** for the $i$'th patient and the $j$'th time point: The specific moments at which predictions are made.
 - **Binary outcome $Y(t_{ij})$** for each prediction time: clinical outcome measured as "yes/no" (e.g., disease, hospitalization, or recovery, etc) corresponding to each prediction time point $t_{ij}$.
 - **Baseline data $X_i$ for the $i$'th patient:** These are characteristics that do not change over time for each patient, such as biological sex, date of birth, or genetic factors.
-- **Time dependent data $Z_i(t)$ for patient $i$:** Measurements associated with patient $i$ that vary over time. Examples include weight, laboratory values, or medication prescriptions, recorded at various time points $t$.
+- **Time dependent data $Z_i(t)$ for patient $i$:** Measurements associated with the $i$'th patient that vary over time. Examples include weight, laboratory values, or medication prescriptions, recorded at various time points $t$.
 
 The concept of multiple, irregular prediction times for a single patient is shown in the following illustration.
 
@@ -187,7 +184,7 @@ The concept of multiple, irregular prediction times for a single patient is show
 
 
 ## Motivating example
-The administration of Systemic Anti-Cancer Treatment (SACT) to patients with cancer presents complex challenges involving dynamic risks, highlighting a significant need for predictive modeling. Ensuring that SACT is administered appropriately at the right time is crucial, as this can potentially lead to optimized survival rates and maximized quality of remaining life.
+The administration of Systemic Anti-Cancer Treatment (SACT) to patients with cancer presents, highlights a significant need for predictive modeling. Ensuring that SACT is administered appropriately at the right time is crucial, as this can potentially lead to optimized survival rates and maximized quality of remaining life.
 
 The intended outcomes of SACT can have a positive outcome but may also be fatal. In the best-case scenario, particularly within palliative care, the highest possible quality of life for the patient is achieved alongside optimal treatment effects. However, SACT administration can also result in increased suffering during a patient's remaining lifetime. This can lead to the worst-case scenario, where the patient's overall outcome might be less favorable with SACT than without it, potentially involving increased suffering and even a shorter lifespan compared to supportive care alone.
 
@@ -201,7 +198,7 @@ The possible scenarios relevant to short-term survival prediction, which are cen
 
 ## Health Data for Prediction Models
 
-For prediction models to effectively recognize patterns and generate accurate predictions based on historical trends, large amounts of high-quality, sequential data are required. This type of detailed information is typically stored within restricted health databases. Multiple stakeholders are involved in the data collection process, and access must be secured to various health information systems that contain these data types, such as Patient Administration Systems, Electronic Health Records, specialized clinical databases, Laboratory Information Systems, and national or local registries. Essential patient information, crucial for developing reliable predictive models, is provided by these sources.
+For prediction models to effectively recognize patterns and generate accurate predictions based on historical trends, large amounts of high-quality, sequential data are required. This type of detailed information is typically stored within restricted health databases. Multiple stakeholders are involved in the data collection process, and access must be secured to various health information systems that contain these data types, such as Patient Administration Systems, Electronic Health Records, specialized clinical databases, Laboratory Information Systems, and national or local registries.
 
 Once access to the necessary databases has been obtained, a crucial step involves the identification of relevant variables. These selected variables must then be integrated into a unified framework suitable for analysis. For example, the prediction of 30-day mortality requires the use of certain temporal markers such as:
 
@@ -223,9 +220,9 @@ The structure for the entire course was presented, including all segments and th
 There was a brief introduction to the concept of dynamic risk prediction and how it differs from traditional risk prediction in healthcare.
 A high-level overview of the implementation of such a system was provided, where the main topics were introduced:
 
-- Data management.
-- Modelling.
-- Implementation.
+- Data management
+- Modelling
+- Implementation
 
 A setup for dynamic risk assessment was presented along with an overview of the necessary materials to build dynamic risk models.
 A short description of the reasoning behind risk and dynamic models was provided.
