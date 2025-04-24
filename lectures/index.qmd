@@ -183,7 +183,7 @@ To enable the setup of dynamic risk prediction, the following notation is introd
 - **Prediction time points** $t_{ij}$ denotes the specific moments at which predictions are made for $i$'th patient at the $j$'th time point.
 - **Binary outcome** $Y(t_{ij})$ for each prediction time $t_{ij}$. A clinical outcome measured as “yes” or “no” (e.g., disease or non-disease occurrence, hospitalization or no hospitalization, or recovery or no recovery).
 - **Baseline data** $X_i$ for the $i$'th patient are characteristics that do not change over time, such as biological sex, date of birth, or genetic factors.
-- **Time dependent data** $Z_i(t)$ for patient the $i$'th are measurements are measurements that vary over time, $t$, such as weight, laboratory values, or medication prescriptions.
+- **Time dependent data** $Z_i(t)$ for the $i$'th patient are measurements are measurements that vary over time, $t$, such as weight, laboratory values, or medication prescriptions.
 
 The concept of multiple, irregular prediction times for a single patient is shown in the following illustration.
 
