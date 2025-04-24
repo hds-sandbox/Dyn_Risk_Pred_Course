@@ -182,7 +182,7 @@ To enable the setup of dynamic risk prediction, the following notation is introd
 - **Prediction time points** $t_{ij}$ denotes the specific moments at which predictions are made for $i$'th patient at the $j$'th time point.
 - **Binary outcome** $Y(t_{ij})$ for each prediction time $t_{ij}$. A clinical outcome measured as “yes” or “no” (e.g., disease or non-disease occurrence, hospitalization or no hospitalization, or recovery or no recovery).
 - **Baseline data** $X_i$ for the $i$'th patient are characteristics that do not change over time, such as biological sex, date of birth, or genetic factors.
-- **Time dependent data** $Z_i(t)$ for patient $i$ are measurements are measurements that vary over time, $t$, such as weight, laboratory values, or medication prescriptions.
+- **Time dependent data** $Z_i(t)$ for patient $i$'th are measurements are measurements that vary over time, $t$, such as weight, laboratory values, or medication prescriptions.
 
 The concept of multiple, irregular prediction times for a single patient is shown in the following illustration.
 
@@ -198,7 +198,7 @@ While the intended outcomes of SACT can be beneficial, the treatment may also le
 
 Given the high stakes involved, clinicians are often faced with complex and difficult decisions. To support this decision-making process, the development of dynamic predictive models is proposed as a valuable tool. These models could help clinicians make better-informed decisions about the optimal timing of SACT administration, or whether SACT is likely to do more harm than good in a particular patient's case.
 
-The possible scenarios relevant to short-term survival prediction, which lie at the heart of this challenge, are illustrated below. This figure has been adapted from [Vesteghem, 2023](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)[^1].
+The possible scenarios relevant to short-term survival prediction, which lie at the heart of this challenge, are illustrated below. This figure has been adapted from [Vesteghem, 2023](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf) [^1].
 
 <div style="overflow: auto;">
   <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
@@ -217,9 +217,7 @@ Once access to the necessary databases has been obtained, a crucial step involve
 
 **Example of records for a patient:**
 The figure below illustrates survival predictions for a patient made at various time points. Each dot represents a data point, with markers for clinical factors such as cancer diagnoses, side effects, comorbidities, treatments, biomarkers, and more.
-This figure is adapted from Vesteghem et al., 2024:
-
- [**Charles Vesteghem et al.** Dynamic Risk Prediction of 30-Day Mortality in Patients With Advanced Lung Cancer: Comparing Five Machine Learning Approaches. JCO Clin Cancer Inform 6, e2200054 (2022). DOI: 10.1200/CCI.22.00054 ](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054)[^2].
+This figure is adapted from [Vesteghem et al., 2024](https://ascopubs.org/doi/pdfdirect/10.1200/CCI.22.00054) [^2].
 
 <div style="overflow: auto;">
   <img src="../images/Data_driven_predictions.PNG" alt="Image" style="margin-bottom: 15px; width: 99%;">
