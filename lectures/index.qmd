@@ -157,12 +157,12 @@ The course is divided into three main modules, each covering a key stage illustr
 
 This module addresses the challenges of preparing heterogeneous, longitudinal health data for prediction. Key steps include data formatting, feature engineering, and data splitting strategies for model validation. It also covers how to handle:
 
-    - Irregularly sampled health data
-    - Data leakage
-    - Class imbalance
-    - Temporal robustness
-    - Normalization
-    - Other potential biases
+- Irregularly sampled health data
+- Data leakage
+- Class imbalance
+- Temporal robustness
+- Normalization
+- Other potential biases
 
 2) **Modelling:**
 
