@@ -24,21 +24,21 @@ In this section, these challenges will be explored through three main topics:
 
 Data management does not only consist of preprocessing the data, but is also an operation of finding data sources, collecting the data, and managing data biases.
 
-In this section of the course, there will be an introduction to data collection and the potential biases with regard to:
+In this section of the course, there will be an introduction to data collection and the potential biases about:
 
 **[Retrospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
 
--   **Data sources:** Understanding the origins and characteristics of existing datasets .
+-   **Data sources:** Understanding the origins and characteristics of existing datasets.
 -   **Biases and known limitations:** Recognizing potential biases such as selection bias, information bias, or confounding, along with limitations like missing data or inconsistent recording practices.
--   **Coding/Classifications:** Addressing variations in coding systems and classifications used across different time periods or data sources.
+-   **Coding/Classifications:** Addressing variations in coding systems and classifications used across different periods or data sources.
 
 
 **[Prospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
 
 - **FAIR data principles:** Framework for making data Findable, Accessible, Interoperable, and Reusable.
-- **Introduction to databases and REDCap:** Utilizing of tools designed to store sensitive data accessible while stored it safely.
+- **Introduction to databases and REDCap:** Utilizing tools designed to store sensitive data, accessible while stored safely.
 
-The difference distinction retrospective and prospective studies lies in their timing and the degree of control the researchers has over the data collection process. First, researchers need to understand existing data and establish effective collection methods. Then, a research framework is necessary to support the research design and maintain high data quality standards throughout the process of the study.
+The difference distinction retrospective and prospective studies lies in their timing and the degree of control the researchers have over the data collection process. First, researchers need to understand existing data and establish effective collection methods. Then, a research framework is necessary to support the research design and maintain high data quality standards throughout the process of the study.
 
 ## Data, Metadata, and Annotations
 
@@ -50,7 +50,7 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 &nbsp;
 
-**Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation can insight extracted from raw data. For instance, data regarding a patient's blood pressure would include the certain measurements in one column and the corresponding values in another column.
+**Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation, insight can be extracted from raw data. For instance, data regarding a patient's blood pressure would include certain measurements in one column and the corresponding values in another column.
 
 *Example of raw blood pressure data:*
 
@@ -90,7 +90,7 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 In essence, annotations function like footnotes, offering an accessible explanation of the meaning behind the data values presented.
 
-A clear understanding of these distinctions is significant for any data-driven work, regardless of the modeling approach used. Effectively leveraging the interplay between data, metadata, and annotations is central to derive the most amount insights from the collected information.
+A clear understanding of these distinctions is significant for any data-driven work, regardless of the modeling approach used. Effectively leveraging the interplay between data, metadata, and annotations is central to deriving the most insights from the collected information.
 
 ## Health Data Providers in Denmark
 
@@ -129,10 +129,10 @@ This type of organization collaborates across the Danish healthcare sector, ofte
 [**Statistics Denmark:**](https://www.dst.dk/en)
 
 <div style="overflow: auto;">
- <img src="../images/DHQI.PNG" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 150px;">
+ <img src="../images/DHQI.PNG" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 59%;">
 </div>
 
-For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers pertaining to demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning nearly 200 years ([link](https://www.dst.dk/en/OmDS/historie)), provides significant historical depth for longitudinal analysis if required.
+For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning nearly 200 years ([link](https://www.dst.dk/en/OmDS/historie)), provides significant historical depth for longitudinal analysis if required.
 
 For dynamic risk prediction in healthcare, the following relevant registers could be utilized as supplementary resources:
 
@@ -153,17 +153,17 @@ However, regardless of the source, it is crucial to critically evaluate data qua
 
 ### Bias and Limitations
 
-When developing dynamic predictive models by using sensitive health data gathered from different sources can potentially be carry biases and limitations, which have to be considered. If the developer do not address these issues, there is a chance for either **poor model performance** or **misleading results**.
+When developing dynamic predictive models by using sensitive health data gathered from different sources, they can potentially carry biases and limitations, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**.
 
 1. **Source-Specific Biases**
 
-[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
 2. **Data Quality**
 
 **Variability in Clinician Expertise:** Another consideration regarding health data that has to be accounted for is consistency in medical expertise, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
 
-**Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, and if they buy their medicine. It is also difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when developing a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
+**Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, or if they buy their medicine. It is also difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when developing a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
 
 3. **General Types of Bias in Healthcare Research**
 
@@ -173,42 +173,42 @@ Beyond the biases already discussed, there is a wide range of biases to consider
 |:----|:----|
 | Sampling bias | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
 | Susceptibility bias | When certain groups are more prone to a particular outcome, due to some other external factors |
-| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that confirms their existing beliefs |
-| Attrition bias | Systematic dropout from long-term studies which over time will create class imbalance |
-| Volunteer bias | When the group of people who volunteer for a study do not represent the general population |
+| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that confirm their existing beliefs |
+| Attrition bias | Systematic dropout from long-term studies, which over time will create class imbalance |
+| Volunteer bias | When the group of people who volunteer for a study does not represent the general population |
 
-For more information about biases, please see this [comprehensive list about biases in research from University of Oxford.](https://catalogofbias.org/biases/)
+For more information about biases, please see this [comprehensive list about biases in research from the University of Oxford](https://catalogofbias.org/biases/)
 
 If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
 ### Retrospective studies: coding and classification
 
-Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. a database of all the codes used for all treatments based on World Health Organization’s International Classification of Disease, currently ICD10.
+Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. A database of all the codes used for all treatments based on the World Health Organization’s International Classification of Diseases, currently ICD-10.
 
 <div style="overflow: auto;">
- <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 15px; width: 150px;">
+ <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 150px;">
 </div>
 
 *For more information or exploration, please consider visiting [medinfo.dk](medinfo.dk).*
 
 Specific coding systems are used across Danish data sources:
 
-- **LABKA:** For clinical laboratory data in Denmark will are stored the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939) system. This source predominantly uses NPU (Nomenclature for Properties and Units) codes which are unique identification number for each single investigation, providing a terminology for identification of clinical laboratory test values.
+- **LABKA:** Clinical laboratory data in Denmark are stored in the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939) system. This source predominantly uses NPU (Nomenclature for Properties and Units) codes, which are unique identification numbers for each investigation, providing a terminology for the identification of clinical laboratory test values.
 
 - **RKKP Quality Databases:** The Danish Clinical Registries (RKKP) databases, described above, depend on the SKS coding system, reflecting Danish healthcare specifics. Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., WHO) is crucial.
 
-Efforts toward standardization involves the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. For research findings to be shared internationally, alignment between local coding systems, such as SKS, and global standards is needed.
+Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. For research findings to be shared internationally, alignment between local coding systems, such as SKS, and global standards is needed.
 
 Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, adherence to principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
 
 
 ## Prospective Studies: FAIR Data Principles
 
-With the continuous increasing amount of data being produced globally, a need exists for ensuring research data are findable, accessible, interoperable, and reusable. Principles for good data, metadata, and infrastructure practices are considered important for navigating all of the available information.
+With the continuously increasing amount of data being produced globally, a need exists for ensuring research data is findable, accessible, interoperable, and reusable. Principles for good data, metadata, and infrastructure practices are considered important for navigating all of the available information.
 
-[In 2016, the FAIR principles were introduced in the scientific journal Nature](https://www.nature.com/articles/sdata201618). These principles represented a well-received approach to addressing data management challenges. The FAIR data principles provide a guide on how to navigate in all of this data while optimizing the usage of the data.
+[In 2016, the FAIR principles were introduced in the scientific journal Nature](https://www.nature.com/articles/sdata201618). These principles represented a well-received approach to addressing data management challenges. The FAIR data principles provide a guide on how to navigate all of this data while optimizing the usage of the data.
 
-The FAIR principles is an acronym for:
+The FAIR principles are an acronym for:
 
 - **[Findable](https://www.go-fair.org/fair-principles/)**: Information about data and the metadata should be public and referenced.
 - **[Accessible](https://www.go-fair.org/fair-principles/)**: Data and metadata should be possible to access.
@@ -225,7 +225,7 @@ FAIR data principles have been broadly adopted and are included in international
 
 For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
-However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal aspects regarding data sharing may create boundaries on the level of detail that can be shared and may restrict data access. The  effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles, may be a limitation.
+However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal aspects regarding data sharing may create boundaries on the level of detail that can be shared and may restrict data access. The effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles may be a limitation.
 
 An introduction to theoretical concepts and principles related to data management, such as FAIR, has now been reviewed. In the next section, concrete tools for data storage will be presented.
 
@@ -235,7 +235,7 @@ Digital platforms designed for the storage of data intended for modeling are kno
 
 Multiple datasets, referred to as tables in database terminology, can be held within a database. Operations such as customization, merging, and filtering can be performed on these tables. Structured Query Language (SQL) must be employed to perform data management operations. SQL is a way of communicating with the database to extract the necessary data.
 
-As a simple example, consider a requirement where data for patients aged between 18 and 100 years must be extracted from a table named TUMOUR_DATA. If data from all columns are needed, the symbol (*) is utilized. The corresponding SQL query is formulated as follows:
+As a simple example, consider a requirement where data for patients aged between 18 and 100 years must be extracted from a table named TUMOUR_DATA. If data from all columns is needed, the symbol (*) is utilized. The corresponding SQL query is formulated as follows:
 
 ```SQL
 SELECT *
@@ -245,13 +245,13 @@ FROM TUMOUR_DATA
 WHERE age BETWEEN 18 AND 100;
 ```
 
-Different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database**, which consist of multiple tables with connections among them through foreign keys.
+Different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database**, which consists of multiple tables with connections among them through foreign keys.
 
 <div style="overflow: auto;">
 <img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
 </div>
 
-Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, and integrate diverse data sources. For instance, when developing a hospital readmission risk model, a researcher could query patients based on specific diagnoses, medication histories, and demographic characteristics, rather than manually combining separate datasets.
+Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations and integrate diverse data sources. For instance, when developing a hospital readmission risk model, a researcher could query patients based on specific diagnoses, medication histories, and demographic characteristics, rather than manually combining separate datasets.
 
 
 To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
@@ -284,39 +284,38 @@ In this subsection, there was a comprehensive introduction to some of the consid
 
 ## Data Management
 
-In this subsection of the course, there will be a practical approach to the data management aspect. This part is critical as data management has a significant influence on the modeling.
+A practical approach to data management is presented in this subsection. This topic is critical, as modeling is significantly influenced by data management.
 
-The principle that 'The quality of output is determined by the quality of input' represents a fundamental concept in data science that emphasizes the critical importance of preparing the data before it is fed into the model. This subsection will address the challenges associated with data management, including data representation methodologies, data aggregation techniques, dataset partitioning, handling of missing values, and the feature engineering processes.
+The principle that 'The quality of output is determined by the quality of input' represents a fundamental concept in data science that emphasizes the critical importance of preparing the data. Challenges associated with data management are addressed in this subsection, including data representation methodologies, data aggregation techniques, dataset partitioning, handling of missing values, and feature engineering processes.
 
 ### Starting Point
 
-Returning to the example of predicting when to provide palliative SACT treatment to cancer patients, in order to most efficiently build model applications, implementing a well-established framework is recommended. An advanced example of such a framework can be found here: [Tomašev et al. (2021) Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records](https://www.nature.com/articles/s41596-021-00513-5). This is a great example of an end-to-end dynamic prediction model.
+To structure the modeling process efficiently, the implementation of a well-established framework is recommended. Returning to the dynamic prediction model for palliative SACT treatment for cancer patients, for illustrates how to establish a research framework. An advanced example of such a framework can be found here: [Tomašev et al. (2021) Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records](https://www.nature.com/articles/s41596-021-00513-5). This is a great example of an end-to-end dynamic prediction model.
 
-Let us consider how to design such a framework for our SACT prediction model:
+The design of such a framework for the SACT prediction model example is outlined below:
 
 | Setting | 30-day mortality example |
 |:----|:----|
-| A clinically relevant problem is identified | Can it be predicted which patients with advanced cancer die within 30 days? |
-| It has been decided how the outcome will be evaluated | Date of death (of any cause) extracted from the CPR register |
-| Inclusion and exclusion criteria are set (OBS: It needs to be generalizable to a prospective setting, criteria assessable from the point where model inference begins) | Include patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer |
-| Prediction time points are defined | Every registered contact the patient has with Department of Oncology |
+| A clinically relevant problem is identified | Can mortality within 30 days be predicted for patients with advanced cancer? |
+| It has been decided how the outcome will be evaluated | Date of death (any cause) extracted from the CPR register |
+| Inclusion and exclusion criteria are set (Note: Criteria must be generalizable to a prospective setting and assessable from the point where model inference begins) | Patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer, are included |
+| Prediction time points are defined | Every registered contact the patient has with the Department of Oncology |
 | Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
 
-So now there is established a framework which is the design used for the study and which provides a solid overview of what the study tries to achieve and how the study will achieve it.
-
-But a strategy needs to consider the potential issues with the data and how to account for that, so the next section will cover some potential issues and some countermeasures.
+A framework, representing the study design, has now been established. An overview of the study's aims and methods is provided by this structure. However, potential data issues and mitigation strategies must also be considered. Potential issues and corresponding countermeasures are covered in the next section.
 
 ### Challenges with data
 
-After data has been received and loaded into the computer of the researcher, the first thing to identify is the flaws of the dataset.
-
-Real-world datasets are rarely cleaned and ready to be inputted in a pipeline. Therefore, it becomes crucial for data management to understand the flaws of the dataset as it is the foundation of the data management strategy to be aware of the weaknesses of the dataset.
+After the data are obtained, dataset flaws should be identified. Real-world datasets are rarely cleaned and ready to be input into a pipeline. An understanding of dataset flaws is therefore foundational to the data management strategy.
 
 #### Missing data
 
-As the data collected for the predictive modeling is collected, it may be visible that some columns have more values than others, and this is the first sign that there are missing values.
+When data are collected for predictive modeling, differing numbers of values between columns may indicate the presence of missing values.
 
-Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset and they frequently occur in data, and the amount of missing data often increases as the complexity of the dataset increases. This should be understood as the amount of columns, rows, registries the data is pulled from, and the data types. Missing data are often present as empty cells or as the term 'nan':
+Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset, and they frequently occur in data, and the amount of missing data often increases as the complexity of the dataset increases. This should be understood as the number of columns, rows, registries the data is pulled from, and the data types. Missing data are often present as empty cells or as the term 'nan':
+
+Missing values, often represented as *NaN* (Not-a-Number), are often present in a dataset. The amount of missing data often increases as the complexity of the dataset increases. Dataset complexity can relate to the number of columns and rows, the variety of data sources (e.g., registries), and the different data types involved. Missing data may be represented by empty cells or by a specific marker, such as *NaN*
+
 
 ##### Blood Pressure Table with Empty Cells
 
@@ -336,13 +335,12 @@ Missing values (often referred to as Not-A-Number (nan)) are often present in a 
 | 118            | 75               |
 | 128            | 82               |
 
-Missing data should not necessarily be seen as a negative feature of the dataset. Missing data can also contain some information which can be interpreted in an analysis or model.
+Missing data is not necessarily a negative dataset feature. Informative patterns may even be contained within missing data, which can be interpreted during analysis or modeling.
 
-However, missing data cannot be ignored as multiple models need the researchers to make decisions about the missing data, as the models simply cannot accept datasets with missing data.
-To handle missing data, many strategies can be used, such as:
+However, missing data cannot be ignored. Decisions regarding their handling are required because many models cannot process datasets containing missing values. Many strategies can be used for handling missing data, such as:
 
 - **Deletion**: Remove rows or columns with missing values
-- **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or most frequent value
+- **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or frequent value
 - **Constant Value Imputation**: Fill missing values with a specific constant (like zero or a designated "missing" value)
 - **Predictive Modeling**: Use machine learning algorithms to predict missing values based on other features
 - **Multiple Imputation**: Generate multiple complete datasets with different plausible values for the missing data
@@ -353,198 +351,207 @@ More advanced strategies can also be applied:
 - **Gaussian processes:** These are probabilistic models that can be used to predict missing values based on the observed data, also providing a measure of uncertainty for the imputed values.
 - **Generative adversarial networks:** GANs are a type of deep learning model that can learn the underlying data distribution and generate plausible values for missing data points.
 
-These suggestions can be found in the paper, [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5).
+These suggestions can be found in the paper [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5).
 
 #### Irregular sampling
 
-As addressed in the motivation about dynamic modeling, the healthcare sector is a huge source of irregular sampling, as the data depends on health and people.
-Health and people are two dynamic factors as sickness can develop in many ways, and people's behavior is hard to predict.
+Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behavior, which cannot be easily predicted. Resulting in an irregular pattern in data collection timing, for instance, in hospital contacts, necessitates that specialized modeling techniques, including dynamic models, be utilized.
 
-Due to all the uncertainty regarding health and people, there is no regular pattern in hospital contacts, illustrating the need for dynamic models.
+While these irregularities can present analytical challenges, it should be noted that valuable information may also be contained within the time intervals between recorded events.
 
-These irregularities are not entirely an issue, but the distance between events may also hold valuable information.
-
-In order to structure irregularly sampled data, different strategies can be employed like:
+For the structuring of irregularly sampled data, several strategies can be employed. These include strategies such as:
 
 - Resampling the data into uniform intervals
 - Aggregating the data into uniform chunks
-- Using models which can handle these irregularities
+- Using models that can handle these irregularities
 
-The basic idea is to gather all the small pieces into fewer larger pieces which can be standardized as input for the model.
+Intuitively, the idea is to gather all the small pieces into fewer larger pieces, which can be standardized as input for the model.
 
 #### Data quality
 
-When working with registry data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, nurses, etc.
-These people work at any hour of the day and they have different degrees of expertise. Additionally, as time progresses, new diagnoses are added, others are edited, treatments change, etc. With all these considerations, there is a high probability that the data quality may be influenced by these factors.
+When working with registry data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals.
 
-To sum up the data quality, the data analyst who wants to build a model must be aware of:
+Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change, etc. Given these factors related to manual entry, personnel variability, and system changes, it is probable that data quality is affected.
+
+Therefore, an awareness of potential data quality issues must be maintained by analysts. Such issues include:
 
 - Data entry errors
-- Inconsistencies in the data
+- Inconsistencies within the data
 - Missing data
 - Outliers (due to mistakes)
-- Biases
+- Biases introduced during the data collection
 
-For an analyst, it may be difficult to distinguish good and poor data quality, which makes it important to work closely with clinicians and use their expertise to understand the data.
+Assessment of data quality by an analyst alone can be difficult. Close collaboration with clinicians is therefore important, so that their expertise can be utilized for the correct interpretation and understanding of the data.
 
-#### Data collected for other purposes than modeling
+#### Data collected for purposes other than modeling
 
-Considering patient registries, the data was mainly collected because of administration and to journal a patient.
-These registries were not created for the purpose of storing data for predictive modeling, similarly to many other data sources.
+Considering patient registries, the data was mainly collected for administration and to document patients.
+These registries were not created for the purpose of storing data for predictive modeling, similar to many other data sources.
 This is why the data management part is so crucial and takes up so much time.
 
-This also means that relevant predictors may be missing and potential hidden biases can cause trouble for the modeling.
+This also means that relevant predictors may be missing, and potential hidden biases can cause trouble for the modeling.
 
 It can be concluded that there are a lot of pitfalls when working with data, and some of these issues have been presented in this course. This leads to the natural question of **what to do about it?**
 
+
+
+
+
+
+
+
+
 #### Check your data
 
-To make sure we get a good output from the model, there needs to be good input. This can be achieved by taking several measures:
+For reliable model output to be obtained, high-quality input data is required. This requirement can be addressed through several approaches detailed below:
+
 
 #### Talk to personnel
 
-Talking to the experts and the people at the front is significant for the preprocessing of the data. To understand how the clinicians collect the data,
-the dilemmas regarding the data collection, understand potential flaws or why some data seem unusual.
+Consultation with domain experts and personnel directly involved in data collection is important for effective data preprocessing. Through consultation, an understanding can be gained regarding several aspects of data management:
+
+- How data is collected by clinicians.
+- Dilemmas or constraints associated with the data collection process.
+- Potential systemic flaws or sources of error.
+- Reasons why some data values or patterns might appear unusual.
+
 
 #### Make summary statistics
 
-Making summary statistics can offer a lot of information regarding the dataset we are working with. As analysts, there are some expectations for the data and the shape of the data.
-When looking at the summary, it becomes easy to compare the expectation with the reality of the data.
-
-Some of the things that become apparent when looking at the data is the degree of:
+Making summary statistics can offer a lot of information regarding the dataset. There are some expectations for the data that can be examined through summary statistics.
+Some of the things that become apparent when looking at the data are the degree of:
 
 - Missing data
 - Outliers
 - Unexpectedly recurring values
-- etc.
 
-When there is an overview of these flaws, the next step is to make a data management strategy which takes these considerations into account.
+When there is an overview of these flaws, the next step is to make a data management strategy that takes these flaws into account.
 
 #### Pattern or random missing?
 
 Missing data is a tricky problem, and before any imputation, removal, or similar is considered, the missing values should be studied for patterns.
 Does missing data occur in the same intervals?
 
-Often when addressing missing values, three categories are used:
+Missing values are often categorized into three categories:
 
 ##### Missing completely at random:
-The data is missing completely at random, meaning there is no relationship between the missing data and any other values related to the data set.
+The data is missing completely at random, meaning there is no relationship between the missing data and any other values related to the dataset.
 
 ##### Missing at random:
-The data is missing due to an underlying systematic structure of the data, that is it is missing because of an observed variable.
+The data is missing due to an underlying systematic structure of the data, that is, it is missing because of an observed variable.
 An example could be that a registry about depression may have surveys where a lot of the surveys have missing data.
 However, if the surveys are conditioned on gender, it can be seen that there is a pattern of males not completing the survey compared to females.
 
 ##### Missing not at random:
-There is a pattern of the missing data connected to some unobserved data.
-Let us return to the registry over depression and look at those who have severe depression; those people have a high probability of not completing a survey.
+There is a pattern of missing data connected to some unobserved data.
+Returning to the example of the registry on depression. For those people who have severe depression, have a high probability of not completing a survey.
 
 These three categories of missing data were briefly introduced in this course.
-For more information or details about the example case of the registry for depression, please read more [here](https://www.ncbi.nlm.nih.gov/books/NBK493614/)
+ Further information, potentially including additional details on the concepts and the depression registry example, can be referenced [here](https://www.ncbi.nlm.nih.gov/books/NBK493614/)
+
 
 #### Is the recording of the outcome good enough?
 
-An analyst should be critical when picking a data source, as the quality of these sources can vary and can make incorrect input, hence wrong predictions.
+Critical assessment should be applied by analysts during data source selection, as the quality of sources can vary significantly. Input data of poor quality may potentially lead to inaccurate predictions or conclusions.
 
-An example of such a problem is the Danish register of causes of death. A study showed that a significant amount of the causes of death were wrong:
+The Danish Register of Causes of Death can be used as an example to illustrate potential reliability issues. In one study focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate:
 
 <div style="overflow: auto;">
   <img src="../images/Autopsy_case_30percent.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-What the researchers found was that there has been a rather unstructured approach to determining the causes of death, which ultimately meant that 30% of the cases had the wrong cause of death after an autopsy was performed.
+It was found that inconsistent methods had sometimes been utilized for cause-of-death determination. This resulted in findings where, after autopsies were performed, the officially recorded cause of death was determined to be incorrect in approximately 30% of the examined cases.
 
-The lesson here is that an analyst may be cautious about choosing the Danish register of causes of death for an analysis and also to be critical of even well-established data sources.
+This example shows that researchers should be cautious when this specific Danish register is considered for analysis. It also shows that critical evaluation should be applied universally during data acquisition, even when data sources are regarded as well-established or official.
 
-For more information about the case used as an example in this subsection, please read the full paper on [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
+For more information about the case used as an example in this subsection, please read the full paper: [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 
 ### Data representation
 
-To work with dynamic risk prediction and with the unstructured healthcare data that arrives in irregular intervals, **time discretization is an effective solution.**
+For dynamic risk prediction using unstructured healthcare data recorded at irregular intervals, **time discretization** can be employed effectively. As patients arrive at varying times and progress through different parts of the healthcare system during the day, an analyst may consider transforming the data into a structured format to help the prediction model process it efficiently.
 
-As patients come at varying timepoints and they go through different parts of the healthcare system during the day, an analyst may consider transforming the data into something with a structured data format, which helps the prediction model process the data efficiently.
+Selection of a suitable time interval is required to structure the irregularly timed data. The interval size (e.g., hours, days, weeks) is determined primarily by data frequency. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
 
-Choosing a standard range where data can be discretized would help structure the random data. It depends on the amount of data, but some ranges could be to look at hourly data, daily, weekly, etc. It all depends on the frequency of data. If there are plenty of data points every hour, the data should be in hourly format.
 
-To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The choice of the discretization bundling depends on the amount of data, the frequencies, and the preprocessing of the data.
+To increase the performance of the prediction model, it is better to have the data granularity to be as low as possible, to be able to present as many details as possible for the model, which makes the output more detailed as well. The selection of the discretization interval is influenced by data volume, data frequency, and potentially by prior data preprocessing steps.
+
 
 <div style="overflow: auto;">
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-However, once a time chunk has been established, some patients may have multiple values within a parameter in the given time bundle. Let us pretend a patient is being followed during a day of hospitalization where the blood pressure is measured multiple times.
-If the time is in 12-hour bundles, then the blood pressure values need to be aggregated somehow. A good solution may be to take the average of these values. Another good solution may be to take the most recent measurement.
+Once a time chunk has been established, some patients may have multiple values within a parameter in the given time bundle. For example, if blood pressure is measured several times within a selected 12-hour interval, these multiple measurements must be aggregated into a single representative value.  Common aggregation methods include the calculation of the average value or the selection of the most recent value within the interval. Another solution may be to take the most recent measurement.
+
 
 <div style="overflow: auto;">
   <img src="../images/data_aggregation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-A strategy to work with historical data, as for the case with dynamic prediction models, is to consider having a lookback window for each prediction.
+A strategy to work with historical data, as in the case with dynamic prediction models, is to consider having a lookback window for each prediction.
+
+In dynamic prediction models that utilize historical data, a lookback window strategy is often employed for each prediction point.
+
+
 <div style="text-align: center;">
   <img src="../images/Lookback_window.PNG" alt="Image" style="margin-bottom: 15px; width: 35%;">
 </div>
 
-It can be helpful for multiple models to only look back a short period of time for each prediction for some variables, while other variables need a window that goes further back in time.
-It is a question of subject, like blood measurement which does not need to look as far back as a diagnosis. The reason is some subjects are more 'predictable' and can be explained with many simple interactions between feature variables. A more complex topic such as predicting a diagnosis needs more factors to consider with more data in longer time horizons, to offer the best prediction possible, still with a lot of uncertainty.
-Some models like Recurrent Neural Networks are better built for long sequences, while linear models are better off with shorter sequences.
+The optimal length of this window can vary. For some variables (e.g., recent physiological measurements), a short lookback period may be sufficient. For others (e.g., historical diagnoses), a longer window incorporating more past data might be required. The choice of window length can be influenced by the prediction model type. A model like Recurrent Neural Networks is designed to handle longer sequences, while linear models might be more effective with shorter sequences.
 
-When working with lookback windows and some values need aggregation as described already, the options of aggregation depend on the data type.
+When lookback windows are utilized, aggregation of multiple values within the window may be necessary. The specific aggregation method chosen often depends on the data type. Common options aggregation includes:
+
 Some aggregation options:
 
-- For continuous values: count, median, mean, standard deviation, max/min/average difference between subsequent entries
-- For categorical values: binary variable for present or not during lookback window
+- For continuous values: Calculation of count, median, mean, standard deviation, maximum/minimum values, or the average difference between subsequent entries within the window.
+- For categorical values: Creation of a binary indicator signifying presence within the window (e.g, variable indicating event).
 
-**More information can be found in a paper, which has yet to be found**
+The selection of an appropriate aggregation method should be informed by statistical considerations and ideally made in collaboration with relevant domain experts.
 
-To make a decision regarding the aggregation of repeating values, the data analyst should get an overview of the statistical techniques to do this operation and base the decision on collaboration with relevant experts.
+**Data leakage:** occurs when information from the test data is accidentally included in the training data. For model building, a dataset is typically split into a training set, used for model fitting, and a test set, used for performance evaluation. Leakage results if the training data contains information related to outcomes in the test set.
 
-Another concept to be aware of is the possibility of **Data Leakage**, which is when some information in the test data can be found in the training data.
-When building a prediction model, one would have a fraction of the dataset to train the model and a fraction of the data to test the model's performance. The model is trained on data it can see and it is tested on data it cannot see.
-The problem with data leakage is when some information of the unseen data is present in the seen data. An example of this could be a patient who gets sick and then goes to the hospital, where the person is registered.
-This means that there can be a gap of hours to days between when a person gets sick until it is registered. A solution here is to choose a time bundle which accounts for this difference.
+An example could be delays in event recording. A patient's illness might be recorded hours or days after its actual onset. A time gap may therefore exist between an event and the system registration. Such time dependencies must be carefully considered during data preparation and model validation processes to prevent data leakage.
 
-**More information can be found in a paper, which has yet to be found**
+**More information can be found in a paper, which has yet to be found.**
 
-### Splitting data - Holdout method
+### Splitting data for Model Evaluation
 
-To get the best performing model, it needs to be a model which can be trained on some data and tested on some unseen data, without any significant difference in performance.
-This means that a data analyst cannot make a model on some data and set the model in production, as the model is better at predicting what it was trained on, but most likely not on any unseen data.
+To get the best performing model, it needs to be a model that can be trained on some data and tested on some unseen data, without any significant difference in performance. Models that generalize poorly are unsuitable for deployment, as performance on new data will likely be low. It is a significant part of the modelling to ensure that model evaluation must be conducted using data not seen during training.
 
 <div style="text-align: center;">
   <img src="../images/Data_split.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-The splitting of the data varies, depending on the task. The most basic approach is to have a training set and a test set.
-The ratio between train and test is often 80/20 percent of the data. This ratio can vary and there can be instances depending on the amount of data and the choice of the author.
 
-The validation set is a pre-test set as it is used for optimization of hyperparameters. Many models have a range of hyperparameters to adjust when training the model to increase the performance.
-As models become more complex, hyperparameter tuning becomes more important for the model. To properly evaluate the hyperparameters, the validation set is used to optimize the hyperparameters until some stopping criteria are met.
-When the best performing hyperparameters are found within the given stopping criteria, the model is then evaluated on the test set.
-To sum up the process, the model is trained with the training data, optimized with the validation set, and evaluated on the test set.
+Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: a training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
+
+
+
+For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is finalized. The final model performance is then assessed using the separate test set.
 
 In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
-These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, k=5 is enough, but some suggest k=10.
+These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](Introduction to statistical learning).
 <div style="overflow: auto;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-However, even if k-fold cross validation is a powerful technique, it can still lead to overfitting. As the model is repeatedly trained on the data, it starts to recognize patterns of the training data. To overcome this challenge of potential overfitting, another measure can be used, which is [**nested Cross-validation**](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/).
-The basic idea is that there is an additional loop in the cross validation where there is an outer loop which is the same approach as ordinary k-fold cross validation. But this time an inner loop is added to the individual folds, where there is an additional k-fold cross validation for each k of the outer loop. The inner cross validation is used to find the best model in that particular part of the outer split, which will be tested on the testing set of the outer loop. Graphically it looks like this:
+
+Although K-fold cross-validation provides a more robust performance estimate than a single train-test split, a potential for bias exists if hyperparameter tuning is performed incorrectly within the cross-validation procedure. If the test fold in each iteration of K-fold cross-validation is used to evaluate different hyperparameter settings, information from the test fold influences the selection of the best hyperparameters. This can lead to an overly optimistic performance estimate.
+
+To address this potential bias, [Nested Cross-Validation](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/) can be employed. This technique uses two levels of cross-validation loops. An outer loop and an inner loop. The outer loop divides the data into 'k' folds, with folds for training and testing in each iteration, similar to standard K-fold cross-validation. But, within each iteration of the outer loop, an inner K-fold cross-validation is performed using only the training data portion from the outer loop. This inner loop's purpose is hyperparameter optimization. The best hyperparameters identified by the inner loop are then used to train a model on the outer loop's training data. Finally, this model's performance is evaluated on the outer loop's test fold. This process is repeated for all outer loop folds.
 
 <div style="overflow: auto;">
   <img src="../images/nested_cross_validation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-As only a subset of the dataset, one fold at a time, is evaluated with an additional k-fold cross validation, the risk of the models overfitting the data is greatly reduced.
+As only a subset of the dataset, one fold at a time (outer loop), is evaluated with an additional k-fold cross-validation (inner loop), the risk of the models overfitting the data is greatly reduced.
 
 ### Feature engineering
 
-Feature engineering is a crucial step in the data management process, where features can be selected, transformed into the best possible input, and where additional features based on the existing features can be created to support the model's understanding of feature scales or interactions.
+Feature engineering is an important step in model preparation. In this step, features are selected, modified, or created from existing data. These actions are taken to improve model performance by refining the input data or better representing feature characteristics like scale or interactions.
 
-One of the first things to do when the data for the prediction model is secured is to **identify useful features**.
-The most efficient way to measure the importance of the features is to discuss with the clinicians, as they are better suited to provide insight into what they think is important for the specific case. This means that another important factor for choosing features is the **Data quality** of the features. Some features with low quality would be better to remove if there is not an expected gain from keeping the feature.
+ The first task, once model data is obtained, is to **identify potentially useful features**. Insights regarding feature relevance can be gathered through discussion with clinicians, who can provide expertise that can help find important factors for the specific clinical case. Data quality is another important factor to consider in feature selection. Features with poor data quality might be removed if their inclusion is not expected to provide any reasonable gains for the analysis.
 
-After sorting through features and deciding which ones to keep, you may need to create additional features based on existing ones. This step is often necessary because some models require data in specific formats, while other models can achieve better performance with 'helper' features that provide supplementary information. For example, you might transform continuous variables into binary or categorical values to indicate whether a measurement falls into low, normal, or high ranges — as commonly done with blood pressure readings:
+After feature selection, new features may need to be created from existing ones. This creation can be required by certain model algorithms that need specific data formats. It can also be done because model performance may be improved by derived features that provide useful context. For instance, continuous variables can be transformed into categorical values. An example is the categorization of blood pressure measurements into defined ranges (e.g., normal, elevated, high):
 
 | BLOOD PRESSURE CATEGORY | SYSTOLIC mm Hg (upper number) | and/or | DIASTOLIC mm Hg (lower number) |
 |:---|:---|:---|:---|
@@ -554,15 +561,19 @@ After sorting through features and deciding which ones to keep, you may need to 
 | HIGH BLOOD PRESSURE STAGE 2 | 140 OR HIGHER | or | 90 OR HIGHER |
 | HYPERTENSIVE CRISIS (consult your doctor immediately) | HIGHER THAN 180 | and/or | HIGHER THAN 120 |
 
-More about the table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).
+Further details about the table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).
 
-Adding these annotations can help the model better understand the implications of the ranges of a continuous variable.
+Adding these categorizations can help the model better understand the implications of the ranges of a continuous variable.
 
-Categorical variables can also cause problems, as there can be some categories with few observations.
-These few observations can make it hard for the model to find any meaningful relations while also causing the model to overfit on these cases, so the model could observe unrelated random patterns as there is not enough information to confirm a relation.
-Furthermore, there can be some privacy issues as health data is sensitive data and the model should not reveal anything about certain individuals. This is why it can be beneficial to collapse some of the categories into fewer and larger ones. An example could be some types of symptoms:
+Categorical variables can also cause problems, particularly when some categories have few observations. These limited observations can make it difficult for a model to identify meaningful relationships and can lead to overfitting on these specific cases. Consequently, the model might interpret random noise as a significant relationship due to insufficient data to confirm a true association.
 
-##### Original Dataset: Patient Primary Symptoms
+Furthermore, privacy concerns arise with sensitive health data, and models should not reveal information about individuals. Therefore, it can be beneficial to collapse some categories into fewer, larger ones. An example of this could involve grouping certain types of symptoms:
+
+##### Example: Grouping Infrequent Categories
+
+The following fictional tables illustrate how categories with few observations can be grouped.
+
+**Original Dataset: Patient Primary Symptoms**
 
 | Primary Symptom | Patient Count |
 |:---|:---|
@@ -572,7 +583,7 @@ Furthermore, there can be some privacy issues as health data is sensitive data a
 | **Skin rash** | 15 |
 | **Body ache** | 2 |
 
-##### After Collapsing Infrequent Values
+**After Collapsing Infrequent Values**
 
 | Primary Symptom | Patient Count |
 |:---|:---|
@@ -581,14 +592,19 @@ Furthermore, there can be some privacy issues as health data is sensitive data a
 | Fever | 150 |
 | **Other Symptoms** | 17 |
 
-The two tables are fictional and used to show how rarely occurring events can be collapsed together.
+Due to the sparsity of 'Skin rash' and 'Body ache', they have been collapsed into an 'Other Symptoms' category.
 
-Another approach to handle categorical values is to transform them into binary variables which represent each category in a variable.
-This provides the model with additional information and is a way for linear models to handle non-binary categorical variables, which they are normally unable to.
-One-hot encoding also helps in terms of the distance in nominal variables.
-A model may interpret a nominal value to have some type of ordering among the variables, but by splitting the categories into separate binary features, the model can handle the categories more efficiently. An example could be a gender variable:
+**Transformation to Binary Variables (One-Hot Encoding)**
 
-#### Before One-Hot Encoding
+As an alternative method for handling categorical values, transformation into binary variables, known as one-hot encoding, can be performed. In this technique, each category is represented by a separate binary (0 or 1) feature.
+
+This transformation serves the purpose of allowing categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
+
+Also, **One-hot encoding** is beneficial in addressing the distance or ordering in nominal variables. Without it, a model might interpret a nominal value as having some type of inherent order or distance between categories. By splitting the categories into separate binary features, the model can handle them more effectively because it will not interpret any distance between these categorical variables as meaningful. For example, a gender variable could be encoded as follows:
+
+#### Example: One-Hot Encoding
+
+**Before One-Hot Encoding**
 | Gender |
 |:---|
 | Male   |
@@ -597,7 +613,7 @@ A model may interpret a nominal value to have some type of ordering among the va
 | Female |
 | Male   |
 
-#### After One-Hot Encoding
+**After One-Hot Encoding**
 | Male | Female |
 |:--- |:--- |
 | 1    | 0  |
@@ -606,29 +622,36 @@ A model may interpret a nominal value to have some type of ordering among the va
 | 0    | 1  |
 | 1    | 0  |
 
-Note that including all variables leads to linear dependence, so one variable should be omitted when dealing with models not built to handle this, but for models with regularization it is important to include all variables, as the optimization problem changes depending on the removed variable. https://stats.stackexchange.com/q/329281
+Linear Dependence (Multicollinearity):
+It should be noted that including binary variables for all categories introduces perfect linear dependence among these features. For some models (like in a standard linear regression), this causes computational issues. This issue is known as [Dummy Variable Trap](https://medium.com/data-science/one-hot-encoding-multicollinearity-and-the-dummy-variable-trap-b5840be3c41a). In such cases, one binary variable is typically left out to remove this dependence, which is the way of avoiding the dummy variable trap. The left-out category becomes the baseline or reference level.
 
-**Devnote: Fix this reference**
+Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/), which can affect model performance and computational requirements.
 
-However, there are some considerations about how the dimensions of a dataset can grow rapidly and lead to consequences like the [Curse of dimensionality](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). Despite this consideration, One-Hot encoding remains a popular and effective tool in the feature engineering toolbox.
+**Outliers**  are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
 
-**Outliers** are something which also calls for feature engineering. Some outliers are legitimate, but other outliers can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to upper percentiles and if the values seem to be a product of a mistake, the model would be better with the upper percentile cut.
+**Feature scaling**
 
-**Feature scaling:** The scaling of feature values is crucial for model performance. Scaling the features can make them contribute to the model more proportionally, as features can come in all sorts of unit sizes. Variables with larger ranges will have a heavier influence on the models. Scaling also improves the convergence speed as the optimization space becomes smoother compared to unscaled inputs. Some of the common scaling methods are:
+Adjusting the scale of features, known as feature scaling, is often an important step for improving model performance. Features used in a model can have vastly different natural ranges or units. Without scaling, features with larger values or wider ranges can exert a disproportionate influence on the learning process of certain algorithms. Scaling can help ensure that features contribute more evenly to the model results. Scaling also contributes to the convergence speed for certain algorithms, as scaling can help ensure that features contribute more evenly to the model results.
+
+Some common methods used for feature scaling include:
 
 - **[Standardization:](https://www.geeksforgeeks.org/what-is-standardization-in-machine-learning/)** Transform the data by subtracting the datapoint from the mean of the data and dividing it by the standard deviation
 $$X_{new} = \frac{x_i - \mu}{\sigma}$$
+
+This process results in transformed features having a mean of approximately 0 and a standard deviation of approximately 1.
+
 - **[Min-max scaling:](https://medium.com/@iamkamleshrangi/how-min-max-scaler-works-9fbebb9347da)** Rescales features to a range between 0 and 1, based on the minimum and maximum values of the dataset
 $$X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
 
-The choice between the scaling methods depends on the distribution of the data. If the data is **normally distributed**, pick standardization, and if the data is **not normally distributed**, go with Min-max scaling.
+The selection between scaling methods should be informed by the specific machine learning algorithm being used and the characteristics of the data itself. A guide for making the decision about which method to use can be found [here](https://www.geeksforgeeks.org/normalization-vs-standardization/). Generally, standardization might more often be used for simple models like linear regression or linear discriminant analysis, where the algorithms assume data is centered around zero, while min-max is more often used for complex models like neural networks.
+
 
 #### Summary
-This segment of the course has provided comprehensive insight into the process of gathering data, retrospective and prospective studies. A comprehensive overview of data management has been provided. The aim of this section was to provide an understanding of data and how to process the data before the actual modeling. In the next section, models will be described and a wide range of methods to choose from.
+Data gathering, including retrospective and prospective studies, along with data management techniques, were reviewed in this course segment. An understanding of data and its required processing before modeling was intended to be established.
 
-But before continuing to the next section, please check the exercise below and try to solve it.
+In the subsequent section, models will be described, and various selection methods will be presented.
 
-When the exercise is solved, the next section "Modeling" can be found in the top bar or by pressing this button:
+Before progression is made to the next section, the exercise provided below should be completed. Once the exercise has been solved, the "Modeling" section can be accessed either through the top navigation bar or by use of the button below:
 
 
 &nbsp;
@@ -643,24 +666,24 @@ When the exercise is solved, the next section "Modeling" can be found in the top
 # Exercise
 
 ## Data management
-In this exercise you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in [PAD-introduction.html]() and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
+In this exercise, you will prepare data for training and testing a dynamic prediction model. The data we will consider is described in [PAD-introduction.html]() and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) – all found under Day 1/Workshop 1 on PhD Moodle.
 
-This workshop focuses on preparing data for non-recurrent models, i.e. the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome you can for example choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
+This workshop focuses on preparing data for non-recurrent models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome, you can, for example, choose 1-year mortality, but your are welcome to choose another outcome based on the events data set.
 
 Go through the following steps:
 
-1)	Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
-2)	Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date; as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
-3)	Add baseline variables (in baseline_data) to the dataset (join by patient id).
-4)	Determine which patients goes into the training, validation, calibration, and test split (using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which split each observation belongs to or split your data into the four pieces.
-5)	Perform feature engineering, for example:
-    a.	Do we want to remove some predictors? (e.g., due to missingness or weird values)
-    b.	One-hot encoding of categorical predictors
-    c.	Construct feature for age at each time point
-    d.	How to handle missing values? Imputation*, presence variables, …?
-    e.	Cap and normalise numerical predictors**
-    f.	Summary variables (aggregating historical information)
-6)	Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
+1)  Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+2)  Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date; as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+3)  Add baseline variables (in baseline_data) to the dataset (join by patient id).
+4)  Determine which patients goes into the training, validation, calibration, and test split (using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which split each observation belongs to or split your data into the four pieces.
+5)  Perform feature engineering, for example:
+    a.  Do we want to remove some predictors? (e.g., due to missingness or weird values)
+    b.  One-hot encoding of categorical predictors
+    c.  Construct feature for age at each time point
+    d.  How to handle missing values? Imputation*, presence variables, …?
+    e.  Cap and normalise numerical predictors**
+    f.  Summary variables (aggregating historical information)
+6)  Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
 
 *If you use the mean or regression to impute variables, you should base this on the training set only
 **The values you cap and the values you use to normalise should be based on the training set only
@@ -688,3 +711,4 @@ Solutions to the exercises can be found here:
 </p>
 
 &nbsp;
+
