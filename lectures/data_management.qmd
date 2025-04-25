@@ -132,7 +132,7 @@ This type of organization collaborates across the Danish healthcare sector, ofte
  <img src="../images/stat_dk.PNG" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 39%;">
 </div>
 
-For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning nearly 200 years ([link](https://www.dst.dk/en/OmDS/historie)), provides significant historical depth for longitudinal analysis if required.
+For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning [nearly 200 years](https://www.dst.dk/en/OmDS/historie), provides significant historical depth for longitudinal analysis if required.
 
 For dynamic risk prediction in healthcare, the following relevant registers could be utilized as supplementary resources:
 
