@@ -182,9 +182,8 @@ For more information about biases, please see this [comprehensive list about bia
 If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
 ### Retrospective studies: coding and classification
-# Needs some work
 
-Central to the danish healthcare system is the DNPR, as described above, a repository for patient data used for analyzing disease patterns, and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. a database of all the codes used for all treatments based on World Health Organization’s International Classification of Disease, currently ICD10.
+Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. a database of all the codes used for all treatments based on World Health Organization’s International Classification of Disease, currently ICD10.
 
 <div style="overflow: auto;">
  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 15px; width: 150px;">
@@ -192,14 +191,16 @@ Central to the danish healthcare system is the DNPR, as described above, a repos
 
 *For more information or exploration, please consider visiting [medinfo.dk](medinfo.dk).*
 
-Standardization efforts include the adoption of SNOMED CT (Systematized Nomenclature of Medicine Clinical Terms), a comprehensive medical terminology developed by SNOMED International for uniform data handling. [SNOMED CT](: https://www.snomed.org/) has been incorporated into Denmark's system and combined with FHIR (Fast Healthcare Interoperability Resources), a standard for electronic information exchange. This integration provides healthcare professionals with a streamlined system for data exchange, enhancing standardization and accessibility.
-
 Specific coding systems are used across Danish data sources:
 
-LABKA: NPU (Nomenclature for Properties and Units) codes are predominantly used within the LABKA system for identifying clinical laboratory observations.
-Pathology Results: A custom SNOMED-2 version, potentially similar to ICD-O-3 (International Classification of Diseases for Oncology, 3rd Edition), is reportedly utilized. [Verification may be needed].
-RKKP Quality Databases: The Danish Clinical Registries (RKKP) databases depend on the SKS coding system, reflecting Danish healthcare specifics.
-Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., WHO) is crucial. While locally valid, findings based solely on local codes may lack international clarity. Mapping these codes to global standards translates findings into a universal healthcare language. This process establishes a foundation for international cooperation, increases credibility for globally shared content, and ensures consistency and comprehensibility, mirroring modern interconnected standards.
+- **LABKA:** For clinical laboratory data in Denmark will are stored the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939) system. This source predominantly uses NPU (Nomenclature for Properties and Units) codes which are unique identification number for each single investigation, providing a terminology for identification of clinical laboratory test values.
+
+- **RKKP Quality Databases:** The Danish Clinical Registries (RKKP) databases, described above, depend on the SKS coding system, reflecting Danish healthcare specifics. Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., WHO) is crucial.
+
+Efforts toward standardization involves the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. For research findings to be shared internationally, alignment between local coding systems, such as SKS, and global standards is needed.
+
+Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, adherence to principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
+
 
 ## Prospective Studies: FAIR Data Principles
 
@@ -244,21 +245,17 @@ FROM TUMOUR_DATA
 WHERE age BETWEEN 18 AND 100;
 ```
 
-There are different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database**, which consist of multiple tables with connections among them, so every table can be connected one way or another.
+Different types of databases, and the choice of database is based on the use case and preference. A popular database type is the **relational database**, which consist of multiple tables with connections among them through foreign keys.
 
 <div style="overflow: auto;">
 <img src="../images/relational_database.PNG" alt="Image" style="margin-bottom: 15px; width: 59%;">
 </div>
 
-Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, track changes over time, and integrate diverse data sources. For instance, when developing a hospital readmission risk model, a researcher could simultaneously query patients based on specific diagnoses, medication histories, and demographic characteristics, rather than manually combining separate datasets.
+Relational databases are particularly valuable for dynamic risk prediction modeling as they allow researchers to efficiently query specific patient populations, and integrate diverse data sources. For instance, when developing a hospital readmission risk model, a researcher could query patients based on specific diagnoses, medication histories, and demographic characteristics, rather than manually combining separate datasets.
 
-#############################
-########## HERTIL ###########
-#############################
 
 To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
 
-There are also different types of relational database management software solutions, where Postgres is a popular free solution, Oracle is more of a corporate software solution, and SQLite is a rather lightweight free solution, etc. These software solutions are beyond the scope of this course. To learn more about these software options, please read about them [here](https://medium.com/@longjohn1337/comparing-sql-database-technologies-mysql-mssql-postgresql-sqlite-and-oracle-sql-95699b9c805e).
 
 ### Introduction to REDCap
 
@@ -267,21 +264,19 @@ Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to
 <div style="overflow: auto;">
   <img src="../images/redcap.PNG" alt="Image" style="margin-bottom: 15px; width: 60%;">
 </div>
-The purpose of REDCap is to ease collecting and managing clinical data with standard <!-- typical?--> quality standards.
-REDCap has a range of tools which ease the process of managing clinical data while also providing high security for handling the data. Some of these tools are:
+The collection and management of clinical data according to established quality standards are intended to be simplified by REDCap. A range of features is provided by REDCap that facilitate data management while ensuring high data security. Key capabilities include support for:
 
 - [Arms](https://help.redcap.ualberta.ca/help-and-faq/what-are-arms)
 - [Longitudinal data collection](https://www.iths.org/news/redcap-tip/longitudinal-projects-in-redcap/)
 - [API access for programming](https://projectredcap.org/wp-content/resources/REDCapTechnicalOverview.pdf)
 
-These tools make it easy to work with clinical data compared to not using REDCap as:
+These tools make it easy to work with clinical data because:
 
 1) REDCap has a simple interface
 2) REDCap can store sensitive information
 3) [REDCap is widely adopted](https://projectredcap.org/)
 
-However, like all tools, REDCap is not without its limitations, as it does not fully embrace relational data.
-This can be a limitation in clinical research, where data points often have complex relationships.
+However, limitations exist. Full support for complex relational data models is not provided by REDCap. This can be a constraint in clinical research contexts where intricate relationships between data points are common.
 
 For a practical implementation of REDCap and the FAIR data principles, check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
 
