@@ -75,7 +75,7 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 &nbsp;
 
-**Annotations** are additional labels, interpretations, or classifications applied *to* data points or datasets. These are often added based on domain expertise to categorize data values, provide clinical significance, or facilitate understanding for non-experts. Annotations enhance both data management and modeling efforts.
+**Annotations** are additional labels, interpretations, or classifications applied to data points or datasets. These are often added based on domain expertise to categorize data values, provide clinical significance, or facilitate understanding for non-experts. Annotations enhance both data management and modeling efforts.
 
 *Example of annotations applied to blood pressure data:*
 
@@ -122,7 +122,7 @@ The Danish Health Data Authority is one of the country's primary entities for co
  <img src="../images/DHQI.png" alt="Logo associated with the Danish Healthcare Quality Institute" style="margin-bottom: 15px; width: 39%;">
 </div>
 
-This type of organization collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries (many of which are administered via the Danish Clinical Quality Program). These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
+This type of organization collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
 
 &nbsp;
 
@@ -195,9 +195,9 @@ Specific coding systems are used across Danish data sources:
 
 - **RKKP Quality Databases:** The Danish Clinical Registries (RKKP) databases, described above, depend on the SKS coding system, reflecting Danish healthcare specifics. Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., WHO) is crucial.
 
-Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. For research findings to be shared internationally, alignment between local coding systems, such as SKS, and global standards is needed.
+Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. This helps to ensure alignment between local coding systems, such as SKS, and global standards for the purpose of international collaboration.
 
-Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, adherence to principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
+Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
 
 
 ## Prospective Studies: FAIR Data Principles
@@ -223,7 +223,7 @@ FAIR data principles have been broadly adopted and are included in international
 
 For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
-However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal aspects regarding data sharing may create boundaries on the level of detail that can be shared and may restrict data access. The effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles may be a limitation.
+However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal systems regarding data sharing often creates boundaries on the level of detail that can be shared and often restrict data access. The effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles may be a limitation.
 
 An introduction to theoretical concepts and principles related to data management, such as FAIR, has now been reviewed. In the next section, concrete tools for data storage will be presented.
 
@@ -369,7 +369,7 @@ Intuitively, the idea is to gather all the small pieces into fewer larger pieces
 
 When working with registry data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals.
 
-Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change, etc. Given these factors related to manual entry, personnel variability, and system changes, it is probable that data quality is affected.
+Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change, etc. Given these factors related to manual entry, personnel/professional variability, and system changes, it is probable that data quality is affected.
 
 Therefore, an awareness of potential data quality issues must be maintained by analysts. Such issues include:
 
@@ -472,7 +472,7 @@ To increase the performance of the prediction model, it is better to have the da
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Once a time chunk has been established, some patients may have multiple values within a parameter in the given time bundle. For example, if blood pressure is measured several times within a selected 12-hour interval, these multiple measurements must be aggregated into a single representative value.  Common aggregation methods include the calculation of the average value or the selection of the most recent value within the interval. Another solution may be to take the most recent measurement.
+Once a time chunk has been established, some patients may have multiple values within a parameter in the given time bundle. For example, if blood pressure is measured several times within a selected 12-hour interval, these multiple measurements must be aggregated into a single representative value. Common aggregation methods include the calculation of the average value or the selection of the most recent value within the interval. Another solution may be to take the most recent measurement.
 
 
 <div style="overflow: auto;">
@@ -488,7 +488,7 @@ In dynamic prediction models that utilize historical data, a lookback window str
   <img src="../images/Lookback_window.PNG" alt="Image" style="margin-bottom: 15px; width: 35%;">
 </div>
 
-The optimal length of this window can vary. For some variables (e.g., recent physiological measurements), a short lookback period may be sufficient. For others (e.g., historical diagnoses), a longer window incorporating more past data might be required. The choice of window length can be influenced by the prediction model type. A model like Recurrent Neural Networks is designed to handle longer sequences, while linear models might be more effective with shorter sequences.
+The optimal length of this window can vary. For some variables (e.g., recent physiological measurements), a short lookback period may be sufficient. For others (e.g., historical diagnoses), a longer window incorporating more past data might be required. The choice of window length can be influenced by the prediction model type. A model like Recurrent Neural Networks is designed to handle longer sequences, while linear models are more effective with shorter sequences.
 
 When lookback windows are utilized, aggregation of multiple values within the window may be necessary. The specific aggregation method chosen often depends on the data type. Common options aggregation includes:
 
@@ -503,8 +503,6 @@ The selection of an appropriate aggregation method should be informed by statist
 
 An example could be delays in event recording. A patient's illness might be recorded hours or days after its actual onset. A time gap may therefore exist between an event and the system registration. Such time dependencies must be carefully considered during data preparation and model validation processes to prevent data leakage.
 
-**More information can be found in a paper, which has yet to be found.**
-
 ### Splitting data for Model Evaluation
 
 To get the best performing model, it needs to be a model that can be trained on some data and tested on some unseen data, without any significant difference in performance. Models that generalize poorly are unsuitable for deployment, as performance on new data will likely be low. It is a significant part of the modelling to ensure that model evaluation must be conducted using data not seen during training.
@@ -517,8 +515,7 @@ To get the best performing model, it needs to be a model that can be trained on 
 Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: a training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
 
 
-
-For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is finalized. The final model performance is then assessed using the separate test set.
+For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is set. The final models performance is evaluated on the separate test set.
 
 In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
 These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](Introduction to statistical learning).
@@ -559,7 +556,7 @@ Adding these categorizations can help the model better understand the implicatio
 
 Categorical variables can also cause problems, particularly when some categories have few observations. These limited observations can make it difficult for a model to identify meaningful relationships and can lead to overfitting on these specific cases. Consequently, the model might interpret random noise as a significant relationship due to insufficient data to confirm a true association.
 
-Furthermore, privacy concerns arise with sensitive health data, and models should not reveal information about individuals. Therefore, it can be beneficial to collapse some categories into fewer, larger ones. An example of this could involve grouping certain types of symptoms:
+Privacy concerns is connected with the usage of sensitive health data, and models should not reveal information about individuals. Therefore, it can be beneficial to collapse some categories into fewer, larger ones. An example of this could involve grouping certain types of symptoms:
 
 ##### Example: Collapsing Infrequent Categories
 
@@ -616,12 +613,12 @@ Also, **One-hot encoding** is beneficial in addressing the distance or ordering 
 | 0    | 1  |
 | 1    | 0  |
 
-Linear Dependence (Multicollinearity):
+**Linear Dependence (Multicollinearity):**
 It should be noted that including binary variables for all categories introduces perfect linear dependence among these features. For some models (like in a standard linear regression), this causes computational issues. This issue is known as [Dummy Variable Trap](https://medium.com/data-science/one-hot-encoding-multicollinearity-and-the-dummy-variable-trap-b5840be3c41a). In such cases, one binary variable is typically left out to remove this dependence, which is the way of avoiding the dummy variable trap. The left-out category becomes the baseline or reference level.
 
 Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/), which can affect model performance and computational requirements.
 
-**Outliers**  are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
+**Outliers**  are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration and a topic for discussion. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
 
 **Feature scaling**
 
