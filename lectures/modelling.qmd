@@ -13,16 +13,25 @@ format: html
 
 # Machine learning models
 
-In the first part of the modeling section, a range of machine learning models from simple to complex will be presented. A comprehensive introduction to modeling topics will be provided, beginning with supervised learning, followed by an examination of a simple statistical model.
+In this initial section on modeling, a range of machine learning models, from simple to complex, will be presented. A comprehensive introduction to modeling topics will be provided, beginning with supervised learning, followed by an examination of a simple statistical model.
 
 ## Regression vs. Classification
-This section covers `supervised learning` which are one of two primary approaches in Machine Learning, where the other is `unsupervised learning`. Supervised leaning is when there is some data with labels, then a model is trained to recognizing the characteristics (or features) belonging to these labels. Then data without labels are presented to the model and it is the models task to provide the correct labels to the data. Recall the last section where training a test sets of the data was introduced. In supervised learning are training data the data with the labels and the test set is the data without labels, where the model have to predict the labels. Machine learning models does have two primary problems, which is either regarding the prediction of continuous values, called `regression` or the `classification` of discrete outcomes.
 
+Supervised learning, one of two primary approaches in machine learning (the other being unsupervised learning), is used when data with known outcomes, or "labels," are available. In this process, a model is trained to recognize features associated with these labels. Unlabeled data is then presented to the trained model, and the model's task is to assign the correct labels to this new data. Training and test sets, as introduced previously, are comprised of data with labels and data without labels, respectively, where the model is used to predict the labels for the latter.
 
+Machine learning models are primarily used to address two types of prediction tasks: the prediction of continuous values, known as `regression`, and the `classification` of discrete outcomes.
 
-**Devnote: Make a option where people can look at both R code and Python code**
+<div style="text-align: center;">
+  <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
 
-Regression is concerned with predicting a continuous outcome. Regression is a task where some feature variables is used to train a model to predict some target variable. It could be anything from prediction of house priced based on some relevant features, to prediction of blood pressure on some features. Classification is about predicting which feature variable fits best to some target variable categorise. This also means that it is a discrete value which will be predicted. It can be binary categorise or multiclass categorise. Essentially, this task involves assigning a probability value to each class. Examples of these binary events are most often positive/negative – or true/negative. These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11). In terms of healthcare application is the idea that, a model have been trained with a lot a of clean high quality data and this model can be feed some information (features) about a patient, which can be used for some prediction (providing a label). So if a patient have some different values rising, like blood pressure, body temperature, etc. The model might suggest that it is a sign of some illness coming up. Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing SACT for palliative patients. Such a model could assist the clinicians in making the decision of providing SACT or not. The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision process.
+Regression involves predicting a continuous outcome. This task uses feature variables to train a model that predicts a target variable. Examples include predicting house prices based on relevant features or predicting blood pressure based on physiological measurements.
+
+Classification involves predicting the category, or class, to which an instance belongs based on its feature variables. This results in a discrete value being predicted. Classification can be binary, involving two categories, or multiclass, involving more than two categories. For binary classification, the outcomes are often represented as positive/negative or true/false. These scenarios range from loan approval decisions to medical diagnoses (Hastie et al. 2001:9-11).
+
+In healthcare applications, for instance, a model might be trained using a large amount of clean, high-quality patient data. This model can then be fed information (features) about a new patient, and a prediction or output is produced. If certain physiological values, such as blood pressure or body temperature, are rising, the model might suggest a potential illness.
+
+Another example is drawn from the motivational case study presented in the course introduction regarding the decision on providing SACT for palliative patients. A model could be used to assist clinicians in deciding whether to provide SACT. Relevant patient values would be provided, and a risk score would be produced by the model, which is a significant factor to be considered during decision-making.
 
 ## Logistic regression 
 Different models can be used for classification, but a popular model for classification is the logistic regression model. Logistic regression is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the strong explainability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, if benchmarking multiple models to find the best risk prediction model.
@@ -166,9 +175,16 @@ The choice of hyperparameters determines what the network can learn and how well
 
 
 # Model training
+This next part major part of the course is about the model training including the: problems associated with classification, metrics, regularization, and optimization. It is important to understand the training process when picking a model. The models used for dynamic medicine prediction is demands different type of processes in terms of the training. To be able to get maximized performance, it is crusial to understand the training process in general terms and specific to models.
 
 ## Classification problems
+Classification problems are central for statistical learning and is the driven factor for building models. These problems can span from problems about if a patient has a disease or not, which is a binary problem. It could also be a multiclass problem, where the model have a selection of classes it can assign probabilities to, so the patient can get a certain diagnosis probability out of multiple diseases to choose from. The output of classification is typically classes, but these classes is determined by a probability which the model computes, this is different from a regression output which is the outcome of computing linear combinations. The pressing issue when building classification, or models in general, is to get the best fit. Which is when the model minimize the error after many iterations where a error metric and a optimization algorithm is utilized to find the parameters which minimizes the error the most.
+
+The metrics used to measure the performance differ, but there some typical measures used for classication problems. These are; Sensitivity, Precision, Specificity F1 score.
+
 ### Sensitivity, Precision, Specificity, F1 score
+
+
 ### Bias-variance trade-off
 ### Train, Val & Test
 
@@ -177,11 +193,14 @@ The choice of hyperparameters determines what the network can learn and how well
 ### Log likelihood
 ### AUC metrics
 
-## Hyperparameters Optimization
+## Regularization
+
 ### Logistic Regression with Elastic Net Regularisation
 ### Random forest optimization
 ### Neural Network hyperparameters
+
 ## Hyperparemeters optimization
+
 ### Grid search
 ### Random search
 ### Bayesian optimization
