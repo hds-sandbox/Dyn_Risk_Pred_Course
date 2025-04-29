@@ -25,49 +25,49 @@ Machine learning models are primarily used to address two types of prediction ta
   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Regression involves predicting a continuous outcome. This task uses feature variables to train a model that predicts a target variable. Examples include predicting house prices based on relevant features or predicting blood pressure based on physiological measurements.
+Regression involves predicting a continuous outcome. This task uses feature variables to train a model that predicts a target variable. Examples include predicting blood pressure based on physiological measurements.
 
-Classification involves predicting the category, or class, to which an instance belongs based on its feature variables. This results in a discrete value being predicted. Classification can be binary, involving two categories, or multiclass, involving more than two categories. For binary classification, the outcomes are often represented as positive/negative or true/false. These scenarios range from loan approval decisions to medical diagnoses (Hastie et al. 2001:9-11).
+Classification involves predicting the category, or class, to which an instance belongs based on its feature variables. This results in a discrete value being predicted. Classification can be binary, involving two categories, or multiclass, involving more than two categories. For binary classification, the outcomes are often represented as positive/negative or true/false. These scenarios range from diagnosis of a single illness to diagnosis of multiple diagnoses (Hastie et al. 2001:9-11).
 
-In healthcare applications, for instance, a model might be trained using a large amount of clean, high-quality patient data. This model can then be fed information (features) about a new patient, and a prediction or output is produced. If certain physiological values, such as blood pressure or body temperature, are rising, the model might suggest a potential illness.
+In healthcare applications, for instance, a model might be trained using a large amount of cleaned patient data. This model can then be fed information (features) about a new patient, and a prediction or output is produced. If certain physiological values, such as blood pressure or body temperature, are rising, the model might suggest a potential illness.
 
 Another example is drawn from the motivational case study presented in the course introduction regarding the decision on providing SACT for palliative patients. A model could be used to assist clinicians in deciding whether to provide SACT. Relevant patient values would be provided, and a risk score would be produced by the model, which is a significant factor to be considered during decision-making.
 
 ## Logistic regression 
-Different models can be used for classification, but a popular model for classification is the logistic regression model. Logistic regression is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the strong explainability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, if benchmarking multiple models to find the best risk prediction model.
 
+Different models can be used for classification, but a popular model is the logistic regression model. It is a supervised linear model that is used in scenarios with categorical outcomes. One of the strengths of logistic regression is the high interpretability, which means that the results can be understood and interpreted to a high degree compared to other models and it is a good candidate for a baseline model, for benchmarking multiple models to find the best risk prediction model.
 Logistic regression is a linear model which outputs a probability score instead of a direct linear combination. To express this mathematically:
 
 $$\hat{p} = \sigma(\theta^T \cdot \mathbf{x})$$
 
-In general, linear models aim to find the parameters $\theta$ (also called beta or weights) that optimize the model. The probability function shown in the formula, $\sigma$, transforms the linear combination into a probability between 0 and 1. Mathematically the Sigmoid function is defined as:
+In general, linear models aim to find the parameters $\theta$ (also called beta or weights) that optimize the model. The probability function shown in the formula, $\sigma$, transforms the linear combination into a probability between 0 and 1. Mathematically the Sigmoid function is given by:
 
 $$\sigma(t) = \frac{1}{1 + \exp(-t)}$$
 
-As $t$ approaches positive infinity, the sigmoid function approaches 1, and as $t$ approaches negative infinity, the Sigmoid function approaches 0.
+The sigmoid function transform any real number input ($t$) to a value between 0 and 1. As $t$ increases towards positive infinity, the sigmoid output approaches 1. As $t$ decreases towards negative infinity, the output approaches 0.
 
-To transform linear combinations into probabilities, the logarithm of the odds ratio is used. This converts the output of a linear model into a probability value between 0 and 1 by applying the logistic function. The logarithm of the odds ratio can be expressed as:
+The connection between the linear model's output and the probability is established with the logarithm of the odds ratio, the logit function. The linear combination $\theta^T \cdot \mathbf{x}$ is defined as modelling the log odds of the outcome:
+
 
 $$ \log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1 x $$
 
-Where:
+$p(x)$ represents the probability of the positive outcome given the features $\mathbf{x}$. Applying the sigmoid function to the linear combination $(\theta^T \cdot \mathbf{x})$ creates the probability $\hat{p}$:
 
-- $p(x)$ is the probability of the outcome
-- $\log \left( \frac{p(x)}{1-p(x)} \right)$ is the logarithm of odds function (logit)
-- $\beta_0$ is the bias parameter
-- $\beta_1$ is the weight parameter
-- $x$ is the feature variable
+$$ \hat{p} = p(x) = \sigma(\theta^T \cdot \mathbf{x}) $$
 
-The sigmoid function creates an S-shaped curve that pushes the data points toward either 0 or 1, which facilitates binary classification. The *linear* part of the model creates the decision boundary, which serves as the threshold determining whether a data point belongs to class 0 or class 1.
-
- The sigmoid function creates the S-shaped curve, which pushes the data points to the top of the bottom bar, which makes the binary outcome where the *linear* part is the decision boundary which is the threshold for data being part of class 0 or class 1. The sigmoid function and the dynamic between threshold and decision boundary looks as follow:
+An S-shaped curve is produced by the sigmoid function. A binary outcome is facilitated by this process. The decision boundry is established by the linear components which serves as the threshold for assigning data points to either class 0 or class 1.
 
 <div style="text-align: center;">
   <img src="../images/Log_reg_decision_boundary.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
-The visualization stems from this [mini course](https://ds100.org/course-notes-su23/logistic_regression_2/logistic_reg_2.html)
+¤¤¤¤
+*The visualization shows the difference betweeen a regression problem, where the goal is to fit a line through most data points as possible, and a classification problem,where the goal is to fit a line between the datapoints, to split it into two or more classes.
 
-Another detail is the threshold on the range for the probabilities. Normally it is a 50/50 percentages range on which class to predict, but it can be changed, according to the task and if there is a emphasis on either [type 1 - or type 2 errors.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors) Examples of making this consideration cases where balancing type 1 - or type 2 error could be for **medical diagnosis** where minimizing false negatives is preferred so patient who are critical ill or about to be critical ill will not be missed in a screening. Or email spam filter, where minimizing false positives is preferred as people would not miss any important emails. More example can be found of type 1 - and type 2 errors can be found [here.](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676)
+
+
+Once a probability output is obtained from the logistic regression model, a classification decision is made. Normally, a probability threshold of 0.5 is used for prediction, meaning if the predicted probability is above 0.5, the instance is assigned to the positive class, otherwise to the negative class. However, this threshold can be adjusted depending on the specific task and if emphasis is placed on minimizing either [Type I or Type II errors](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors). For instance, in medical diagnosis, minimizing false negatives (Type II errors) is preferred so that critically ill patients are not missed during screening. Conversely, in an email spam filter, minimizing false positives (Type I errors) is preferred so that important emails are not missed. Further examples of Type I and Type II errors can be found [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
+
+Another detail is the threshold on the range for the probabilities. Normally it is a 0.5  probability threshold range on which class to predict, which mean positive classes are assigned to values above 0.5. The threshold can be changed, according to the task and if there is a emphasis on either [type 1 - or type 2 errors.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors) Examples of making this consideration cases where balancing type 1 - or type 2 error could be for **medical diagnosis** where minimizing false negatives is preferred so patient who are critical ill or about to be critical ill will not be missed in a screening. Or email spam filter, where minimizing false positives is preferred as people would not miss any important emails. More example can be found of type 1 - and type 2 errors can be found [here.](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676)
 
 Logistic regression is trained with optimization, which essentially means that the optimal parameters are found through 'trail-and-error' where the models change parameters, tries to fit and repeats until the optimal parameters is found. The optimization can be a basic Gradient descent optimization or more sophisticated implementation. Learn more about optimization algorithms for finding the optimal parameters in logistic regression [here](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d). To measure the progression of the performance of the changing parameters, a evaluation function have to be applied. This is what known as a *loss function* (or cost function) which is measuring the error the models make. There are many different types of loss function, but for the logistic regression, a well known loss function is **The log loss** (which is also known as Cross Entropy loss). Mathematically are this function expressed like:
 
@@ -75,7 +75,7 @@ $$
 \min_{\beta} \sum_{i|y_i=1} \log(1-p(x_i)) + \sum_{i|y_i=0} \log(p(x_i))
 $$
 The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. The min terms of the notation $\min_{\beta}$ means that the loss function is computed with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
-
+¤¤¤¤
 When trying to predict an outcome with a multitude of predictor variables, there becomes a significant challenge if the number of these potential predictors surpasses the number of actual observations or data points in the dataset. In other words, this is when the predictors (represented by 'p') exceed the observations (denoted by 'n'). Regularization is essential to manage this imbalance effectively,as it can be used for making a sparse model, which means to remove features with almost no influence and only keep a few important features (Hastie et al. 2001:649-664).  Regularization is not only needed when p > n but also to reduce the overfitting of a model. Overfitting is more frequently occurring in more complex models. In training, the model learns to fit the data points perfectly but fit real data terribly because the curve was too customized to the training data. Then, some bias is introduced to the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
 $$
 \sum_{j=1}^{p} \beta_{j}^{2}
