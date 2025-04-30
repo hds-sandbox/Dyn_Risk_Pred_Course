@@ -7,7 +7,7 @@ format: html
 
 :::
 
-
+# Copy the text into Word for a grammatical read through
 
 
 
@@ -63,59 +63,78 @@ An S-shaped curve is produced by the sigmoid function. A binary outcome is facil
 ¤¤¤¤
 *The visualization shows the difference betweeen a regression problem, where the goal is to fit a line through most data points as possible, and a classification problem,where the goal is to fit a line between the datapoints, to split it into two or more classes.
 
+Once a probability output is obtained from the logistic regression model, a classification decision is made. Typically, a probability threshold of 0.5 is used for prediction, meaning if the predicted probability is above 0.5, the instance is assigned to the positive class, otherwise to the negative class. However, this threshold can be adjusted depending on the specific task and if emphasis is placed on minimizing either [Type I or Type II errors](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors). For instance, in medical diagnosis, minimizing false negatives (Type II errors) is preferred so that critically ill patients are not missed during screening. Conversely, in an email spam filter, minimizing false positives (Type I errors) is preferred so that important emails are not missed. Further examples of Type I and Type II errors can be found [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
 
-
-Once a probability output is obtained from the logistic regression model, a classification decision is made. Normally, a probability threshold of 0.5 is used for prediction, meaning if the predicted probability is above 0.5, the instance is assigned to the positive class, otherwise to the negative class. However, this threshold can be adjusted depending on the specific task and if emphasis is placed on minimizing either [Type I or Type II errors](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors). For instance, in medical diagnosis, minimizing false negatives (Type II errors) is preferred so that critically ill patients are not missed during screening. Conversely, in an email spam filter, minimizing false positives (Type I errors) is preferred so that important emails are not missed. Further examples of Type I and Type II errors can be found [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
-
-Another detail is the threshold on the range for the probabilities. Normally it is a 0.5  probability threshold range on which class to predict, which mean positive classes are assigned to values above 0.5. The threshold can be changed, according to the task and if there is a emphasis on either [type 1 - or type 2 errors.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors) Examples of making this consideration cases where balancing type 1 - or type 2 error could be for **medical diagnosis** where minimizing false negatives is preferred so patient who are critical ill or about to be critical ill will not be missed in a screening. Or email spam filter, where minimizing false positives is preferred as people would not miss any important emails. More example can be found of type 1 - and type 2 errors can be found [here.](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676)
-
-Logistic regression is trained with optimization, which essentially means that the optimal parameters are found through 'trail-and-error' where the models change parameters, tries to fit and repeats until the optimal parameters is found. The optimization can be a basic Gradient descent optimization or more sophisticated implementation. Learn more about optimization algorithms for finding the optimal parameters in logistic regression [here](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d). To measure the progression of the performance of the changing parameters, a evaluation function have to be applied. This is what known as a *loss function* (or cost function) which is measuring the error the models make. There are many different types of loss function, but for the logistic regression, a well known loss function is **The log loss** (which is also known as Cross Entropy loss). Mathematically are this function expressed like:
+Logistic regression is trained using optimization, a process where the optimal parameters are found through 'iteratively adjusting model parameters to minimize the error. Optimization can be performed with basic methods such as Gradient descent or more sophisticated implementation. More information about optimization algorithms for finding the optimal parameters in logistic regression can be found in [this article](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d). To measure the progression of the performance of the changing parameters, a evaluation function must be applied. This is what known as a *loss function* (or cost function) which measures the error of the models. There exist many types of loss function, but for the logistic regression, a well known loss function is **The log loss** (which is also known as Cross Entropy loss). Mathematically are this function expressed like:
 
 $$
 \min_{\beta} \sum_{i|y_i=1} \log(1-p(x_i)) + \sum_{i|y_i=0} \log(p(x_i))
 $$
-The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. The min terms of the notation $\min_{\beta}$ means that the loss function is computed with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
-¤¤¤¤
-When trying to predict an outcome with a multitude of predictor variables, there becomes a significant challenge if the number of these potential predictors surpasses the number of actual observations or data points in the dataset. In other words, this is when the predictors (represented by 'p') exceed the observations (denoted by 'n'). Regularization is essential to manage this imbalance effectively,as it can be used for making a sparse model, which means to remove features with almost no influence and only keep a few important features (Hastie et al. 2001:649-664).  Regularization is not only needed when p > n but also to reduce the overfitting of a model. Overfitting is more frequently occurring in more complex models. In training, the model learns to fit the data points perfectly but fit real data terribly because the curve was too customized to the training data. Then, some bias is introduced to the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
+The general idea of this loss function is that it measures the distance between the prediction and the true label. The magnitude of this distance directly impacts the loss. Predictions that are both incorrect and made with high confidence are penalized more heavily compared to incorrect predictions made with lower confidence. The min terms of the notation $\min_{\beta}$ means that the loss function is computed with respect to the parameters of the model, which will be adjusted until the loss do not longer improve.
+
+
+When trying to predict an outcome using many predictor variables, a significant challenge if the number of these potential predictors ('$p$') exceeds the number of observations ('$n$') or data points. Regularization is essential to manage this imbalance effectively and for reducing model overfitting. The imbalance be addressed by making a sparse model, which means to remove features with almost no influence and only keep a few important features (Hastie et al. 2001:649-664). Regularization can also be used for overfitting. Overfitting occurs more frequently in complex models. In training, the model learns to fit the training perfectly but then loses then generalize poorly on unseen data. Regularization addresses overfitting by introducing bias is into the model to predict unseen data better. This is what is known as the “bias-variance-tradeoff”. One of the most well-known and used regularization techniques is Ridge regression (L2):
+
+
 $$
 \sum_{j=1}^{p} \beta_{j}^{2}
 $$
-The idea is to penalize the weights of the model and in the case of ridge, it would be with the sum of the squared coefficients, times a tuning parameter $\lambda$ to decide the strength of the regularization. The quality of Ridge regression is that it pushes the weights towards zero, relative to the size. This means that large weights are heavily penalized and small weights rarely hits zero.
 
-It is also possible to penalize the weight after the absolute value instead of the squared sum, this would mean that alle weight are treated equally. The is called the least absolute shrinkage and selection operator (LASSO) or L1. Lasso is similar to Ridge when considered mathematically:
+Model weights are penalized to improv model performance. Using Ridge regression, this is achieved by adding a penalty term squared to the sum of the squared coefficients, times a tuning parameter $\lambda$ to decide the strength of the regularization. The penalty causes the coefficients to shrunk towards zero, relative the the size. This means that larger weights are heavily penalized and smaller weight rarely hit zero.
+
+Alternatively, can the coefficient be penalized based on the sum of their absolute value:
 $$
 \sum_{j=1}^{p} |\beta_j|
 $$
-This type of regularization is especially powerful in terms of regularizing the model, but also to do feature selection. As the weight are penalized with a absolute rate, the weights are able to shrink to zero. This means that small weights which may course more noise than accuracy, can be removed from the model.
-These regularization techniques are also important in terms of reducing overfitting, which is when the model learns to fit the data perfectly in the training set, but then does not perform well in fitting the test data.
 
-The effects of LASSO and Ridge can be visualized as follow:
+This method is known as the *Least Absolute Shrinkage and Selection Operator* (LASSO) or l1 regularization. This method is effective in cases where feature selection is appropriate, but also to address overfitting. Coefficients are shrunk relative to their absolute size, which means that values can hit zero. This means that variables who have no or noisy contributions to weights are effectively removed, leaving only the impactful variables. These regularization methods are significant in reducing overfitting and are the most wellknown in Machine Learning.
+
+
+The effects of LASSO and Ridge can be visualized as follows:
+
 <div style="text-align: center;">
   <img src="../images/L1L2.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Where it can be seen that Ridge is wider compared to LASSO and LASSO is taller compared to Ridge. The visualization is a illustration of the ridge regression ability to reduce large weights at a large rate, where LASSO have to ability to reduce weights to zero. **Provide a better explanation**
+The shapes shown represent the constraint regions (or level sets of the penalty functions) in a simplified two-parameter example. The circular shape corresponds to the L2 penalty used in Ridge regression, while the diamond shape corresponds to the L1 penalty used in LASSO regression.
 
-In some cases it can be an advantage to combine the power of Ridge and Lasso, while being able to customize the weighting of the two methods. To provide a flexible approach to balance between Ridge - and Lasso regression can a method called **Elastic net** be applied, which have a hyperparameter for having most emphasis on LASSO or Ridge. Elastic net can mathematically be expressed like:
+The shapes shows that Ridge has a circular shape while LASSO has a diamond formed shape. The sharp point at zero in the LASSO penalty (red curve) is a illustration of the sparsity and feature selection. The smooth, curved nature of the Ridge penalty (blue curve) leads to shrinking all coefficients without eliminating them entirely.
+
+
+In some cases, a combination of the power of Ridge and LASSO can be an advantage. To provide a flexible balance between these two regularizaton methods, a method called **Elastic Net** can be utilized.  This method allows for a flexible approach to balance between Ridge and LASSO through a mixture parameter $\alpha$ which ranges from 0.0 to 1.0. For $\alpha$ = 1.0, the penalty becomes equal to pure LASSO and if the value it 0.0, it becomes equal to Ridge penalty, while values in between are a combination of the both methods. Elastic net can mathematically be expressed like:
 $$
 \min_{\beta} \frac{1}{N} \sum_{i=1}^{N} l(y_i, \beta, x_i) + \lambda \sum_{j=1}^{p} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|)
 $$
 
-Where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter. Alpha goes between 0.0 and 1.0, where the weight is going from Ridge to LASSO.
+The basic principles behind the creation of a linear model, such as logistic regression, and how its parameters can be regularized for improved performance using Ridge, LASSO, and Elastic Net should now be understood.
 
-Now there should be a understanding of the basic behind creating a linear model like logistic regression and how to regularize the parameters for better performance with Ridge, LASSO and Elastic net.
-
-In the next part, will a more flexible but also very powerful model be presented. The **Classification Trees**.
+In the next section, a more flexible and powerful model, **Classification Trees**, will be presented.
 
 ## Decision Trees
-The Decision trees, are non-parametric models that split data iteratively, which means that the model does not assume any structure, but let the data determine the structure of the model. The models finds the structure by examining the data through iteration. Decision trees are versatile machine learning models, which means they can be used for regression and classification tasks. When the trees are used for making prediction, it does it by deciding on nodes and leaf nodes where the idea is to us recursive binary splitting. The model will keep splitting the data into groups until some criteria are met. In more details are the idea that there is a `root` node, which is the first variable used for splitting. The splitting is a true/false process, where there is some criteria for the splitting, like age above 65, then the tree branches out to a new who have the best interaction with the two groups so there might be the best splitting criteria for people under 65 years of age, which is their weight and their might be a best splitting criteria for the people above 65 of age, which is their weight. From that point can the two `branches` nodes be splitted into the finale four nodes, which is called the `leaf` nodes. The decision on which variable to pick for a branch is based on the interaction score between the variables used in the tree and the target variable. The measure used to determine the branching is the Gini index. The gini index is a measure for the nodes, where the *impurity* is measured, where the ratio of classes in each node is the measure of impurity. If a node contains 50/50 of two classes of the target variable (like having benign or malignant cancer) would mean that the node in very impure and would have a gini index equal to 0.5. If a node had 100% malignant cases, when the node would be pure and there would be a gini index equal to 0. The gini index can be expressed mathematically as:
+During the model building process, data is recursively split into binary groups until specified criteria are met. This technique is known as recursive binary splitting. Once the tree structure is complete, predictions are generated by navigating the tree based on the characteristics of the data being predicted until a leaf node is reached.
+
+
+The Decision trees, are non-parametric models which split data iteratively. This indicates no assumptions about any structure. Instead the model is determined by the the data determine through a iterative process. Decision trees are versatile machine learning models, meaning they can be used for regression and classification tasks. During the model building process, data is splitted into binary groups until certain criteria are met. The first point where data is split is called the **root** , which is to be split based on a criterion is satisfied (e.g., Age > 65 or smokes = YES/NO). From the root, **branches lead to internal (or branch) nodes, where further splitting is performed using new criteria selected to best separate the data subgroups. This process is continued until **leaf** nodes are reached which is the last group to be split Once the tree is compete, predictions are based by navigating through the tree until a leaf is reached. In short, a group might initially be split by age. Two new groups are then formed based on these age divisions and are split using new variables relevant to the group's characteristics. For example, people under 65 might be split by weight, and those 65 and over might be split by height.
+
+The choice of which variable is used for splitting at a node is based on a common metric used to evaluate potential splits, the Gini index. The Gini index is a measure of impurity within a node, calculated based on the distribution of classes present. If a node contains an equal distribution of two classes of the target variable (e.g., benign or malignant cancer), it is considered to be highly impure, and a Gini index of 0.5 is obtained. If a node contains 100% of a single class, the node is considered pure, and a Gini index of 0.0 is obtained. Potential splits are evaluated based on the Gini index of the resulting child nodes, where the aim is to minimize impurity after the split.
+
+The gini index can be expressed mathematically as:
+
 $$
 \text{Gini index} = 1 - \sum_{k=1}^{n} p_{i,k}^2
 $$
-where $p_{i,k}$ is the proportion of samples that belong to class $k$ at node $i$.
-The most important hyperparameter is the maximum depth of the tree which is the maximum amount of branches between the root node and the leafs. By restricting the depth, it prevent the tree from becoming too complex and start overfitting the data. Finding the optimal depth is a iterative process.
-As mentioned regarding the regularization of models, it is also significant for the generalization of the decision trees restricted on the training data. Decision trees have a selection of unique hyperparameters, where max depth is one of them. Another regularization method is to decide how many samples should be in each node. The regularization techniques reserved for decision trees are called **pruning**.
-For regression tasks are the decision trees similar in terms of building a tree and splitting the data. However, instead of using Gini index, the trees used for regression tasks uses Mean Squared Error (MSE). More information about Classification and Regression Trees can be found [here](https://en.wikipedia.org/wiki/Decision_tree_learning)
+
+
+- Where $p_{i,k}$ is the proportion of samples that belong to class $k$ at node $i$.
+
+- The maximum depth of the tree is often considered the most important hyperparameter. This depth is defined by the maximum number of branches between the root node and the leaves. By restricting this depth, the tree is prevented from becoming overly complex and starting to overfit the data. Finding the optimal depth is a iterative process.
+
+- Another regularization method is to decide how many samples should be in each node. These regularization techniques reserved for decision trees are called **pruning**.
+
+- When decision trees are applied to regression tasks, the tree building and data splitting processes are similar to those used for classification. However, the Gini index, which is used for classification, is replaced by Mean Squared Error (MSE) as the criterion for splitting nodes in regression trees.
+
+More information about Classification and Regression Trees can be found [here](https://en.wikipedia.org/wiki/Decision_tree_learning).
+
 
 <div style="text-align: center;">
   <img src="../images/Decision_trees.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -124,7 +143,7 @@ For regression tasks are the decision trees similar in terms of building a tree 
   </div>
 </div>
 
-Although decision trees are powerful models on their own, they are still limited by instability due to the model being sensitive to changes in the data. Small variations in the training dataset can lead to completely different tree structures, as the greedy splitting algorithm makes locally optimal decisions at each node. This high variance means that decision trees may create overly complex structures that capture noise rather than underlying patterns.
+Although powerful models, decision trees are limited by instability resulting from sensitivity to data changes. Sensitivity to data changes means that significantly different tree structures can be produced by small variations in the training dataset. This occurs because locally optimal decisions are made at each node by the greedy splitting algorithm. Overly complex structures that capture noise rather than underlying patterns can be created by decision trees due to this high variance.
 
 To address these issues, can **[ensempling](https://en.wikipedia.org/wiki/Ensemble_learning)** be added to the trees and create methods like **Random forest** or **Gradient boosting**.
 
