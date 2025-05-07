@@ -8,7 +8,7 @@ format: html
 
 ## Introduction to data management
 
-Predictive modeling is precedes (?) by data collection and data management. Significant challenges are often encountered during these processes. These difficulties include:
+Predictive modeling is preceded by data collection and data management. Significant challenges are often encountered during these processes. These difficulties include:
 
 - Time-consuming data gathering.
 - Potential mismatches between expectations and the actual quality or completeness of the data.
@@ -22,7 +22,7 @@ In this section, these challenges will be explored through three main topics:
 
 ## Data sources and potential biases
 
-Data management does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
+**Data management** does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
 
 In this section of the course, there will be an introduction to data collection and the potential biases about:
 
@@ -50,11 +50,11 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 &nbsp;
 
-**Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation, insight can be extracted from raw data. For instance, data regarding a patient's blood pressure would include certain measurements in one column and the corresponding values in another column.
+**Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation, insight can be extracted from raw data. For instance, a patient's blood pressure data would have a column for the type of measurements (e.g., systolic, diastolic) and a second column for the measured values:
 
 *Example of raw blood pressure data:*
 
-| Measurement        | measure (in mmHg)  |
+| Measurement        | Measure (in mmHg)  |
 |:-------------------|:-------------------|
 | Systolic Pressure  | 110                |
 | Diastolic Pressure | 70                 |
@@ -67,9 +67,6 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 | Metadata Attribute      | Value                                    |
 |:------------------------|:-----------------------------------------|
-| Patient ID              | 42421010                                  |
-| Test Date               | 2025-03-10                               |
-| Collection Time         | 08:30 AM                                 |
 | Ordering Physician      | Dr. House                                |
 | Laboratory              | Princeton-Plainsboro Teaching Hospital   |
 
@@ -118,9 +115,9 @@ The Danish Health Data Authority is one of the country's primary entities for co
 
 [**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/)
 
-<div style="overflow: auto;">
- <img src="../images/DHQI.png" alt="Logo associated with the Danish Healthcare Quality Institute" style="margin-bottom: 15px; width: 39%;">
-</div>
+#<div style="overflow: auto;">
+# <img src="../images/DHQI.png" alt="Logo associated with the Danish Healthcare Quality Institute" # style="margin-bottom: 15px; width: 39%;">
+# </div>
 
 This type of organization collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
 
@@ -129,7 +126,7 @@ This type of organization collaborates across the Danish healthcare sector, ofte
 [**Statistics Denmark:**](https://www.dst.dk/en)
 
 <div style="overflow: auto;">
- <img src="../images/stat_dk.PNG" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 39%;">
+ <img src="../images/stat_dk.jpg" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 20%;">
 </div>
 
 For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning [nearly 200 years](https://www.dst.dk/en/OmDS/historie), provides significant historical depth for longitudinal analysis if required.
@@ -155,7 +152,7 @@ Health data gathered from different sources, can potentially carry biases and li
 
 1. **Source-Specific Biases**
 
-[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+**[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
 2. **Data Quality**
 
@@ -179,12 +176,12 @@ For more information about biases, please see this [comprehensive list about bia
 
 If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
-### Retrospective studies: coding and classification
+### Coding and classification
 
 Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. A database of all the codes used for all treatments based on the World Health Organization’s International Classification of Diseases, currently ICD-10.
 
 <div style="overflow: auto;">
- <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 60%;">
+ <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
 </div>
 
 *For more information or exploration, please consider visiting [medinfo.dk](medinfo.dk).*
@@ -200,7 +197,7 @@ Efforts toward standardization involve the use of [Systematized Nomenclature of 
 Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
 
 
-## Prospective Studies: FAIR Data Principles
+## FAIR Data Principles
 
 With the continuously increasing amount of data being produced globally, a need exists for ensuring research data is findable, accessible, interoperable, and reusable. Principles for good data, metadata, and infrastructure practices are considered important for navigating all of the available information.
 
@@ -227,7 +224,7 @@ However, while FAIR data principles impact data quality and accessibility, certa
 
 An introduction to theoretical concepts and principles related to data management, such as FAIR, has now been reviewed. In the next section, concrete tools for data storage will be presented.
 
-## PROSPECTIVE STUDIES: Relational Databases
+## Relational Databases
 
 Digital platforms designed for the storage of data intended for modeling are known as databases. As a single dataset might be utilized for specific analyses, such a dataset is often found to be insufficient for comprehensive modeling. When multiple datasets are involved, a central storage from which necessary data can be drawn is convenient. This is where a database comes in.
 
@@ -459,6 +456,10 @@ This example shows that researchers should be cautious when this specific Danish
 For more information about the case used as an example in this subsection, please read the full paper: [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 
 ### Data representation
+
+In dynamic risk prediction, data is often collected at irregular time intervals. This irregularity are originate from unpredictable factors like human interaction and the need for medical treatment. To be able to use models that typically operate on fixed time intervals, requires irregular time points to be structured appropriately. Time discretization can be employed for this purpose. This process transforms the original patient data, which is recorded continuously over time, into discrete time intervals, such as hours or days. By discretizing, the data is simplified and made suitable for various modeling techniques.
+
+**Måske en tabel, der viser data før - og efter time discretization?**
 
 For dynamic risk prediction using unstructured healthcare data recorded at irregular intervals, **time discretization** can be employed effectively. As patients arrive at varying times and progress through different parts of the healthcare system during the day, an analyst may consider transforming the data into a structured format to help the prediction model process it efficiently.
 
