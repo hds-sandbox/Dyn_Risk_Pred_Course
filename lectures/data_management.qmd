@@ -6,11 +6,11 @@ format: html
 # All about the data
 :::
 
-## Introduction to dynamic risk prediction
+## Introduction to data management
 
-The foundation of predictive modeling is dictated by data collection and data management. Significant challenges are often encountered during these processes. These difficulties include:
+Predictive modeling is precedes (?) by data collection and data management. Significant challenges are often encountered during these processes. These difficulties include:
 
-- The time-consuming nature of data gathering.
+- Time-consuming data gathering.
 - Potential mismatches between expectations and the actual quality or completeness of the data.
 - Complexities when integrating datasets that contain varying measures, naming conventions, and different levels of granularity.
 
@@ -20,9 +20,9 @@ In this section, these challenges will be explored through three main topics:
 2)  **Principles of effective data management:** Covering best practices for organizing, cleaning, and preparing data.
 3)  **Practical exercises:** Applying the learned concepts through hands-on activities.
 
-## Data sources and biases
+## Data sources and potential biases
 
-Data management does not only consist of preprocessing the data, but is also an operation of finding data sources, collecting the data, and managing data biases.
+Data management does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
 
 In this section of the course, there will be an introduction to data collection and the potential biases about:
 
@@ -54,10 +54,10 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 *Example of raw blood pressure data:*
 
-| Measurement        | Result   |
-|:-------------------|:---------|
-| Systolic Pressure  | 120 mmHg |
-| Diastolic Pressure | 80 mmHg  |
+| Measurement        | measure (in mmHg)  |
+|:-------------------|:-------------------|
+| Systolic Pressure  | 110                |
+| Diastolic Pressure | 70                 |
 
 &nbsp;
 
@@ -67,7 +67,7 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 | Metadata Attribute      | Value                                    |
 |:------------------------|:-----------------------------------------|
-| Patient ID              | 42421010                                 |
+| Patient ID              | 42421010                                  |
 | Test Date               | 2025-03-10                               |
 | Collection Time         | 08:30 AM                                 |
 | Ordering Physician      | Dr. House                                |
@@ -79,10 +79,10 @@ When managing data, particularly in domains like healthcare, it is crucial to di
 
 *Example of annotations applied to blood pressure data:*
 
-| Measurement        | Result   | Annotation                      |
-|:-------------------|:---------|:--------------------------------|
-| Systolic Pressure  | 110 mmHg | Normal range (90-120 mmHg)      |
-| Diastolic Pressure | 70 mmHg  | Normal range (less than 80 mmHg)|
+| Measurement        | Measure (in mmHg)    | Annotation                      |
+|:-------------------|:---------------------|:--------------------------------|
+| Systolic Pressure  | 110                  | Normal range (90-120 mmHg)      |
+| Diastolic Pressure | 70                   | Normal range (less than 80 mmHg)|
 
 *More details about blood pressure categories can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).*
 
@@ -101,7 +101,7 @@ Developing dynamic prediction models within the Danish healthcare system require
 [**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers)
 
 <div style="overflow: auto;">
- <img src="../images/dhda.png" alt="Logo of the Danish Health Data Authority" style="margin-bottom: 15px; width: 39%;">
+ <img src="../images/dhda.png" alt="Logo of the Danish Health Data Authority" style="margin-bottom: 15px; width: 19%;">
 </div>
 
 The Danish Health Data Authority is one of the country's primary entities for collecting, managing, and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
@@ -151,7 +151,7 @@ However, regardless of the source, it is crucial to critically evaluate data qua
 
 ### Bias and Limitations
 
-When developing dynamic predictive models by using sensitive health data gathered from different sources, they can potentially carry biases and limitations, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**.
+Health data gathered from different sources, can potentially carry biases and limitations, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**.
 
 1. **Source-Specific Biases**
 
