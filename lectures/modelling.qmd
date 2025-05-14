@@ -197,7 +197,52 @@ In the figure above, the left classification is from an underfitted model, where
 You want to pick the model type and complexity, that results in no overfitting or underfitting of the data, which is why it is called a trade-off.
 To find this trade-off, you can train the model on some of your data, and test its applicability on new data by using the data you left out, as introduced in the data management section. <!-- #### REF HER #### --> 
 
-With these terms in place, the first of the machine learning models is introduced.
+With these terms in place, the first of the machine learning models is introduced. ##############################################
+
+## Loss functions
+Before the models are introduced, [loss functions](https://medium.com/deep-learning-demystified/loss-functions-explained-3098e8ff2b27) are considered.
+When training each model, it is important to have some metric of how far the predicted value is to the true response variable, such that the algorithm can improve the predicted output.
+This is where the loss functions, also known as cost functions, come in.
+
+In binary classification problems, the default loss function is the binary cross entropy, also known as the log-loss, given by
+$$
+H = -\frac{1}{N}\sum_{i=1}^N y_i\log(p_i) + (1-y_i)\log(1-p_i)
+$$
+where $p_i$ is the predicted probability for the $i$'th observation.
+In this the classes have been transformed to 0 and 1, such that the multiplication makes sense.
+It can be seen, that if the class is 1, only $\log(p_i)$ affects the loss functions value, and because of the minus in front of the sum, the loss function is lowered when $p_i$ is close to 1.
+It is primarily used in logistic regression, but more on that later.
+
+For multi-class classification problems, the softmax metric is used instead, not elaborated here.
+
+<!-- Måske skal de her slettes -->
+Instead of this metric, the previously mentioned model performance metrics, such as accuracy or precision, can be used.
+Note that because these only utilize the predicted class and not the probability, they typically work pretty badly for training models.
+<!-- slet til her ??????????? -->
+
+Alternatively, some more complex methods exist, named the [AUC metrics](https://medium.com/@data.science.enthusiast/auc-roc-curve-ae9180eaf4f7).
+AUC stands for area under curve, and there are two main types of AUC metrics, the ROC and the Precision-Recall (PR) AUC.
+These metrics are potentially heavier to compute than alternative methods, but there are times when they are helpful despite this.
+As the name indicates, it involves creating a curve and estimating the area under it, but what are on the axes?
+
+First consider the ROC curve, it compares the true positive rate (TPR), which is the same as the sensitivity, to the false positive rate (FPR), which is the same as $1-\text{Specificity}$.
+Essentially, the ROC curve gives an indication of how much the model is capable of distinguishing between the classes.
+The ROC curve compares the performance of the model to a truly random classification, and the higher the value above 0.5, the better classification.
+An example of a ROC curve can be seen below.
+
+<div style="text-align: left;">
+  <img src="../images/ROC.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
+
+As an alternative to ROC, the precision-recall curve is introduced.
+In this case, the precision is the y-axis and the sensitivity (recall) is the x-axis.
+This is more usable when there is class-imbalance in the data set, as the True Negative class is not considered meaning the positive class is in focus.
+Once again, the curve is compared to random classifying, and the ideal model would have PR AUC = 1.
+An example of a PR curve can be seen below.
+
+<div style="text-align: left;">
+  <img src="../images/PR.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
 
 
 ## Logistic regression 
@@ -239,25 +284,26 @@ Practically, logistic regression is trained using numerical optimization, which 
 The optimization method can be a simple gradient descent or a more sophisticated algorithm.
 Learn more about optimization algorithms for finding the optimal parameters in logistic regression [here](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d).
 
-It is important to measure how much of an improvement is made when changing the parameters, as such an evaluation function is used.
-This is what known as a *loss function* (or cost function) which quantifies the model error.
-There are many different types of loss function, but for the logistic regression, a well known loss function is the **log loss** (which is also known as Cross Entropy loss), given by
+<!-- It is important to measure how much of an improvement is made when changing the parameters, as such an evaluation function is used. -->
+<!-- This is what known as a *loss function* (or cost function) which quantifies the model error. -->
+<!-- There are many different types of loss function, but for the logistic regression, a well known loss function is the **log-loss** (which is also known as Cross Entropy loss), given by -->
 
-$$
-\sum_{i\mid y_i=1} \log\big(1-p(x_i)\big) + \sum_{i\mid y_i=0} \log\big(p(x_i)\big)
-$$
-The general idea of this loss function is that it measures the distance between the predictions and the true labels.
-The magnitude of this distance directly impacts the loss.
-Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence.
-The goal of the optimizer is to minimize the loss function with respect to $\beta$ (implicitly present via $p(x_i)$), and it keeps adjusting the values, until the loss no longer improves significantly.
+<!-- $$ -->
+<!-- \sum_{i\mid y_i=1} \log\big(1-p(x_i)\big) + \sum_{i\mid y_i=0} \log\big(p(x_i)\big) -->
+<!-- $$ -->
+<!-- The general idea of this loss function is that it measures the distance between the predictions and the true labels. -->
+<!-- The magnitude of this distance directly impacts the loss. -->
+<!-- Predictions that are both incorrect and made with high confidence are penalized more severely compared to incorrect predictions made with lower confidence. -->
+As mentioned above, a typical loss function for logistic regression is the log-loss function.
+The goal of the optimizer is to minimize the loss function with respect to $\beta$ (implicitly present via $p_i$), and it keeps adjusting the values, until the loss no longer improves significantly.
 
-When trying to predict an outcome with many predictor variables, it becomes a challenge if the number of these potential predictors (denoted by "p") surpass the number of data points in the dataset (denoted by "n").
+When trying to predict an outcome with many predictor variables, it becomes a challenge if the number of these potential predictors (denoted by "m") surpass the number of data points in the dataset (denoted by "n").
 To manage this imbalance effectively, regularization methods can be used to create a sparse model, i.e. a model with only a few important features with the rest removed (Hastie et al. 2001:649-664).
-Regularization is not only needed when $p > n$ but also to reduce the overfitting of a model, a problem frequently occurring in various complex models.
+Regularization is not only needed when $m > n$ but also to reduce the overfitting of a model, a problem frequently occurring in various complex models.
 
 One of the most well-known and used regularization techniques is Ridge regression (L2):
 $$
-\lambda\sum_{j=1}^{p} \beta_{j}^{2}
+\lambda\sum_{j=1}^{m} \beta_{j}^{2}
 $$
 The idea is to penalize the weights of the model and in the case of ridge, it would be with the sum of the squared coefficients, times a tuning parameter $\lambda$ to decide the strength of the regularization.
 The benefit of Ridge regression is that it pushes the weights towards zero, relative to the size.
@@ -266,29 +312,36 @@ This means that large weights are heavily penalized and small weights rarely hit
 It is also possible to penalize the weight using the absolute value instead of the squared sum, this would mean that all weights are treated equally.
 This is called the least absolute shrinkage and selection operator (LASSO) or L1, and is given by
 $$
-\lambda\sum_{j=1}^{p} |\beta_j|
+\lambda\sum_{j=1}^{m} |\beta_j|
 $$
 This type of regularization is especially powerful in terms of regularizing the model, but also to do feature selection. As the weight are penalized at absolute rate, the weights are able to shrink to zero.
 This means that small weights that cause more noise than accuracy, can be removed from the model.
 
 These terms are added to the loss function when minimizing, i.e. with LASSO regularization, the optimization problem becomes
 $$
-\min_{\beta}\sum_{i\mid y_i=1} \log\big(1-p(x_i)\big) + \sum_{i\mid y_i=0} \log\big(p(x_i)\big) + \lambda\sum_{j=1}^{p} |\beta_j|
+\min_{\beta}\sum_{i\mid y_i=1} \log\big(1-p(x_i)\big) + \sum_{i\mid y_i=0} \log\big(p(x_i)\big) + \lambda\sum_{j=1}^{m} |\beta_j|
 $$
 LASSO has the added functionality of variable selection, but it also implicitly assumes some parameters are equal to 0, meaning if all predictors truly are relevant to the response variable, it might lead to worse predictions.
 Otherwise, the performance of the two regularization types are similar and which performs best varies from problem to problem (Hastie et al. 2001:245-247).
+
+<!-- Slet herunder -->
 
 <!-- Den egentlige grund til at lasso kan reducere til 0 er meget matematisk. noget ala "LASSO regularization can reduce parameters to 0, because LASSO expands as a polytype around the origin, and can catch the estimate's countour ellipses at the axes, which is not possible with a hypersphere." -->
 <!-- Så det skal nok ikke nævnes -->
 <!-- The effects of LASSO and Ridge can be seen below. -->
 <!-- <div style="text-align: center;"> -->
 <!--   <img src="../images/L1L2.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);"> -->
-<!-- </div> <!-- ved ikke om jeg kan lide denne figur, hvad er value, hvad er x. Value er a priori fordelinger af beta med hhv en normal og en dobbelt exponential prior. Figur 6.7 er måske mere sigende--> -->
+<!-- </div> -->
+<!-- ved ikke om jeg kan lide denne figur, hvad er value, hvad er x. -->
+<!-- x er betaerne, og value er g(beta) hvor g er en tæthedsfunktion -->
+<!-- Dette er den bayesianske opfattelse af det, nok ikke god at have med -->
+<!-- Tror plottet viser a priori fordelinger af beta med hhv en normal og en dobbelt exponential prior. Figur 6.7 er måske mere sigende -->
+
 
 <!-- Where it can be seen that Ridge is wider compared to LASSO and LASSO is taller compared to Ridge. -->
 <!-- The visualization is a illustration of the ridge regression ability to reduce large weights at a large rate, where LASSO have to ability to reduce weights to zero. **Provide a better explanation** -->
 
-
+<!-- slet herover -->
 
 
 In some cases it can be an advantage to combine the power of Ridge regression and LASSO regularization, while being able to customize the weighting of the two methods.
@@ -346,11 +399,9 @@ This high variance means that decision trees may create overly complex structure
 To address these issues, **[ensemble methods](https://en.wikipedia.org/wiki/Ensemble_learning)** can be used and create methods like **Random forest** or **Gradient boosting**.
 
 ## Ensemble learning methods
-
 Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor. This is also known as *wisdom of the crowd*.
 
 ### Bagging
-
 Bagging (Bootstrap Aggregating) builds many independent models from random data samples and averages their predictions.
 In regression problems, this is easily done using the mean or median.
 For classification problems, the aggregation function is most often the statistical mode, which is the most frequent prediction, but at times it may be smart to include a "not enough evidence" classification.
@@ -377,7 +428,6 @@ When growing trees, Random Forests consider only a random subset of features at 
 This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise.
 
 ### Gradient Boosted Trees
-
 Unlike bagging methods that build independent models, boosting methods build models sequentially.
 Each new model focuses on fixing the mistakes of combined previous models, i.e. building a new model with the residuals from the overall model as the response variable.
 There are many boosting methods, but one of the more popular ones are [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting).
@@ -391,13 +441,66 @@ The shrinkage parameter is also known as the learning rate in some literature.
 This sequential improvement process creates highly accurate models but requires tuning hyperparameters to avoid overfitting.
 Specifically, shrinkage parameter values close to 1 can lead to heavy overfitting.
 
-## Neural Networks 
+## Neural Networks
+The human brain consists of a bunch of neurons connected to each other in a huge network, with a massive amount of neurons and even more connections.
+The neurons pass a tiny electrical charge through the network, which is how information is shared.
+The pathways become stronger the more often they are used, which is how people learn new information.
+This is, of course, a simplified version of reality, but it motivates the namesake of [neural networks](https://medium.com/deep-learning-demystified/introduction-to-neural-networks-part-1-e13f132c6d7e).
 
-### Train neural networks
+Functionally, neural networks consist of nodes (neurons) in a set number of layers, where each node in a previous layer is connected with the next layer's nodes by weights.
+The first layer is the input layer, containing as many nodes as predictors.
+Then comes a set number of layers containing a customizable number of nodes, known as the hidden layers, where two or more hidden layers is required for *deep learning*.
+Finally, there is an output layer, typically consisting of one node for regression or two-class classification problems, and K nodes for K-class classification problems.
+An example of a neural network can be seen below ([image source](https://medium.com/@sukmaanindita/artificial-neural-network-using-r-studio-3eb538fa39fb)).
+Additionally to the drawn weights, each neuron typically also has a bias, i.e. a constant weight.
 
-### Hyperparameters for Neural Networks
-Hyperparameters control how neural networks learn. They are set before training begins and greatly affect results.
-Key hyperparameters include:
+<div style="text-align: center;">
+  <img src="../images/neural_network.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+<!-- kunne måske bruge en bedre model der ikke bruger n som indeks for antal prediktore, antal skjulte lag og antal outputs -->
+
+Each node contains some value (energy) from the previous layer, or from the input for the input layer.
+The energy in the first node in layer $h_1$ is given by
+$$
+h_{1,1} = f(w_{1,1,0} + w_{1,1,1}x_1 + \cdots + w_{1,1,n}x_n)
+$$
+and the first node in layer $h_2$ is given by
+$$
+h_{2,1} = f(w_{2,1,0} + w_{2,1,1}h_{1,1} + \cdots + w_{2,1,n}h_{1,n})
+$$
+where $f$ is a function determining the relationship between layers called the activation function.
+The activation function introduces non-linearity in the model, and allows the model to capture complex patterns in the data.
+Typical choices of activation function is the ReLU function, $\max(0,x)$, i.e. linear for all positive values, or the sigmoid function introduced in the logistic regression section.
+
+For binary risk classification, it is possible to use the logistic function to calculate the output variable, with the added benefit of interpreting the results as risk scores.
+
+It should be noted, that every single weight is a parameter in the model, which means it can tend to overfit, if there is not a sufficient amount of data.
+Additionally, it requires a lot of computer power to calculate these weights for more complex models, and the number of parameters in neural networks quickly grows, as addition of a single node adds as many weights as the number of nodes in the previous and next layer combined.
+To illustrate the massive amounts of parameters possible for neural networks, consider OpenAI's GPT-4 model which has an estimated [1.8 trillion parameters](https://explodingtopics.com/blog/gpt-parameters), compared to the 175 billion of the predecessor GPT-3.
+
+### Training a neural network
+All of these parameters need to be estimated in some way.
+Like the previous methods, it is necessary to use a loss function that needs to be minimized, this could be anything from the log-loss, the accuracy, or the AUC methods.
+Once selected, the weights need initial values, which could just come from a random guess, but [more complex initialization methods](https://machinelearningmastery.com/weight-initialization-for-deep-learning-neural-networks/) exist, not discussed here.
+
+To estimate the parameters, [backpropagation](https://medium.com/deep-learning-demystified/introduction-to-neural-networks-part-2-c261a99f4138) is used.
+It is motivated by the fact, that every single weight affects the output variable, meaning that directly estimating the parameters is near impossible.
+
+First step of the algorithm is feeding it some data and, using the initilized weights, calculating the predicted outcome.
+The goal is then to minimize the loss function with respect to the predicted value.
+It does so by using the gradient descent algorithm, where the partial derivatives of each weight is used, along with the predicted value.
+As the weights directly connected to the outcome are closest to the error, they are estimated first, with the weights between the second last and the last hidden layer being next, and so on.
+This is also why it is called backpropagation, as the algorithm first moves forward when calculating the predicted outcome, and then moves backwards when calculating the weights.
+
+The gradient descent algorithm uses the derivatives, and takes a step in the direction that minimizes the loss function.
+The length of this step is called the learning rate, and can be seen marked red in the figure below.
+
+<div style="text-align: center;">
+  <img src="../images/gradient_descent.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
+
+Learning rate is just one of many hyperparameters in neural networks, that control how the neural network is trained.
+The key hyperparameters for neural networks are:
 
 - Learning rate: Controls how much weights change with each update
 
@@ -409,24 +512,12 @@ Key hyperparameters include:
 
 - Activation functions: Which mathematical operations transform data between layers
 
-Finding the right hyperparameters often requires systematic testing. Small changes can potentially improve or harm performance, significantly. Due to tuning process being time consuming, there can be used different hyperparameter search algorithms to try a wide range of hyperparamaters, automatically.
-The choice of hyperparameters determines what the network can learn and how well it will perform on new data.
+Finding the right hyperparameters often requires systematic testing.
+Small changes can potentially improve or harm performance, significantly.
+Due to tuning process being time consuming, hyperparameter search algorithms can be used to try a wide range of hyperparameters automatically.
+The choice of hyperparameters is important to consider, as it determines what the network can learn and how well it will perform on new data.
 
-
-# Model training
-
-In this part of the section, **osv osv**
-
-
-## Loss Functions
-As 
-
-### Binary cross entropy
-### Log likelihood
-### AUC metrics
-
-## Hyperparameters Optimization
-
+# Hyperparameters Optimization
 All of the models presented in this section has had some hyperparameters, determining the specifics of how the models are built.
 These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea).
 Generally in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are tested using the validation set, see data management. <!-- REF HER MÅSKE? -->
@@ -454,14 +545,17 @@ The optimal combination is marked in red.
 This is a very computationally heavy method, as a new model is fitted for each combination of hyperparameter value, but it works well if the dimensionality is not too big.
 As such it is usable for logistic regression with regularization, and some tree methods if only some hyperparameters are considered, but not for neural networks.
 
-### Random search
+## Random search
 Instead of rigorously searching over a grid, the number of computations can be reduced by randomly generating a set amount of hyperparameters using [Random search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528).
-To do this, the algorithm needs a sampling space for each of the hyperparameters, which can be customly designed, or some commands utilize predetermined distributions.
+To do this, the algorithm needs a sampling space for each of the hyperparameters, which can be customly designed.
+Typically, this sampling space consists of a low number of relevant values for each hyperparameter, and the algorithm randomly picks a combination and trains a model using it.
+In practice, however, some commands can utilize predetermined distributions depending on the model type.
 
-This handles dimensionality well, as the algorithm only trains as many models as you specify, and works relatively well, despite probably not finding the absolute best hyperparameters.
+
+This method handles dimensionality well, as the algorithm only trains as many models as you specify, and works relatively well, despite probably not finding the absolute best hyperparameters.
 <!-- hvis der skal være en figur, kan man tage kodeoutput, men nok ikke nødvendig -->
 
-### Bayesian optimization
+## Bayesian optimization
 Similarly to random search, [Bayesian optimization](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f) samples from the hyperparameter space using a more *informed* approach.
 Where it differs, however, is how the samples are chosen.
 Instead of sampling randomly, the samples are based on the previous sampled values.
@@ -513,7 +607,7 @@ For classification problems, when the models make their predictions, they output
 Upon seeing these probabilities, one would assume they correspond to reality if made over a large number of instances.
 This is important, as for example if a model predicts a 40% chance of mortality in the next 30 days, there is slightly more cause for concern compared to a 10% chance.
 It is, however, not always the case that these probabilities align with reality, which is possible if the model is not calibrated.
-Note that calibration is not related to the accuracy of the model, and it is possible to have an accurate model without it being calibrated.
+Note that calibration is not related to the accuracy of the model, and it is possible to have an accurate model without it being calibrated and vice versa.
 This subsection introduces methods for ensuring [model calibration](https://medium.com/@sahilbansal480/understanding-model-calibration-in-machine-learning-6701814dbb3a).
 
 The first method for testing calibration, is by using calibration plots, that compare the predicted risk scores with the actual class.
@@ -526,7 +620,7 @@ An example of a calibration plot can be seen below ([image source](https://sciki
 In this type of plot, the ideally calibrated model follow the dashed line, and points above the line indicate overconfidence, i.e. the prediction is larger than expected, and vice versa for points below the line.
 
 Alternatively, the Brier score can be inspected, a model evaluation metric particularly useful for evaluating the calibration of two-class classification models, but is also versatile in that it is usable in multi-class classification problems as well.
-It does so by quantifying the closeness of the predictions ($p_i$) to the reality ($y_i$) by
+It does so by quantifying the closeness of the predictions ($\hat{p}_i$) to the reality ($y_i$) by
 $$
 \text{Brier score} = \frac{1}{N} \sum_{i=1}^N (p_i-y_i)^2
 $$
@@ -551,23 +645,68 @@ It is, however, more prone to overfitting, so a larger amount of data is needed 
 
 After calibrating the models, it can be smart to verify their calibration using the calibration plot and Brier score again.
 
-## Explainability
-Shortly 
+Note that because Platt scaling utilizes a strictly monotone function, the AUC metrics (ROC and PR) are not affected, as [these are based on the probabilities' rank](https://scikit-learn.org/stable/modules/calibration.html).
+The isotonic regression does, however, add ties, which may change their values. 
 
+
+## Explainability
+Models applied in the real world should have a good [explainability](https://medium.com/@rohanmistry231/model-interpretability-explainability-in-machine-learning-af2b0deaa3ea).
+It should be possible to gain insight into why it predicts the way it does, and identify the most important predictors.
+For example when predicting mortality, this could help identify possible causes and effects to target treatment towards (keeping in mind that correlation does not equal causation).
+
+Some models are inherently explainable, such as logistic regression where all parameter values are calculated, and can be compared (assuming the data has been normalized), and decision trees, where the splits are made on specific predictors based on impurity.
+These models are known as [white-box models](https://medium.com/data-science/machine-learning-interpretability-techniques-662c723454f3), as everything is illuminated and visible.
+
+On the contrary, the only obvious thing for [black-box models](https://medium.com/data-science/machine-learning-interpretability-techniques-662c723454f3) is the input and output.
+These are complex models such as the ensemble methods (e.g. random forests) and neural networks.
+But just because they are not inherently explainable, does not mean that some information can not be extracted using external methods.
+
+The industry standard for explainability of black-box models is called [Shapley Additive explanation](https://medium.com/biased-algorithms/shap-values-explained-08764ab16466) (SHAP) values, and is based on game theory.
+It is based on the concept that in a cooperative game, each individual contributes to the result, and should get their fair share of the outcome, based on their contribution.
+In terms of modelling, every predictor gives a positive or negative effect on the prediction, for example if a house is predicted to be worth 1.000.000, maybe +500.000 is from the location, the size adds another +600.000, but the age of the house detracts -200.000 and so on.
+This can be visualized in a waterfall plot inspecting a specific prediction, an example of which is seen below, visualizing the effect of being a 45 year old man with an albumin level of 2.9 g/dL on 30-day mortality rate.
+
+<div style="text-align: center;">
+  <img src="../images/SHAP_waterfall.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+
+Practically, the SHAP values can be calculated by considering the model for each combination of predictors, including a null model, as seen below.
+
+<div style="text-align: center;">
+  <img src="../images/SHAP_explained.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+
+The null model determines the mean (13% in this example).
+Then to analyze the effect of a predictor value, all models without the given predictor is compared to a corresponding model with the predictor added.
+For example, considering the age, the prediction for the null model is compared to the 1-variable model containing only age.
+Additionally, the model containing only the sex predictor is compared to the 2-variable model containing age and sex, and so on.
+Adding these changes together, weighted with the total amount of model changes gives the SHAP value for this predictor value.
+An example using age is seen below.
+
+<div style="text-align: center;">
+  <img src="../images/SHAP_explained_age.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+
+In this case the contribution of age is
+$$\text{Age contribution} = \frac{-5\%}{3} + \frac{-25\%}{6} + \frac{-25\%}{6} + \frac{-24\%}{3} = -18\%$$
+Correspondingly, the contribution of the other predictors can be calculated, giving the waterfall plot shown further up.
+
+It should be noted, that this only gives an idea of the predictor importance, but not necessarily the whole truth.
 
 # Exercises
 ## Modelling
-In this workshop you will train and test at least one prediction model based on the datasets you prepared in Workshop 1 (in case you did not succeed with Workshop 1, a prepared data set is available on PhD Moodle under Day 2/Workshop 2. In this dataset there is a variable called split, indicating which split the observation belongs too). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”).
+In this workshop you will train and test at least one prediction model based on the data sets you prepared in Workshop 1 (in case you did not succeed with Workshop 1, a prepared data set is available on PhD Moodle under Day 2/Workshop 2. In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”).
 Go through the following steps:
+
 1)	Choose a performance metric for final test of model performance (is there class imbalance in your data?)
-2)	Choose a model to train (e.g., logistic regression with elastic net or random forest). What parameters and hyper parameters does the model have?
-3)	Train model and tune hyper parameters.
-4)	How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did we predict both positive and negative outcomes well?
+2)	Choose a model to train (e.g. logistic regression with elastic net or random forest). What parameters and hyperparameters does the model have?
+3)	Train model and tune hyperparameters.
+4)	How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did you predict both positive and negative outcomes well?
 5)	Train a calibration model. How well is the model calibrated, considering the test set?
 
 
 
 ## Reference
-Introduction to statistical learning, osv osv
+Introduction to statistical learning (2001), Trevor Hastie, Gareth James, Daniela Witten and Robert Tibshirani, [https://www.statlearning.com/](https://www.statlearning.com/)
 
 [^1]: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn
