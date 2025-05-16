@@ -16,118 +16,51 @@ text-align: justify}
 :::
 
 
-
-
-
 # Machine learning models
 
-In the first part of the modeling section, a range of machine learning models from simple to complex will be presented.
-Before doing so, however, a comprehensive introduction to modeling topics will be provided.
+In the modeling section, a comprehensive introduction to modeling topics will first be provided. Following this, a range of machine learning models, from simple to complex, will be presented.
 
 ## Regression vs. Classification
 This section covers `supervised learning` which is one of two primary approaches in Machine Learning, with the other being `unsupervised learning`.
 Supervised learning is when the true class of each observation is known, and can be used to train a model recognizing patterns among the classes.
-Then some data without class labels are presented to the model and it is the model's task to provide the correct labels to the data.
 
-Machine learning models have two primary problem types, either `regression` dealing with the prediction of a continuous outcome, or `classification` dealing with discrete outcomes.
+This section covers **supervised learning**, which is one of two primary approaches in Machine Learning, while other being **Unsupervised learning**. In supervised learning, the true class of each observation is known and is used to train a model, enabling patterns associated with the classes to be learned. The ability to recognize patterns is tested by presenting the model with data whose true labels are not revealed. For this data, labels are predicted by the model, and performance is evaluated by comparing the predicted labels against the true labels.
 
-<!-- ```{python} -->
-<!-- #| fig-align: center -->
-<!-- #| fig-width: 8 -->
+Machine learning models have two primary problem types, either `regression` regarding the prediction of a continuous outcome, or `classification` regarding discrete outcomes.
+
+<div style="text-align: center;">
+  <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
 
 
-<!-- # code stems from: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn -->
-<!-- import matplotlib.pyplot as plt -->
-<!-- import numpy as np -->
-<!-- from sklearn.datasets import make_blobs, make_regression -->
-<!-- from sklearn.svm import LinearSVC, LinearSVR -->
-<!-- import warnings -->
-<!-- warnings.filterwarnings("ignore") -->
-
-<!-- title_size = 16 -->
-<!-- axis_label_size = 12 -->
-<!-- params = {'legend.fontsize': 7, -->
-<!--           'figure.figsize': (7, 3), -->
-<!--           'axes.labelsize': 8, -->
-<!--           'axes.titlesize': 9, -->
-<!--           'xtick.labelsize': 10, -->
-<!--           'ytick.labelsize': 10} -->
-<!-- plt.rcParams.update(params) -->
-
-<!-- def make_classification_example(axis, random_state): -->
-<!--     X, y = make_blobs(n_samples=100, n_features=2, centers=2, cluster_std=2.7, random_state=random_state) -->
-<!--     axis.scatter(X[y == 0, 0], X[y == 0, 1], color="red", s=10, label="Disease") -->
-<!--     axis.scatter(X[y == 1, 0], X[y == 1, 1], color="blue", s=10, label="Healthy") -->
-
-<!--     clf = LinearSVC().fit(X, y) -->
-
-<!--     # get the separating hyperplane -->
-<!--     w = clf.coef_[0] -->
-<!--     a = -w[0] / w[1] -->
-<!--     xx = np.linspace(-5, 7) -->
-<!--     yy = a * xx - (clf.intercept_[0]) / w[1] -->
-
-<!--     # plot the line, the points, and the nearest vectors to the plane -->
-<!--     axis.plot(xx, yy, 'k-', color="black", label="Model") -->
-<!--     ax1.tick_params(labelbottom='off', labelleft='off') -->
-<!--     ax1.set_xlabel("Gene 1") -->
-<!--     ax1.set_ylabel("Gene 2") -->
-<!--     ax1.legend() -->
-
-<!-- def make_regression_example(axis, random_state): -->
-<!--     X, y = make_regression(n_samples=100, n_features=1, noise=30.0, random_state=random_state) -->
-<!--     axis.scatter(X[:, 0], y, color="blue", s=10, label="Patients") -->
-
-<!--     clf = LinearSVR().fit(X, y) -->
-<!--     axis.plot(X[:, 0], clf.predict(X), color="black", label="Model") -->
-<!--     ax2.tick_params(labelbottom='off', labelleft='off') -->
-<!--     ax2.set_xlabel("Gene 1") -->
-<!--     ax2.set_ylabel("Survived (years)") -->
-<!--     ax2.legend() -->
-
-<!-- random_state = np.random.RandomState(42) -->
-<!-- f, (ax1, ax2) = plt.subplots(ncols=2) -->
-<!-- ax1.set_title("Classification") -->
-<!-- make_classification_example(ax1, random_state) -->
-<!-- ax2.set_title("Regression") -->
-<!-- make_regression_example(ax2, random_state) -->
-<!-- plt.show() -->
-<!-- ``` -->
-
-<!-- >>>>>>> webpage-quarto -->
-<!-- **Devnote: Make a option where people can look at both R code and Python code** -->
-In regression, you use predictors to predict the exact value of some target variable.
-Regression problems could be anything from house prices based on local crime rate and pollution, to prediction of blood pressure based on some biological predictors.
+In regression, predictors are used to predict the value of a target variable. Examples of regression problems include predicting house prices based on house size and area, or predicting blood pressure based on biological predictors.
 
 In classification, you use predictors to predict the class of some target variable, either in a binary classification system or a multi-class one.
 Essentially, this task involves estimating the class probability of each class.
 Examples of these binary events are most often positive/negative – or true/negative.
 These scenarios can be anything from getting approved for a loan to a medical diagnosis (Hastie et al. 2001:9-11).
-In terms of healthcare application, the idea is that a model has been trained with a lot a of clean high quality data and this model can be fed some information (features) about a patient, which can be used for some prediction (providing a label).
-So if a patient has a spike in some values, such as blood pressure, body temperature, or the like, the model might suggest that it is a sign of some illness coming up.
-Another example is from the **motivational example** from the introduction of the this course regarding the decision of providing palliative SACT for cancer patients.
-Such a model could assist the clinicians in making the decision of providing SACT or not.
-The doctor would provide the models with relevant values of the patients and the model would provide a risk score, which is a significant consideration to include in the decision making process.
+
+In healthcare applications, models are trained using large amounts of high-quality data. Patient information (features) is then provided to the trained model, allowing predictions to be made. A spike observed in a patient's values, such as blood pressure or body temperature, might result in an illness being predicted by the model. The **motivational example** presented in the introduction, concerning the decision on providing palliative SACT for cancer patients, is another illustration of this application.
+
+Assistance could be provided to clinicians by such a model for the decision on whether to provide SACT. Relevant patient values would be provided as input to the model, and a risk score generated by the model. The risk score would be a significant consideration for inclusion in the decision-making process.
 
 
 ## Classification problems
-The methods and terminology is introduced in the context of two-class classification problems, but similar terms exist for multi-class classification problems.
+Methods and terminology is introduced in the context of two-class classification problems, but similar terms exist for multi-class classification problems.
 
-As we are only considering supervised learning, it is possible to tell when the model predictions are wrong, but often just counting the raw amount of misclassifications is misleading.
-For example, if we have 10 misclassifications out of 5000 total data points, the model is better than if we had only 100 data points.
-In order to make the models' performance comparable, the model performance metrics are introduced.
+As only supervised learning is being considered, errors in model predictions can be identified. To enable comparison of model performance, performance metrics are introduced.
 
 ### Model performance metrics
 
-Consider the classification illustrated in the figure below, classified using a simple linear boundary, where points with a green outline are correctly predicted, and opposite for points with a red outline.
+In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
 
 <div style="text-align: left;">
   <img src="../images/class_problem.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
 </div>
 
-This is a typical two-class classification problem, with a positive and a negative class.
+This is a typical two-class classification problem, where the task is to draw a line which splits the datapoints most efficiently.
 The linear boundary visualizes the divide in prediction regions, with each class predicted on each side of the boundary.
-This divide motivates the terms
+This divide motivates the terms:
 
 - True Positives (TP): Points belonging to the positive class, predicted as the positive class.
 - True Negatives (TN): Points belonging to the negative class, predicted as the negative class.
@@ -143,7 +76,7 @@ All of this can be aggregated in a [confusion matrix](https://medium.com/@nikita
 A simple way to measure the performance classification problems, is to consider the accuracy of the model, given by
 $$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
 This is relevant, when both classes are equally important.
-Often, this is not the case, such as in forensic sciences, where type I errors could point the evidence to another person, or as in the motivational example, where type II errors result in lower life quality just before death.
+Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated by Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy by Type II errors.
 For more examples of prioritization of type I and II errors, see  [here.](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
 As such, it is important to consider the metrics sensitivity, precision, and specificity, given by
 
@@ -153,8 +86,7 @@ As such, it is important to consider the metrics sensitivity, precision, and spe
   \text{Precision}   &= \frac{TP}{TP+FP}
 \end{align}
 
-The sensitivity metric, also known as recall, considers all points belonging to the positive class in the data set, and specificity is the complement to this, considering only the points belonging to the negative class.
-In contrary, the precision metric considers the model's performance for predicting the positive class.
+**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  Specificity, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the precision metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made with respect to the context of the problem.
 
 Combining sensitivity and precision, gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
 It is given by
@@ -180,9 +112,7 @@ However, consider the following figure.
   <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
 </div>
 
-The model performance metrics for the classification to the right are all equal to 1 for the data it is trained on, but when used on new data, it is seen that a simpler model is better.
-This is because the model used for the right classification is too specific, which makes it generally not usable in practice.
-The problem of wanting a model that captures the right patterns in the predictors, but not so much that it becomes too specific, is known as the bias-variance trade-off. (Hastie et al. 2001:33-38)
+The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data is known as the bias-variance trade-off (Hastie et al. 2001:33-38)
 
 ### Bias-variance trade-off
 Bias is a term referring to the error that stems from using too simple a model to approximate a more complicated real-life problem.
@@ -191,6 +121,8 @@ This means that there is some pattern in the data, that a logistic model is not 
 The term of using too simple a model for the data is generally known as **underfitting**.
 Conversely, the variance is referring to the error that stems from using too flexible a model.
 Here it is possible to create a model too specific to the training data, known as **overfitting**.
+
+**Bias** is the error resulting from the use of a model that is too simple to capture the underlying patterns in complex real-world data. This case of a simple fit on a complex problem is known as underfitting. For example, a logistic model, being based on a linear structure, is often unable to capture non-linear relationships in data, contributing to bias. in contrast, variance is the error resulting from the use of a model that is too flexible, causing a model that is overly sensitive to the training data and performs poorly on new data. The case of perfect fit in training data and poor fit on test data is known as overfitting.
 
 In the figure above, the left classification is from an underfitted model, whereas the right classification is from an overfitted model.
 
