@@ -1,0 +1,176 @@
+```{r}
+library(jsonlite)
+library(glue)
+library(ggplot2)
+library(dplyr)
+```
+
+
+```{r}
+source("request_fhir.R")
+```
+
+```{r}
+BASE_URL_R <- 'https://test/fhir'
+```
+
+```{r}
+patient_list_url <- paste0(BASE_URL_R, "Patient")
+response_patients <- get_r(patient_list_url)
+```
+
+```{r}
+patients_bundle <- fromJSON(response_patients$content, flatten = TRUE)
+all_patients_list <- NULL 
+all_patients_list <- patients_bundle$entry$resourceType
+extracted_patients <- data.frame(
+   id = patients_bundle$entry$resource.id,
+   gender = patients_bundle$entry$resource.gender,
+   birthDate = patients_bundle$entry$resource.birthDate,
+   stringsAsFactors = FALSE
+)
+all_patients_df <- extracted_patients
+print(all_patients_df)
+```
+
+
+
+
+```{r}
+# 2)	Look at the snomed.csv file inside the data folder to see which code to use to access the data
+snomed_df <- read_csv("data/snomed.csv", show_col_types = FALSE)
+snomed_df$label
+filtered_df <- snomed_df %>% 
+  filter(label == "chol")
+
+filtered_df
+
+CHOLESTEROL_CODE = '365793008'
+
+```
+
+```{r}
+# 3) 
+
+patient_id_to_fetch <- 2
+
+cholesterol_observation_url <- paste0(
+  BASE_URL_R,
+  "/Observation?",
+  "patient=", patient_id_to_fetch, "&",
+  "code=", CHOLESTEROL_CODE
+)
+
+response_cholesterol <- get_r(cholesterol_observation_url)
+
+cholesterol_bundle <- fromJSON(response_cholesterol$content, flatten = TRUE)
+
+
+extracted_observations <- list()
+
+for (i in 1:nrow(cholesterol_bundle$entry)) {
+  date_val_str <- cholesterol_bundle$entry$resource.effectiveDateTime[i]
+  value_val_num <- as.numeric(cholesterol_bundle$entry$resource.valueQuantity.value[i])
+
+  extracted_observations[[length(extracted_observations) + 1]] <- data.frame(
+    date = as.Date(date_val_str),
+    value = value_val_num,
+    stringsAsFactors = FALSE
+  )
+}
+
+cholesterol_data <- bind_rows(extracted_observations)
+
+cholesterol_data <- cholesterol_data %>% arrange(date)
+
+p <- ggplot(cholesterol_data, aes(x = date, y = value)) +
+  geom_line(color = "steelblue") +
+  geom_point(color = "red") +
+  labs(
+    title = paste("Cholesterol Levels for Patient ID:", patient_id_to_fetch),
+    x = "Date of Measurement",
+    y = "Cholesterol Value (mmol/L or mg/dL - check units)"
+  ) +
+  theme_minimal()
+
+# Print the plot
+print(p)
+
+```
+
+
+
+```{r}
+baseline_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/baseline_data.csv",
+                header = TRUE, sep = ",")
+colnames(baseline_data)
+blood_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/blood_data.csv",
+                header = TRUE, sep = ",")
+colnames(blood_data)
+diag_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/diag_data.csv",
+                header = TRUE, sep = ",")
+colnames(diag_data)
+dict_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/dict_data.csv",
+                header = TRUE, sep = ",")
+colnames(dict_data)
+events <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/events.csv",
+                header = TRUE, sep = ",")
+colnames(events)
+normalization <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/normalization.csv",
+                header = TRUE, sep = ",")
+colnames(normalization)
+quest_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/quest_data.csv",
+                header = TRUE, sep = ",")
+colnames(quest_data)
+snomed <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/snomed.csv",
+                header = TRUE, sep = ",")
+print(snomed)
+colnames(snomed)
+treat_data <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/treat_data.csv",
+                header = TRUE, sep = ",")
+colnames(treat_data)
+visit_date <- read.csv("~/Dyn_Risk_Pred_Course/Code/data/treat_data.csv",
+                header = TRUE, sep = ",")
+colnames(visit_date)
+
+```
+
+
+```{r}
+
+
+```
+
+
+
+```{R}
+BASE_URL_R <- 'https://test/fhir'
+patient_list_url <- paste0(BASE_URL_R, "Patient")
+response_patients <- get_r(patient_list_url)
+
+response_patients <- get_r(patient_list_url)
+
+patients_bundle <- fromJSON(response_patients$content, flatten = TRUE)
+
+
+patients_bundle <- fromJSON(response_patients$content, flatten = TRUE)
+all_patients_list <- NULL 
+all_patients_list <- patients_bundle$entry$resourceType
+extracted_patients <- data.frame(
+    id = patients_bundle$entry$resource.id,
+    gender = patients_bundle$entry$resource.gender,
+    birthDate = patients_bundle$entry$resource.birthDate,
+    stringsAsFactors = FALSE
+)
+all_patients_df <- extracted_patients
+print(all_patients_df)
+
+```
+
+
+```{r}
+# 5)	Feed these data into your trained model and make predictions
+
+
+
+```
