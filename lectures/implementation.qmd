@@ -1,24 +1,125 @@
 ---
 format: html
 ---
-
 :::{.hero-banner}
 # Implementation
 
 :::
 
+In earlier chapters of this course, a comprehensive introduction was provided regarding handling data, feeding it into models, and evaluating the performance of the models. However, when working with healthcare data, data collection is complicated. In the data management module, a range of data providers was introduced along with the notions of privacy and data protection. These concepts are beyond the scope of this course, but it is important that the non-free availability of these data to be understood, which is why the data are safeguarded by some major data holders. This has the positive effect that certain standards can be implemented by these data holders. A standard for interacting with databases is the FHIR standard. This standard streamlines how healthcare data are interacted with globally.
+
+Thus, an understanding of what servers, networks, and APIs are is essential, as databases are stored on servers. Also, an understanding of what the FHIR standard is is important for working with healthcare data for dynamic risk prediction. Therefore, this section of the course will cover:
+
+- Hosting and access to data
+- FHIR
+- Validation
+- **Exercises**
+
 # Hosting and access to data
+When models for dynamic risk prediction are built, multiple actors are involved, and particularly in the healthcare sector, interaction with partners is certain.
+These partners are the personnel who collect and safeguard the data. Clinicians who collect data cannot safeguard it on their own. The data must be stored in a location that is easily accessible, secure, and allows for a collection of all data from all clinicians at a regional, national, or international level. This makes [servers](https://medium.com/@theoluwafemi/understanding-servers-cbc61f910b9b) a major part of the digital infrastructure, allowing information about patients, treatments, etc., to be transferred and stored by researchers. This is done so that the best service can be provided, research can be conducted, and decision-making processes can be supported.
+
+A server is a type of computer by which data are hosted or a service is provided to other computers via a [network](https://medium.com/@Mushtaque1503/what-is-computer-network-and-types-of-network-and-how-does-it-work-55cbe160245b).
+Networks involve two or more computers by which communication and the sharing of resources or information are enabled.
+Network types range from local networks, such as Bluetooth connections or Wi-Fi networks, to larger area networks, like university networks or the internet as a whole. Resources, such as databases related to the Danish population, are primary accessed via these larger networks.
+These networks are comprised of physical devices (hardware), such as routers or access points, by which data can be retrieved and sent through the network to its desired location, along with information about its origin.
+Resource sharing is facilitated by this, and information sharing is thereby immensely improved.
+The term 'server' can refer to the physical or virtual computer itself, or more broadly to the system that includes the computer and its operating system.
+The general system of a client-to-server connection, which is illustrated below, should be considered.
+
+<div style="text-align: left;">
+  <img src="../images/implementation/server_to_client.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);">
+</div>
+
+Servers are comprised of both hardware (the physical machine, typically located in a server room) and software, by which services are provided to those with server access.
+It is important that it be noted that more than one service can be contained within a single physical server.
+Many different types of servers, such as those for websites, search engines, and email services, are interacted with daily.
+Databases, some of which were introduced in the data management section, should be considered in particular.
+A database server is a type of server by which information is managed so that it can be easily accessed, managed, and updated. A single database server can host more than one database.
+These types of servers can be linked to other servers where predictive models are hosted. By this method, data are kept in close proximity to the database, and the risk of accidental data leakage is minimized. This network of servers allow for easy and secure interaction of data, models and user interface.
+This process can be seen in the figure below."
+
+<div style="text-align: left;">
+  <img src="../images/implementation/imp_overlook.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);">
+</div>
+
+In the figure, the data management component and the making of the predictive model that is hosted on the server are shown as responsibilities directly held by you as the researcher.
+Access to data is typically not direct, it is a [Application Programming Interfaces (APIs)](https://medium.com/@vinayak-singh/what-is-an-api-its-types-and-protocols-used-bfaad3fa8e77) which are generally involved, acting as bridge between the user and the databases.
+This approach is found useful, not only because access to databases can be limited, but also because automations, together with scheduled jobs (known as CronJobs), can be established.
+For example, such jobs could involve weather projections being retrieved daily at midnight for display on an app or webpage.
+
+More case-based API usages also exist, such as when a transaction is completed using third-party systems (like [Apple Pay](https://www.apple.com/apple-pay/)), or when the current temperature (not just the projected one) is displayed by a weather app.
+
+For each API, a set of rules and techniques is established that outlines how the API should be implemented and used.
+These rules and techniques are known as the API protocol, and by them, applicable data formats and commands are determined.
+Many different API protocols exist, but the [REpresentational State Transfer (REST) protocol](https://en.wikipedia.org/wiki/REST) is particularly relevant to this course.
+REST is considered versatile as no single message format is enforced by the style itself for the messages that can be handled.
+The endpoint for REST interactions is a URL with which HTTP verbs (GET, POST, PATCH, PUT, and DELETE) are used so that resources can be created, read, updated, or deleted (CRUD operations).
+This protocol is deemed specifically relevant to the course because interactions enabling data exchange between servers and clients are facilitated by it.
+An API that follows this protocol is known as a RESTful API or sometimes just a REST API.
+
+As mentioned are FHIR a crucial part of the digital infrastructure for health data and relevant to the notion and theory of FHIR.
+
 # FHIR
-# Prospective validation
+[Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir) is a global health care reporting standard and interface published by HL7 designed to facilitate the exchange of health data.
+It supports the RESTful architecture, such that [all systems can read all resources](https://www.hl7.org/fhir/summary.html), which is particularly important, as it can potentially support omics data (data with an -omics ending, such as genomics).
+Additionally, it is user friendly in the sense, that all resources has a readable text representation in addition to the computer readable text.
+It gives the user the ability to build live applications in collaboration with other researchers.
+
+Regarding Danish health data, FHIR has already enabled Systematic systems (Columna CIS and Columna Cura), along with [other Danish applications and systems](https://hl7.dk/FHIR-implementations-1.0.0.html).
+The list of implemented systems will presumably only grow larger, as more and more projects are using FHIR.
+
+The usage of FHIR in the research process can be seen below, as a way to access the live data and thus feed the predictive model.
+
+<div style="text-align: left;">
+  <img src="../images/implementation/imp_overlook_fhir.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);">
+</div>
+
+The FHIR [administration module](https://www.hl7.org/fhir/administration-module.html) covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.
+Considering the **motivational example** from the introduction of the course, relevant live data would be
+
+- Patient: the baseline information about the person (e.g. name and age), along with something unique to id them by (e.g. CPR number in Denmark)
+- EpisodeOfCare: Information about long term care episodes, along with diagnoses and a time frame of when they were in care
+- Encounter: Small term care, or contact with health care providers
+- Observation: Anything measured, such as weight, the results of any blood tests or the like
+- Procedure: Drug administrations, surgeries, and various tests such as X-ray
+
+The first three are from the administration module, the fourth is from the [diagnostic module](https://www.hl7.org/fhir/diagnostics-module.html), and the final is from the [clinical module](https://www.hl7.org/fhir/clinicalsummary-module.html).
+
+Similarly to the model validation done in the previous section, it is also important to validate the implementation of the model.
+
+# Validation
+In terms of implementation validation, there are [three main types](https://www.learngxp.com/good-validation-practices/the-difference-between-prospective-concurrent-and-retrospective-validation/): prospective, concurrent, and retrospective.
+
+The prospective validation is arguably the most important one, as it validates that the system performs as intended, based on its protocols, *before* the system is used in practice.
+The validation process checks not just if the predictive model is accurate, but also whether the implementation of it is done correctly.
+The validation process typically follow a systematic approach, starting with the process design, then going through the installation, operational, and performance qualifications. <!-- måske for teknisk -->
+It is typically required that the system passes the validation checks, before it is deployed.
+
+Next is the concurrent validation, which is relevant when the system has been implemented and used.
+It serves to check whether the system is still in control and compliant.
+This type of validation is typically used, when something related to the system is changed, such as introduction of new data (e.g. another hospital's data is made available and is used in the model), change of equipment or something else.
+As it is concurrent, any deviations found can be corrected on an ongoing basis.
+
+Finally, consider the retrospective validation, which uses historical data and records to validate the system.
+The main reason to use this type of validation, is if no prospective validation was made before launch, and thus no evidence for the system efficiency exists.
+
+
+<!-- In particular, regarding implementation of predictive models in FHIR, FHIR has some validation methods already, but in general it is smart if the validation method has the [following qualities](https://kodjin.com/blog/how-to-validate-fhir-resources/): -->
+
+<!-- - Adaptable \& Future-proof - As Health care standards change, it should be adaptable, and should work with more than one version of FHIR, as FHIR is a standard in development -->
+<!-- - Flexible \& Versatile - Tools exist in FHIR that support multiple file formats, making validation methods more flexible and versatile -->
+<!-- - Integration \& Connectivity - It is important that the tool works well with already implemented systems, and can be used in collaborative environments -->
+
+
 # Exercise
-## FHIR
 In this workshop you will experiment with a simulated FHIR server to retrieve patient data. The goal is to use these data in the predictive model developed in Workshop 2 to make predictions.
 Getting started
 
 1.	Go to https://colab.research.google.com/ (you’ll need a Google account)
 2.	Upload the necessary file, it should look like that. The files can be found on Moodle.
 <div style="overflow: auto;">
-  <img src="../images/Exercise4_googleColab.PNG" alt="Image" style="margin-bottom: 15px; width: 30%;">
+  <img src="../images/implementation/Exercise4_googleColab.png" alt="Image" style="margin-bottom: 15px; width: min(300px, 100%);">
 </div>
 3.	Copy-paste the code below in the first cell and run it.
 
@@ -42,3 +143,14 @@ Go through the following steps:
 3)	Get measurements of cholesterol for a patient and plot it over time
 4)	Obtain the necessary information for your model using requests_fhir
 5)	Feed these data into your trained model and make predictions
+
+
+
+
+
+
+<!--
+KODJIN article: validation checks whether the data conforms to the input that the application expects
+learngxp artcl: prospective validation is documenting that a system performs as intended before implementation
+Måske er det to forskellige valideringer vi har gang i her :((
+-->

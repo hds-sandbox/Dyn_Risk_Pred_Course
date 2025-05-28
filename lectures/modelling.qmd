@@ -1,17 +1,13 @@
 ---
- format:
-  html:
-     grid:
-      sidebar-width: 0px
-       body-width: 10000px
- ---
+format: html
+---
  <style>
  body {
  text-align: justify}
  </style>
 
 :::{.hero-banner}
- # Modelling
+# Modelling
 
 :::
 
@@ -26,7 +22,25 @@ Challenges, such as the bias-variance trade-off, will be addressed, and the role
 
 These concepts will then be linked the real-world application of models. Their utility, the importance of prediction calibration, and the achievement of explainability for "black-box" models through methods such as SHAP values will be focal points.
 
+The specific topics of this module is:
 
+- Regression vs. Classification
+- Model performance metrics
+- Bias-variance trade-off
+- Loss functions
+- Logistic regression
+- Decision Trees
+- Bagging
+- Random Forest
+- Gradient Boosted Trees
+- Neural Networks
+- Grid search
+- Random search
+- Bayesian optimization
+- Utility
+- Calibration
+- Explainability
+- **Exercises**
 
 ## Regression vs. Classification
  This section covers **supervised learning**, which is one of two primary approaches in Machine Learning, while other being **Unsupervised learning**. In supervised learning, the true class of each observation is known and is used to train a model, enabling patterns associated with the classes to be learned. The ability to recognize patterns is tested by presenting the model with data whose true labels are not revealed. For this data, labels are predicted by the model, and performance is evaluated by comparing the predicted labels against the true labels.
@@ -573,6 +587,3 @@ It should be noted, that this only gives an idea of the predictor importance, bu
  Introduction to statistical learning (2001), Trevor Hastie, Gareth James, Daniela Witten and Robert Tibshirani, [https://www.statlearning.com/](https://www.statlearning.com/)
 
 [^1]: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn
-
-
-

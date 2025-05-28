@@ -34,6 +34,7 @@ Throughout this module, the following topics will be covered:
 - Research framework
 - Challenges with data
 - Data representation
+- **Exercises**
 
 These topics provides insight on how to collect, clean and transform data into an appropriate state for modelling. Data management serves as the foundation for all types of modelling, in particular for dynamic risk prediction.
 <!-- Hertil -->
