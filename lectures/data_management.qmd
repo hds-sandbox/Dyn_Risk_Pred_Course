@@ -23,28 +23,29 @@ In this section, these challenges will be explored through three main topics:
 <!-- Tilføjet på baggrund af Martins kommentar -->
 Throughout this module, the following topics will be covered:
 
-- Data sources and potential biases
 - Data, Metadata, and Annotations
 - Health Data Providers in Denmark
-- Bias and Limitations
-- Coding and classification
+- Bias and Limitations in Data
+- Coding and Classification Systems
 - FAIR Data Principles
 - Relational Databases
 - Introduction to REDCap
-- Research framework
-- Challenges with data
-- Data representation
+- Research Frameworks
+- Challenges in Data Handling
+- Data Representation Techniques
 - **Exercises**
 
-These topics provides insight on how to collect, clean and transform data into an appropriate state for modelling. Data management serves as the foundation for all types of modelling, in particular for dynamic risk prediction.
+These topics provides insight on how to collect, clean, and transform data into a form suitable for modeling. Data management serves as the foundation for all types of modeling, in particular for dynamic risk prediction.
 <!-- Hertil -->
 
-## Data sources and potential biases
+## Data sources and Potential Biases
 
 **Data management** does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
 
 <!-- Added a bit more about longitudinal studies -->
-In this section of the course, there will be an introduction to data collection and the potential biases about. To better understand the data collection and the potential biases, are study designs related to [longitudinal studies](https://learning.closer.ac.uk/learning-modules/introduction/) essential. Longitudinal studies are about tracking the same people over periods of their life to understand how some interactions, like the introduction of medicine or disease, influence their life. There are different [types of longitudinal study designs](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/types-of-longitudinal-research/), but in this course are Retrospective - and Prospective studies the main focus.
+In this section of the course, there will be an introduction to data collection and potential biases in the data. To better understand these topics, are study designs related to [longitudinal studies](https://learning.closer.ac.uk/learning-modules/introduction/) important. Longitudinal studies are about tracking the same people over periods of their life to understand how some interactions, like the introduction of medicine or disease, influence their life. There are different [types of longitudinal study designs](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/types-of-longitudinal-research/), but in this course are Retrospective - and Prospective studies the main focus.
+
+**Maybe a image here of a curve where we see the progression of a child becoming an adult, to show the progress in longitudinal studies**
 
 The difference distinction retrospective and prospective studies lies in their timing and the degree of control the researchers have over the data collection process. First, researchers need to understand existing data and establish effective collection methods. Then, a research framework is necessary to support the research design and maintain high data quality standards throughout the process of the study.
 
@@ -60,7 +61,7 @@ The difference distinction retrospective and prospective studies lies in their t
 - **FAIR data principles:** Framework for making data Findable, Accessible, Interoperable, and Reusable.
 - **Introduction to databases and REDCap:** Utilizing tools designed to store sensitive data, accessible while stored safely.
 
-The combination of looking back in the history and forward to capture the standards of technologies in the present is a valuable synergy for making robust dynamic risk models.
+The combination of looking back in the history and forward to capture the standards of technologies in the present is a valuable synergy for making robust research with dynamic risk models. All the concepts mentioned above will be explored in more detail. However, to understand these topics, a foundational knowledge regarding data and its sources will need to be established.
 
 ## Data, Metadata, and Annotations
 
@@ -91,7 +92,7 @@ When managing data it is crucial to differentiate between data, metadata, and an
 | Measurements            | mmHg                                     |
 
 
-**Annotations** are additional labels, interpretations, or classifications applied to data points or datasets. These are often added based on domain expertise to categorize data values, provide clinical significance, or facilitate understanding for non-experts. Annotations enhance both data management and modeling efforts. Annotations do create
+**Annotations** are additional labels, interpretations, or classifications applied to data points or datasets. These are often added based on domain expertise to categorize data values, provide clinical significance, or facilitate understanding for non-experts.
 
 *Example of annotations applied to blood pressure data:*
 
@@ -102,11 +103,11 @@ When managing data it is crucial to differentiate between data, metadata, and an
 
 *More details about blood pressure categories can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).*
 
-&nbsp;
-
 In essence, annotations function like footnotes, offering an accessible explanation of the meaning behind the data values presented.
 
 A clear understanding of these distinctions is significant for any data-driven work, regardless of the modeling approach used. Effectively leveraging the interplay between data, metadata, and annotations is central to deriving the most insights from the collected information.
+
+Data is often stored in a database. Given the sensitive nature of health information, it is often stored with a central data providers. Several of the largest data providers in Denmark will be explored in the next section.
 
 ## Health Data Providers in Denmark
 
@@ -114,13 +115,11 @@ Developing dynamic prediction models within the Danish healthcare system require
 
 &nbsp;
 
-[**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers)
-
 <div style="overflow: auto;">
  <img src="../images/dhda.png" alt="Logo of the Danish Health Data Authority" style="margin-bottom: 15px; width: 19%;">
 </div>
 
-The Danish Health Data Authority is one of the country's primary entities for collecting, managing, and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
+[**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers) is one of the country's primary entities for collecting, managing, and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
 
 -   The Danish Register of Causes of Death
 -   The Danish National Patient Register
@@ -132,25 +131,18 @@ The Danish Health Data Authority is one of the country's primary entities for co
 
 &nbsp;
 
-[**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/)
 
-#<div style="overflow: auto;">
-# <img src="../images/DHQI.png" alt="Logo associated with the Danish Healthcare Quality Institute" # style="margin-bottom: 15px; width: 39%;">
-# </div>
 
-This type of organization collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
+
+[**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/) is the type of organization which collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
 
 &nbsp;
-
-[**Statistics Denmark:**](https://www.dst.dk/en)
 
 <div style="overflow: auto;">
  <img src="../images/stat_dk.jpg" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 20%;">
 </div>
 
-For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education), Statistics Denmark is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning [nearly 200 years](https://www.dst.dk/en/OmDS/historie), provides significant historical depth for longitudinal analysis if required.
-
-For dynamic risk prediction in healthcare, the following relevant registers could be utilized as supplementary resources:
+For broader societal context potentially relevant to health outcomes (e.g., socioeconomic factors, education, etc.), [**Statistics Denmark:**](https://www.dst.dk/en) is the most comprehensive data provider in Denmark. While not exclusively focused on healthcare, it contains registers about demographics, the workforce, education, income, social benefits, culture, energy, and more. The organization's long history, spanning [nearly 200 years](https://www.dst.dk/en/OmDS/historie), provides significant historical depth for longitudinal analysis if required. In case of research with dynamic risk prediction in healthcare, the following Statistics Denmark registers could be utilized as supplementary resources:
 
 -   Civil registration data (marital status, household composition)
 -   Income and wealth registers
@@ -163,21 +155,22 @@ While these national bodies represent primary data sources, information from alt
 -   Data collected specifically for a research project.
 -   Local or regional clinical databases held within hospitals or other relevant organisations.
 
-However, regardless of the source, it is crucial to critically evaluate data quality. Before selecting data sources for developing dynamic prediction models, potential biases and limitations within the data must be thoroughly addressed. These considerations will be covered in detail in the subsequent section.
+However, regardless of the data source, it is crucial to critically evaluate data quality. Before selecting data sources for developing dynamic prediction models, potential biases and limitations within the data must be thoroughly addressed. These considerations will be covered in detail in the subsequent section.
 
-## Bias and Limitations
+## Bias and Limitations in Data
 
-Health data gathered from different sources, can potentially carry biases and limitations, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**.
+Health data gathered from different sources, can potentially carry biases and limitations, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**. The subsection will cover three main topics: Source-Specific Biases, Data Quality, and General types of biases in healthcare research.
 
 1. **Source-Specific Biases**
 
-**[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). It means that people who go to the hospital may not represent the general population. In medical research based on DNPR, this creates a presence bias because there are only observations with some illness in the dataset, which gives a higher presence of illness in the data analysis for the people who encounter the hospital. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those **accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). Consequently, people who go to the hospital may not represent the general population. In medical research based on the DNPR, this creates an informed presence bias because the dataset primarily includes observations of illness, leading to an artificially higher prevalence of illness in analyses focused on hospital patients. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
 2. **Data Quality**
 
-**Variability in Clinician Expertise:** Another consideration regarding health data that has to be accounted for is consistency in medical expertise, as there can be a large gap in experience among the doctors doing the examination. This affects the quality as more experienced doctors have a higher probability of giving the correct diagnosis while also offering the most appropriate treatment, compared to doctors with less experience.
+**Variability in Clinician Expertise:** Inconsistency in medical expertise is another crucial consideration for health data. A significant gap in experience among examining doctors can affect data quality. More experienced clinicians are more likely to provide accurate diagnoses and offer the most appropriate treatments, in contrast to their less experienced colleagues. This does not only affects the accuracy of diagnoses but also influences the quality of the reported data, potentially resulting in errors such as typos or the confusion of medical concepts.
 
-**Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, or if they buy their medicine. It is also difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when developing a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can create noise for a model.
+**Prescription and consumption considerations:** When considering the administration and consumption of medication, there is a gap between prescription, purchase, and actual consumption. There is no certainty that a patient consumes the medicine they are prescribed, or if they buy their medicine. It is also difficult to know if they take it and if they are truthful about their medicine intake. Therefore, relying on prescription data to indicate a patient's health condition is challenging and has to be considered when developing a predictive model. Additionally, many drugs have off-label uses, meaning they are prescribed for conditions other than what they were originally approved for. This makes interpreting drug prescription data complex and can act as noise in the modeling.
+
 
 3. **General Types of Bias in Healthcare Research**
 
@@ -185,17 +178,17 @@ Beyond the biases already discussed, there is a wide range of biases to consider
 
 |Type of bias | Description |
 |:----|:----|
-| Sampling bias | When the group chosen for a study does not accurately represent the broader population, leading to skewed results |
-| Susceptibility bias | When certain groups are more prone to a particular outcome, due to some other external factors |
-| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that confirm their existing beliefs |
-| Attrition bias | Systematic dropout from long-term studies, which over time will create class imbalance |
-| Volunteer bias | When the group of people who volunteer for a study does not represent the general population |
+| Sampling bias | When the group chosen for a study does not accurately represent the broader population, leading to skewed results. |
+| Susceptibility bias | When certain groups are more prone to a particular outcome, due to some other external factors. |
+| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that confirm their existing beliefs. |
+| Attrition bias | Systematic dropout from long-term studies, which over time will create class imbalance. |
+| Volunteer bias | When the group of people who volunteer for a study does not represent the general population. |
 
 For more information about biases, please see this [comprehensive list about biases in research from the University of Oxford](https://catalogofbias.org/biases/)
 
 If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
-## Coding and classification
+## Coding and classification Systems
 
 Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. A database of all the codes used for all treatments based on the World Health Organization’s International Classification of Diseases, currently ICD-10.
 
@@ -224,6 +217,8 @@ With the continuously increasing amount of data being produced globally, a need 
 
 The FAIR principles are an acronym for:
 
+**incert figure showing the fair principles**
+
 - **[Findable](https://www.go-fair.org/fair-principles/)**: Information about data and the metadata should be public and referenced.
 - **[Accessible](https://www.go-fair.org/fair-principles/)**: Data and metadata should be possible to access.
 - **[Interoperable](https://www.go-fair.org/fair-principles/)**: Use standardized data formats.
@@ -239,22 +234,22 @@ FAIR data principles have been broadly adopted and are included in international
 
 For more information on FAIR principles, see [GO FAIR](https://www.go-fair.org/fair-principles/).
 
-However, while FAIR data principles impact data quality and accessibility, certain limitations must be considered. Complex legal systems regarding data sharing often creates boundaries on the level of detail that can be shared and often restrict data access. The effort required for creating the required documentation needed to meet FAIR standards may be a limitation. Also, a potential gap between the technical skills of the users and the requirements of applying the FAIR principles may be a limitation.
+However, while FAIR data principles enhance data quality and accessibility, certain limitations must be considered. Complex legal systems governing data sharing often create boundaries regarding the level of detail that can be shared and frequently restrict data access. Furthermore, the extensive effort of documentation and technical requirements needed to meet FAIR standards can present a significant limitation.
 
-An introduction to theoretical concepts and principles related to data management, such as FAIR, has now been reviewed. In the next section, concrete tools for data storage will be presented.
+Theoretical concepts and principles related to data management, such as FAIR, have now been reviewed. The next section will present concrete tools for data storage.
 
 ## Relational Databases
 
 Digital platforms designed for the storage of data intended for modeling are known as databases. As a single dataset might be utilized for specific analyses, such a dataset is often found to be insufficient for comprehensive modeling. When multiple datasets are involved, a central storage from which necessary data can be drawn is convenient. This is where a database comes in.
 
-Multiple datasets, referred to as tables in database terminology, can be held within a database. Operations such as customization, merging, and filtering can be performed on these tables. Structured Query Language (SQL) must be employed to perform data management operations. SQL is a way of communicating with the database to extract the necessary data.
+Multiple datasets, referred to as tables in database terminology, can be held within a database. Operations such as customization, merging, and filtering can be performed on these tables. [Structured Query Language (SQL)](https://en.wikipedia.org/wiki/SQL) must be employed to perform data management operations. SQL is a way of communicating with the database to extract the necessary data.
 
-As a simple example, consider a requirement where data for patients aged between 18 and 100 years must be extracted from a table named TUMOUR_DATA. If data from all columns is needed, the symbol (*) is utilized. The corresponding SQL query is formulated as follows:
+As a simple example, consider a requirement where data for patients aged between 18 and 100 years must be extracted from a table named PATIENT. If data from all columns is needed, the symbol (*) is utilized. The corresponding SQL query is formulated as follows:
 
 ```SQL
 SELECT *
 
-FROM TUMOUR_DATA
+FROM PATIENT
 
 WHERE age BETWEEN 18 AND 100;
 ```
@@ -311,20 +306,20 @@ The design of such a framework for the SACT prediction model example is outlined
 | Setting | 30-day mortality example |
 |:----|:----|
 | A clinically relevant problem is identified | Can mortality within 30 days be predicted for patients with advanced cancer? |
-| It has been decided how the outcome will be evaluated | Date of death (any cause) extracted from the CPR register |
-| Inclusion and exclusion criteria are set (Note: Criteria must be generalizable to a prospective setting and assessable from the point where model inference begins) | Patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer, are included |
-| Prediction time points are defined | Every registered contact the patient has with the Department of Oncology |
+| It has been decided how the outcome will be evaluated | Date of death (any cause) extracted from the CPR register. |
+| Inclusion and exclusion criteria are set (Note: Criteria must be generalizable to a prospective setting and assessable from the point where model inference begins) | Patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer, are included. |
+| Prediction time points are defined | Every registered contact the patient has with the Department of Oncology. |
 | Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
 
 A framework, representing the study design, has now been established. An overview of the study's aims and methods is provided by this structure. However, potential data issues and mitigation strategies must also be considered. Potential issues and corresponding countermeasures are covered in the next section.
 
-## Challenges with data
+## Challenges in Data Handling
 
 After the data are obtained, dataset flaws should be identified. Real-world datasets are rarely cleaned and ready to be input into a pipeline. An understanding of dataset flaws is therefore foundational to the data management strategy.
 
 ### Missing data
 
-When data are collected for predictive modeling, differing numbers of values between columns may indicate the presence of missing values.
+For predictive modeling, variations in the number of entries per column in a dataset is an clear indicator of missing data.
 
 Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset, and they frequently occur in data, and the amount of missing data often increases as the complexity of the dataset increases. This should be understood as the number of columns, rows, registries the data is pulled from, and the data types. Missing data are often present as empty cells or as the term 'nan':
 
@@ -355,7 +350,7 @@ However, missing data cannot be ignored. Decisions regarding their handling are 
 
 - **Deletion**: Remove rows or columns with missing values
 - **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or frequent value
-- **Constant Value Imputation**: Fill missing values with a specific constant (like zero or a designated "missing" value)
+- **Constant Value Imputation**: Fill missing values with a specific constant (e.g. zeroes or a designated "missing" value)
 - **Predictive Modeling**: Use machine learning algorithms to predict missing values based on other features
 - **Multiple Imputation**: Generate multiple complete datasets with different plausible values for the missing data
 
@@ -369,7 +364,7 @@ These suggestions can be found in the paper [Tomašev et al. (2021)](https://www
 
 ### Irregular sampling
 
-Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behavior, which cannot be easily predicted. Resulting in an irregular pattern in data collection timing, for instance, in hospital contacts, necessitates that specialized modeling techniques, including dynamic models, be utilized.
+Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behavior, which cannot be easily predicted. This leads to an irregular pattern in data collection timing, such as that seen with hospital contacts, thereby necessitating the application of specialized modeling techniques, including dynamic models.
 
 While these irregularities can present analytical challenges, it should be noted that valuable information may also be contained within the time intervals between recorded events.
 
@@ -381,18 +376,19 @@ For the structuring of irregularly sampled data, several strategies can be emplo
 
 Intuitively, the idea is to gather all the small pieces into fewer larger pieces, which can be standardized as input for the model.
 
-### Data quality
+**Maybe add a figure or table where some datapoints in minutes basis are gathered into hour basis**
+
+### Data quality in registry data
 
 When working with registry data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals.
 
-Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change, etc. Given these factors related to manual entry, personnel/professional variability, and system changes, it is probable that data quality is affected.
+Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change, etc. Given these factors related to manual entry, personnel/professional variability, and system changes, it is certain that data quality is affected.
 
 Therefore, an awareness of potential data quality issues must be maintained by analysts. Such issues include:
 
 - Data entry errors
 - Inconsistencies within the data
 - Missing data
-- Outliers (due to mistakes)
 - Biases introduced during the data collection
 
 Assessment of data quality by an analyst alone can be difficult. Close collaboration with clinicians is therefore important, so that their expertise can be utilized for the correct interpretation and understanding of the data.
@@ -400,14 +396,9 @@ Assessment of data quality by an analyst alone can be difficult. Close collabora
 ### Data collected for purposes other than modeling
 
 Considering patient registries, the data was mainly collected for administration and to document patients.
-These registries were not created for the purpose of storing data for predictive modeling, similar to many other data sources.
-This is why the data management part is so crucial and takes up so much time.
+Similar to many other data sources, these registries were not originally designed for storing data for predictive modeling. This inherent characteristic makes data management a crucial and time-consuming process.
 
-This also means that relevant predictors may be missing, and potential hidden biases can cause trouble for the modeling.
-
-It can be concluded that there are a lot of pitfalls when working with data, and some of these issues have been presented in this course. This leads to the natural question of **what to do about it?**
-
-
+It can be concluded that there are many pitfalls when working with registry data, and some of these issues have been presented in this course. This leads to the natural question of **what to do about it?**
 
 ### Check your data
 
@@ -418,10 +409,10 @@ For reliable model output to be obtained, high-quality input data is required. T
 
 Consultation with domain experts and personnel directly involved in data collection is important for effective data preprocessing. Through consultation, an understanding can be gained regarding several aspects of data management:
 
-- How data is collected by clinicians.
-- Dilemmas or constraints associated with the data collection process.
-- Potential systemic flaws or sources of error.
-- Reasons why some data values or patterns might appear unusual.
+- How data is collected by clinicians
+- Dilemmas or constraints associated with the data collection process
+- Potential systemic flaws or sources of error
+- Reasons why some data values or patterns might appear unusual
 
 
 ### Make summary statistics
@@ -440,7 +431,7 @@ When there is an overview of these flaws, the next step is to make a data manage
 Missing data is a tricky problem, and before any imputation, removal, or similar is considered, the missing values should be studied for patterns.
 Does missing data occur in the same intervals?
 
-Missing values are often categorized into three categories:
+Missing values can be categorized into three categories:
 
 #### Missing completely at random:
 The data is missing completely at random, meaning there is no relationship between the missing data and any other values related to the dataset.
@@ -474,7 +465,7 @@ This example shows that researchers should be cautious when this specific Danish
 
 For more information about the case used as an example in this subsection, please read the full paper: [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 
-## Data representation
+## Data Representation Techniques
 
 In dynamic risk prediction, data is often collected at irregular time intervals. This irregularity are originate from unpredictable factors like human interaction and the need for medical treatment. To be able to use models that typically operate on fixed time intervals, requires irregular time points to be structured appropriately. Time discretization can be employed for this purpose. This process transforms the original patient data, which is recorded continuously over time, into discrete time intervals, such as hours or days. By discretizing, the data is simplified and made suitable for various modeling techniques.
 
@@ -525,20 +516,20 @@ An example could be delays in event recording. A patient's illness might be reco
 
 ## Splitting data for Model Evaluation
 
-To get the best performing model, it needs to be a model that can be trained on some data and tested on some unseen data, without any significant difference in performance. Models that generalize poorly are unsuitable for deployment, as performance on new data will likely be low. It is a significant part of the modelling to ensure that model evaluation must be conducted using data not seen during training.
+To get the best performing model, it needs to be a model that can be trained on some data and tested on some unseen data, without any significant difference in performance. Models that generalize poorly are unsuitable for deployment, as performance on new data will likely be low. It is a significant part of the modeling to ensure that model evaluation must be conducted using data not seen during training.
 
 <div style="text-align: center;">
   <img src="../images/Data_split.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
 
-Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: a training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
+Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: A training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
 
 
 For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is set. The final models performance is evaluated on the separate test set.
 
 In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
-These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](Introduction to statistical learning).
+These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](https://www.statlearning.com/).
 <div style="overflow: auto;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
@@ -568,7 +559,7 @@ After feature selection, new features may need to be created from existing ones.
 | ELEVATED | 120 - 129 | and | LESS THAN 80 |
 | HIGH BLOOD PRESSURE STAGE 1 | 130 - 139 | or | 80 - 89 |
 | HIGH BLOOD PRESSURE STAGE 2 | 140 OR HIGHER | or | 90 OR HIGHER |
-| HYPERTENSIVE CRISIS (consult your doctor immediately) | HIGHER THAN 180 | and/or | HIGHER THAN 120 |
+| HYPERTENSIVE CRISIS | HIGHER THAN 180 | and/or | HIGHER THAN 120 |
 
 Further details about the table can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).
 
@@ -582,7 +573,7 @@ Privacy concerns is connected with the usage of sensitive health data, and model
 
 The following fictional tables illustrate how categories with few observations can be grouped.
 
-**Original Dataset: Patient Primary Symptoms**
+*Original Dataset: Patient Primary Symptoms*
 
 | Primary Symptom | Patient Count |
 |:---|:---|
@@ -592,7 +583,7 @@ The following fictional tables illustrate how categories with few observations c
 | **Skin rash** | 15 |
 | **Body ache** | 2 |
 
-**After Collapsing Infrequent Values**
+*After Collapsing Infrequent Values*
 
 | Primary Symptom | Patient Count |
 |:---|:---|

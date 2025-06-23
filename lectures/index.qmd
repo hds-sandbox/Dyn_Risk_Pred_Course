@@ -103,7 +103,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Exercises	|
 
 
-### Part 3 - Modelling
+### Part 3 - Modeling
 
 | Subjects |
 |:----|
@@ -119,7 +119,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 |:----|
 | Hosting and access to data	|
 | FHIR	|
-| Prospective validation	|
+| Validation	|
 | Exercises	|
 
 

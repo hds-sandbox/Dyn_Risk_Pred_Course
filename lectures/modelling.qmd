@@ -7,7 +7,7 @@ format: html
  </style>
 
 :::{.hero-banner}
-# Modelling
+# Modeling
 
 :::
 
@@ -83,7 +83,7 @@ This is a typical two-class classification problem, where the task is to draw a 
 
 - True Positives (TP): Points belonging to the positive class, predicted as the positive class.
  - True Negatives (TN): Points belonging to the negative class, predicted as the negative class.
- - False Positives (FP): Points belonging to the negative class, predicted as the positive class. This is also known as the [type I error](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+ - False Positives (FP): Points belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
  - False Negatives (FN): Points belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
 
 All of this can be aggregated in a [confusion matrix](https://medium.com/@nikitamalviya/confusion-matrix-870739a1ec31), illustrated in the figure below.
@@ -92,12 +92,12 @@ All of this can be aggregated in a [confusion matrix](https://medium.com/@nikita
    <img src="../images/iamconfusion.png" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(400px, 100%);">
  </div>
 
-A simple way to measure the performance classification problems is to consider the accuracy of the model, given by
+A simple way to measure the performance classification problems is to consider the accuracy of the model, given by:
  $$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
  This is relevant when both classes are equally important.
  Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
  For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
- As such, it is important to consider the metrics sensitivity, precision, and specificity, given by
+ As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
 
 \begin{align}
    \text{Sensitivity} &= \frac{TP}{TP+FN}\\
@@ -105,7 +105,7 @@ A simple way to measure the performance classification problems is to consider t
    \text{Precision}   &= \frac{TP}{TP+FP}
  \end{align}
 
-**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  Specificity, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the precision metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
+**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  **Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
 
 Combining sensitivity and precision gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
  It is given by
@@ -161,7 +161,7 @@ In binary classification problems, the default loss function is the binary cross
  $$
  H = -\frac{1}{N}\sum_{i=1}^N y_i\log(p_i) + (1-y_i)\log(1-p_i)
  $$
- For this calculation, the classes are transformed to **0 and 1**, which enables the multiplication within the loss function. The true class is 1; only $log(p_i)$ influences the loss function's value. Because of the preceding negative sign, the loss function is minimized as $p_i$ approaches 1. This loss function is primarily used in **logistic regression**, a topic that will be explored in detail later in this course.
+ For this calculation, the classes are transformed to **0 and 1**, which enables the multiplication within the loss function. When the true class is 1, only $log(p_i)$ influences the loss function's value. Because of the preceding negative sign, the loss function is minimized as $p_i$ approaches 1. This loss function is primarily used in **logistic regression**, a topic that will be explored in detail later in this course.
 
 For multi-class classification problems, the [softmax function](https://en.wikipedia.org/wiki/Softmax_function) is utilized. A description of this function will not be provided in this section, as it represents a generalization of the concepts discussed for binary classification.
 
@@ -303,8 +303,8 @@ While decision trees are inherently powerful models, their utility is limited by
 To address these issues, **[ensemble methods](https://en.wikipedia.org/wiki/Ensemble_learning)** can be employed and are what powers methods like **Random forest** and **Gradient boosting**.
 
 ## Ensemble learning methods
- Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor. This is also known as *wisdom of the crowd*.
-
+ Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor. This is also known as *wisdom of the crowd*. The most popular methods combining ensembling and decision trees are Bagging, Random Forest, and Gradient Boosted Trees.
+ 
 ### Bagging
  [**Bagging (Bootstrap Aggregating)**](https://en.wikipedia.org/wiki/Bootstrap_aggregating) is a technique where numerous independent models are built from random data samples, and their predictions are averaged. In regression problems, this aggregation is commonly achieved through the computation of the mean or median. For classification problems, the aggregation function most frequently employed is the statistical mode, representing the most common prediction. Each model is trained on distinct data subsets, which are created through random sampling with replacement. When sampling is performed without replacement, the technique is referred to as **pasting**.
 
