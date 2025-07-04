@@ -11,9 +11,6 @@ format: html
 
 :::
 
-
-# Machine learning models
-
 In the Modelling section a comprehensive introduction to topics regarding skills in the construction and evaluation of machine learning models will be provided.
 
 Core modeling concepts will be covered, ranging from logistic regression to ensemble methods such as Random Forests and Gradient Boosting, alongside an introduction to neural networks. Distinctions between regression problems and classification problems will be addressed. Additionally, methods for evaluating model performance, including accuracy, sensitivity, specificity, precision, F1-score, and AUC metrics, will be presented.
@@ -24,23 +21,33 @@ These concepts will then be linked the real-world application of models. Their u
 
 The specific topics of this module is:
 
-- Regression vs. Classification
-- Model performance metrics
-- Bias-variance trade-off
-- Loss functions
-- Logistic regression
-- Decision Trees
-- Bagging
-- Random Forest
-- Gradient Boosted Trees
-- Neural Networks
-- Grid search
-- Random search
-- Bayesian optimization
-- Utility
-- Calibration
-- Explainability
+- What is predictive modelling
+    - Regression vs. Classification
+    - Bias-variance trade-off
+    - Loss functions
+- Model training
+    - Grid search
+    - Random search
+    - Bayesian optimization
+- Predictive models
+    - Logistic regression
+    - Decision Trees
+    - Bagging
+    - Random Forest
+    - Gradient Boosted Trees
+    - Neural Networks
+- Performance Metrics
+    - Model performance metrics
+    - Utility and explainability
+    - Utility
+    - Calibration
+    - Explainability
 - **Exercises**
+
+
+## What is Predictive Modeling
+
+bla bla bla...
 
 ## Regression vs. Classification
  This section covers **supervised learning**, which is one of two primary approaches in Machine Learning, while other being **Unsupervised learning**. In supervised learning, the true class of each observation is known and is used to train a model, enabling patterns associated with the classes to be learned. The ability to recognize patterns is tested by presenting the model with data whose true labels are not revealed. For this data, labels are predicted by the model, and performance is evaluated by comparing the predicted labels against the true labels.
@@ -69,76 +76,6 @@ Assistance could be provided to clinicians by such a model for the decision on w
 
 As only supervised learning is being considered, errors in model predictions can be identified. To enable comparison of model performance, performance metrics are introduced.
 
-### Model performance metrics
-
-In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
-
-<div style="text-align: left;">
-   <img src="../images/class_problem.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
- </div>
-
-This is a typical two-class classification problem, where the task is to draw a line that splits the datapoints most efficiently.
- The linear boundary visualizes the divide in prediction regions, with each class predicted on each side of the boundary.
- This divide motivates the terms:
-
-- True Positives (TP): Points belonging to the positive class, predicted as the positive class.
- - True Negatives (TN): Points belonging to the negative class, predicted as the negative class.
- - False Positives (FP): Points belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
- - False Negatives (FN): Points belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
-
-All of this can be aggregated in a [confusion matrix](https://medium.com/@nikitamalviya/confusion-matrix-870739a1ec31), illustrated in the figure below.
-
-<div style="overflow: hidden;">
-   <img src="../images/iamconfusion.png" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(400px, 100%);">
- </div>
-
-A simple way to measure the performance classification problems is to consider the accuracy of the model, given by:
- $$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
- This is relevant when both classes are equally important.
- Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
- For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
- As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
-
-\begin{align}
-   \text{Sensitivity} &= \frac{TP}{TP+FN}\\
-   \text{Specificity} &= \frac{TN}{TN+FP}\\
-   \text{Precision}   &= \frac{TP}{TP+FP}
- \end{align}
-
-**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  **Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
-
-Combining sensitivity and precision gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
- It is given by
- $$F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}$$
-
-
-It is important to note, that this metric [does not work well when there is a class imbalance in the dataset,](https://www.v7labs.com/blog/f1-score-guide) motivating the introduction of the [$F_\beta$ metric](https://machinelearningmastery.com/tour-of-evaluation-metrics-for-imbalanced-classification/), given by <!-- Er ikke med i slides, men opgaven spørger efter hvilken metric man vil bruge når nu datasættet er ubalanceret, og den passer godt -->
- $$F_\beta\text{ score} = \frac{(1 + \beta^2)\cdot\text{Precision}\cdot\text{Sensitivity}}{\beta^2\cdot\text{Precision}+\text{Sensitivity}}$$
- Different values for $\beta$, changes which classification the metric prioritizes, i.e., for $\beta$s smaller than 1, the positive class is more important, and vice versa for $\beta$s larger than 1. Typically, $\beta$ equal to 0.5 and 2 is used.
-
-To demonstrate the derivation of various metric values, the data from the classification figure above is utilized as input for the five previously discussed metrics. It can be seen in the figure that the following counts were obtained:
-
-- **TP:** 24
- - **FP:** 5
- - **TN:** 25
- - **FN:** 4
-
-When these numbers are used in the formulas, the following results are achieved:
-
-| Accuracy | Sensitivity | Specificity | Precision | $F_1$ score |
- |:---------|:------------|:------------|:----------|:------------|
- | 0.85     | 0.86        | 0.84        | 0.83      | 0.84        |
-
-For more on all of these metrics, click [here](https://medium.com/@eren.soykok/model-evaluation-metrics-3b6c4bf91e6b).
-
-The value of the metrics lies between 0 and 1, and the closer to 1, the better the model is at predicting the data.
- However, consider the following figure.
-
-<div style="overflow: hidden;">
-   <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
- </div>
-
-The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data is known as the bias-variance trade-off (Hastie et al. 2001:33-38).
 
 ### Bias-variance trade-off
  **Bias** is a term referring to the error that stems from using too simple a model to approximate a more complicated real-life problem.
@@ -184,6 +121,56 @@ As an alternative to ROC, the precision-recall curve is introduced.
    <img src="../images/PR.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
+ ## Hyperparameter Optimization
+ All of the models presented in this section have had some hyperparameters, determining the specifics of how the models are built.
+ These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea).
+ Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are tested using the validation set, see data management. <!-- REF HER MÅSKE? -->
+ Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions.
+
+Overall, there are three main approaches:
+
+ - Grid search
+  - Random search
+  - Bayesian optimization
+
+These methods are frequently used, and they are powerful each in their own way and the applications for these methods are based on the given problem.
+
+### Grid search
+
+The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
+
+An example of a grid search on a logistic regression with elastic net is shown below.
+ In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
+ The optimal combination is marked in red.
+
+<div style="text-align: center;">
+   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+ </div>
+
+This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally recommended to not use grid search for neural networks due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations.
+
+## Random search
+ In contrast to the rigorous grid search method, the computational complexity can be optimized through random sampling of a predetermined number of hyperparameter combinations, a technique known as [Random Search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). For this process, a defined sampling space is required for each hyperparameter, and this space can be custom-designed. This sampling space comprises a specified range or set of relevant values for each hyperparameter. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination. This approach is often more efficient than grid search, particularly when dealing with a high number of hyperparameters or [continuous parameter spaces](https://scikit-learn.org/stable/modules/grid_search.html).
+
+
+This method effectively manages higher dimensionality because the number of models trained is explicitly controlled by the user. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
+ <!-- hvis der skal være en figur, kan man tage kodeoutput, men nok ikke nødvendig -->
+
+## Bayesian optimization
+ Unlike random search, sampling from the hyperparameter space is performed through Bayesian optimization, although a more informed approach is utilized. However, the method of sample selection differs. Instead of being selected randomly, samples are chosen based on previously evaluated hyperparameter configurations. This process is undertaken through a Bayesian approach, where, rather than optimizing the computationally expensive objective function directly, a computationally cheaper conditional function, $P(y|\text{hyperparameters})$, often referred to as the *surrogate* function, is instead modeled.
+
+The algorithm's operation involves an initial construction of the surrogate function. The optimal hyperparameters are identified, which are then applied to the objective function. The surrogate function is then updated, and this iterative process is repeated. This methodology is exemplified in the figure below.
+
+<div style="text-align: center;">
+   <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+ </div>
+
+A longer duration might be spent selecting hyperparameters with this method, but ultimately, fewer hyperparameters are required to be examined.
+
+# Real-world application
+ After developing a model, and testing its validity using some test data, it is important to consider its usage in the real world, such as how the model would be used, how the results would be interpreted, and if there is any insight to why the model predicts as it does.
+
+# Predictive models
 
 ## Logistic regression
 In a classification task, one of the most well-known models is logistic regression. This supervised model is appropriate when the outcome is categorical. A significant advantage of logistic regression is its explainability. Meaning that the results that are obtained can be readily understood, allowing for a high degree of interpretability. Logistic regression is often considered a suitable baseline model when multiple models are being benchmarked to identify the most effective risk prediction model.
@@ -404,56 +391,81 @@ Learning rate is one of multiple hyperparameters in neural networks that control
 
 Systematic testing is required for the identification of optimal hyperparameters. Performance can be significantly improved or degraded by minor adjustments. Given the time-consuming nature of the tuning process, automated hyperparameter search algorithms can be employed to explore a wide range of hyperparameter combinations. Careful consideration of hyperparameter selection is paramount, as the network's learning capabilities and generalization performance on unseen data are determined by it.
 
-# Hyperparameter Optimization
- All of the models presented in this section have had some hyperparameters, determining the specifics of how the models are built.
- These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea).
- Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are tested using the validation set, see data management. <!-- REF HER MÅSKE? -->
- Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions.
 
-Overall, there are three main approaches:
+### Model performance metrics
 
- - Grid search
-  - Random search
-  - Bayesian optimization
+In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
 
-These methods are frequently used, and they are powerful each in their own way and the applications for these methods are based on the given problem.
-
-### Grid search
-
-The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
-
-An example of a grid search on a logistic regression with elastic net is shown below.
- In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
- The optimal combination is marked in red.
-
-<div style="text-align: center;">
-   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+<div style="text-align: left;">
+   <img src="../images/class_problem.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally recommended to not use grid search for neural networks due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations.
+This is a typical two-class classification problem, where the task is to draw a line that splits the datapoints most efficiently.
+ The linear boundary visualizes the divide in prediction regions, with each class predicted on each side of the boundary.
+ This divide motivates the terms:
 
-## Random search
- In contrast to the rigorous grid search method, the computational complexity can be optimized through random sampling of a predetermined number of hyperparameter combinations, a technique known as [Random Search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). For this process, a defined sampling space is required for each hyperparameter, and this space can be custom-designed. This sampling space comprises a specified range or set of relevant values for each hyperparameter. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination. This approach is often more efficient than grid search, particularly when dealing with a high number of hyperparameters or [continuous parameter spaces](https://scikit-learn.org/stable/modules/grid_search.html).
+- True Positives (TP): Points belonging to the positive class, predicted as the positive class.
+ - True Negatives (TN): Points belonging to the negative class, predicted as the negative class.
+ - False Positives (FP): Points belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+ - False Negatives (FN): Points belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
 
+All of this can be aggregated in a [confusion matrix](https://medium.com/@nikitamalviya/confusion-matrix-870739a1ec31), illustrated in the figure below.
 
-This method effectively manages higher dimensionality because the number of models trained is explicitly controlled by the user. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
- <!-- hvis der skal være en figur, kan man tage kodeoutput, men nok ikke nødvendig -->
-
-## Bayesian optimization
- Unlike random search, sampling from the hyperparameter space is performed through Bayesian optimization, although a more informed approach is utilized. However, the method of sample selection differs. Instead of being selected randomly, samples are chosen based on previously evaluated hyperparameter configurations. This process is undertaken through a Bayesian approach, where, rather than optimizing the computationally expensive objective function directly, a computationally cheaper conditional function, $P(y|\text{hyperparameters})$, often referred to as the *surrogate* function, is instead modeled.
-
-The algorithm's operation involves an initial construction of the surrogate function. The optimal hyperparameters are identified, which are then applied to the objective function. The surrogate function is then updated, and this iterative process is repeated. This methodology is exemplified in the figure below.
-
-<div style="text-align: center;">
-   <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+<div style="overflow: hidden;">
+   <img src="../images/iamconfusion.png" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(400px, 100%);">
  </div>
 
-A longer duration might be spent selecting hyperparameters with this method, but ultimately, fewer hyperparameters are required to be examined.
+A simple way to measure the performance classification problems is to consider the accuracy of the model, given by:
+ $$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
+ This is relevant when both classes are equally important.
+ Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
+ For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
+ As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
 
-# Real-world application
- After developing a model, and testing its validity using some test data, it is important to consider its usage in the real world, such as how the model would be used, how the results would be interpreted, and if there is any insight to why the model predicts as it does.
+\begin{align}
+   \text{Sensitivity} &= \frac{TP}{TP+FN}\\
+   \text{Specificity} &= \frac{TN}{TN+FP}\\
+   \text{Precision}   &= \frac{TP}{TP+FP}
+ \end{align}
 
-## Utility
+**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  **Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
+
+Combining sensitivity and precision gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
+ It is given by
+ $$F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}$$
+
+
+It is important to note, that this metric [does not work well when there is a class imbalance in the dataset,](https://www.v7labs.com/blog/f1-score-guide) motivating the introduction of the [$F_\beta$ metric](https://machinelearningmastery.com/tour-of-evaluation-metrics-for-imbalanced-classification/), given by <!-- Er ikke med i slides, men opgaven spørger efter hvilken metric man vil bruge når nu datasættet er ubalanceret, og den passer godt -->
+ $$F_\beta\text{ score} = \frac{(1 + \beta^2)\cdot\text{Precision}\cdot\text{Sensitivity}}{\beta^2\cdot\text{Precision}+\text{Sensitivity}}$$
+ Different values for $\beta$, changes which classification the metric prioritizes, i.e., for $\beta$s smaller than 1, the positive class is more important, and vice versa for $\beta$s larger than 1. Typically, $\beta$ equal to 0.5 and 2 is used.
+
+To demonstrate the derivation of various metric values, the data from the classification figure above is utilized as input for the five previously discussed metrics. It can be seen in the figure that the following counts were obtained:
+
+- **TP:** 24
+ - **FP:** 5
+ - **TN:** 25
+ - **FN:** 4
+
+When these numbers are used in the formulas, the following results are achieved:
+
+| Accuracy | Sensitivity | Specificity | Precision | $F_1$ score |
+ |:---------|:------------|:------------|:----------|:------------|
+ | 0.85     | 0.86        | 0.84        | 0.83      | 0.84        |
+
+For more on all of these metrics, click [here](https://medium.com/@eren.soykok/model-evaluation-metrics-3b6c4bf91e6b).
+
+The value of the metrics lies between 0 and 1, and the closer to 1, the better the model is at predicting the data.
+ However, consider the following figure.
+
+<div style="overflow: hidden;">
+   <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+ </div>
+
+The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data is known as the bias-variance trade-off (Hastie et al. 2001:33-38).
+
+## Utility and explainability
+
+### Utility
  First, consider the utility of the model.
  This involves evaluating the clinical impact that would come from implementing the model in the real world.
 
@@ -482,7 +494,7 @@ The utility of the 30-day mortality model is illustrated below, where the curly 
    <img src="../images/utility_example.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-## Calibration
+### Calibration
  For classification problems, when the models make their predictions, they output risk scores in the form of probabilities for each class.
  Upon seeing these probabilities, one would assume they correspond to reality if made over a large number of instances.
  This is important, as for example if a model predicts a 40% chance of mortality in the next 30 days, there is more cause for concern compared to a 10% chance.
@@ -526,7 +538,7 @@ Following model calibration, verification of their calibration can be checked us
 Note that because Platt scaling utilizes a strictly monotone function, the AUC metrics (ROC and PR) are not affected, as [these are based on the probabilities' rank](https://scikit-learn.org/stable/modules/calibration.html).
   The isotonic regression, is not strictly monotone and can introduce "ties" in the predicted probabilities, meaning multiple data points might end up with the exact same calibrated probability value. Because AUC metrics like ROC AUC and PR AUC rely on the ranking of these probabilities to determine their values, introducing these ties can alter that ranking and can change the calculated AUC scores.
 
-## Explainability
+### Explainability
  Models applied in the real world should have a good [explainability](https://medium.com/@rohanmistry231/model-interpretability-explainability-in-machine-learning-af2b0deaa3ea).
  It should be possible to gain insight into why it predicts the way it does and identify the most important predictors.
  For example, when predicting mortality, this could help identify possible causes and effects to target treatment towards (keeping in mind that correlation does not equal causation).
