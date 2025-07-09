@@ -12,38 +12,25 @@ Predictive modeling is preceded by data collection and data management. Signific
 - Potential mismatches between expectations and the actual quality or completeness of the data.
 - Complexities when integrating datasets that contain varying measures, naming conventions, and different levels of granularity.
 
-In this section, these challenges will be explored through three main topics:
-
-1)  **Data sources and potential biases:** Examining the origins of data and the inherent biases that can affect modeling.
-2)  **Principles of effective data management:** Covering best practices for organizing, cleaning, and preparing data.
-3)  **Practical exercises:** Applying the learned concepts through hands-on activities.
-
-<!-- Tilføjet på baggrund af Martins kommentar -->
 Throughout this module, the following topics will be covered:
 
+- Introduction to Study Design
 - Data, Metadata, and Annotations
-- Health Data Providers in Denmark
-- Bias and Limitations in Data
 - Coding and Classification Systems
-- FAIR Data Principles
-- Relational Databases
+- Bias in Data
 - Introduction to REDCap
-- Research Frameworks
-- Challenges in Data Handling
-- Data Representation Techniques
+- Health Data Providers in Denmark
 - **Exercises**
 
 These topics provides insight on how to collect, clean, and transform data into a form suitable for modeling. Data management serves as the foundation for all types of modeling, in particular for dynamic risk prediction.
 <!-- Hertil -->
 
-## Introduction to study design
+## Introduction to Study Design
 
 **Data management** does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
 
 <!-- Added a bit more about longitudinal studies -->
 In this section of the course, there will be an introduction to data collection and potential biases in the data. To better understand these topics, are study designs related to [longitudinal studies](https://learning.closer.ac.uk/learning-modules/introduction/) important. Longitudinal studies are about tracking the same people over periods of their life to understand how some interactions, like the introduction of medicine or disease, influence their life. There are different [types of longitudinal study designs](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/types-of-longitudinal-research/), but in this course are Retrospective - and Prospective studies the main focus.
-
-**Maybe a image here of a curve where we see the progression of a child becoming an adult, to show the progress in longitudinal studies**
 
 The difference distinction retrospective and prospective studies lies in their timing and the degree of control the researchers have over the data collection process. First, researchers need to understand existing data and establish effective collection methods. Then, a research framework is necessary to support the research design and maintain high data quality standards throughout the process of the study.
 
@@ -56,48 +43,46 @@ The difference distinction retrospective and prospective studies lies in their t
 
 **[Prospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
 
-- **FAIR data principles:** Framework for making data Findable, Accessible, Interoperable, and Reusable.
-- **Introduction to databases and REDCap:** Utilizing tools designed to store sensitive data, accessible while stored safely.
+- **Introduction to REDCap:** Utilizing tools designed to store sensitive data, accessible while stored safely.
 
-The combination of looking back in the history and forward to capture the standards of technologies in the present is a valuable synergy for making robust research with dynamic risk models. All the concepts mentioned above will be explored in more detail. However, to understand these topics, a foundational knowledge regarding data and its sources will need to be established.
+The combination of looking back in the past and forward to capture the standards of technologies in the present is a valuable synergy for making robust research with dynamic risk models. All the concepts mentioned above will be explored in more detail. However, to understand these topics, a foundational knowledge regarding data and its sources will need to be established.
 
 ## Data and Metadata
 
-When managing data it is crucial to differentiate between data and metadata. While data itself represents the core information, metadata provide additional context and interpretation, making large datasets more usable.
+A clear differentiation between data and metadata is crucial when data are managed. While core information is represented by data itself, additional context and interpretation are provided by metadata, which increases the usability of large datasets. For example, if a table containing employee personal information (e.g., employee ID, name) is considered to be data, then metadata would consist of descriptive information about that table. This metadata might specify that 'employee ID' is a unique numerical identifier and 'name' is text. To facilitate proper utilization of these data, additional information is needed. A separate table providing details about each column of the data table can be added. Data types, column definitions, and coding schemes, for example, are explained by this metadata. A basic example of this can be seen in the [illustration below](https://dataedo.com/kb/data-glossary/what-is-metadata).
 
 <div style="overflow: auto; text-align: center;">
- <img src="../images/data_meta_annotations.PNG" alt="Diagram showing Data, Metadata, and Annotations" style="margin-bottom: 15px; width: 59%;">
+ <img src="../images/data_metadata.PNG" alt="Diagram showing Data and Metadata" style="margin-bottom: 15px; width: 80%;">
 </div>
 
 **Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation, insight can be extracted from raw data. For instance, a patient's blood pressure data would have a column for the type of measurements (e.g., systolic, diastolic) and a second column for the measured values:
 
 *Example of raw blood pressure data:*
 
-| Measurement        | Measure |
-|:-------------------|:--------|
-| Systolic Pressure  | 110     |
-| Diastolic Pressure | 70      |
+| Measurement        | Measurements |
+|:-------------------|:-------------|
+| Systolic Pressure  | 110          |
+| Diastolic Pressure | 70           |
 
 
 **Metadata** provides descriptive information *about* the data. It offers context regarding the circumstances of data collection, such as when, where, how, or by whom the data was generated. This information is often stored alongside or linked to the raw data.
 
 *Example of metadata for the blood pressure data:*
 
-| Metadata Attribute      | Value                                    |
-|:------------------------|:-----------------------------------------|
-| Ordering Physician      | Dr. House                                |
-| Laboratory              | Princeton-Plainsboro Teaching Hospital   |
-| Measurements            | mmHg                                     |
+| Metadata    | Clinician | Location                               | Description             | Data Types |
+|:------------|:----------|:---------------------------------------|:------------------------|:-----------|
+| Measurement | Dr. House | Princeton-Plainsboro Teaching Hospital | Names of the measurement| Text       |
+| Measure     | Dr. House | Princeton-Plainsboro Teaching Hospital | Measurement is in mmHg  | Int        |
 
 *More details about blood pressure categories can be found [here](https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings).*
 
-A clear understanding of these distinctions is significant for any data-driven work, regardless of the modeling approach used. Effectively leveraging the interplay between data and metadata is central to deriving the most insights from the collected information.
+Effectively leveraging the interplay between data and metadata is central to deriving the most insights from the collected information.
 
-Due to the potential size and complexity of structured datasets, data is often stored in a database, as the datasets can be utilized for efficient data management. Given the sensitive nature of health information, it is often stored with a central data providers. Several of the largest data providers in Denmark will be explored in the next section.
+Due to the potential size and complexity of structured datasets, data is often stored in a database, as the datasets can be utilized for efficient data management. Due to the complexity of health data, there have to be some identifiers which make the clinicians able to retrieve data about certain diagnosis. These identifiers exist and there is international standards for streamlining the data across borders. These coding and classification systems are introduced in the next section.
 
-## Coding and classification Systems
+## Coding and Classification Systems
 
-Central to the Danish healthcare system is the DNPR, a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. A database of all the codes used for all treatments based on the World Health Organization’s International Classification of Diseases, currently ICD-10.
+Central to the Danish healthcare system is the [The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. This system includes [the World Health Organization’s International Classification of Diseases, currently ICD-10](https://www.cdc.gov/nchs/icd/icd-10-cm/index.html) for diagnoses, alongside separate codes for treatments and procedures.
 
 <div style="overflow: auto;">
  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
@@ -107,25 +92,24 @@ Central to the Danish healthcare system is the DNPR, a repository for patient da
 
 Specific coding systems are used across Danish data sources:
 
-- **LABKA:** Clinical laboratory data in Denmark are stored in the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939) system. This source predominantly uses NPU (Nomenclature for Properties and Units) codes, which are unique identification numbers for each investigation, providing a terminology for the identification of clinical laboratory test values.
+- **LABKA:** Clinical laboratory data in Denmark are stored in the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939). This source does primary use [Nomenclature for Properties and Units (NPU)](https://en.wikipedia.org/wiki/NPU_terminology) codes, which are unique identification numbers for each investigation, providing a terminology for the identification of clinical laboratory test values.
 
-- **RKKP Quality Databases:** The Danish Clinical Registries (RKKP) databases, described above, depend on the SKS coding system, reflecting Danish healthcare specifics. Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., WHO) is crucial.
+- **RKKP Quality Databases:** [The Danish Clinical Quality Program (RKKP)](https://www.sundk.dk/) databases, which is part of [The Danish Healthcare Quality Institute](https://www.sundk.dk/about/), depend on the SKS coding system, reflecting Danish healthcare specifics.
 
-Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with FHIR](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. This helps to ensure alignment between local coding systems, such as SKS, and global standards for the purpose of international collaboration.
+Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., ICD-10) is crucial. Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with Fast Healthcare Interoperability Resources (FHIR)](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. This helps to ensure alignment between local coding systems, such as SKS, and global standards for the purpose of international collaboration. FHIR will be covered in details in the fifth part of this course. However, complex tasks are presented by the access to these data sources, the merging of data, and the consideration of inherent data biases. Common biases related to predictive modeling with health data will be introduced in the following section.
 
-Danish retrospective health studies are informed by data from systems including the DNPR (using SKS/ICD-10), LABKA (using NPU codes), and RKKP (using SKS). Standardization is being advanced through the integration of SNOMED CT and FHIR. For these diverse data sources to be fully used for research and collaboration, principles like FAIR is required. Data must be ensured to be Findable, Accessible, Interoperable, and Reusable.
 
 ## Bias in Data
 
-Health data gathered from different sources, can potentially carry biases, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**. The subsection will cover three main topics: Source-Specific Biases and General types of biases in healthcare research.
+Health data gathered from different sources, can potentially carry biases, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**. The subsection will cover two main topics: Source-Specific Biases and General types of biases in healthcare research.
 
 1. **Source-Specific Biases**
 
-[The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register) is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those **accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). Consequently, people who go to the hospital may not represent the general population. In medical research based on the DNPR, this creates an informed presence bias because the dataset primarily includes observations of illness, leading to an artificially higher prevalence of illness in analyses focused on hospital patients. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+As explained in the previous section, the DNPR is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those **accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). Consequently, people who go to the hospital may not represent the general population. In medical research based on the DNPR, this creates an informed presence bias because the dataset primarily includes observations of illness, leading to an artificially higher prevalence of illness in analyses focused on hospital patients. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
 
 2. **General Types of Bias in Healthcare Research**
 
-Beyond the biases already discussed, there is a wide range of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
+There is a wide range of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
 
 |Type of bias | Description |
 |:----|:----|
@@ -137,7 +121,7 @@ Beyond the biases already discussed, there is a wide range of biases to consider
 
 For more information about biases, please see this [comprehensive list about biases in research from the University of Oxford](https://catalogofbias.org/biases/)
 
-If the data indicates bias or seems strange, reach out to the individuals involved in collecting it. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
+If the data indicates bias or seems strange, reach out to the individuals involved in collecting the data. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
 
 
 ## Introduction to REDCap
@@ -147,7 +131,7 @@ Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to
 <div style="overflow: auto;">
   <img src="../images/redcap.PNG" alt="Image" style="margin-bottom: 15px; width: 60%;">
 </div>
-The collection and management of clinical data according to established quality standards are intended to be simplified by REDCap. A range of features is provided by REDCap that facilitate data management while ensuring high data security. Key capabilities include support for:
+The collection and management of clinical data according to established quality standards are intended to be simplified by REDCap. A range of features is provided by REDCap that facilitate data management while ensuring high data security. REDCap is designed to work well with longitudinal studies, which is reflected in some of the key capabilities include in the software:
 
 - [Arms](https://help.redcap.ualberta.ca/help-and-faq/what-are-arms)
 - [Longitudinal data collection](https://www.iths.org/news/redcap-tip/longitudinal-projects-in-redcap/)
@@ -159,20 +143,15 @@ These tools make it easy to work with clinical data because:
 2) REDCap can store sensitive information
 3) [REDCap is widely adopted](https://projectredcap.org/)
 
-However, limitations exist. Full support for complex relational data models is not provided by REDCap. This can be a constraint in clinical research contexts where intricate relationships between data points are common.
-
-For a practical implementation of REDCap and the FAIR data principles, check out this research project about [implementing a data infrastructure for precision oncology projects leveraging REDCap](https://www.medrxiv.org/content/10.1101/2022.05.09.22274599v1.full.pdf)
-
-In this subsection, there was a comprehensive introduction to some of the considerations needed to work with data before and after pulling the data from a source. An introduction to some of the sources and some of the biases within the data collection was provided. Now, the data is collected in its raw form and it has to be prepared for the actual modeling. This will be addressed in the next major topic of this section.
+However, limitations exist, as full support for complex relational data models is not provided by REDCap. This can be a constraint in clinical research contexts as complicated relationships between data points are common. To be able to support complex relational data, database management systems (DBMS) are needed. DBMS will have to be housed in a secure environment in order to accommodate the sensitive data collected from health data providers.
+ It is these health data providers, specifically those in Denmark, that will be introduced in the next section.
 
 ## Health Data Providers in Denmark
 
 Developing dynamic prediction models within the Danish healthcare system requires access to sensitive patient data. This data is typically held by specific organizations, which are the official data providers, responsible for safeguarding information due to its confidential nature. These comprehensive databases are essential resources for research and predictive modeling. Examples of major holders of health data in Denmark include:
 
-&nbsp;
-
 <div style="overflow: auto;">
- <img src="../images/dhda.png" alt="Logo of the Danish Health Data Authority" style="margin-bottom: 15px; width: 19%;">
+ <img src="../images/dhda.png" alt="Logo of the Danish Health Data Authority" style="margin-bottom: 15px; width: 25%;">
 </div>
 
 [**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers) is one of the country's primary entities for collecting, managing, and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
@@ -185,11 +164,7 @@ Developing dynamic prediction models within the Danish healthcare system require
 -   The Clinical Laboratory Information System Register
 -   *Numerous other specialized health registers*
 
-&nbsp;
-
-[**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/) is the type of organization which collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
-
-&nbsp;
+[**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/) is a organization which collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. These initiatives facilitate access to numerous health-related databases, notably including **over 40 clinical quality databases, many focused on specific conditions like cancer.**
 
 <div style="overflow: auto;">
  <img src="../images/stat_dk.jpg" alt="Logo of Statistics Denmark (Danmarks Statistik)" style="margin-bottom: 15px; width: 20%;">
@@ -208,10 +183,15 @@ While these national bodies represent primary data sources, information from alt
 -   Data collected specifically for a research project.
 -   Local or regional clinical databases held within hospitals or other relevant organisations.
 
-However, regardless of the data source, it is crucial to critically evaluate data quality. Before selecting data sources for developing dynamic prediction models, potential biases and limitations within the data must be thoroughly addressed. These considerations will be covered in detail in the subsequent section.
+While these are some of the major Danish data holders, there are still plenty of other data holders in Denmark, in the EU and internationally. However, the process of getting access to sensitive health data is a complicated process and it can take months before access has been granted while also being a costly affair. Therefore, planning the analysis based on a study design, understanding data and metadata, potential biases and what data from whom is needed is a crucial skill for a researcher intending to do dynamic risk prediction.
+
 
 ### Summary
-Rewrite
+Foundational information on available sources for health data was introduced. The challenges and opportunities in acquiring this data were also presented.
+
+A basic understanding of several topics was provided: the data gathering process, the nature of data, data interpretation, potential issues with data, necessary software, and where data can be found. Raw data, after being gathered and stored, often cannot be used for dynamic risk prediction. For this reason, data preprocessing is needed.
+
+The next topic, data preprocessing, can be found by the selection of the blue button below. Alternatively, the "Data Preprocessing" text in the top bar can be selected.
 
 &nbsp;
 

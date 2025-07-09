@@ -392,7 +392,34 @@ Learning rate is one of multiple hyperparameters in neural networks that control
 Systematic testing is required for the identification of optimal hyperparameters. Performance can be significantly improved or degraded by minor adjustments. Given the time-consuming nature of the tuning process, automated hyperparameter search algorithms can be employed to explore a wide range of hyperparameter combinations. Careful consideration of hyperparameter selection is paramount, as the network's learning capabilities and generalization performance on unseen data are determined by it.
 
 
-### Model performance metrics
+## Evaluation of Model Performance
+
+### Cross Validation
+
+Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: A training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
+
+
+For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is set. The final models performance is evaluated on the separate test set.
+
+In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
+These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](https://www.statlearning.com/).
+<div style="overflow: auto;">
+  <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+### Nested Cross Validation
+
+Although K-fold cross-validation provides a more robust performance estimate than a single train-test split, a potential for bias exists if hyperparameter tuning is performed incorrectly within the cross-validation procedure. If the test fold in each iteration of K-fold cross-validation is used to evaluate different hyperparameter settings, information from the test fold influences the selection of the best hyperparameters. This can lead to an overly optimistic performance estimate.
+
+To address this potential bias, [Nested Cross-Validation](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/) can be employed. This technique uses two levels of cross-validation loops. An outer loop and an inner loop. The outer loop divides the data into 'k' folds, with folds for training and testing in each iteration, similar to standard K-fold cross-validation. But, within each iteration of the outer loop, an inner K-fold cross-validation is performed using only the training data portion from the outer loop. This inner loop's purpose is hyperparameter optimization. The best hyperparameters identified by the inner loop are then used to train a model on the outer loop's training data. Finally, this model's performance is evaluated on the outer loop's test fold. This process is repeated for all outer loop folds.
+
+<div style="overflow: auto;">
+  <img src="../images/nested_cross_validation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+As only a subset of the dataset, one fold at a time (outer loop), is evaluated with an additional k-fold cross-validation (inner loop), the risk of the models overfitting the data is greatly reduced.
+
+### Performance Metrics
 
 In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
 
