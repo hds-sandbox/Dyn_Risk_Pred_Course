@@ -396,11 +396,6 @@ Systematic testing is required for the identification of optimal hyperparameters
 
 ### Cross Validation
 
-Methods for splitting data can vary. A basic approach involves dividing the dataset into two parts: A training set and a test set. The training set is used for model fitting. The test set, kept separate during training, is used for final performance evaluation. A common data division allocates 80% of the data for training and 20% for testing. This ratio may be adjusted based on factors such as the total amount of data available and the specific requirements of the task.
-
-
-For many models, performance can be improved through the adjustment of settings called hyperparameters. This process is known as hyperparameter tuning. To facilitate this tuning without biasing the final test set evaluation, a third data splitting can be added, the *validation set*. Hyperparameter adjustments are made iteratively, and the model's performance with different settings is assessed using the validation set. Once optimal hyperparameter values are identified, the model configuration is set. The final models performance is evaluated on the separate test set.
-
 In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
 These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](https://www.statlearning.com/).
 <div style="overflow: auto;">

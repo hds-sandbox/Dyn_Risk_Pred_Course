@@ -183,22 +183,31 @@ While these national bodies represent primary data sources, information from alt
 -   Data collected specifically for a research project.
 -   Local or regional clinical databases held within hospitals or other relevant organisations.
 
-While these are some of the major Danish data holders, there are still plenty of other data holders in Denmark, in the EU and internationally. However, the process of getting access to sensitive health data is a complicated process and it can take months before access has been granted while also being a costly affair. Therefore, planning the analysis based on a study design, understanding data and metadata, potential biases and what data from whom is needed is a crucial skill for a researcher intending to do dynamic risk prediction.
+While these are some of the major Danish data holders, there are still plenty of other data holders in Denmark, in the EU, and internationally. However, the process of gaining access to sensitive health data is complicated, and it can take months before access is granted, while also being a costly affair. Therefore, planning the analysis based on a study design, understanding data and metadata, being aware of potential biases, and what data from whom is needed, is a crucial skill for a researcher intending to do dynamic risk prediction.
 
 
 ### Summary
 Foundational information on available sources for health data was introduced. The challenges and opportunities in acquiring this data were also presented.
 
-A basic understanding of several topics was provided: the data gathering process, the nature of data, data interpretation, potential issues with data, necessary software, and where data can be found. Raw data, after being gathered and stored, often cannot be used for dynamic risk prediction. For this reason, data preprocessing is needed.
+A basic understanding of several topics was provided:
 
-The next topic, data preprocessing, can be found by the selection of the blue button below. Alternatively, the "Data Preprocessing" text in the top bar can be selected.
+- The data gathering process
+- The nature of data
+- Data interpretation
+- Potential issues with data
+- The necessary software
+- Where data can be found
+
+For dynamic risk prediction, raw data, after being gathered and stored, often cannot be used. Therefore, data preprocessing is needed.
+
+The next topic, data preprocessing, can be found by the clicking on the blue button below. Alternatively, the "Data Preprocessing" text in the top bar can be selected.
 
 &nbsp;
 
  <p align="center">
   <a href="http://localhost:7276/lectures/data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
-    Modeling
+    Data Preprocessing
   </a>
 </p>
 
