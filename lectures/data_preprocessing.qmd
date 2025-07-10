@@ -45,9 +45,7 @@ After the data are obtained, dataset flaws should be identified. Real-world data
 
 For predictive modeling, variations in the number of entries per column in a dataset is an clear indicator of missing data.
 
-Missing values (often referred to as Not-A-Number (nan)) are often present in a dataset, and they frequently occur in data, and the amount of missing data often increases as the complexity of the dataset increases. This should be understood as the number of columns, rows, registries the data is pulled from, and the data types. Missing data are often present as empty cells or as the term 'nan':
-
-Missing values, often represented as *NaN* (Not-a-Number), are often present in a dataset. The amount of missing data often increases as the complexity of the dataset increases. Dataset complexity can relate to the number of columns and rows, the variety of data sources (e.g., registries), and the different data types involved. Missing data may be represented by empty cells or by a specific marker, such as *NaN*.
+Missing values, often represented as *NaN* (Not-a-Number), are often present in a dataset. The amount of missing data often increases as the complexity of the dataset increases. Dataset complexity can relate to the number of columns and rows, the variety of data sources (e.g., registries), and the different data types involved. Missing data may be represented by empty cells or by a specific marker, such as *NaN*. An example of empty cells and cells with NaN is presented below:
 
 
 #### Blood Pressure Table with Empty Cells
@@ -88,7 +86,7 @@ These suggestions can be found in the paper [Tomašev et al. (2021)](https://www
 
 ### Irregular sampling
 
-Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behavior, which cannot be easily predicted. This leads to an irregular pattern in data collection timing, such as that seen with hospital contacts, thereby necessitating the application of specialized modeling techniques, including dynamic models.
+Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behaviour, which cannot be easily predicted. This leads to an irregular pattern in data collection timing, such as that seen with hospital contacts, thereby necessitating the application of specialized modeling techniques, including dynamic models.
 
 While these irregularities can present analytical challenges, it should be noted that valuable information may also be contained within the time intervals between recorded events.
 
@@ -104,7 +102,7 @@ Intuitively, the idea is to gather all the small pieces into fewer larger pieces
 
 ### Data quality in registry data
 
-When working with registry data, it is important to consider that it is most often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals.
+When working with registry data, it is important to consider that it is often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals.
 
 Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change. Given these factors related to manual entry, personnel/professional variability, and system changes, it is certain that data quality is affected.
 
@@ -116,7 +114,7 @@ Therefore, an awareness of potential data quality issues must be maintained by r
 - Missing data
 - Biases introduced during the data collection
 
-Assessment of data quality by an researcher alone can be difficult. Close collaboration with clinicians is therefore important, so that their expertise can be utilized for the correct interpretation and understanding of the data.
+Assessment of data quality by a researcher alone can be difficult. Close collaboration with clinicians is therefore important, so that their expertise can be utilized for the correct interpretation and understanding of the data.
 
 ### Data collected for purposes other than modeling
 
@@ -191,9 +189,9 @@ For more information about the case used as an example in this subsection, pleas
 
 ## Data Representation Techniques
 
-In dynamic risk prediction, data is often collected at irregular time intervals. This irregularity are originate from unpredictable factors like human interaction and the need for medical treatment. To be able to use models that typically operate on fixed time intervals, requires irregular time points to be structured appropriately. Time discretization can be employed for this purpose. This process transforms the original patient data, which is recorded continuously over time, into discrete time intervals, such as hours or days. By discretizing, the data is simplified and made suitable for various modeling techniques.
+In dynamic risk prediction, data is often collected at irregular time intervals. This irregularity originates from unpredictable factors like human interaction and the need for medical treatment. To be able to use models that typically operate on fixed time intervals, requires irregular time points to be structured appropriately. Time discretization can be employed for this purpose. This process transforms the original patient data, which is recorded continuously over time, into discrete time intervals, such as hours or days. By discretizing, the data is simplified and made suitable for various modeling techniques.
 
-For dynamic risk prediction using unstructured healthcare data recorded at irregular intervals, **time discretization** can be employed effectively. As patients arrive at varying times and progress through different parts of the healthcare system during the day, an researcher may consider transforming the data into a structured format to help the prediction model process it efficiently.
+For dynamic risk prediction using unstructured healthcare data recorded at irregular intervals, **time discretization** can be employed effectively. As patients arrive at varying times and progress through different parts of the healthcare system during the day, and researcher may consider transforming the data into a structured format to help the prediction model process it efficiently.
 
 Selection of a suitable time interval is required to structure the irregularly timed data. The interval size (e.g., hours, days, weeks) is determined primarily by data frequency. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
 
@@ -223,8 +221,6 @@ The optimal length of this window can vary. For some variables (e.g., recent phy
 
 When lookback windows are utilized, aggregation of multiple values within the window may be necessary. The specific aggregation method chosen often depends on the data type. Common options aggregation includes:
 
-Some aggregation options:
-
 - For continuous values: Calculation of count, median, mean, standard deviation, maximum/minimum values, or the average difference between subsequent entries within the window.
 - For categorical values: Creation of a binary indicator signifying presence within the window (e.g, variable indicating event).
 
@@ -238,7 +234,7 @@ Splitting data into test and training set is a crucial concept in any form of pr
 
 ## Splitting data for Model Evaluation
 
-For a model to perform optimally, it must be capable of being trained on a given dataset and evaluated on new, unseen data without significant performance decreasing. Models which shows poor generalization are considered unsuitable for deployment, as their performance on new data is likely to be poor. A crucial aspect of modeling involves ensuring that model evaluation is conducted using data that has not been seen during training. It should be noted that data can be split in various ways. A dataset may be divided into training and test sets. When a model involves hyperparameters, a more effective splitting strategy includes a validation set alongside the training and test sets. Furthermore, if a model requires calibration, an additional calibration set is needed, resulting in a train, validation, calibration, and test split. An illustration of this last type of split is provided below:
+For a model to perform optimally, it must be capable of being trained on a given dataset and evaluated on new, unseen data without significant performance decreasing. Models which show poor generalization are considered unsuitable for deployment, as it shows the model will likely not be able to predict unseen datapoints. To test the model’s ability to predict unseen data, a given dataset is split into minimum two dataset. One part for training the model and the other part for testing the model’s ability to predict unseen data. Data can be split in various ways. A dataset may be divided into training and test sets. When a model involves hyperparameters, a more effective splitting strategy includes a validation set alongside the training and test sets. Furthermore, if a model requires calibration, an additional calibration set is needed, resulting in a train, validation, calibration, and test split. An illustration of this last type of split is provided below:
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/Data_split.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -332,9 +328,9 @@ Also, **One-hot encoding** is beneficial in addressing the distance or ordering 
 **Linear Dependence (Multicollinearity):**
 It should be noted that including binary variables for all categories introduces perfect linear dependence among these features. For some models (like in a standard linear regression), this causes computational issues. This issue is known as [Dummy Variable Trap](https://medium.com/data-science/one-hot-encoding-multicollinearity-and-the-dummy-variable-trap-b5840be3c41a). In such cases, one binary variable is typically left out to remove this dependence, which is the way of avoiding the dummy variable trap. The left-out category becomes the baseline or reference level.
 
-Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/), which can affect model performance and computational requirements, may be introduced by a large increase in dimensionality.
+Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/), which can affect model performance and computational requirements.
 
-**Outliers**  are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration and a topic for discussion. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
+**Outliers** are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration and a topic for discussion. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
 
 **Feature scaling**
 
