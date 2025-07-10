@@ -24,6 +24,7 @@ The specific topics of this module is:
 - What is predictive modelling
     - Regression vs. Classification
     - Bias-variance trade-off
+    - Model performance metrics
     - Loss functions
 - Model training
     - Grid search
@@ -36,8 +37,9 @@ The specific topics of this module is:
     - Random Forest
     - Gradient Boosted Trees
     - Neural Networks
-- Performance Metrics
-    - Model performance metrics
+- Performance Evaluation
+    - Cross-validation
+    - Nested Cross-validation
     - Utility and explainability
     - Utility
     - Calibration
@@ -97,9 +99,7 @@ Ideally, the model should balance the complexity, which results in minimizing th
 Achieving this ideal balance, where the model performs optimally on unseen data, requires a way to quantify the model's performance in terms of the predictions. This is where loss functions come into play. But the loss function is dependent on some form of measure, in the form of a performance metric. The following section will introduce some of the most common performance metric and how it is integrated in the loss function.
 
 ### Performance Metrics
-As we are only considering supervised learning, it is possible to tell when the model predictions are wrong, but often just counting the raw amount of misclassifications is misleading.
-For example, if we have 10 misclassifications out of 5000 total data points, the model is better than if we had only 100 data points.
-In order to make the models' performance comparable, the model performance metrics are introduced.
+Since only supervised learning is being considered in this course, misclassifications can be identified. However, the counting of misclassifications is often misleading. For instance, a model with 10 misclassifications out of 5000 total data points is considered superior to a model with 10 misclassifications out of 100 data points. To ensure comparability across models, performance metrics are introduced.
 
 In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
 
@@ -131,11 +131,16 @@ A simple way to measure the performance classification problems is to consider t
 
 \begin{align}
    \text{Sensitivity} &= \frac{TP}{TP+FN}\\
+\end{align}
+**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.
+\begin{align}
    \text{Specificity} &= \frac{TN}{TN+FP}\\
+\end{align}
+**Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**.
+\begin{align}
    \text{Precision}   &= \frac{TP}{TP+FP}
- \end{align}
-
-**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.  **Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**. In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
+\end{align}
+In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
 
 Combining sensitivity and precision gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
  It is given by
@@ -168,7 +173,9 @@ The value of the metrics lies between 0 and 1, and the closer to 1, the better t
    <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data is known as the bias-variance trade-off (Hastie et al. 2001:33-38).
+The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data which is a example of the bias-variance trade-off (Hastie et al. 2001:33-38).
+
+Within the modeling process, two primary roles are served by performance metrics. Model parameters are adjusted through their use as loss functions, and model performance is evaluated by them. Loss functions will be introduced in the following section, while the metrics for performance evaluation will be resumed after the models have been presented.
 
 ## Loss functions
  Before the introduction of models, an understanding of [loss functions](https://medium.com/deep-learning-demystified/loss-functions-explained-3098e8ff2b27) is important, as it is the main component for a model to "learn" the best parameters to make the most accurate predictions. During model training, a metric indicating the difference between the predicted value from the true response variable is required. This metric enables the algorithm to improve the predicted output through minimization. This is the purpose of loss functions, which are also known as cost functions.
@@ -200,11 +207,11 @@ As an alternative to ROC, the precision-recall curve is introduced.
    <img src="../images/PR.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-
+The measurement of a model's performance, using loss functions and AUC metrics, is considered crucial. Although model performance is influenced by the selected loss function, it is also heavily affected by internal settings. Therefore, the optimization of these settings is performed to achieve most optimal predictive accuracy. The following section introduces multiple techniques to optimize hyperparameters.
 
 ## Hyperparameter Optimization
 
- All of the models presented in this section have had some hyperparameters, determining the specifics of how the models are built.
+ Most of the models presented in the next section have some hyperparameters, determining the specifics of how the models are built.
  These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea).
  Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are tested using the validation set, see data management. <!-- REF HER MÅSKE? -->
  Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions.
@@ -229,7 +236,7 @@ An example of a grid search on a logistic regression with elastic net is shown b
    <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally recommended to not use grid search for neural networks due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations.
+This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally recommended to not use grid search for complex models with a lot of hyperparameters, such as Neural Networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section.
 
 ## Random search
  In contrast to the rigorous grid search method, the computational complexity can be optimized through random sampling of a predetermined number of hyperparameter combinations, a technique known as [Random Search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). For this process, a defined sampling space is required for each hyperparameter, and this space can be custom-designed. This sampling space comprises a specified range or set of relevant values for each hyperparameter. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination. This approach is often more efficient than grid search, particularly when dealing with a high number of hyperparameters or [continuous parameter spaces](https://scikit-learn.org/stable/modules/grid_search.html).
@@ -249,8 +256,11 @@ The algorithm's operation involves an initial construction of the surrogate func
 
 A longer duration might be spent selecting hyperparameters with this method, but ultimately, fewer hyperparameters are required to be examined.
 
+**WRITE BRIDGE TO MODELS
 
 # Predictive models
+
+WRITE INTRO
 
 ## Logistic regression
 In a classification task, one of the most well-known models is logistic regression. This supervised model is appropriate when the outcome is categorical. A significant advantage of logistic regression is its explainability. Meaning that the results that are obtained can be readily understood, allowing for a high degree of interpretability. Logistic regression is often considered a suitable baseline model when multiple models are being benchmarked to identify the most effective risk prediction model.
@@ -474,7 +484,12 @@ Systematic testing is required for the identification of optimal hyperparameters
 
 ## Evaluation of Model Performance
 
+**WRITE AN INTRO**
+
 ### Cross Validation
+
+**WRITE AN INTRO**
+**BIND WITH DATASPLIT**
 
 In other words, a held-out set will provide an unbiased estimate of how the model will perform in production. Multiple splits (multiple scenarios) will help to test the generalization of the model.
 These splits are also known as "*folds*" and the method used for testing these different splits of the data is known as **K-fold cross validation**. In practice, [k=5 is enough, but some suggest k=10](https://www.statlearning.com/).
@@ -494,7 +509,11 @@ To address this potential bias, [Nested Cross-Validation](https://machinelearnin
 
 As only a subset of the dataset, one fold at a time (outer loop), is evaluated with an additional k-fold cross-validation (inner loop), the risk of the models overfitting the data is greatly reduced.
 
+**WRITE BRIDGE**
+
 ## Utility and explainability
+
+WRITE INTRO
 
 ### Utility
  First, consider the utility of the model.
