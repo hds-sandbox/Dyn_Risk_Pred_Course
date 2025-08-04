@@ -84,7 +84,7 @@ def get(url):
         else:
             entity_id = int(entity_id)
 
-    baseline_df = pd.read_csv('data/baseline_data.csv', parse_dates=['d.birth'])
+    baseline_df = pd.read_csv('Data/baseline_data.csv', parse_dates=['d.birth'])
     snomed_df = pd.read_csv('data/snomed.csv')
 
     if entity == 'Patient':
@@ -132,8 +132,8 @@ def get(url):
             return response
 
         if entity == 'Procedure':
-            treat_df = pd.read_csv('data/treat_data.csv', parse_dates=['treat_start_date'], index_col=0)
-            event_df = (pd.read_csv('data/events.csv', parse_dates=['date'], index_col=0)
+            treat_df = pd.read_csv('Data/treat_data.csv', parse_dates=['treat_start_date'], index_col=0)
+            event_df = (pd.read_csv('Data/events.csv', parse_dates=['date'], index_col=0)
                         .query("type != 'death'")
                         .assign(revascularization=lambda df: (df["event"] == "revascularization").astype(int),
                                 malignancy=lambda df: (df["event"] == "malignancy").astype(int),
@@ -142,10 +142,10 @@ def get(url):
                                 stroke=lambda df: (df["event"] == "stroke").astype(int)))
 
         if entity == 'Observation':
-            blood_df = pd.read_csv('data/blood_data.csv', parse_dates=['sample_date'], index_col=0)
-            diag_df = pd.read_csv('data/diag_data.csv', parse_dates=['sample_date'], index_col=0)
-            quest_df = pd.read_csv('data/quest_data.csv', parse_dates=['date.x'], index_col=0)
-            visit_df = pd.read_csv('data/visit_date.csv', parse_dates=['visit_date'], index_col=0)
+            blood_df = pd.read_csv('Data/blood_data.csv', parse_dates=['sample_date'], index_col=0)
+            diag_df = pd.read_csv('Data/diag_data.csv', parse_dates=['sample_date'], index_col=0)
+            quest_df = pd.read_csv('Data/quest_data.csv', parse_dates=['date.x'], index_col=0)
+            visit_df = pd.read_csv('Data/visit_date.csv', parse_dates=['visit_date'], index_col=0)
 
         entries_list = []
 
