@@ -1,0 +1,203 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Exercise 1: List patients using the get method from requests_fhir\n",
+        "\n",
+        "The file request_fhir.py should be in the same folder as this markdown file.\n",
+        "From the exercise:"
+      ],
+      "id": "0a399177"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import json\n",
+        "import request_fhir as requests\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "BASE_URL = 'https://test/fhir'\n",
+        "json_headers = {'content-type': 'application/json', 'accept': 'text/plain'}"
+      ],
+      "id": "d5972f3c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Check if it works, the output should be related to error 501 (didn't actually ask for any information)"
+      ],
+      "id": "512adef7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(requests.get(BASE_URL))"
+      ],
+      "id": "20bb4d3c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Retrieving the full patient list:"
+      ],
+      "id": "551bd786"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "patients_url = f'{BASE_URL}/Patient'\n",
+        "\n",
+        "print(patients_url)\n",
+        "\n",
+        "response = requests.get(patients_url)\n",
+        "\n",
+        "bundle = json.loads(response._content)\n",
+        "if bundle['resourceType'] == 'Bundle' and bundle['type'] == 'searchset':\n",
+        "    print(f\"Found {len(bundle.get('entry', []))} patients:\")\n",
+        "    res = pd.DataFrame(columns=['id', 'sex', 'd.birth'])\n",
+        "\n",
+        "    for entry in bundle.get('entry', []):\n",
+        "        patient = entry.get('resource')\n",
+        "        if patient and patient['resourceType'] == 'Patient':\n",
+        "            patient_id = patient.get('id', 'N/A')\n",
+        "            sex = patient.get('gender', 'N/A')\n",
+        "            birthdate = patient.get('birthDate', 'N/A')\n",
+        "            \n",
+        "            res = pd.concat([res, pd.DataFrame([{\n",
+        "                'id': patient_id,\n",
+        "                'sex': sex,\n",
+        "                'd.birth': birthdate\n",
+        "            }])], ignore_index=True)\n",
+        "\n",
+        "res"
+      ],
+      "id": "84cd466b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Exercise 2: Look at the snomed.csv file inside the data folder to see which code to use to access the data"
+      ],
+      "id": "340b7f0b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Read the SNOMED CSV\n",
+        "snomed = pd.read_csv(\"data/snomed.csv\")\n",
+        "\n",
+        "# Use the dictionary data to translate the \n",
+        "dict_data = pd.read_csv(\"Data/dict_data.csv\")\n",
+        "\n",
+        "# Quick translation using diag data set\n",
+        "snomed.loc[29:31, 'label'] = dict_data['diag'].values\n",
+        "\n",
+        "# Print the possible predictors and their corresponding codes\n",
+        "snomed[['code','label']]"
+      ],
+      "id": "3f96fd09",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Exercise 3: Get measurements of cholesterol for a patient and plot it over time"
+      ],
+      "id": "77574689"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "message": false
+      },
+      "source": [
+        "# Get cholesterol code\n",
+        "chol_code = snomed[snomed['label'].str.contains('chol')]['code']\n",
+        "\n",
+        "# Select an id (we chose 6)\n",
+        "patient_id = 6\n",
+        "\n",
+        "# Combine it in an URL\n",
+        "chol_url = f'{BASE_URL}/Observation?patient={patient_id}&code={chol_code.iloc[0]}'\n",
+        "\n",
+        "# Get the information and read it \n",
+        "response = requests.get(chol_url)\n",
+        "\n",
+        "cholesterol_bundle = json.loads(response._content)\n",
+        "entry = cholesterol_bundle.get('entry')\n",
+        "\n",
+        "# Iterate over the entries (each cholesterol observation for person 6)\n",
+        "for entry in cholesterol_bundle.get('entry', []):\n",
+        "  resource = entry.get('resource')\n",
+        "  if resource and resource['resourceType'] == 'Observation':\n",
+        "    date = resource.get('effectiveDateTime')\n",
+        "    value = resource.get('valueQuantity', {}).get('value')\n",
+        "    if date and value is not None:\n",
+        "      observations.append({'date': pd.to_datetime(date), 'value': float(value)})\n",
+        "\n",
+        "# Combine the above in a DataFrame\n",
+        "observations_df = pd.DataFrame(observations)\n",
+        "observations_df = observations_df.sort_values(by='date')\n",
+        "       \n",
+        "# Plot the observations\n",
+        "plt.figure(figsize=(10, 6))\n",
+        "plt.plot(observations_df['date'], observations_df['value'], marker='o', linestyle='-')\n",
+        "plt.xlabel('Date')\n",
+        "plt.ylabel('Cholesterol Value')\n",
+        "plt.title(f'Cholesterol Levels Over Time for Patient {patient_id}')\n",
+        "plt.grid(True)\n",
+        "plt.show()"
+      ],
+      "id": "fcb6860c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Exercise 4: Obtain the necessary information for your model using requests_fhir\n",
+        "For our model, we need all possible information in the snomed file.\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Exercise 5: Feed these data into your trained model and make predictions\n"
+      ],
+      "id": "fcd6c68d"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\djxb\\AppData\\Roaming\\Python\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

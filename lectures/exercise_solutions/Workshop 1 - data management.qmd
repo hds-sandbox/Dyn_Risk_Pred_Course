@@ -1,0 +1,178 @@
+---
+title: "Workshop 1 - data management"
+editor: visual
+jupyter: python3
+---
+
+```{python}
+import pandas as pd
+import numpy as np
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from sklearn.preprocessing import MinMaxScaler
+
+pd.set_option('future.no_silent_downcasting', True)
+
+# ------------------------------------------------------------------------------
+# Load data
+# ------------------------------------------------------------------------------
+
+n_years = 1
+
+baseline = pd.read_csv("Data/baseline_data.csv")
+diag = pd.read_csv("Data/diag_data.csv").drop(columns=["Unnamed: 0"], errors="ignore").rename({'sample_date': 'date'}, axis = 1)
+dict_ = pd.read_csv("Data/dict_data.csv").drop(columns=["Unnamed: 0"], errors="ignore")
+quest = pd.read_csv("Data/quest_data.csv").drop(columns=["Unnamed: 0"], errors="ignore").rename({'date.x': 'date'}, axis = 1)
+blood = pd.read_csv("Data/blood_data.csv").drop(columns=["Unnamed: 0"], errors="ignore").rename(columns={"..record.id": "id"}).rename({'sample_date': 'date'}, axis = 1)
+treat = pd.read_csv("Data/treat_data.csv").drop(columns=["Unnamed: 0"], errors="ignore").rename(columns={"record_id": "id"}).rename({'treat_start_date': 'date'}, axis = 1)
+visits = pd.read_csv("Data/visit_date.csv")[["id", "visit_date"]].rename(columns={"visit_date": "date"}).assign(visit=True)
+events = pd.read_csv("Data/events.csv").drop(columns=["Unnamed: 0"], errors="ignore")
+
+# ------------------------------------------------------------------------------
+# Translate diagnosis codes
+# ------------------------------------------------------------------------------
+
+diag = diag.merge(dict_, on="code", how="left").drop(columns="code")
+
+# ------------------------------------------------------------------------------
+# Remove variables with >20% missing
+# ------------------------------------------------------------------------------
+
+baseline = baseline.loc[:, baseline.isnull().mean() < 0.2]
+blood = blood.loc[:, blood.isnull().mean() < 0.2]
+quest = quest.loc[:, quest.isnull().mean() < 0.2]
+
+# Treat dataset NA handling
+treat = treat.loc[:, treat.isnull().mean() < 0.2]
+treat = treat.ffill()  # carry forward
+for col in ['aspirin', 'clopidogrel', 'anticlot', 'ezetimibe', 'statins']:
+  treat[col] = treat[col].fillna(treat[col].mean())
+
+
+# ------------------------------------------------------------------------------
+# Train-validation split
+# ------------------------------------------------------------------------------
+
+np.random.seed(1306)
+splits = pd.DataFrame({
+    'id': baseline['id'],
+    'split': np.random.choice(["train", "validation", "calibration", "test"], 
+                              size=len(baseline), 
+                              p=[0.8, 0.05, 0.05, 0.1])
+})
+
+# ------------------------------------------------------------------------------
+# Merge all data into one timevar frame
+# ------------------------------------------------------------------------------
+
+# Merge using outer joins on time-based features
+timevar = blood.merge(diag, on=["id", "date"], how="outer") \
+               .merge(quest, on=["id", "date"], how="outer") \
+               .merge(treat, on=["id", "date"], how="outer") \
+               .merge(visits, on=["id", "date"], how="outer") \
+               .merge(baseline, on="id", how="outer") \
+               .merge(events[events["type"].isin(["minor", "other", "major"])].drop(columns="type"),
+                      on=["id", "date"], how="outer") \
+               .merge(splits, on="id", how="left") \
+               .sort_values(["id", "date"])
+
+# Age calculation
+timevar["date"] = pd.to_datetime(timevar["date"], utc=True)
+timevar["d.birth"] = pd.to_datetime(timevar["d.birth"], errors='coerce', utc=True)
+timevar["age"] = ((timevar["date"] - timevar["d.birth"]).dt.days / 365.242)
+
+# ------------------------------------------------------------------------------
+# Summarization for imputation/capping
+# ------------------------------------------------------------------------------
+
+train_data = timevar[timevar["split"] == "train"]
+numeric_cols = train_data.select_dtypes(include=[np.number]).columns
+
+summaries = {}
+for col in numeric_cols:
+    summaries[f"mean_{col}"] = train_data[col].mean(skipna=True)
+    summaries[f"q1_{col}"] = train_data[col].quantile(0.01)
+    summaries[f"q99_{col}"] = train_data[col].quantile(0.99)
+
+# ------------------------------------------------------------------------------
+# Feature Engineering
+# ------------------------------------------------------------------------------
+
+timevar["visit"] = timevar["visit"].notna()
+timevar["male"] = (timevar["sex"] == "male").astype(int)
+timevar["smoker_current"] = (timevar["smoking"] == "current").astype(int)
+timevar["smoker_former"] = (timevar["smoking"] == "former").astype(int)
+
+# Diagnoses (simple binary carry-forward)
+timevar = timevar.groupby("id").apply(lambda df: df.infer_objects(copy=False), include_groups=False).reset_index(level = 'id')
+
+for cond in ["diabetes", "hyperlipidemia", "hypertension"]:
+    timevar[cond] = (timevar["diag"] == cond).astype(int)
+    timevar[cond] = timevar.groupby("id")[cond].cumsum()
+
+# Function to sum over previous n_years
+def func_nyears(series, date_col, interval=n_years):
+    result = []
+    for i, current_date in enumerate(date_col):
+        lower_bound = current_date - relativedelta(years=interval)
+        mask = (date_col >= lower_bound) & (date_col <= current_date)
+        result.append(series[mask].sum())
+    return result
+
+for evt in ["revascularization", "malignancy", "stroke", "amputation", "infarction"]:
+    timevar[evt] = (timevar["event"] == evt).astype(int)
+    timevar[f"n_{evt}"] = timevar.groupby("id")[evt].cumsum()
+    timevar[f"nyear_{evt}"] = timevar.groupby("id").apply(lambda df: pd.Series(
+        func_nyears(df[f"n_{evt}"], df["date"])
+    ), include_groups=False).reset_index(drop=True)
+
+# Treatment counts
+treatment_cols = treat.columns.drop(['id','date'])
+timevar["n_treatments"] = timevar[treatment_cols].fillna(0).sum(axis=1)
+timevar["n_treatments"] = timevar.groupby("id")["n_treatments"].cumsum()
+timevar["nyear_treatments"] = timevar.groupby("id").apply(lambda df: pd.Series(
+    func_nyears(df["n_treatments"], df["date"])
+), include_groups=False).reset_index(drop=True)
+
+# Carry forward and imputation
+timevar = timevar.groupby("id").apply(lambda df: df.ffill(), include_groups=False).reset_index(level = 'id')
+for col in summaries:
+    if col.startswith("mean_"):
+        real_col = col.replace("mean_", "")
+        timevar[real_col] = timevar[real_col].fillna(summaries[col])
+
+blood_cols = blood.columns.drop({'id','date'})
+# Calculate blood deviations from personal mean
+for col in blood_cols:
+    timevar[f"diff_{col}"] = timevar.groupby("id")[col].transform(lambda x: [0] + [x.iloc[i] - x.iloc[:i].mean() for i in range(1, len(x))])
+
+# Keep only visit rows and calculate visit differences
+final_data = timevar[timevar["visit"] == True].copy()
+quest_cols = quest.columns.drop(['id','date'])
+for col in quest_cols:
+    final_data[f"diff_{col}"] = final_data.groupby("id")[col].diff().fillna(0)
+
+# Mortality outcome
+deaths = events[events["type"] == "death"].sort_values("date")[["id", "date"]].rename(columns={"date": "d.event"})
+deaths["d.event"] = pd.to_datetime(deaths["d.event"], errors='coerce', utc=True)
+final_data = final_data.merge(deaths, on="id", how="left")
+final_data["mevent_nyear"] = ((final_data["d.event"] - final_data["date"]).dt.days / 365.242 <= n_years).astype(int)
+final_data = final_data.drop(columns=["d.event", "malignancy", "infarction", "amputation",
+"revascularization", "stroke", "event", "smoking", "d.birth", "sex", "diag", "visit"])
+
+# ------------------------------------------------------------------------------
+# Normalization
+# ------------------------------------------------------------------------------
+
+features_to_normalize = final_data.select_dtypes(include=[np.number]).columns.difference(['id', 'mevent_nyear'])
+scaler = MinMaxScaler()
+final_train_data = final_data[final_data["split"] == "train"][features_to_normalize]
+scaler.fit(final_train_data)
+final_data[features_to_normalize] = scaler.fit_transform(final_data[features_to_normalize])
+
+# ------------------------------------------------------------------------------
+# Save final data
+# ------------------------------------------------------------------------------
+final_data.to_csv("Data_ready_for_workshop2.csv", index=False)
+
+```
