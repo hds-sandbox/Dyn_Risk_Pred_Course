@@ -6,7 +6,7 @@ format: html
 
 :::
 
-In earlier chapters of this course, a comprehensive introduction was provided regarding handling data, feeding it into models, and evaluating the performance. However, when working with healthcare data, data collection is complicated. In the data management module, a range of data providers was introduced along with the notions of privacy and data protection. These concepts are beyond the scope of this course, but it is important that the sensitive nature of these databases is understood, which is why the data are safeguarded by some major data holders. This has the positive effect, besides securing the privacy of individuals, that certain standards can be implemented by these data holders. A standard for interacting with databases is the FHIR standard. This standard streamlines how healthcare data is interacted with globally.
+In earlier chapters of this course, a comprehensive introduction was provided regarding handling data, feeding it into models, and evaluating the performance. However, when working with healthcare data, data collection is complicated. In the data sources and data acquisition module, a range of data providers was introduced along with the notions of privacy and data protection. These concepts are beyond the scope of this course, but it is important that the sensitive nature of these databases is understood, which is why the data are safeguarded by some major data holders. This has the positive effect, besides securing the privacy of individuals, that certain standards can be implemented by these data holders. A standard for interacting with databases is the FHIR standard. This standard streamlines how healthcare data is interacted with globally.
 
 The FHIR standard often uses Application Programming Interfaces (APIs) for data exchange. Such systems use servers and networks. Thus, an understanding of these components is essential. Furthermore, an understanding of the FHIR standard itself is also important when healthcare data is used for dynamic risk prediction. Therefore, in this section of the course, the following will be addressed:
 
@@ -55,7 +55,7 @@ Many different API protocols exist, but the [Representational State Transfer (RE
 REST is considered versatile, as no single message format is enforced by the style itself for the messages that can be handled.
 For REST interactions, a URL is used as the endpoint, and HTTP verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). The relevance of this protocol is established by its facilitation of interactions that enable data exchange between servers and clients. An API that adheres to this protocol is referred to as a RESTful API or, simply a REST API.
 
-An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR (Fast Healthcare Interoperability Resources).
+An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR.
 
 # FHIR
 [Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir) is a global health care reporting standard and interface published by HL7 designed to facilitate the exchange of health data.
@@ -101,8 +101,7 @@ As it is concurrent, any deviations found can be corrected on an ongoing basis.
 Finally, consider the retrospective validation, which uses historical data and records to validate the system.
 The main reason to use this type of validation is if no prospective validation was made before launch, and thus, no evidence for the system's efficiency exists.
 
-This section has provided a basic understanding of how the digital healthcare infrastructure works in terms of exchanging data, relevant for secure access in the context of dynamic risk prediction. Where the the importance of servers and networks in hosting sensitive patient information to the standardization brought by APIs and specifically the FHIR standard have been addressed. Also, the importance of validation processes—prospective, and retrospective—ensures the reliability and compliance of implemented systems. These components are essential in the process of building accurate predictive models and maintaining data security. This section is a important, but often neglected part of building predictive models with healthcare data.
-
+This section has provided a basic understanding of how the digital healthcare infrastructure works in terms of exchanging data, relevant for secure access in the context of dynamic risk prediction. Where the the importance of servers and networks in hosting sensitive patient information to the standardization brought by APIs and specifically the FHIR standard have been addressed. Also, the importance of validation processes—prospective, and retrospective—ensures the reliability and compliance of implemented systems. These components are essential in the process of building accurate predictive models and maintaining data security.
 
 # Exercise
 In this workshop you will experiment with a simulated FHIR server to retrieve patient data. The goal is to use these data in the predictive model developed in Workshop 2 to make predictions.

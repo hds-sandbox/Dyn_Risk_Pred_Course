@@ -125,7 +125,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Exercises	|
 
 
-### Part 4 - Implementation
+### Part 5 - Implementation
 
 | Subjects |
 |:----|
@@ -148,7 +148,7 @@ The figure below illustrates the course content, outlining the journey from data
 
 &nbsp;
 
-The course is divided into four modules, each covering a key stage illustrated above:
+The course is divided into four core modules, each covering a key stage illustrated above:
 
 1) **Data Sources and Data Acquisition:**
 

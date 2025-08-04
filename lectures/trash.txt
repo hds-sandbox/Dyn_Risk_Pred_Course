@@ -61,3 +61,8 @@ Relational databases are particularly valuable for dynamic risk prediction model
 
 
 To learn more about relational databases and other databases, please click [here](https://www.geeksforgeeks.org/types-of-databases/).
+
+
+# modeling
+
+The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data which is a example of the bias-variance trade-off [(Hastie et al. 2001:33-38)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf).
