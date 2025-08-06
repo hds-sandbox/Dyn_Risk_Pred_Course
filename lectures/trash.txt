@@ -66,3 +66,102 @@ To learn more about relational databases and other databases, please click [here
 # modeling
 
 The model performance metrics for the classification shown in the figure to the right are all equal to 1 when applied to the training data, but when used on new data, superior performance is seen with a simpler model. This is because the model used for this classification is overfitted, rendering it generally unusable in practice. The challenge of achieving a model that accurately captures the underlying patterns in the predictors without overfitting to the training data which is a example of the bias-variance trade-off [(Hastie et al. 2001:33-38)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf).
+
+
+
+
+##############################################
+##### Martin and Heidi purge 05/08/25 ########
+##############################################
+
+## Introduction to Study Design
+
+**Data management** does not only consist of preprocessing the data, but it is also an operation of finding data sources, collecting the data, and managing data biases.
+
+<!-- Added a bit more about longitudinal studies -->
+In this section of the course, there will be an introduction to data collection and potential biases in the data. To better understand these topics, are study designs related to [longitudinal studies](https://learning.closer.ac.uk/learning-modules/introduction/) important. Longitudinal studies are about tracking the same people over periods of their life to understand how some interactions, like the introduction of medicine or disease, influence their life. There are different [types of longitudinal study designs](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/types-of-longitudinal-research/), but in this course are Retrospective - and Prospective studies the main focus.
+
+The difference distinction retrospective and prospective studies lies in their timing and the degree of control the researchers have over the data collection process. First, researchers need to understand existing data and establish effective collection methods. Then, a research framework is necessary to support the research design and maintain high data quality standards throughout the process of the study.
+
+
+**[Retrospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
+
+-   **Data sources:** Understanding the origins and characteristics of existing datasets.
+-   **Biases and known limitations:** Recognizing potential biases such as selection bias, information bias, or confounding, along with limitations like missing data or inconsistent recording practices.
+-   **Coding/Classifications:** Addressing variations in coding systems and classifications used across different periods or data sources.
+
+**[Prospective studies](https://learning.closer.ac.uk/learning-modules/introduction/types-of-longitudinal-research/prospective-vs-retrospective-studies/)**
+
+- **Introduction to REDCap:** Utilizing tools designed to store sensitive data, accessible while stored safely.
+
+The combination of looking back in the past and forward to capture the standards of technologies in the present is a valuable synergy for making robust research with dynamic risk models. All the concepts mentioned above will be explored in more detail. However, to understand these topics, a foundational knowledge regarding data and its sources will need to be established.
+
+
+
+
+**Data** refers to the raw information, measurements, or observations collected as the primary subject of interest. Through analysis and interpretation, insight can be extracted from raw data. For instance, a patient's blood pressure data would have a column for the type of measurements (e.g., systolic, diastolic) and a second column for the measured values:
+
+
+Due to the potential size and complexity of structured datasets, data is often stored in a database, as the datasets can be utilized for efficient data management.
+
+## Bias in Data
+
+Health data gathered from different sources, can potentially carry biases, which have to be considered. If the developer does not address these issues, there is a chance for either **poor model performance** or **misleading results**. The subsection will cover two main topics: Source-Specific Biases and General types of biases in healthcare research.
+
+1. **Source-Specific Biases**
+
+As explained in the previous section, the DNPR is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those **accessing hospital care.** This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). Consequently, people who go to the hospital may not represent the general population. In medical research based on the DNPR, this creates an informed presence bias because the dataset primarily includes observations of illness, leading to an artificially higher prevalence of illness in analyses focused on hospital patients. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+
+2. **General Types of Bias in Healthcare Research**
+
+There is a wide range of biases to consider when conducting research. It is beyond the scope of this course to cover the full list, but here are a few important biases to be aware of:
+
+|Type of bias | Description |
+|:----|:----|
+| Sampling bias | When the group chosen for a study does not accurately represent the broader population, leading to skewed results. |
+| Susceptibility bias | When certain groups are more prone to a particular outcome, due to some other external factors. |
+| Confirmation bias | Cognitive bias where researchers might unintentionally seek out or interpret data in ways that confirm their existing beliefs. |
+| Attrition bias | Systematic dropout from long-term studies, which over time will create class imbalance. |
+| Volunteer bias | When the group of people who volunteer for a study does not represent the general population. |
+
+For more information about biases, please see this [comprehensive list about biases in research from the University of Oxford](https://catalogofbias.org/biases/)
+
+If the data indicates bias or seems strange, reach out to the individuals involved in collecting the data. This might include secretaries or clinicians, as their experience is crucial. Communication with them is the most important step for ensuring data quality and mutual understanding, which ultimately impacts the quality of the predictive model.
+
+
+## Introduction to REDCap
+
+Data collection tools play a crucial role in clinical research as they are the foundation for the accuracy and utility of gathered information.
+Of these, REDCap remains one of the preferred tools, as REDCap is custom-made to fit the unique characteristics of clinical data.
+<div style="overflow: auto;">
+  <img src="../images/redcap.PNG" alt="Image" style="margin-bottom: 15px; width: 60%;">
+</div>
+The collection and management of clinical data according to established quality standards are intended to be simplified by REDCap. A range of features is provided by REDCap that facilitate data management while ensuring high data security. REDCap is designed to work well with longitudinal studies, which is reflected in some of the key capabilities include in the software:
+
+- [Arms](https://help.redcap.ualberta.ca/help-and-faq/what-are-arms)
+- [Longitudinal data collection](https://www.iths.org/news/redcap-tip/longitudinal-projects-in-redcap/)
+- [API access for programming](https://projectredcap.org/wp-content/resources/REDCapTechnicalOverview.pdf)
+
+These tools make it easy to work with clinical data because:
+
+1) REDCap has a simple interface
+2) REDCap can store sensitive information
+3) [REDCap is widely adopted](https://projectredcap.org/)
+
+However, limitations exist, as full support for complex relational data models is not provided by REDCap. This can be a constraint in clinical research contexts as complicated relationships between data points are common. To be able to support complex relational data, database management systems (DBMS) are needed. DBMS will have to be housed in a secure environment in order to accommodate the sensitive data collected from health data providers.
+ It is these health data providers, specifically those in Denmark, that will be introduced in the next section.
+
+
+### Summary
+Foundational information on available sources for health data was introduced. The challenges and opportunities in acquiring this data were also presented.
+
+A basic understanding of several topics was provided:
+
+- The data gathering process
+- The nature of data
+- Data interpretation
+- Potential issues with data
+- The necessary software
+- Where data can be found
+
+For dynamic risk prediction, raw data, after being gathered and stored, often cannot be used. Therefore, data preprocessing is needed.
