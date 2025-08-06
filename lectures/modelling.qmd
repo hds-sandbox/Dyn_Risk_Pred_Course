@@ -11,13 +11,13 @@ format: html
 
 :::
 
-In the Modelling section a comprehensive introduction to topics regarding skills in the construction and evaluation of machine learning models will be provided.
+In this module an introduction to topics regarding training and evaluation of predictive machine learning models will be provided.
 
-Core modeling concepts will be covered, ranging from logistic regression to ensemble methods, and to complex models like neural networks. Distinctions between regression problems and classification problems will be addressed. Additionally, methods for evaluating model performance will be presented.
+Different risk prediction will be introduced, such as logistic regression, ensemble methods, and neural networks. Methods for evaluating model performance will be presented.
 
-Challenges, such as the bias-variance trade-off, will be addressed, and the role of loss functions in guiding model learning will be explored. Also, an introduction in hyperparameter optimization techniques, for model fine-tuning.
+Challenges, such as the bias-variance trade-off, will be addressed, and the role of loss functions in guiding model learning will be explored. Also, an introduction to hyperparameter optimization techniques, for model fine-tuning, will be given.
 
-These concepts will then be linked the real-world application of models. Their utility, the importance of prediction calibration, and the achievement of explainability for "black-box" models through methods such as SHAP values.
+These concepts will then be linked, to the real-world application of models. Their utility, the importance of prediction calibration, and the achievement of explainability for "black-box" models through methods such as SHAP values.
 
 The specific topics of this module is:
 
@@ -32,6 +32,7 @@ The specific topics of this module is:
     - Bayesian optimization
 - Predictive models
     - Logistic regression
+    - Optimization of logistic regression <!-- vær sikker på at det er i teksten -->
     - Decision Trees
     - Bagging
     - Random Forest
@@ -40,7 +41,7 @@ The specific topics of this module is:
 - Performance Evaluation
     - Cross-validation
     - Nested Cross-validation
-    - Utility and explainability
+- Utility and explainability
     - Utility
     - Calibration
     - Explainability
@@ -49,30 +50,22 @@ The specific topics of this module is:
 
 ## What is Predictive Modeling
 
-[Predictive modeling](https://en.wikipedia.org/wiki/Predictive_modelling) involves predicting outcomes through the use of statistical or machine learning methods. These outcomes are typically unknown future events, such as progression of diseases. However, predictive modeling may also be used to uncover unknown past events, such as the identification of suspects following a crime.
+<!-- Fill this in with some more fundamental like "y = f(x, \Theta)" -->
 
-Predictive models are often compared with [causal modeling](https://en.wikipedia.org/wiki/Causal_model). A stronger emphasis on prediction accuracy is characterized in predictive modeling, whereas the deduction of cause-and-effect relationships between events or variables is characterized in causal modeling. Simply put, this distinction can be understood as prioritizing "correct prediction" over "understanding the reason for the prediction." This course is solely about predictive modeling, but encourage participants to look into causal modeling as well.
+[Predictive modeling](https://en.wikipedia.org/wiki/Predictive_modelling) involves predicting outcomes through the use of statistical or machine learning methods. These outcomes are typically unknown future events, such as progression of diseases. Further applications in more areas can be explored [here](https://www.geeksforgeeks.org/data-science/what-is-predictive-modeling/).
 
-
-Within the healthcare domain, predictive models are found to be useful in assisting clinicians in identifying patients who are at high risk of readmission. Additionally, the prediction of short-term mortality, as seen in the examples from the introduction.
-
-These are a few examples of applications within healthcare research. Further applications in more areas can be explored [here](https://www.geeksforgeeks.org/data-science/what-is-predictive-modeling/).
-
-Predictive modeling is a broad concept. To facilitate a better understanding, main topics such as supervised learning and the differences between regression and classification will be explored in the following section.
 
 ## Regression vs. Classification
-This section covers **supervised learning**, which is one of two primary approaches in Machine Learning, while other being **Unsupervised learning**. In supervised learning, the true class of each observation is known and is used to train a model, enabling patterns associated with the classes to be learned. The ability to recognize patterns is tested by presenting the model with data whose true labels are not revealed. For this data, labels are predicted by the model, and performance is evaluated by comparing the predicted labels against the true labels.
-
-Machine learning models have two primary problem types, either `regression` regarding the prediction of a continuous outcome, or `classification` regarding discrete outcomes.
+Machine learning models for prediction covering two primary types, either `regression` regarding the prediction of a continuous outcome, or `classification` regarding discrete outcomes.
 
 <div style="text-align: center;">
-   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);"> <!-- "Kunne der være lopyrglt modeller" Ved ikke hvad det betyder.
  </div>
 
 
-In regression, predictors are used to predict the value of a target variable. Examples of regression problems include predicting house prices based on house size and area, or predicting blood pressure based on biological predictors.
+In regression, predictors are used to predict the value of a target variable. Examples of regression problems include predicting house prices based on house size and area, or predicting blood pressure based on biological predictors. <!-- Kom med bedre eksempler, som er relateret til sundhed -->
 
-In classification, a target variable's class is predicted using predictors, applicable within either binary or multi-class scenarios.
+<!-- Det her skal forkortes: --> In classification, a target variable's class is predicted using predictors, applicable within either binary or multi-class scenarios.
 Essentially, this task involves estimating the class probability of each class.
 Examples of these binary events are most often positive/negative or true/false.
 These scenarios can be anything from getting approved for a loan to a medical diagnosis [(Hastie et al. 2001:9-11)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf).
@@ -81,18 +74,18 @@ In healthcare applications, models are trained using large amounts of high-quali
 
 Assistance could be provided to clinicians by such a model for the decision on whether to provide SACT. Relevant patient values would be provided as input to the model, and a risk score would be generated by the model. The risk score would be a significant consideration for inclusion in the decision-making process.
 
-These predictive models come in many forms and what is most notable of these methods are the degree of complexity. An important distinction to make for these models is the notion about how simple or how flexible these models are. This is a concept know as the bias-variance trade-off. The following section will introduce this concept.
+These predictive models come in many forms and what is most notable of these methods are the degree of complexity. An important distinction to make for these models is the notion about how simple or how flexible these models are. This is a concept know as the bias-variance trade-off. The following section will introduce this concept. <!-- Forkortes hertil. Der skal tilføjes at vi taler om binære outcomes (risk prediction) og vi ser kun på prædiktionen -->
 
 ### Bias-variance trade-off
- **Bias** is a term referring to the error that stems from using simple models to approximate a more complicated real-life problem.
- For example, the linear model is a very simple model and [it is rarely the case that any real-life problem has a completely linear relation between the response variable and the predictors](https://hastie.su.domains/ISLR2/Slides/Ch7_Moving_Beyond_Linearity.pdf).
+**Bias** is a term referring to the error that stems from using simple models to approximate a more complicated real-life problem.
+For example, the linear model is a very simple model and [it is rarely the case that any real-life problem has a completely linear relation between the response variable and the predictors](https://hastie.su.domains/ISLR2/Slides/Ch7_Moving_Beyond_Linearity.pdf).
 This means that there is some pattern in the data that a linear model is not able to catch, i.e. the bias.
 The term for using too simple a model for the data is generally known as **underfitting**.
 Conversely, the variance refers to the error that stems from using too flexible a model.
-Here, it is possible to create a model too specific to the training data, known as **overfitting**.
+Here, it is possible to create a model too specific to the training data, known as **overfitting**. <!-- "Det her handler om overfitting" Jeg ved ikke hvad der menes? -->
 
 <div style="overflow: hidden;">
-   <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+   <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);"> <!-- figuren skal forklared bedre -->
  </div>
 
 In the figure above, the left classification is from an underfitted model, whereas the right classification is from an overfitted model.
@@ -102,8 +95,8 @@ Ideally, the model should balance the complexity, which results in minimizing th
 
 Achieving this ideal balance, where the model performs optimally on unseen data, requires a way to quantify the model's performance in terms of the predictions. This is where loss functions come into play. But the loss function is dependent on some form of measure, in the form of a performance metric. The following section will introduce some of the most common performance metric and how it is integrated in the loss function.
 
-### Performance Metrics
-Since only supervised learning is being considered in this course, misclassifications can be identified. However, the counting of misclassifications is often misleading. For instance, a model with 10 misclassifications out of 5000 total data points is considered superior to a model with 10 misclassifications out of 100 data points. To ensure comparability across models, performance metrics are introduced.
+### Performance Metrics <!-- "Dækker kun kategoriske variable?", "Indsnæver til binær prædiktion i forrige afsnit" -->
+Since only supervised learning is being considered in this course, misclassifications can be identified. However, the counting of misclassifications is often misleading. For instance, a model with 10 misclassifications out of 5000 total data points is considered superior to a model with 10 misclassifications out of 100 data points. To ensure comparability across models, performance metrics are introduced. <!-- "I stedet noget generelt om at vi har brug for mål for at evaluere modellernes prædiktive performance (og forskellige aspekter heraf) og til at sammenligne modeller. " -->
 
 In the classification illustrated in the figure below, a simple linear boundary is used to divide the datapoints into two classes. Points with a green outline are correctly predicted, and points with a red outline are incorrectly predicted.
 
@@ -111,14 +104,16 @@ In the classification illustrated in the figure below, a simple linear boundary 
    <img src="../images/class_problem.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
+<!-- "Mangler noget omkring output fra modeller (typisk kontinuerte værdi mellem 0 og 1). Brug for threshold for at prædiktere klassen" -->
+
 This is a typical two-class classification problem, where the task is to draw a line that splits the datapoints most efficiently.
  The linear boundary visualizes the divide in prediction regions, with each class predicted on each side of the boundary.
- This divide motivates the terms:
+ This divide motivates the terms: <!-- Det er jo også forklaringen på forrige figur -->
 
-- True Positives (TP): Points belonging to the positive class, predicted as the positive class.
-- True Negatives (TN): Points belonging to the negative class, predicted as the negative class.
-- False Positives (FP): Points belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
-- False Negatives (FN): Points belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+- True Positives (TP): Cases belonging to the positive class, predicted as the positive class.
+- True Negatives (TN): Cases belonging to the negative class, predicted as the negative class.
+- False Positives (FP): Cases belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+- False Negatives (FN): Cases belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
 
 All of this can be aggregated in a [confusion matrix](https://medium.com/@nikitamalviya/confusion-matrix-870739a1ec31), illustrated in the figure below.
 
@@ -127,11 +122,11 @@ All of this can be aggregated in a [confusion matrix](https://medium.com/@nikita
  </div>
 
 A simple way to measure the performance classification problems is to consider the accuracy of the model, given by:
- $$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
- This is relevant when both classes are equally important.
- Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
- For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
- As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
+$$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
+This is relevant when both classes are equally important.
+Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
+For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
+As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
 
 \begin{align}
    \text{Sensitivity} &= \frac{TP}{TP+FN}\\
@@ -150,11 +145,6 @@ Combining sensitivity and precision gives the $F_1$ score, usable to evaluate th
  It is given by
  $$F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}$$
 
-
-It is important to note, that this metric [does not work well when there is a class imbalance in the dataset,](https://www.v7labs.com/blog/f1-score-guide) motivating the introduction of the [$F_\beta$ metric](https://machinelearningmastery.com/tour-of-evaluation-metrics-for-imbalanced-classification/), given by <!-- Er ikke med i slides, men opgaven spørger efter hvilken metric man vil bruge når nu datasættet er ubalanceret, og den passer godt -->
- $$F_\beta\text{ score} = \frac{(1 + \beta^2)\cdot\text{Precision}\cdot\text{Sensitivity}}{\beta^2\cdot\text{Precision}+\text{Sensitivity}}$$
- Different values for $\beta$, changes which classification the metric prioritizes, i.e., for $\beta$s smaller than 1, the positive class is more important, and vice versa for $\beta$s larger than 1. Typically, $\beta$ equal to 0.5 and 2 is used.
-
 To demonstrate the derivation of various metric values, the data from the classification figure above is utilized as input for the five previously discussed metrics. It can be seen in the figure that the following counts were obtained:
 
 - **TP:** 24
@@ -170,11 +160,11 @@ When these numbers are used in the formulas, the following results are achieved:
 
 For more on all of these metrics, click [here](https://medium.com/@eren.soykok/model-evaluation-metrics-3b6c4bf91e6b).
 
-The value of the metrics lies between 0 and 1, and the closer to 1, the better the model is at predicting the data.
+The value of the metrics lies between 0 and 1, and the closer to 1, the better the model is at predicting the data. <!-- Denne sætning er for upræcis. ("Kun et bestemt outcome" - ?) lav en mere præcis formulering.
 
 Within the modeling process, two primary roles are served by performance metrics. Model parameters are adjusted through their use as loss functions, and model performance is evaluated by them. Loss functions will be introduced in the following section, while the metrics for performance evaluation will be resumed after the models have been presented.
 
-## Loss functions
+## Loss functions <!-- "Er det egentlig også bare loss functions" - Fostår ikke hvad der menes her? -->
 Before the introduction of models, an understanding of [loss functions](https://medium.com/deep-learning-demystified/loss-functions-explained-3098e8ff2b27) is important, as it is the main component for a model to "learn" the best parameters to make the most accurate predictions. During model training, a metric indicating the difference between the predicted value from the true response variable is required. This metric enables the algorithm to improve the predicted output through minimization. This is the purpose of loss functions, which are also known as cost functions.
 
 In binary classification problems, the default loss function is the binary cross-entropy, also known as the log-loss, given by

@@ -165,3 +165,62 @@ A basic understanding of several topics was provided:
 - Where data can be found
 
 For dynamic risk prediction, raw data, after being gathered and stored, often cannot be used. Therefore, data preprocessing is needed.
+
+A practical approach to data preprocessing is presented in this part of the course. This topic is critical, as modeling is significantly influenced by data preprocessing.
+
+The principle that 'The quality of output is determined by the quality of input' represents a fundamental concept in data science that emphasizes the critical importance of preparing the data.
+
+
+### Missing data
+
+For predictive modeling, variations in the number of entries per column in a dataset is an clear indicator of missing data.
+
+Missing values, often represented as *NaN* (Not-a-Number), are often present in a dataset. The amount of missing data often increases as the complexity of the dataset increases. Dataset complexity can relate to the number of columns and rows, the variety of data sources (e.g., registries), and the different data types involved. Missing data may be represented by empty cells or by a specific marker, such as *NaN*. An example of empty cells and cells with NaN is presented below:
+
+
+#### Blood Pressure Table with Empty Cells
+
+| Systolic (mmHg) | Diastolic (mmHg) |
+|----------------|------------------|
+|                | 78               |
+| 142            |                  |
+| 118            | 75               |
+| 128            | 82               |
+
+#### Blood Pressure Table with "nan" Values
+
+| Systolic (mmHg) | Diastolic (mmHg) |
+|----------------|------------------|
+| NaN            | 78               |
+| 142            | NaN              |
+| 118            | 75               |
+| 128            | 82               |
+
+Missing data is not necessarily a negative dataset feature. Informative patterns may even be contained within missing data, which can be interpreted during analysis or modeling.
+
+
+- **Multiple Imputation**: Generate multiple complete datasets with different plausible values for the missing data
+
+More advanced strategies can also be applied:
+
+- **Multivariate imputation by chained equations:** This is an iterative approach that models each variable with missing values as a function of the other variables and imputes the missing values based on these models.
+- **Gaussian processes:** These are probabilistic models that can be used to predict missing values based on the observed data, also providing a measure of uncertainty for the imputed values.
+- **Generative adversarial networks:** GANs are a type of deep learning model that can learn the underlying data distribution and generate plausible values for missing data points.
+
+These suggestions can be found in the paper [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5).
+
+### Irregular sampling
+
+Irregular sampling is frequently observed in the healthcare sector. This is because data collection is often dependent on factors, such as health status and human behaviour, which cannot be easily predicted. This leads to an irregular pattern in data collection timing, such as that seen with hospital contacts, thereby necessitating the application of specialized modeling techniques, including dynamic models.
+
+While these irregularities can present analytical challenges, it should be noted that valuable information may also be contained within the time intervals between recorded events.
+
+For the structuring of irregularly sampled data, several strategies can be employed. These include strategies such as:
+
+- Resampling the data into uniform intervals
+- Aggregating the data into uniform chunks
+- Using models that can handle these irregularities
+
+Intuitively, the idea is to gather all the small pieces into fewer larger pieces, which can be standardized as input for the model.
+
+**Maybe add a figure or table where some datapoints in minutes basis are gathered into hour basis**
