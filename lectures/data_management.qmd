@@ -94,6 +94,8 @@ While these are some of the major Danish data holders, there are still plenty of
 
 ## Coding and Classification Systems <!-- Det her afsnit kan godt organiseres bedre (se i papir noterne). Få det til at harmonere bedre med data providers. Hvilket koder de bruger osv.) -->
 
+<!-- ICD-10, SNOMED, NPUI, FHIR. Og så være med de ovenstående databaser som eksempler. -->
+
 Due to the complexity of health data, there have to be some identifiers which make the clinicians able to retrieve data about certain diagnosis. These identifiers exist and there is international standards for streamlining the data across borders. These coding and classification systems are introduced in the next section.
 
 Central to the Danish healthcare system is the [The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. This system includes [the World Health Organization’s International Classification of Diseases, currently ICD-10](https://www.cdc.gov/nchs/icd/icd-10-cm/index.html) for diagnoses, alongside separate codes for treatments and procedures.
@@ -102,7 +104,7 @@ Central to the Danish healthcare system is the [The Danish National Patient Regi
  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
 </div>
 
-*For more information or exploration, please consider visiting [medinfo.dk](medinfo.dk).*
+*For more information, please consider visiting [medinfo.dk](medinfo.dk).*
 
 Specific coding systems are used across Danish data sources:
 

@@ -87,7 +87,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 | Course Overview	|
 | Introduction to Dynamic Risk Prediction |
 | Example: 30-days Mortality in Advanced Lung Cancer  |
-| Summary | <!-- Udskift med noget indledende til der kommer -->
 
 
 ### Part 2 - Data Sources and Data Acquisition
@@ -132,7 +131,7 @@ Welcome to this course on dynamic risk prediction. This course will provide an o
 The figure below illustrates the course content, outlining the journey from data acquisition to the implementation of the final product.
 
 <div style="overflow: auto; text-align: center;">
-  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">              <!-- I have to edit the image in powerpoint -->
+  <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
 </div>
 
 &nbsp;
@@ -145,7 +144,7 @@ This module a introduction to the data required for an dynamic risk prediction a
 
 2) **Data Preprocessing:**
 
-This module, <!-- Kan vi starte med noget lidt mere sigende for hele modedulet? --> common data challenges will be examined, and the reasons for data preprocessing will be explained. Furthermore, strategies for addressing the presented challenges while preparing the data for analysis will be discussed.
+This module focuses on transforming raw health data into a clean, analysis-ready format. Common data challenges will be examined, and the reasons for data preprocessing will be explained. Furthermore, strategies for addressing the presented challenges while preparing the data for analysis will be discussed.
 
 3) **Modeling:**
 
@@ -157,20 +156,20 @@ The final module explores the challenges of implementing predictive tools in cli
 
 ## Introduction to Dynamic Risk Prediction
 
-<!-- Hvad er risk prediction? -->
+Risk prediction is about estimating the probability of a binary future event or outcome for a patient. The estimation is typically based on a variety of variables, such as patient's characteristics, medical history and other relevant data.
 
-Traditional risk prediction generates a risk estimate at specific time point in a patient’s disease trajectory, for example, the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables risk estimation at multiple time points throughout the disease course. <!-- Figur flyttes hertil (dyn_pred_in_a_nutshell) --> Dynamic risk prediction models are relevant because they can:
+Traditional risk prediction generates a risk estimate at specific time point in a patient’s disease trajectory, for example, the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables risk estimation at multiple time points throughout the disease course. The figure below illustrates the complex decision-making process that clinicians navigate during patient interactions, highlighting the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
+<div style="overflow: auto; text-align: center;">
+  <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+</div>
+
+ Dynamic risk prediction models are relevant because they can:
 
 - continuously monitor changes in patient risk over time.
 - inform timely interventions by providing insights that assist clinicians in making treatment decisions aligned with the patient’s current risk level.
 - contribute to more efficient allocation of healthcare resources.
 
 This course will present methodological and technical approaches for developing and implementing dynamic risk prediction models in healthcare, along with the associated challenges.
-
-The figure below illustrates the complex decision-making process that clinicians navigate during patient interactions, highlighting the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
-<div style="overflow: auto; text-align: center;">
-  <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
-</div>
 
 To describe dynamic risk prediction, there are the following elements:
 
@@ -179,7 +178,6 @@ To describe dynamic risk prediction, there are the following elements:
 - **Binary outcome** $Y(t_{ij})$ for each prediction time $t_{ij}$, that a clinical outcome with only two possible values (e.g., positive or negative test, dead/alive).
 - **Baseline data** $X_i$ for the $i$'th patient are characteristics that do not change over time, such as biological sex, age at diagnosis or genetic factors.
 - **Time dependent data** $Z_i(t)$ for the $i$'th patient are measurements that vary over time, $t$, such as weight, laboratory values, or medication prescriptions.
-- Based on $Z_i(t) for $t \leq t_{ij}$ and $x_i$ the ai is to make a prediction at time point $t_{ij}$ of the binary outcome $Y(t_{ij}. <-- 1) Forstår ikke kommentaren ovenfor i papir noterne. 2) Make this look nice.
 
 The concept of multiple, irregular prediction times for a single patient is shown in the following illustration.
 
@@ -187,10 +185,11 @@ The concept of multiple, irregular prediction times for a single patient is show
   <img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 45%;">
 </div>
 
+Based on $Z_i(t) for $t \leq t_{ij}$ and $x_i$ the ai is to make a prediction at time point $t_{ij}$ of the binary outcome $Y(t_{ij}. <-- 1) Forstår ikke kommentaren ovenfor i papir noterne. 2) Make this look nice.
 
 ## Example: 30-days Mortality in Advanced Lung Cancer
 
-patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to... <!-- Fill in -->
+Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) as a means of trying to influence disease progression, extend survival, and improve their quality of life.
 
 While the intended outcomes of SACT can be beneficial, the treatment itself may also lead to serious adverse effect, even fatal ones. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. However, it can also result in increased suffering during a patient’s remaining lifetime. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.
 

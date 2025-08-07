@@ -267,7 +267,7 @@ For the transformation of linear combinations into probabilities, the logistic f
 
 $$ \log \left( \frac{p(x)}{1-p(x)} \right) = \beta_0 + \beta_1 x $$
  <!-- Kunne overveje at lave denne til en theta^T x, ligesom over-->
- <!-- Skal jeg lige overveje JBKS 20052025-->
+ <!-- Skal jeg lige overveje JBKS 20052025 -->
 
 Where:
 
