@@ -92,29 +92,34 @@ These national bodies represent primary data sources, information from alternati
 
 While these are some of the major Danish data holders, there are still plenty of other data holders in Denmark, in the EU, and internationally. However, the process of gaining access to sensitive health data is complicated, and it can take months before access is granted, while also being a costly affair.
 
-## Coding and Classification Systems <!-- Det her afsnit kan godt organiseres bedre (se i papir noterne). Få det til at harmonere bedre med data providers. Hvilket koder de bruger osv.) -->
 
-<!-- ICD-10, SNOMED, NPUI, FHIR. Og så være med de ovenstående databaser som eksempler. -->
 
-Due to the complexity of health data, there have to be some identifiers which make the clinicians able to retrieve data about certain diagnosis. These identifiers exist and there is international standards for streamlining the data across borders. These coding and classification systems are introduced in the next section.
+## Coding and Classification Systems
 
-Central to the Danish healthcare system is the [The Danish National Patient Registry (DNPR)](https://ncrr.au.dk/danish-registers/the-national-patient-register), a repository for patient data used for analyzing disease patterns and outcomes. A primary classification employed is the [Sundhedsvæsenets Klassifikations System (SKS)](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications) for treatment codes. This system includes [the World Health Organization’s International Classification of Diseases, currently ICD-10](https://www.cdc.gov/nchs/icd/icd-10-cm/index.html) for diagnoses, alongside separate codes for treatments and procedures.
+To manage and analyze large amounts of health data, standardized coding and classification systems are necessary. These systems simplify complex medical information, such as diagnoses, procedures, and lab results, by converting them into streamlined codes. Having a standardized form is a powerful tool for clinicians, administrators, and researchers to work with this data efficiently, which is why it is widely adopted. In Denmark, national and international systems are used across different registers, as introduced in the previous section.
+
+A central health data classification system is the Sundhedsvæsenet Klassifikations System (SKS), which is managed by [The Danish Health Data Authority](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications). SKS is the national standard used throughout the Danish healthcare system. Notably, registers such as the [DNPR](https://sundhedsdatastyrelsen.dk/indberetning/klassifikationer/sks-klassifikationer) and some of the [clinical quality databases (RKKP) also rely on SKS codes](https://www.dovepress.com/the-danish-lymphoid-cancer-research-daly-care-data-resource-the-basis--peer-reviewed-fulltext-article-CLEP).
+
+The SKS incorporates the World Health Organization's International Classification of Diseases, 10th Revision (ICD-10) for diagnostic data. By doing so, Danish data aligns with international standards.
+
+However, accessing these data sources, merging data, and considering inherent data biases present complex tasks. Common biases related to predictive modeling with health data will be introduced in the following section.
 
 <div style="overflow: auto;">
- <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
+  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
 </div>
 
-*For more information, please consider visiting [medinfo.dk](medinfo.dk).*
+*For more information, please visit [medinfo.dk](medinfo.dk).*
 
-Specific coding systems are used across Danish data sources:
+For specific types of data, such as clinical laboratory data, more specialized terminologies are required. This type of data also has a widely adopted standard called Nomenclature for Properties and Units (NPU) terminology. The NPU provides unique identification codes for each type of laboratory analysis, such as blood tests. These codes are adopted in laboratory databases in Denmark, such as [The clinical laboratory information system (LABKA) and The Danish Microbiology Database (MiBa)](https://www.dovepress.com/the-danish-lymphoid-cancer-research-daly-care-data-resource-the-basis--peer-reviewed-fulltext-article-CLEP). LABKA is one of the largest research databases in Denmark and contains information about laboratory tests, while MiBa is a national database for real-time access to all microbiology tests, also as part of a patient's electronic health record (EHR).
 
-- **LABKA:** Clinical laboratory data in Denmark are stored in the [The clinical laboratory information system (LABKA)](https://www.dovepress.com/article/download/6939). This source does primary use [Nomenclature for Properties and Units (NPU)](https://en.wikipedia.org/wiki/NPU_terminology) codes, which are unique identification numbers for each investigation, providing a terminology for the identification of clinical laboratory test values.
+More advanced codes allow for seamless data exchange, which has driven the implementation of interoperability coding standards, such as Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT) and Fast Healthcare Interoperability Resources (FHIR).
 
-- **RKKP Quality Databases:** [The Danish Clinical Quality Program (RKKP)](https://www.sundk.dk/) databases, which is part of [The Danish Healthcare Quality Institute](https://www.sundk.dk/about/), depend on the SKS coding system, reflecting Danish healthcare specifics.
+SNOMED CT is a systematically organized collection of medical terms designed for computer processing. It's designed to capture and represent complex clinical information in EHRs. SNOMED CT differs from classification systems by using terminologies that a computer can easily process. [There can be multiple terms for the same medical concepts, which would be difficult for computers to process, but by having a streamlined terminology, it becomes more efficient, especially when exchanging data](https://www.nlm.nih.gov/healthit/snomedct/snomed_overview.html).
 
-Global understanding and application require research findings to be shared internationally. Alignment of local coding systems (like SKS) with global standards (e.g., ICD-10) is crucial. Efforts toward standardization involve the use of [Systematized Nomenclature of Medicine Clinical Terms (SNOMED CT)](https://www.snomed.org/). SNOMED CT is a comprehensive medical terminology developed by SNOMED International for standardized data representation. It has been incorporated into the Danish healthcare infrastructure and [is used with Fast Healthcare Interoperability Resources (FHIR)](https://terminology.hl7.org/SNOMEDCT.html). FHIR is a standard developed for electronic information exchange. This helps to ensure alignment between local coding systems, such as SKS, and global standards for the purpose of international collaboration. FHIR will be covered in details in the fifth part of this course. However, complex tasks are presented by the access to these data sources, the merging of data, and the consideration of inherent data biases. Common biases related to predictive modeling with health data will be introduced in the following section.
+FHIR is a framework that provides a modern standard for exchanging healthcare information electronically. It ensures data has a standardized form, which allows for a seamless exchange of health data across computer systems. FHIR will be explained further in the implementation module of this course.
 
-The next topic, data preprocessing, can be found by the clicking on the blue button below. Alternatively, the "Data Preprocessing" text in the top bar can be selected.
+The next topic, **Data Preprocessing**, can be found by clicking the blue button below. Alternatively, you can select the "Data Preprocessing" text in the top bar.
+
 
 &nbsp;
 

@@ -6,7 +6,7 @@ format: html
 # Preprocessing
 :::
 
-This section aims to equip participants with the essential knowledge required for effective data preparation, focusing on common challenges and the strategies employed to overcome them. Participants will be prepared for the potential pitfalls and considerations encountered during data preparation for analysis. Strategies and methods for addressing these challenges are also included. At the conclusion of this part, participants' knowledge can be tested through the creation of preprocessing code for several datasets, which are to be prepared for an analysis, forming the practical exercise for the next part of this course. <!-- Der skal stå noget om det dynamiske -->
+This section aims to equip participants with the essential knowledge required for effective data preparation, focusing on common challenges and the strategies employed to overcome them. Participants will be prepared for the potential pitfalls and considerations encountered during data preparation for dynamic risk prediction models. Strategies and methods for addressing these challenges are also included. At the conclusion of this part, participants' knowledge can be tested through the creation of preprocessing code for several datasets, which are to be prepared for an analysis, forming the practical exercise for the next part of this course.
 
 Throughout this module, the following topics will be covered:
 
@@ -20,7 +20,9 @@ Throughout this module, the following topics will be covered:
 
 ## Establishing the Data Analysis protocol
 
-<!-- Start med "Her er vi - og hvor skal vi hen. Bind the op på frameworked --> To ensure efficient structuring of the modeling process, the implementation of a well-established framework is recommended. To illustrate the establishment of such a research framework, the dynamic prediction model for palliative SACT treatment, as introduced earlier in this course, will be further explored. For a more advanced reference on framework development, the work by [Tomašev et al. (2021), 'Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records'](https://www.nature.com/articles/s41596-021-00513-5), is recommended, as it exemplifies a complete end-to-end dynamic prediction model. <!-- Snakker vi ikke preprocessing -->
+Continuing from the concepts introduced earlier in the course, this section provides a detailed guide on establishing a formal data analysis protocol. This protocol functions as a "checklist" before the actual building of a dynamic risk prediction model. To demonstrate this process, will the example of the dynamic prediction model for palliative SACT treatment introduced in the introduction section, be utilized again.
+
+To ensure efficient structuring of the modeling process, the implementation of a well-established framework is recommended. To illustrate the establishment of such a research framework, the dynamic prediction model for palliative SACT treatment, as introduced earlier in this course, will be further explored. For a more advanced reference on framework development, the work by [Tomašev et al. (2021), 'Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records'](https://www.nature.com/articles/s41596-021-00513-5), is recommended, as it exemplifies a complete end-to-end dynamic prediction model, including detailed discussions on data preprocessing.
 
 The design of such a framework for the SACT prediction model example is outlined below:
 
@@ -41,17 +43,9 @@ After the data are obtained, dataset flaws should be identified. Real-world data
 
 ### Data quality in registry data
 
-When working with registry data, it is important to consider that it is often people who write journals and fill in the values manually. In healthcare, there are different actors like doctors, secretaries, and nurses. These people work at any hour of the day, and they have different degrees of expertise that can vary among the individuals. Additionally, the system evolves. New diagnoses are added, existing diagnoses are edited, and treatment protocols change. Given these factors related to manual entry, personnel/professional variability, and system changes, it is certain that data quality is affected. <!-- skær det ind til benet og skriv det sammen -->
+Registry data quality can be significantly affected by the circumstances of its collection. Factors such as manual data entry, variability among different healthcare professionals, and system evolution can introduce inconsistencies and errors. These pitfalls means that  researchers must maintain awareness of potential data quality issues.
 
-Therefore, an awareness of potential data quality issues must be maintained by researchers. Such issues include:
-
-- Data entry errors
-- Inconsistencies within the data
-- Official changes in diagnosis code
-- Missing data
-- Biases introduced during the data collection
-
-Assessment of data quality by a researcher alone can be difficult. Close collaboration with clinicians is therefore important, so that their expertise can be utilized for the correct interpretation and understanding of the data.
+These issues can include data entry errors, inconsistencies in how data is recorded, missing data, and biases introduced during the collection process. Also, the official changes in diagnosis codes over time can complicate longitudinal analysis. Given the complexity of these challenges, assessing data quality is difficult. Close collaboration with clinicians becomes essential, as their expertise is vital for the correct interpretation and understanding of the data.
 
 ### Data collected for purposes other than modeling
 
@@ -91,18 +85,18 @@ The initial step in addressing missing data involves a thorough investigation fo
 
 Missing values are typically categorized into three distinct types:
 
-##### Missing completely at random:
+##### Missing completely at random (MCAR):
 The data is missing completely at random, meaning there is no relationship between the missing data and any other values related to the dataset.
 
-##### Missing at random:
+##### Missing at random (MAR):
 Data are considered missing at random when the probability of missingness is dependent on an observed variable within the dataset, but not on the value of the missing data itself. For example, surveys within a depression registry may contain a significant amount of missing data. However, when surveys are stratified by gender, a pattern of male non-completion could be observed relative to female completion. In this scenario, the missingness of survey data is related to the observed variable of gender, thus illustrating the concept of Missing at Random.
 
-##### Missing not at random:
+##### Missing not at random (MNAR):
 Missing not at random refers to a scenario where the pattern of missing data is related to the unobserved values themselves. In the example of a depression registry, individuals with severe depression may have a high probability of not completing a survey. In such a case, the missingness is related to the severity of depression, which remains unobserved for those who do not complete the survey. When the data contains such pattern, it can be explicitly modeled, as otherwise would result in a biased analysis.
 
 Further information, including additional details on the concepts, can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK493614/).
 
-However, missing data cannot be ignored. Decisions regarding their handling are required because many models cannot process datasets containing missing values. Many strategies can be used for handling missing data, such as: <!-- Få det til at passe ind i forhold til det ovenstående omkring "missing at/not at/completely at random" -->
+The choice of a strategy for handling missing data, depends on the type of missingness. For MCAR data, simple methods like deletion or mean/median imputation are often sufficient. For MAR data, more advanced predictive modeling is generally required to avoid bias. For MNAR, specialized models are necessary to explicitly model the missingness itself, [as simple imputation methods would likely result in a analysis being biased](https://www.ncbi.nlm.nih.gov/books/NBK493611/pdf/Bookshelf_NBK493611.pdf).
 
 - **Deletion**: Remove rows or columns with missing values
 - **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or frequent value
@@ -111,14 +105,13 @@ However, missing data cannot be ignored. Decisions regarding their handling are 
 
 #### Is the recording of the outcome good enough?
 
-Critical assessment should be applied by the researcher during data source selection, as the quality of data sources can vary significantly. Input data of poor quality may potentially lead to inaccurate predictions and conclusions.
+The quality of data sources can vary significantly, and poor quality input can lead to inaccurate predictions. A critical assessment of data sources is necessary to ensure that the recorded outcomes are reliable and representative. This requires an awareness of potential biases and data collection inaccuracies.
 
-A example of the lack of quality, can also be seen in cases where some sort of bias is present in the data. Bias theory is a wide topic and beyond the scope of this course. However, a example of bias worth including is the case of the DNPR. The DNPR is a centralized registry for patients who have been in contact with hospitals. The DNPR captures vast patient information but primarily focuses on those accessing hospital care. This results in a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). Consequently, people who go to the hospital may not represent the general population. In medical research based on the DNPR, this creates an informed presence bias because the dataset primarily includes observations of illness, leading to an artificially higher prevalence of illness in analyses focused on hospital patients. For a more in-depth explanation, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/).
+For example, the **Danish National Patient Register (DNPR)** is a centralized registry of patients who have been in contact with hospitals. Because it only includes those who access hospital care, it can suffer from a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). This bias creates an artificially higher prevalence of illness within the dataset, as it does not represent the general population.
 
+Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate. For a more in-depth explanation of this issue, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/). This highlights that even well-established official registers can have data quality issues.
 
-In terms of poor quality in the collection of data, is The Danish Register of Causes of Death an example which illustrate potential reliability issues. In one study focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate. It was found that inconsistent methods had sometimes been utilized for cause-of-death determination. This resulted in findings where, after autopsies were performed, the officially recorded cause of death was determined to be incorrect in approximately 30% of the examined cases. This example shows that researchers should be cautious when this specific Danish register is considered for analysis. It also shows that critical evaluation should be applied universally during data acquisition, even when data sources are regarded as well-established or official. <!-- Kort ned og skriv mere sammen. -->
-
-For more information about the case used as an example in this subsection, please read the full paper: [The Danish Register of Causes of Death](https://journals.sagepub.com/doi/10.1177/1403494811399958?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
+These examples demonstrate that researchers must apply critical evaluation to all data sources to ensure the accuracy and reliability of their analyses.
 
 ## Data Representation Techniques
 
@@ -135,7 +128,7 @@ To increase the performance of the prediction model, it is better to have low da
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"> <!-- "Opdater til 2025 versionen". Tror det er næste figur der mentes. Denne figur er næsten 1-1 med 2025 slides. -->
 </div>
 
-A time chunk, once established, may include multiple parameter values for a single patient. For instance, if blood pressure is measured repeatedly within a 12-hour interval, the multiple measurements must be aggregated into a single representative value. Common aggregation methods include the average value calculation <!-- betinger på fremtiden. Hvilket ikke er en god idé --> or the selection of the most recent value within the interval.
+A time chunk, once established, may include multiple parameter values for a single patient. For instance, if blood pressure is measured repeatedly within a 12-hour interval, these multiple measurements must be aggregated into a single representative value. In a dynamic prediction model, a pitfall that must be avoided is using information from the future to make a prediction. To do so, a common approach is to select the most recent value within the time chunk. This method ensures that the model's prediction at any given time point is based only on information that was available at or before that time. Other aggregation methods, such as calculating the average, are generally avoided as they can inadvertently incorporate future data points, leading to data leakage. This can cause a model to appear more accurate than it would be in a real-world.
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/data_aggregation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -143,8 +136,7 @@ A time chunk, once established, may include multiple parameter values for a sing
 
 A strategy to work with historical data, as in the case with dynamic prediction models, is to consider having a lookback window for each prediction.
 
-In dynamic prediction models that utilize historical data, a lookback window strategy is often employed for each prediction point and then a limited amount of data leading up to the prediction point is considered. The reason being that some variables may only be relevant in the more recent data and may not offer any relevant information if the horizon is too wide.  <!-- Heidi har skrevet en kommentar, som jeg ikke forstår. "More conase. og lookback kian også mreldringere til en periode der er relevant - blodtryk for 30 åe siden er måske irrelevant" CORRECT THIS  -->
-
+In dynamic prediction models that utilize historical data, a **lookback window strategy** is often employed. This approach considers a limited amount of recent data leading up to each prediction point. This is because some variables may only be relevant in the more recent data, and a wider window might include outdated information that doesn't offer any relevant predictive power.
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/Lookback_window.PNG" alt="Image" style="margin-bottom: 15px; width: 35%;">
@@ -223,7 +215,7 @@ The following fictional tables illustrate how categories with few observations c
 | Fever | 150 |
 | **Other Symptoms** | 17 |
 
-Due to the sparsity of 'Skin rash' and 'Body ache', they have been collapsed into an 'Other Symptoms' category. <!-- Måske skrive også er en god ide at collapse of high feature -->
+Due to the sparsity of 'Skin rash' and 'Body ache', they were collapsed into an **'Other Symptoms'** category. Collapsing categories is also an efficient approach for dealing with high-cardinality features. If there are many unique values in a categorical feature, collapsing the categories into fewer, broader categories with larger value counts is a good strategy for building stable and better-performing dynamic risk prediction models.
 
 **Transformation to Binary Variables (One-Hot Encoding)**
 
@@ -254,10 +246,10 @@ For example, a gender variable could be encoded as follows:
 | 0    | 1  |
 | 1    | 0  |
 
-**Linear Dependence (Multicollinearity):** <!-- Skriv lidt bredere og om den egentlige problematik og ikke bare relateret til One-Hot Encoding -->
-It should be noted that including binary variables for all categories introduces perfect linear dependence among these features. For some models (like in a standard linear regression), this causes computational issues. This issue is known as [Dummy Variable Trap](https://medium.com/data-science/one-hot-encoding-multicollinearity-and-the-dummy-variable-trap-b5840be3c41a). In such cases, one binary variable is typically left out to remove this dependence, which is the way of avoiding the dummy variable trap. The left-out category becomes the baseline or reference level. Multicollinearity can also complicate regression analysis by artificially inflating the importance of features. If two or more features are highly correlated, a feature might appear to have a strong effect on the outcome, but the importance could actually be due to a strong correlation with another truly important feature.
 
-Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). This is a phenomenon in which the performance of predictive models is negatively impacted by an increase in the number of dimensions. As the number of features increases, the data becomes sparse, which can lead to overfitting and a decreased ability to generalize..
+Including binary variables for all categories introduces perfect linear dependence among these features. For some models (like in a standard linear regression), this causes computational issues. This issue is known as [Dummy Variable Trap](https://medium.com/data-science/one-hot-encoding-multicollinearity-and-the-dummy-variable-trap-b5840be3c41a). In such cases, one binary variable is typically left out to remove this dependence, which is the way of avoiding the dummy variable trap. The left-out category becomes the baseline or reference level. Multicollinearity can also complicate regression analysis by artificially inflating the importance of features. If two or more features are highly correlated, a feature might appear to have a strong effect on the outcome, but the importance could actually be due to a strong correlation with another truly important feature.
+
+Another consideration is that dataset dimensionality (the number of features) can be significantly increased by one-hot encoding. This effect is a significant effect if the original categorical variable has many unique categories. A large increase in dimensionality can potentially lead to challenges known as the ['Curse of Dimensionality'](https://www.geeksforgeeks.org/curse-of-dimensionality-in-machine-learning/). This is a phenomenon in which the performance of predictive models is negatively impacted by an increase in the number of dimensions. As the number of features increases, the data becomes sparse, which can lead to overfitting and a decreased ability to generalize.
 
 **Outliers** are something that also calls for feature engineering. Some outliers are legitimate, but others can be there by mistake. It could be a BMI of 200 or an age of 150, which could be due to a typo when a clinician had to journal a patient. Some outliers may be real, but it can be convenient to leave them out of the model if they deviate significantly. This is a case-by-case consideration and a topic for discussion. To find outliers, it can be helpful to look at upper percentiles in the summary statistics and see if there is an unexpected distance from the mean to the upper percentiles. If the values seem to be a product of a mistake, the model would be better with an upper percentile cut.
 
@@ -268,7 +260,7 @@ Adjusting the scale of features, known as feature scaling, is often an important
 Some common methods used for feature scaling include:
 
 - **[Standardization:](https://www.geeksforgeeks.org/what-is-standardization-in-machine-learning/)** Transform the data by subtracting the datapoint from the mean of the data and dividing it by the standard deviation
-$$X_{new} = \frac{x_i - \mu}{\sigma}$$ <!-- Nævn at MU, sigma, min and max er udregnet kun på træningsdata -->
+$$X_{new} = \frac{x_i - \mu}{\sigma}$$
 
 This process results in transformed features having a mean of approximately 0 and a standard deviation of approximately 1.
 

@@ -171,20 +171,18 @@ In binary classification problems, the default loss function is the binary cross
 $$
 H = -\frac{1}{N}\sum_{i=1}^N y_i\log(p_i) + (1-y_i)\log(1-p_i)
 $$
-For this calculation, the classes are transformed to **0 and 1**, which enables the multiplication within the loss function. When the true class is 1, only $log(p_i)$ influences the loss function's value. Because of the preceding negative sign, the loss function is minimized as $p_i$ approaches 1. This loss function is primarily used in **logistic regression**, a topic that will be explored in detail later in this course.
+For this calculation, the classes are transformed to **0 and 1**, which enables the multiplication within the loss function. <!-- definer yi og pi --> When the true class is 1, only $log(p_i)$ influences the loss function's value. Because of the preceding negative sign, the loss function is minimized as $p_i$ approaches 1.
 
-For multi-class classification problems, the [softmax function](https://en.wikipedia.org/wiki/Softmax_function) is utilized. A description of this function will not be provided in this section, as it represents a generalization of the concepts discussed for binary classification.
+Alternative evaluation methods are the Area Under Curve (AUC) metrics. AUC consists of two primary types of metrics <!-- kan ikke læse Martins kommentar --> : ROC and Precision-Recall (PR). The computation of these metrics may be more intensive than that of alternative methods, but their utility in certain situations can be significant. <!-- denne del er for upræcis: "These metrics are computed by creating a curve based on the input, and the area beneath the curve is estimated. To understand these curves, the definitions of their axes must be understood." --> <!-- "Hvornår kommer det så? Undgå for mange uargumenterede pointer" -->
 
-Alternatively, more complex evaluation methods, referred to as AUC metrics, are available. AUC, which stands for 'Area Under Curve,' consists of two primary types of metrics: ROC and Precision-Recall (PR). The computation of these metrics may be more intensive than that of alternative methods. But their utility in certain situations can be significant. These metrics are computed by creating a curve based on the input, and the area beneath the curve is estimated. To understand these curves, the definitions of their axes must be understood.
-
-Initially, the ROC curve is considered, where the true positive rate (TPR), or sensitivity, is compared to the false positive rate (FPR), which is equivalent to $1-\text{Specificity}$.
- Essentially, the ROC curve indicates the model's discriminative capability between classes. The diagnostic ability represented by the ROC curve is visually represented against that of a random classifier, which would yield an AUC value of 0.5. An AUC ROC score significantly above 0.5 indicates superior classification performance. An example of a ROC curve is displayed below.
+<!-- "Noget med at der er forskellige thresholds der skaber kurven" --> Initially, the ROC curve is considered, where the true positive rate (TPR), or sensitivity, is compared to the false positive rate (FPR), which is equivalent to $1-\text{Specificity}$.
+ Essentially, the ROC curve indicates the model's discriminative capability between classes. <--1 "AUR-ROC / AUV-PR i performance matriker max er 1" --> The diagnostic ability represented by the ROC curve is visually represented against that of a random classifier, which would yield an AUC value of 0.5. An AUC ROC score significantly above 0.5 indicates superior classification performance. An example of a ROC curve is displayed below.
 
 <div style="overflow: auto; text-align: center;">
    <img src="../images/ROC.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-As an alternative to ROC, the precision-recall curve is introduced.
+<!-- "Gør skapere (hele afsnittet) --> As an alternative to ROC, the precision-recall curve is introduced.
 In this case, the precision is the y-axis, and the sensitivity (recall) is the x-axis.
 This is better when there is class imbalance in the dataset, as the True Negative class is not considered, meaning the positive class is in focus.
 The curve is compared to random classification, which is presented as a horizontal line at 0.5, which is to show that the model is performing better than random. The ideal model would have PR AUC = 1, which means that the model has 1 on both precision and recall.
@@ -196,15 +194,16 @@ An example of a PR curve can be seen below.
 
 The measurement of a model's performance, using loss functions and AUC metrics, is crucial. Although model performance is influenced by the selected loss function, it is also heavily affected by internal settings. Therefore, the optimization of these settings is performed to achieve most optimal predictive accuracy. The following section introduces multiple techniques to optimize hyperparameters.
 
-## Model Training
+## Model Training <!-- "Måske det skal komme efter modeller / Er det ikke det samme? "
 
 Most of the models presented in the next section have some hyperparameters, determining the specifics of how the models are built.
- These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea).
-Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are tested using the validation set, see data splitting under the data preprocessing part of this course.
-Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions.
+ <!-- "Gør skarpere": These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea). -->
+Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are found using the validation set, see data splitting under the data preprocessing part of this course [Hyperlink til den sektion i kurset].
+<!-- Does not make sense and should be changed: "Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions." -->
 
 Overall, there are three main approaches:
 
+- Gradient descent????
 - Grid search
 - Random search
 - Bayesian optimization
@@ -215,24 +214,24 @@ These methods are frequently used, and they are powerful each in their own way a
 
 The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
 
-An example of a grid search on a logistic regression with elastic net is shown below.
+An example of a grid search on a logistic regression with elastic net is shown below. <!-- vi ved ikke hvad det er endnu -->
 In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
 The optimal combination is marked in red.
 
 <div style="text-align: center;">
-   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);"> <!-- figur skal forklares bedre. Inklusiv akserne -->
  </div>
 
-This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally recommended to not use grid search for complex models with a lot of hyperparameters, such as Neural Networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section.
+This method is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally not recommended to use grid search for complex models with a lot of hyperparameters, such as neural networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section [Hyperlink ref til sektionen].
 
 ## Random search
- In contrast to the rigorous grid search method, the computational complexity can be optimized through random sampling of a predetermined number of hyperparameter combinations, a technique known as [Random Search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). For this process, a defined sampling space is required for each hyperparameter, and this space can be custom designed. This sampling space comprises a specified range or sets of relevant values for each hyperparameter. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination. This approach is often more efficient than grid search, particularly when dealing with a high number of hyperparameters or [continuous parameter spaces](https://scikit-learn.org/stable/modules/grid_search.html).
+ <!-- gør skapere: In contrast to the rigorous grid search method, the computational complexity can be optimized through random sampling of a predetermined number of hyperparameter combinations, a technique known as [random search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). --> For this process, a defined sampling space is required for each hyperparameter, and this space can be custom designed. This sampling space comprises a specified range or sets of relevant values for each hyperparameter. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination. <!-- Gentangende: This approach is often more efficient than grid search, particularly when dealing with a high number of hyperparameters or [continuous parameter spaces](https://scikit-learn.org/stable/modules/grid_search.html). -->
 
 
 This method effectively manages higher dimensionality because the number of models trained is explicitly controlled by the user. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
  <!-- hvis der skal være en figur, kan man tage kodeoutput, men nok ikke nødvendig -->
 
-## Bayesian optimization
+## Bayesian optimization <!-- Det her afsnit skal forbedres væsentligt -->
 Unlike random search, sampling from the hyperparameter space is performed through Bayesian optimization, although a more informed approach is utilized. However, the method of sample selection differs. Instead of being selected randomly, samples are chosen based on previously evaluated hyperparameter configurations. This process is undertaken through a Bayesian approach, where rather than optimizing the computationally expensive objective function directly, a computationally cheaper conditional function, $P(y|\text{hyperparameters})$, often referred to as the *surrogate* function, is instead modeled.
 
 The algorithm's operation involves an initial construction of the surrogate function. The optimal hyperparameters are identified, which are then applied to the objective function. The surrogate function is then updated, and this iterative process is repeated. This methodology is exemplified in the figure below.
@@ -247,12 +246,12 @@ Bayesian optimization provides an efficient method for fine-tuning a model's per
 
 # Predictive models
 
-Predictive models are central to dynamic risk prediction. They are used to learn patterns from historical data, forecast future outcomes, and identify relationships within data. Such models are powerful and can be applied in various contexts. For this course, these models are used to predict events that can assist clinicians in deciding upon potential interventions.
+Predictive models are central to dynamic risk prediction. <!-- intro er generisk --> They are used to learn patterns from historical data, forecast future outcomes, and identify relationships within data. Such models are powerful and can be applied in various contexts. For this course, these models are used to predict events that can assist clinicians in deciding upon potential interventions. <!-- flet afsnit ind i intro -->
 
 A range of models is available, from simple, interpretable algorithms to complex "black-box" systems. The following section will introduce these models, progressing from simpler to more complex approaches.
 
 ## Logistic regression
-In a classification task, one of the most well-known models is logistic regression. This supervised model is appropriate when the outcome is categorical. A significant advantage of logistic regression is its explainability. Meaning that the results that are obtained can be readily understood, allowing for a high degree of interpretability. Logistic regression is often considered a suitable baseline model when multiple models are being benchmarked to identify the most effective risk prediction model.
+In a classification task, one of the most well-known models is logistic regression. This supervised model is appropriate when the outcome is categorical. A significant advantage of logistic regression is its explainability. <!-- præcisere: "Meaning that the results that are obtained can be readily understood, allowing for a high degree of interpretability. --> Logistic regression is often considered a suitable baseline model when multiple models are being benchmarked to identify the most effective risk prediction model.
 Logistic regression is a linear model that outputs a probability score instead of a direct linear combination. To express this mathematically:
 
 $$\hat{p} = \sigma(\theta^T \mathbf{x})$$
