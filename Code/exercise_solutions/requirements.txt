@@ -1,0 +1,3 @@
+eval_type_backport
+fhir.resources
+fastapi "uvicorn[standard]"
