@@ -83,44 +83,44 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 # Course Agenda
 
 ### Part 1 - Introduction
-|:----|
-| Course Overview	|
-| Introduction to Dynamic Risk Prediction |
-| Example: 30-days Mortality in Advanced Lung Cancer  |
 
+- Course Overview
+- Introduction to Dynamic Risk Prediction
+- Example: 30-day Mortality in Advanced Lung Cancer
 
 ### Part 2 - Data Sources and Data Acquisition
-|:----|
-| Data and Metadata	|
-| Coding and Classification System |
-| Health Data Providers in Denmark |
-| Exercises	|
+
+- Data and Metadata
+- Health Data Providers in Denmark
+- Coding and Classification System
+- Exercises
 
 ### Part 3 - Data Preprocessing
-|:----|
-| Establishing the Data Analysis Protocol |
-| Challenges in Data Handling |
-| Data Representation Techniques |
-| Exercises |
 
+- Establishing the Data Analysis Protocol
+- Challenges in Data Handling
+- Data Representation Techniques
+- Splitting Data for Model Evaluation
+- Feature engineering
+- Exercises
 
 ### Part 4 - Modeling
-|:----|
-| What is Predictive Modelling	|
-| Model Training |
-| Performance Metrics |
-| Utility and Explainability |
-| Exercises	|
+
+- What is Predictive Modelling
+- Performance Metrics
+- Predictive models
+- Model Training
+- Utility and Explainability
+- Exercises
 
 
 ### Part 5 - Implementation
 
-| Subjects |
-|:----|
-| Hosting and access to data	|
-| FHIR	|
-| Validation	|
-| Exercises	|
+- Hosting and access to data
+- FHIR
+- Validation
+- Exercises
+
 
 
 ## Course Overview
@@ -159,11 +159,12 @@ The final module explores the challenges of implementing predictive tools in cli
 Risk prediction is about estimating the probability of a binary future event or outcome for a patient. The estimation is typically based on a variety of variables, such as patient's characteristics, medical history and other relevant data.
 
 Traditional risk prediction generates a risk estimate at specific time point in a patient’s disease trajectory, for example, the risk of death within 30 days following a surgical procedure. In contrast, dynamic risk prediction enables risk estimation at multiple time points throughout the disease course. The figure below illustrates the complex decision-making process that clinicians navigate during patient interactions, highlighting the critical questions they must address and how these considerations evolve throughout the patient's care timeline.
+
 <div style="overflow: auto; text-align: center;">
   <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
- Dynamic risk prediction models are relevant because they can:
+Dynamic risk prediction models are relevant because they can:
 
 - continuously monitor changes in patient risk over time.
 - inform timely interventions by providing insights that assist clinicians in making treatment decisions aligned with the patient’s current risk level.
@@ -185,7 +186,7 @@ The concept of multiple, irregular prediction times for a single patient is show
   <img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 45%;">
 </div>
 
-Based on $Z_i(t) for $t \leq t_{ij}$ and $x_i$ the ai is to make a prediction at time point $t_{ij}$ of the binary outcome $Y(t_{ij}. <-- 1) Forstår ikke kommentaren ovenfor i papir noterne. 2) Make this look nice.
+Based on $Z_i(t) for $t \leq t_{ij}$ and $x_i$ the aim is to make a prediction at time point $t_{ij}$ of the binary outcome $Y(t_{ij}. <-- 1) Forstår ikke kommentaren ovenfor i papir noterne. 2) Make this look nice.
 
 ## Example: 30-days Mortality in Advanced Lung Cancer
 

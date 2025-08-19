@@ -26,10 +26,6 @@ The specific topics of this module is:
     - Bias-variance trade-off
     - Model performance metrics
     - Loss functions
-- Model training
-    - Grid search
-    - Random search
-    - Bayesian optimization
 - Predictive models
     - Logistic regression
     - Optimization of logistic regression <!-- vær sikker på at det er i teksten -->
@@ -38,6 +34,10 @@ The specific topics of this module is:
     - Random Forest
     - Gradient Boosted Trees
     - Neural Networks
+- Model training
+    - Grid search
+    - Random search
+    - Bayesian optimization
 - Performance Evaluation
     - Cross-validation
     - Nested Cross-validation
@@ -91,7 +91,7 @@ Ideally, the model should balance the complexity, which results in minimizing th
 
 Achieving this ideal balance, where the model performs optimally on unseen data, requires a way to quantify the model's performance in terms of the predictions. This is where loss functions come into play. But the loss function is dependent on some form of measure, in the form of a performance metric. The following section will introduce some of the most common performance metric and how it is integrated in the loss function.
 
-### Performance Metrics
+# Performance Metrics
 This section will introduce the metrics that are used to evaluate and compare models, specifically for categorical variables and, as was narrowed down in the previous section, for binary prediction.
 
 To evaluate a model's predictive performance and compare it to others, robust measures are needed. A simple counting of misclassifications can often be misleading. For example, a model with 10 misclassifications out of 5,000 data points is often considered superior to a model with 10 misclassifications out of only 100 data points. To ensure comparability across models and to capture different aspects of a model's performance, various performance metrics are introduced.
@@ -191,83 +191,6 @@ As an alternative to the ROC curve, the Precision-Recall (PR) curve is introduce
 
 The measurement of a model's performance, using loss functions and AUC metrics, is crucial. Although model performance is influenced by the selected loss function, it is also heavily affected by internal settings. Therefore, the optimization of these settings is performed to achieve most optimal predictive accuracy. The following section introduces multiple techniques to optimize hyperparameters.
 
-## Model Training <!-- "Måske det skal komme efter modeller / Er det ikke det samme? "
-
-Most of the models presented in the next section have some hyperparameters, determining the specifics of how the models are built.
- <!-- "Gør skarpere": These parameters can be set to specific values based on what typically works, or they can be estimated in a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea). -->
-Generally, in tuning, a model is fitted using a specific value of the given hyperparameters, and its predictive abilities are found using the validation set, see data splitting under the data preprocessing part of this course [Hyperlink til den sektion i kurset].
-<!-- Does not make sense and should be changed: "Experiments are conducted with a model's hyperparameters and occasionally its underlying machinery (modeling engine) to identify the combination that facilitates the most accurate predictions." -->
-
-
-
-Most of the models presented in the next section are controlled by a number of hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models, The goal is to achieve the best results on the validation set.
-
-These values can be chosen based on common practice or, more systematically, through a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea). During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was previously introduced in the data preprocessing part of this course. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified.
-
-
-Overall, there are three main approaches:
-
-- Gradient descent????
-- Grid search
-- Random search
-- Bayesian optimization
-
-These methods are frequently used, and they are powerful each in their own way and the applications for these methods are based on the given problem.
-
-### Grid search
-
-The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
-
-An example of a grid search on a logistic regression with elastic net is shown below. <!-- vi ved ikke hvad det er endnu (Det problem er løst hvis model training kommer efter modelling - JBKS) -->
-In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
-The optimal combination is marked in red.
-
-<div style="text-align: center;">
-   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
- </div>
-
-The models performance is being measured on what combination of the two hyperparameters, mixing parameter and inverse penalty, provides the best result on the validation set. The red box marks that a mixing parameter of 0.6 and a inverse penalty of 0.002 gave the highest score.
-
-Grid search is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally not recommended to use grid search for complex models with a lot of hyperparameters, such as neural networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section [Hyperlink ref til sektionen].
-
-## Random search
-
-In contrast to the rigorous grid search method, computational complexity can be optimized through a technique known as [random search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). This approach involves the random sampling of a predetermined number of hyperparameter combinations.
-
-For this process, a defined sampling space is required for each hyperparameter. This space, which comprises a specified range or sets of relevant values, is custom-designed. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination.
-
-This method effectively manages higher dimensionality because the number of models trained is explicitly controlled. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
-
-
-
-## Bayesian optimization <!-- Det her afsnit skal forbedres væsentligt -->
-Unlike random search, sampling from the hyperparameter space is performed through Bayesian optimization, although a more informed approach is utilized. However, the method of sample selection differs. Instead of being selected randomly, samples are chosen based on previously evaluated hyperparameter configurations. This process is undertaken through a Bayesian approach, where rather than optimizing the computationally expensive objective function directly, a computationally cheaper conditional function, $P(y|\text{hyperparameters})$, often referred to as the *surrogate* function, is instead modeled.
-
-The algorithm's operation involves an initial construction of the surrogate function. The optimal hyperparameters are identified, which are then applied to the objective function. The surrogate function is then updated, and this iterative process is repeated. This methodology is exemplified in the figure below.
-
-<div style="text-align: center;">
-   <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
- </div>
-
-A longer duration might be spent selecting hyperparameters with this method, but ultimately, fewer hyperparameters are required to be examined.
-
-Bayesian optimization provides an efficient method for fine-tuning a model's performance by navigating a potentially vast hyperparameter space. However, it is crucial to recognize that this optimization is applied to an already selected underlying model. The choice of models is a central decision within the predictive modeling process. Once appropriate models have been identified, their performance can then be optimized using the methods discussed above. Common models utilized for predictive modeling will be introduced in the following section.
-
-
-## Bayesian Optimization
-
-Unlike random search, Bayesian optimization performs sampling from the hyperparameter space through a more informed, model-based approach. The method's objective is to become more accurate with additional data. This is achieved by using a probabilistic model, known as the surrogate function, which models the relationship between hyperparameters and the objective function's score, including a measure of uncertainty:
-
-$$p(score|hyperparameters)$$
-
-The algorithm's operation involves an iterative process. An initial surrogate function is constructed, often with a few random hyperparameter samples. An acquisition function is then used to propose the next set of hyperparameters to be evaluated. The real objective function is then evaluated with these new hyperparameters, and the surrogate function is updated. This process is repeated until a stopping condition is met. Although more time may be spent selecting each hyperparameter set, fewer overall hyperparameter combinations are required to be examined:
-
-<div style="text-align: center;">
-  <img src="../images/modelling/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
-</div>
-
-The surrogate function is represented by a solid line, and its associated uncertainty, indicated by a shaded red region. It can be seen that the surrogate function progressively aligns with the true function over multiple iterations, while the uncertainty is gradually reduced. The reduction in uncertainty directly impacts the expected improvement, as shown in the plots below. The expected improvement is decrease over time as the uncertainty shrinks, which is due model becoming more confident in its prediction of the optimal location.
-
 # Predictive models
 
 This section introduces popular models for dynamic risk prediction. The models are presented in order, progressing from simple, interpretable algorithms to complex "black-box" systems.
@@ -292,7 +215,7 @@ The S-shaped curve of the sigmoid function is used to map data points to probabi
 <div style="text-align: center;">
    <img src="../images/Log_reg_decision_boundary.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 75%);">
  </div>
- The visualization stems from this [mini course](https://ds100.org/course-notes-su23/logistic_regression_2/logistic_reg_2.html).
+The visualization stems from this [mini course](https://ds100.org/course-notes-su23/logistic_regression_2/logistic_reg_2.html).
 
 In practice, logistic regression models are trained through optimization. This process involves the iterative adjustment of a model's parameters, where predictions generated by the model are continuously compared against the true values. This iterative refinement continues until the optimal parameters are determined. The optimization method employed may range from a straightforward gradient descent to a more advanced algorithm. Further information regarding optimization algorithms for determining optimal parameters in logistic regression can be accessed via the provided [link](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d).
 
@@ -467,6 +390,60 @@ Learning rate is one of multiple hyperparameters in neural networks that control
 
 Systematic testing is required for the identification of optimal hyperparameters. Performance can be significantly improved or degraded by minor adjustments. Given the time-consuming nature of the tuning process, automated hyperparameter search algorithms can be employed to explore a wide range of hyperparameter combinations. Careful consideration of hyperparameter selection is paramount, as the network's learning capabilities and generalization performance on unseen data are determined by it.
 
+## Model Training <!-- "Måske det skal komme efter modeller / Er det ikke det samme? "
+
+Most of the models presented in the next section are controlled by a number of hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models, The goal is to achieve the best results on the validation set.
+
+These values can be chosen based on common practice or, more systematically, through a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea). During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was previously introduced in the data preprocessing part of this course. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified.
+
+
+Overall, there are three main approaches:
+
+- Gradient descent???? <!-- Kan ikke forstå hvorfor gradient descent skal med? -->
+- Grid search
+- Random search
+- Bayesian optimization
+
+These methods are frequently used, and they are powerful each in their own way and the applications for these methods are based on the given problem.
+
+### Grid search
+
+The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
+
+An example of a grid search on a logistic regression with elastic net is shown below. <!-- vi ved ikke hvad det er endnu (Det problem er løst hvis model training kommer efter modelling - JBKS) -->
+In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
+The optimal combination is marked in red.
+
+<div style="text-align: center;">
+   <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+ </div>
+
+The models performance is being measured on what combination of the two hyperparameters, mixing parameter and inverse penalty, provides the best result on the validation set. The red box marks that a mixing parameter of 0.6 and a inverse penalty of 0.002 gave the highest score.
+
+Grid search is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally not recommended to use grid search for complex models with a lot of hyperparameters, such as neural networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section [Hyperlink ref til sektionen].
+
+## Random search
+
+In contrast to the rigorous grid search method, computational complexity can be optimized through a technique known as [random search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). This approach involves the random sampling of a predetermined number of hyperparameter combinations.
+
+For this process, a defined sampling space is required for each hyperparameter. This space, which comprises a specified range or sets of relevant values, is custom-designed. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination.
+
+This method effectively manages higher dimensionality because the number of models trained is explicitly controlled. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
+
+## Bayesian Optimization
+
+Unlike random search, Bayesian optimization performs sampling from the hyperparameter space through a more informed, model-based approach. The method's objective is to become more accurate with additional data. This is achieved by using a probabilistic model, known as the surrogate function, which models the relationship between hyperparameters and the objective function's score, including a measure of uncertainty:
+
+$$p(score|hyperparameters)$$
+
+The algorithm's operation involves an iterative process. An initial surrogate function is constructed, often with a few random hyperparameter samples. An acquisition function is then used to propose the next set of hyperparameters to be evaluated. The real objective function is then evaluated with these new hyperparameters, and the surrogate function is updated. This process is repeated until a stopping condition is met. Although more time may be spent selecting each hyperparameter set, fewer overall hyperparameter combinations are required to be examined:
+
+<div style="text-align: center;">
+  <img src="../images/modelling/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+</div>
+
+The surrogate function is represented by a solid line, and its associated uncertainty, indicated by a shaded red region. It can be seen that the surrogate function progressively aligns with the true function over multiple iterations, while the uncertainty is gradually reduced. The reduction in uncertainty directly impacts the expected improvement, as shown in the plots below. The expected improvement is decrease over time as the uncertainty shrinks, which is due model becoming more confident in its prediction of the optimal location.
+
 
 ## Evaluation of Model Performance
 
@@ -478,6 +455,7 @@ When predictive models are developed, it is crucial to ensure their performance 
 [Cross-validation](https://www.geeksforgeeks.org/machine-learning/cross-validation-machine-learning/) is a technique employed to assess how a model performs on unseen data. The model is trained on a portion of the data and tested on other portions. This process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, the performance from each validation step is averaged to estimate the model's overall performance. Cross-validation is an effective measure against overfitting, which occurs when a model perfectly fits the training data but performs poorly on new data.
 
 In other words, an unbiased estimate of how a model will perform in production can be provided by a held-out set. The generalization of the model will be tested by multiple splits (or multiple scenarios). These splits are also known as "folds," and the method used for testing these different splits of the data is known as K-fold cross-validation. In practice, [k=5 is enough, but some suggest k=10 (James et al. 2013:206](https://www.statlearning.com/).
+
 <div style="overflow: auto; text-align: center;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>

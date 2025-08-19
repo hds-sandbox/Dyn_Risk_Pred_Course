@@ -3,7 +3,7 @@ format: html
 ---
 
 :::{.hero-banner}
-# Preprocessing
+# Data Preprocessing
 :::
 
 This section aims to equip participants with the essential knowledge required for effective data preparation, focusing on common challenges and the strategies employed to overcome them. Participants will be prepared for the potential pitfalls and considerations encountered during data preparation for dynamic risk prediction models. Strategies and methods for addressing these challenges are also included. At the conclusion of this part, participants' knowledge can be tested through the creation of preprocessing code for several datasets, which are to be prepared for an analysis, forming the practical exercise for the next part of this course.
@@ -54,7 +54,7 @@ Similar to many other data sources, these registries were not originally designe
 
 It can be concluded that there are many pitfalls when working with registry data, and some of these issues have been presented in this course. This leads to the natural question of **what to do about it?**
 
-### Checklist for your data <!-- "Mærkeligt lille afsnit" -->
+### Checklist for your data
 
 For reliable model output to be obtained, high-quality input data is required. This requirement can be addressed through several approaches detailed below:
 

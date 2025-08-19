@@ -6,8 +6,6 @@ format: html
 # Data Sources and Data Acquisition
 :::
 
-<!-- The structure of the this module have been changed so health data providers come before the coding and classification systems. The coding and classification section needs a lot of love and. -->
-
 
 Predictive modeling is preceded by data collection and data management. Significant challenges are often encountered during these processes. These difficulties include:
 
@@ -21,19 +19,13 @@ Throughout this module, the following topics will be covered:
 
 - Introduction to Study Design
 - Data, Metadata, and Annotations
-- Coding and Classification Systems
-- Bias in Data
-- Introduction to REDCap
 - Health Data Providers in Denmark
+- Coding and Classification Systems
 - **Exercises**
 
 ## Data and Metadata
 
 A clear differentiation between data and metadata is crucial when data are managed. While core information is represented by data itself, additional context and interpretation are provided by metadata, which increases the usability of large datasets. For example, if a table containing employee personal information (e.g., employee ID, name) is considered to be data, then metadata would consist of descriptive information about that table. This metadata might specify that 'employee ID' is a unique numerical identifier and 'name' is text. To facilitate proper utilization of these data, additional information is needed. A separate table providing details about each column of the data table can be added. Data types, column definitions, and coding schemes, for example, are explained by this metadata. A basic example of this can be seen in the [illustration below](https://dataedo.com/kb/data-glossary/what-is-metadata).
-
-<div style="overflow: auto; text-align: center;">
- <img src="../images/data_metadata.PNG" alt="Diagram showing Data and Metadata" style="margin-bottom: 15px; width: 80%;">
-</div>
 
 *Example of raw blood pressure data:*
 
@@ -41,9 +33,6 @@ A clear differentiation between data and metadata is crucial when data are manag
 |:-------------------|:-------------|
 | Systolic Pressure  | 110          |
 | Diastolic Pressure | 70           |
-
-
-**Metadata** provides descriptive information *about* the data. It offers context regarding the circumstances of data collection, such as when, where, how, or by whom the data was generated. This information is often stored alongside or linked to the raw data.
 
 *Example of metadata for the blood pressure data:*
 
@@ -91,8 +80,6 @@ These national bodies represent primary data sources, information from alternati
 -   Local or regional clinical databases held within hospitals or other relevant organisations.
 
 While these are some of the major Danish data holders, there are still plenty of other data holders in Denmark, in the EU, and internationally. However, the process of gaining access to sensitive health data is complicated, and it can take months before access is granted, while also being a costly affair.
-
-
 
 ## Coding and Classification Systems
 
