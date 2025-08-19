@@ -280,67 +280,6 @@ gb_best
 ```
 
 
-# Neural networks
-In this section, the multi-layer perceptron is implemented, also using tidymodels.
-This section is loosely inspired by the [tidymodels webpage](https://www.tidymodels.org/learn/models/parsnip-nnet/).
-
-First the model is created.
-```{r Multilayer perceptron model}
-mlp_mod <- mlp(
-  epochs = 100,
-  hidden_units = tune(),
-  learn_rate = tune(),
-  activation = "hardsigmoid",
-  dropout = tune()) %>% 
-  set_engine("brulee", num.threads = cores) %>% 
-  set_mode("classification")
-```
-
-Here, in addition to the learning rate of the model, the number of hidden units and the dropout is also tuned.
-Note the reason penalty is not included, as in the other models, is because penalty and dropout should not both be present.
-
-Setup a manual grid for hyperparameter tuning. The expand grid command, provides a sorted data.frame with all combinations of the two variables.
-```{r MLP grid}
-mlp_reg_grid <- expand_grid(learn_rate = 10^seq(-4, -2, length.out = 3), hidden_units = c(10,25,50), dropout = c(0.1,0.5,0.9))
-```
-
-For a real analysis, you should consider using a finer grid, a wider range, more hidden layers, and more tuning parameters.
-For inspiration on which hyperparameters to choose, see the [supplementary material](https://ascopubs.org/action/downloadSupplement?doi=10.1200%2FCCI.22.00054&file=DS_CCI.22.00054.pdf) for the paper this course is based on.
-
-Then the workflow has to be defined, using the same predictors as the other models.
-```{r MLP workflow}
-mlp_workflow <- 
-  the_recipe %>% 
-  workflow(mlp_mod)
-```
-
-The model has three hyperparameters that need estimating, this is done over the above defined grid.
-```{r MLP hyperparameters}
-mlp_res <-
-  mlp_workflow %>%
-  tune_grid(df_val,
-            grid = mlp_reg_grid,
-            control = control_grid(save_pred = TRUE),
-            metrics = metric_set(roc_auc))
-```
-
-Plot the different values for the hyperparameters.
-```{r MLP hyperparameter plot}
-mlp_res %>% autoplot()
-```
-
-As ROC is used to evaluate the hyperparameters, the ROC plot is shown.
-```{r MLP ROC plot, warning = F}
-mlp_best <- mlp_res %>% select_best()
-
-mlp_auc <-
-  mlp_res %>%
-  collect_predictions(parameters = mlp_best) %>%
-  roc_curve(mevent_nyear, .pred_1)
-
-autoplot(mlp_auc)
-```
-
 
 # Final models
 This section demonstrates how to retrain the model on the combined training and validation set, using the optimal tuning parameters, and evaluating the performance on the test set.
@@ -460,30 +399,6 @@ gb_last_fit %>%
   vip(num_features = 20, include_type = T)
 ```
 
-## Multi-layer perceptron
-Finally, consider the multi-layer perceptron
-```{r MLP final mod}
-mlp_final_mod <- mlp(
-  epochs = 100,
-  hidden_units = mlp_best$hidden_units,
-  dropout = mlp_best$dropout,
-  learn_rate = mlp_best$learn_rate,
-  activation = "hardsigmoid") %>% 
-  set_engine("brulee", num.threads = cores) %>% 
-  set_mode("classification")
-
-# Create final workflow
-mlp_final_workflow <- workflow() %>% 
-  add_model(mlp_final_mod) %>% 
-  add_recipe(the_recipe)
-
-# Last fit
-mlp_last_fit <- last_fit(mlp_final_workflow, split = df_split,
-                         metrics = metric_set(precision, roc_auc, pr_auc, brier_class),
-                         add_validation_set = T)
-mlp_last_fit %>% collect_metrics()
-```
-For this type of model, variable importance is not easily calculated, consider SHAP values if need be.
 
 # Results
 Summarise all of the different model results in a single data frame.
@@ -492,8 +407,7 @@ metric_vals <- cbind(
   blr_last_fit %>% collect_metrics() %>% select(c(.metric, .estimate)) %>% rename(basic_LR = .estimate),
   lr_last_fit  %>% collect_metrics() %>% select(.estimate) %>% rename(LR = .estimate),
   rf_last_fit  %>% collect_metrics() %>% select(.estimate) %>% rename(RF = .estimate),
-  gb_last_fit  %>% collect_metrics() %>% select(.estimate) %>% rename(boost = .estimate),
-  mlp_last_fit %>% collect_metrics() %>% select(.estimate) %>% rename(MLP = .estimate)
+  gb_last_fit  %>% collect_metrics() %>% select(.estimate) %>% rename(boost = .estimate)
 )
 metric_vals
 ```

@@ -23,31 +23,30 @@ func_nyears = function(x, .f, date, interval, ...){
 ## Load data
 ## -----------------------------------------------------------------------------
 
-setwd("~/Dyn_Risk_Pred_Course/lectures/exercise_solutions")
 # Data should be saved in a folder named "Data" in the working directory
 n_years <- 1
 
-baseline <- read.csv("Data/baseline_data.csv")
-diag     <- read.csv("Data/diag_data.csv") %>% select(-X)
-dict     <- read.csv("Data/dict_data.csv") %>% select(-X)
-quest    <- read.csv("Data/quest_data.csv") %>% select(-X)
+baseline <- read.csv("data/baseline_data.csv")
+diag     <- read.csv("data/diag_data.csv") %>% select(-X)
+dict     <- read.csv("data/dict_data.csv") %>% select(-X)
+quest    <- read.csv("data/quest_data.csv") %>% select(-X)
 
 blood <- 
-  read.csv("Data/blood_data.csv") %>% 
+  read.csv("data/blood_data.csv") %>% 
   select(-X) %>% 
   rename(id = ..record.id)
 
 treat <- 
-  read.csv("Data/treat_data.csv") %>% 
+  read.csv("data/treat_data.csv") %>% 
   select(-X) %>% 
   rename(id = record_id)
 
 visits <- 
-  read.csv("Data/visit_date.csv") %>% 
+  read.csv("data/visit_date.csv") %>% 
   select(id, date = visit_date) %>% 
   mutate(visit = T)
 
-events <- read.csv("Data/events.csv") %>% 
+events <- read.csv("data/events.csv") %>% 
   select(-X)
 
 ## -----------------------------------------------------------------------------
@@ -179,8 +178,8 @@ final_data <-
   mutate(across(revascularization:infarction, cumsum, .names = "n_{.col}"),
          across(revascularization:infarction, ~ func_nyears(., sum, date, n_years),
                 .names = "nyear_{.col}"),
-         n_treatments     = case_when(is.na(clopidogrel) ~ 0, # this ensures 0s at times where no treatment observations are found
-                                      T ~ clopidogrel + ezetimibe + anticlot + aspirin + statins),
+         n_treatments     = case_when(is.na(clopridrogel) ~ 0, # this ensures 0s at times where no treatment observations are found
+                                      T ~ clopridrogel + ezetimibe + anticlot + aspirin + statins),
          nyear_treatments = func_nyears(n_treatments, sum, date, n_years),
          n_treatments     = cumsum(n_treatments)) %>% 
   select(-diag, -d.birth, -sex, -smoking, -event, -revascularization, -malignancy, -stroke, -amputation, -infarction) %>% 

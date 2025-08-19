@@ -6,7 +6,6 @@ library(tidymodels)
 # Basic pre-coding
 options(scipen = 999) # removes scientific notation (0 to redo it)
 
-setwd("~/Dyn_Risk_Pred_Course/lectures/exercise_solutions")
 source("request_fhir.R")
 
 
@@ -35,7 +34,7 @@ snomed[30:32,"label"] <- dict$diag
 
 
 #### Task 3: Get measurements of cholesterol for a patient and plot it over time ####
-patient_id_to_fetch <- 4
+patient_id_to_fetch <- 6
 # Cholesterol code
 chol_code <- snomed %>% filter(label == "chol") %>% select(code)
 
