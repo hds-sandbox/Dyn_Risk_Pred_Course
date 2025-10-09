@@ -52,7 +52,7 @@ The specific topics of this module is:
 
 
 [Predictive modeling](https://en.wikipedia.org/wiki/Predictive_modelling) is a process that uses statistical or machine learning methods to predict outcomes based on historical data. Predictive modelling is used to learn patterns from historical data, forecast future outcomes, and identify relationships within data. Such models are powerful and can be applied in various contexts. For this course, these models are used to predict events that can assist clinicians in deciding upon potential interventions. At the core, it is about finding a function, $f$, that accurately map input variables, $x$, to a target variable, $y$. This relationship can be expressed as:
-[$$y=f(x,\Theta)$$](https://ics.uci.edu/~smyth/courses/cs274/notes/Notes5_Regression.pdf)
+[$$y=f(x,\theta)$$](https://ics.uci.edu/~smyth/courses/cs274/notes/Notes5_Regression.pdf)
 $y$ represents the desired outcome, $x$ represents the input features, and $\Theta$ represents the parameters of the model learned during training. If y is a real-valued the prediction problem is a regression problem and if y is a categorical value, the problem is a classification problem.
 
 
