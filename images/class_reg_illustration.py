@@ -12,8 +12,8 @@ X1 = np.random.randn(50, 2) + np.array([2, 2])
 X2 = np.random.randn(50, 2) + np.array([-2, -2])
 
 # Plot the data
-ax1.scatter(X1[:, 0], X1[:, 1], color='royalblue', label='Class 1')
-ax1.scatter(X2[:, 0], X2[:, 1], color='darkblue', label='Class 2')
+ax1.scatter(X1[:, 0], X1[:, 1], color='royalblue', label='Class 0')
+ax1.scatter(X2[:, 0], X2[:, 1], color='darkblue', label='Class 1')
 ax1.set_title('Classification Problem')
 ax1.set_xlabel('$x_1$')
 ax1.set_ylabel('$x_2$')
@@ -33,7 +33,7 @@ m, c = np.polyfit(X_reg, y_reg, 1)
 ax2.plot(X_reg, m * X_reg + c, color='midnightblue', label='Fitted line', linewidth=3)
 
 ax2.set_title('Regression Problem')
-ax2.set_xlabel('$x_1$')
+ax2.set_xlabel('$x$')
 ax2.set_ylabel('y')
 ax2.legend()
 
