@@ -39,7 +39,7 @@ def sigmoid(z):
 plt.axvline(x=0.0, color='grey', linestyle=':', linewidth=1.5)
 
 x = np.linspace(-0.3, 0.3)
-custom_palette = {0: "salmon", 1: "lightgreen"}
+custom_palette = {0: "lightgreen", 1: "salmon"}
 sns.stripplot(data=games, x="GOAL_DIFF", y="WON", hue="Predicted Class", orient="h", palette=custom_palette)
 plt.plot(x, sigmoid(model.intercept_ + model.coef_[0]*x), "k")
 plt.gca().invert_yaxis();

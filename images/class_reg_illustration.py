@@ -12,8 +12,8 @@ X1 = np.random.randn(50, 2) + np.array([2, 2])
 X2 = np.random.randn(50, 2) + np.array([-2, -2])
 
 # Plot the data
-ax1.scatter(X1[:, 0], X1[:, 1], color='royalblue', label='Class 0')
-ax1.scatter(X2[:, 0], X2[:, 1], color='darkblue', label='Class 1')
+ax1.scatter(X1[:, 0], X1[:, 1], color='salmon', label='Class 1')
+ax1.scatter(X2[:, 0], X2[:, 1], color='lightgreen', label='Class 0')
 ax1.set_title('Classification Problem')
 ax1.set_xlabel('$x_1$')
 ax1.set_ylabel('$x_2$')
