@@ -1,4 +1,3 @@
-import http.client  # seems as it is redundant
 from urllib.parse import urlparse, parse_qs
 import json
 import random
