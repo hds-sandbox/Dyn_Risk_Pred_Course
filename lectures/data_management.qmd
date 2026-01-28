@@ -20,17 +20,14 @@ The topics in this module provide insight into what data is and how to collect i
 Throughout this module, the following topics will be covered:
 
 
-- Dataand Metadata
-
+- Data and Metadata
 - Coding and Classification Systems
 - Health Data Providers in Denmark
-
 - **Exercises**
 
 ## Data, Metadata, and Annotations
 
 When working with data, it is useful to differentiate between **data** and **metadata**. Data are the raw facts and measurements collected (e.g. patient blood pressure, lab test results, or imaging data), while metadata is “data about the data” (e.g. units or measurement methods). That is, metadata provides additional context and interpretation. For example, if a table containing information about blood pressure measurements (e.g., type of measures and measurement values) is data, then metadata would consist of descriptive information about that table. This metadata might specify that ‘Measurement values’ is a numerical value and ‘Measurement’ is text. The descriptive details in the metadata are frequently within the data structure itself. However, it can be presented as a separate table providing details about each column of the data table. A basic example of this can be seen in the illustration below:
-
 
 *Example of raw blood pressure data:*
 

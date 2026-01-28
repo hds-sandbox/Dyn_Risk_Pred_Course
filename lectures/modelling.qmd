@@ -7,604 +7,700 @@ format: html
  </style>
 
 :::{.hero-banner}
-# Modeling
+# Modelling
 
 :::
 
-In this module an introduction to topics regarding training and evaluation of predictive machine learning models will be provided.
+This module introduces the concepts of training, validating, and testing predictive models. Various risk prediction methods will be explored, including logistic regression, neural networks, and ensemble learning methods.
 
-Different risk prediction will be introduced, such as logistic regression, ensemble methods, and neural networks. Methods for evaluating model performance will be presented.
+Foundational challenges, such as overfitting, will be addressed, along with an introduction to how loss functions guide model training. An introduction to hyperparameter optimisation techniques for fine-tuning models to achieve optimal performance will also be provided.
 
-Challenges, such as the bias-variance trade-off, will be addressed, and the role of loss functions in guiding model learning will be explored. Also, an introduction to hyperparameter optimization techniques, for model fine-tuning, will be given.
+These concepts will then be linked to practical, real-world applications, covering model utility, the importance of prediction calibration, and methods for achieving explainability of "black-box" models, such as using SHAP values.
 
-These concepts will then be linked, to the real-world application of models. Their utility, the importance of prediction calibration, and the achievement of explainability for "black-box" models through methods such as SHAP values.
 
-The specific topics of this module is:
 
-- What is predictive modelling
-    - Regression vs. Classification
-    - Bias-variance trade-off
-    - Model performance metrics
+
+
+The specific topics of this module are:
+
+- Introduction to predictive modelling
+    - Regression vs. classification
+    - Underfitting and overfitting
+- Performance metrics
     - Loss functions
-- Predictive models
+- Predictive modelling
     - Logistic regression
-    - Optimization of logistic regression <!-- vær sikker på at det er i teksten -->
-    - Decision Trees
-    - Bagging
-    - Random Forest
-    - Gradient Boosted Trees
-    - Neural Networks
+    - Decision trees
+
+    - Neural networks
+- Ensemble learning methods
+   - Bagging
+   - Random forest
+   - Gradient boosted trees
 - Model training
-    - Grid search
-    - Random search
-    - Bayesian optimization
-- Performance Evaluation
-    - Cross-validation
-    - Nested Cross-validation
+   - Grid search
+   - Random search
+   - Bayesian optimisation
+- Performance evaluation
+   - Cross-validation
+   - Nested cross-validation
 - Utility and explainability
-    - Utility
-    - Calibration
-    - Explainability
+   - Utility
+   - Calibration
+   - Explainability
 - **Exercises**
 
 
-## What is Predictive Modeling
+## Introduction to predictive modelling
 
 
-[Predictive modeling](https://en.wikipedia.org/wiki/Predictive_modelling) is a process that uses statistical or machine learning methods to predict outcomes based on historical data. Predictive modelling is used to learn patterns from historical data, forecast future outcomes, and identify relationships within data. Such models are powerful and can be applied in various contexts. For this course, these models are used to predict events that can assist clinicians in deciding upon potential interventions. At the core, it is about finding a function, $f$, that accurately map input variables, $x$, to a target variable, $y$. This relationship can be expressed as:
-[$$y=f(x,\theta)$$](https://ics.uci.edu/~smyth/courses/cs274/notes/Notes5_Regression.pdf)
-$y$ represents the desired outcome, $x$ represents the input features, and $\Theta$ represents the parameters of the model learned during training. If y is a real-valued the prediction problem is a regression problem and if y is a categorical value, the problem is a classification problem.
+Predictive modelling uses statistical or machine learning models to identify patterns in historical data and apply them to predict future events or outcomes. For this course, these models are used to estimate the changing risk of a binary clinical events over time to assist clinicians in deciding upon potential interventions. In mathematical terms, predictive modelling involves finding a function $f$ that accurately maps one or more predictor variables $x$ (also called independent/explanatory variables or features) to an outcome $y$ (also called a dependent variable), such that $y=f(x)$. Estimating an arbitrary functional relation $f$ is a complex, high-dimensional problem. Therefore, the function is typically parametrised by a finite-dimensional parameter vector $\beta$. This relationship can be expressed as:
 
 
+$$y=f(x,\beta).$$
 
-## Regression vs. Classification
-Machine learning models for prediction covering two primary types, either `regression` regarding the prediction of a continuous outcome, or `classification` regarding discrete outcomes.
+The parameter vector $\beta$ determines how the predictor variables $x$ are combined to make predictions. During model training, the algorithm “learns” the values of $\beta$ that make $f(x, \beta)$ best fit the observed data. In addition to the model parameters described by $\beta$, many models have *hyperparameters*, which are set control the model’s structure or learning process. Hyperparameters are typically chosen by assessing model performance on a validation set.
+
+For example, in a simple linear regression model, the relationship between $x$ and $y$ is described by
+
+$$y = \beta_0 + \beta_1 x,$$
+
+where $\beta_0$ is the intercept and $\beta_1$ is the slope indicating how much $y$ changes when $x$ increases by one unit. Together, these parameters form the vector $\beta = (\beta_0, \beta_1)$.
+
+## Regression vs. classification
+The distinction between regression and classification can be stated simply as: If $y$ is a continuous, real-valued variable, the prediction problem is a regression problem, and if $y$ is a categorical variable, it is a classification problem. The distinction is illustrated in Figure 1.
+
+In regression, one or more predictor variables are used to predict the value of a continuous outcome. For example, predicting blood glucose levels based on predictors such as body mass index, blood pressure, and intake of insulin and carbohydrates.
+
+In classification, predictor variables are used to assign an observation to a category or class. This applies to both binary classification problems and multi-class problems. For example, predicting the presence of type 2 diabetes (binary outcome) based on lifestyle factors or predicting a patient’s blood type (multi-class outcome) based on genetic markers and clinical variables. In the following, we focus on binary classification problems, where the two possible outcomes are labelled *positive* and *negative*.
 
 <div style="text-align: center;">
-   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);"> <!-- "Kunne der være lopyrglt modeller" Ved ikke hvad det betyder. -->
+   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
+Figure 1: Illustration of a classification (left) and a regression (right) problem. On the left, data is separated into two classes (positive and negative) based on the predictors $x_1$ and $x_2$. On the right, a fitted line shows the relationship between the predictor $x$ and the outcome $y$.
 
-In regression, predictors are used to predict the value of a target variable. Examples of regression problems include predicting type 2 diabetes with predictors like body mass index, blood glucose level, and diet over time
 
-Classification predicts a target variable's class based on predictors. It's used in both binary (e.g., positive/negative) and multi-class situations, essentially estimating the probability of each class. A example is classifying if a person have a medical diagnosis or not. [(Hastie et al. 2001:9-11)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf).
 
-In healthcare applications, models are trained using large amounts of high-quality data. Patient information (features) is then provided to the trained model, allowing predictions to be made. A spike observed in a patient's values, such as blood pressure or body temperature, might result in an illness being predicted by the model. The **motivational example**, presented in the introduction of this course, concerning the decision on providing palliative SACT for cancer patients, is another illustration of this application.
+In healthcare applications, prediction models are typically trained using large datasets containing clinical information, lifestyle factors, genetic data, or medical imaging. The model learns patterns between predictors and outcome by estimating its parameters and can then be employed to predict outcomes, such as the risk of a binary event, for new patients.
 
-Assistance could be provided to clinicians by such a model for the decision on whether to provide SACT. Relevant patient values would be provided as input to the model, and a risk score would be generated by the model. The risk score would be a significant consideration for inclusion in the decision-making process.
 
-Predictive models vary significantly in complexity. A key distinction is how simple or flexible they are, a concept known as the bias-variance trade-off. This section will introduce this concept in the context of risk prediction, which is binary outcomes, and focus only on the prediction aspect.
+For further reading on classification and regression problems, seer: [James et al. 2024:15-27](https://www.statlearning.com/)
 
-### Bias-variance trade-off
-Bias is the error that results from using a model that is too simple to capture the true underlying patterns in the data. For example, a linear model is simple, and it is often unlikely for a real-world problem to have a perfectly linear relationship. This means that a simple model will miss the data's complexity, leading to an error known as bias. Using a model that is too simple is known as underfitting.
+### Underfitting and overfitting
+*Underfitting* and *overfitting* are fundamental concepts in predictive modelling that describe how well a model learns from data. Underfitting happens when a model is too simple to capture the underlying patterns, resulting in poor performance on both the training set and unseen data. For example, a linear model is simple, and it is often unlikely for a real-world problem to have a perfectly linear relationship. This means that the model misses important relations among the features and the target. Overfitting, on the other hand, occurs when a model is very flexible and (almost) perfectly fits the training data, capturing the noise rather than the underlying general pattern, which leads to poor performance on new unseen data. The goal is to find a balance that allows the model to generalise well to new data.
 
-Variance refers to the error caused by using a model that is too flexible. A very flexible model can perfectly fit the training data, capturing the noise rather than the general pattern. This is known as overfitting.
+Figure 2 illustrates the model performance of three different models with varying complexity for binary prediction. Model performance is visualised for the training set (top row) and for new unseen data (bottom row). The "Simple fit" model (first column) is a straight line separating the two classes, but it is too simplistic to effectively separate the classes, illustrating underfitting. In contrast, the "Overfit" model (third column) is overly complex and fits the training data perfectly, but performs poorly on unseen data. The “Better fit” model strikes a balance, capturing the underlying pattern while generalising well to new data.
 
 <div style="overflow: hidden;">
    <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-The figure above illustrates this concept. The top row shows how different models fit the training data. The "Simple fit" on the left is a straight line, which is too simple to separate the red and white points effectively. This is an example of underfitting where the model has high bias. The "Overfit" model on the right is complex and fits the training data points perfectly. This model has low bias but high variance. The "Better fit" model represents a good balance, capturing the overall pattern without being overly complex. The bottom row shows how these trained models perform on new data. Where the underfit - and overfit models performs poorly while the better fit model generalizes well and makes accurate predictions on the new data, relative to the other two models.
 
-Ideally, the model should balance the complexity, which results in minimizing the overfitting and underfitting, which is why it is called a trade-off.
- To find this trade-off, a model is trained on some of your data, and test its applicability on new data by using the data left out, as introduced in the data preprocessing part. <!-- #### REF HER #### -->
+Figure 2: Illustration of how model flexibility affects performance. White and black dots represent the true classes. Green and red backgrounds indicate predicted classes, while green-circled dots are correctly classified and red-circled dots are mis-classified. Image credit [Vesteghem, C. (2022)]( https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
-Achieving this ideal balance, where the model performs optimally on unseen data, requires a way to quantify the model's performance in terms of the predictions. This is where loss functions come into play. But the loss function is dependent on some form of measure, in the form of a performance metric. The following section will introduce some of the most common performance metric and how it is integrated in the loss function.
+To achieve the right balance between underfitting and overfitting, a model is trained on the training set to learn its parameters $\beta$. Its performance is then evaluated on a validation set, which is used to tune hyperparameters. After the final model and hyperparameters are chosen its generalization performance is assessed on a separate test set that was not used in any part of the training or tuning process.
+Ref: [James et al. 2014:31-34](https://www.statlearning.com/)
 
-# Performance Metrics
-This section will introduce the metrics that are used to evaluate and compare models, specifically for categorical variables and, as was narrowed down in the previous section, for binary prediction.
 
-To evaluate a model's predictive performance and compare it to others, robust measures are needed. A simple counting of misclassifications can often be misleading. For example, a model with 10 misclassifications out of 5,000 data points is often considered superior to a model with 10 misclassifications out of only 100 data points. To ensure comparability across models and to capture different aspects of a model's performance, various performance metrics are introduced.
+# Performance metrics
 
-The figure below shows how a simple linear boundary is used to classify data points into two categories. Points with a green outline are correctly classified, while those with a red outline are misclassified.
 
-<div style="overflow: auto; text-align: center;">
-   <img src="../images/class_problem.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
- </div>
+Performance metrics are used to evaluate how well a model makes predictions. A wide range of performance metrics exists, and the choice of metric(s) depends on the prediction task and whether the dataset has class imbalance, meaning that one class is much more frequent than the other. Below several commonly used metrics are introduced, each capturing different aspects of a model’s performance.
 
-In a typical two-class classification problem, a model's output is not a direct class prediction but rather a continuous value, usually between 0 and 1. A threshold is needed to convert this output into a definitive class. For instance, a value above the threshold might be classified as the positive class, while a value below it is classified as the negative class. This process can be visualized as a boundary that divides the prediction regions.
+A binary classification model typically outputs not a class label directly but a *risk score*, which is a continuous value between 0 and 1 representing the likelihood of the outcome occurring for a given individual, based on their predictors. To obtain a definitive class prediction, a threshold $c$ is applied: scores above $c$ are assigned to the positive class and those below to the negative. The larger the threshold $c$, the more cases are predicted as negative, and conversely, the smaller $c$, the more cases are predicted as positive. The threshold $c$ should not be chosen arbitrarily. It reflects a trade-off between competing objectives, such as minimising errors, managing costs, or optimising for fairness, and should be selected in accordance with the model’s intended application and context.
 
-A decision boundary is established by the linear component of the model, which, when combined with a specific threshold, is used to determine whether a data point is assigned to class 0 or class 1. This threshold is typically set at 0.5, but adjustments may be made based on the specific task requirements or the emphasis placed on minimizing Type I or Type II errors. The interplay between the sigmoid function, threshold, and decision boundary is illustrated in the figure provided below.
 
-The figure previously discussed illustrates a linear boundary dividing data points into two classes. This boundary separates the space into regions where each class is predicted, and it provides a basis for understanding the following terms:
 
-- True Positives (TP): Cases belonging to the positive class, predicted as the positive class.
-- True Negatives (TN): Cases belonging to the negative class, predicted as the negative class.
-- False Positives (FP): Cases belonging to the negative class, predicted as the positive class. This is also known as the [type I error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
-- False Negatives (FN): Cases belonging to the positive class, predicted as the negative class. This is also known as the [type II error.](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+After having obtained a predicted class for each case, the results can be categorised into four basic outcomes, depending on the true class and the predicted class:
 
-All of this can be aggregated in a [confusion matrix](https://medium.com/@nikitamalviya/confusion-matrix-870739a1ec31), illustrated in the figure below.
+- True Positives (TP): Positive cases that are correctly predicted as positive.
+- True Negatives (TN): Negative cases that are correctly predicted as negative.
+- False Positives (FP): Negative cases that are incorrectly predicted as positive (type I errors).
+- False Negatives (FN): Positive cases that are incorrectly predicted as negative (type II errors).
+
+This can be aggregated in a so-called *confusion matrix*:
 
 <div style="overflow: auto; text-align: center;">
    <img src="../images/iamconfusion.png" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(400px, 100%);">
  </div>
 
-A simple way to measure the performance classification problems is to consider the accuracy of the model, given by:
-$$\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}$$
-This is relevant when both classes are equally important.
-Often, different types of errors are not considered equally critical. This is illustrated by examples such as those in forensic sciences, where another person could be falsely implicated due to Type I errors, and in cancer diagnoses, where people with cancer could be misclassified as healthy due to Type II errors.
-For more examples of prioritization of type I and II errors, see  [here](https://baotramduong.medium.com/binary-classification-error-type-i-vs-error-type-ii-6a444fb22676).
-As such, it is important to consider the metrics sensitivity, precision, and specificity, given by:
+The relative importance of different types of errors depends on the specific use-case. For example, in genetic testing, a type I error, i.e., incorrectly labelling a healthy person as ill, can cause unnecessary anxiety and interventions. In contrast, in cancer diagnosis, a type II error, that is, failing to detect disease in a patient who has cancer, may be considered more serious, as it delays treatment.
+
+A common and intuitive measure of predictive performance is *accuracy*, defined as the proportion of cases the model predicts correctly. That is,
+\begin{align}
+\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}.\\
+
+\end{align}
+
+
+While accuracy gives an overall measure for model performance, it can be misleading for datasets with imbalanced classes. For example, consider a dataset of 5,000 observations with 4,900 positive cases and 100 negative cases. A model that always predicts observations as positive, would then achieve an accuracy of 98%, despite being entirely uninformative.
+
+Other aspects of model performance are reflected by metrics such as *sensitivity*, *precision*, and *specificity*. **Sensitivity**, also known as recall, measures the proportion of positive cases correctly classified:
+\begin{align}
+   \text{Sensitivity} &= \frac{TP}{TP+FN}.\\
+\end{align}
+
+
+**Specificity**, by contrast, measures the proportion of negative cases correctly classified:
+\begin{align}
+   \text{Specificity} &= \frac{TN}{TN+FP}.\\
+\end{align}
+
+
+**Precision** measures the proportion of the predicted positives that were positive cases:
 
 \begin{align}
-   \text{Sensitivity} &= \frac{TP}{TP+FN}\\
+   \text{Precision}   &= \frac{TP}{TP+FP}.\\
 \end{align}
-**Sensitivity**, also known as recall, is calculated based on all instances **belonging to the positive class**.
+
+
+
+The $F_1$ score is a single measure that combines sensitivity and precision, that is particularly useful when there is a trade-off between catching positive cases (sensitivity) and avoiding false positives (precision) and when class imbalance is present. It is given by
+$$
+
 \begin{align}
-   \text{Specificity} &= \frac{TN}{TN+FP}\\
+
+      F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}.
+
 \end{align}
-**Specificity**, by contrast, is calculated based on all instances **belonging to the negative class**.
-\begin{align}
-   \text{Precision}   &= \frac{TP}{TP+FP}
-\end{align}
-In contrast, the **Precision** metric is calculated based on all instances **predicted as belonging to the positive class**. The choice of metric should be made concerning the context of the problem.
 
-Combining sensitivity and precision gives the $F_1$ score, usable to evaluate the model's correct predictions across the entire data set.
- It is given by
- $$F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}$$
+$$
 
-To demonstrate the derivation of various metric values, the data from the classification figure above is utilized as input for the five previously discussed metrics. It can be seen in the figure that the following counts were obtained:
 
-- **TP:** 24
-- **FP:** 5
-- **TN:** 25
+
+The values of all these metrics are bounded between 0 and 1. A value closer to 1 indicates better performance for the specific metric. In the modelling process, performance metrics can serve two primary roles. Either to optimise model parameters through their use in loss functions (for more detail see below) and their role in evaluating model performance.
+
+
+Note, the performance metrics introduced above are all threshold-dependent, meaning that their values depend on the choice of $c$. Changing the threshold alters the balance of true/false positives/negatives and therefore affects the resulting metrics.
+
+
+** Example **
+
+Consider the following distribution of false/true positives/negatives:
+
+- **TP:** 10
+- **FP:** 20
+- **TN:** 75
 - **FN:** 4
 
-When these numbers are used in the formulas, the following results are achieved:
+
+Then the metrics described above can be calculated, obtaining:
+
 
 | Accuracy | Sensitivity | Specificity | Precision | $F_1$ score |
-|:---------|:------------|:------------|:----------|:------------|
-| 0.85     | 0.86        | 0.84        | 0.83      | 0.84        |
+|:------------|:--------------|:-------------|:------------|:---------------|
+| 0.81           | 100.00              | 0.79              | 0.33           | 0.50                 |
 
-For more on all of these metrics, click [here](https://medium.com/@eren.soykok/model-evaluation-metrics-3b6c4bf91e6b).
+#### QUIZ
 
-The values of these metrics are bounded between 0 and 1. A value closer to 1 indicates better performance for the specific metric.
+In the above example, it has been demonstrated how to compute a range of well-known performance metrics. An efficient way of understanding the dynamics of these metrics is to try to compute them yourself. To do this, a new distribution of TP, FP, TN, and FN is provided:
 
-Within the modeling process, two primary roles are served by performance metrics. Model parameters are adjusted through their use as loss functions, and model performance is evaluated by them. Loss functions will be introduced in the following section, while the metrics for performance evaluation will be resumed after the models have been presented.
+**TP:* 90
 
-## Loss functions <!-- "Er det egentlig også bare loss functions" - Fostår ikke hvad der menes her? -->
-Before the introduction of models, an understanding of [loss functions](https://medium.com/deep-learning-demystified/loss-functions-explained-3098e8ff2b27) is important, as it is the main component for a model to "learn" the best parameters to make the most accurate predictions. During model training, a metric indicating the difference between the predicted value from the true response variable is required. This metric enables the algorithm to improve the predicted output through minimization. This is the purpose of loss functions, which are also known as cost functions.
+**FP:** 10
 
-In binary classification problems, the default loss function is the binary cross-entropy, also known as the log-loss, given by
+**TN:** 85
+
+**FN:** 15
+
+Compute the following metrics:
+
+Accuracy
+
+Sensitivity
+
+Specificity
+
+Precision
+
+F1 score
+
+Based on the provided formulas from this course. Enter the number in the following boxes and check if you have reached the correct numbers.
+
+
+
+
+
+
+To learn more about confusion metrics and performance metrics, see this ref: [James et al. 2014:150-156](https://www.statlearning.com/)
+
+
+## Loss functions
+
+
+During model training, a metric indicating the difference between the predicted value and the true outcome variable is required. This metric, often called the *loss functions*, enables the algorithm to improve the predicted output by adjusting model parameters to minimise the difference [(James et al 2014:300-301)](https://www.statlearning.com/). Loss functions are thus the main component to "learn" the best model parameters to make the most optimal predictions.
+
+Let $(x_1, y_1),…,(x_n,y_n) $, denote a series of corresponding predictor ($x_i$) and outcome  ($y_i$) variables. A general loss function for continuous outcome variables $y_i$ to be minimised as function of the tuneable parameter $\beta$ can be expressed as the average distance between the outcome variables $y_i$ and the predicted outcome $f(x_i, \beta)$ given the predictors $x_i$ and the parameter $\beta$:
+
 $$
-H = -\frac{1}{N}\sum_{i=1}^N y_i\log(p_i) + (1-y_i)\log(1-p_i)
+
+                      L(\beta) =  \sum_{i=1}^n (y_i – f(x_i,\beta)) ^2.
+
 $$
 
 
-For this calculation, the classes are converted to 0 and 1. THe true class for the $i^{th] observation is represented by $y_i$, which has a value of either 0 or 1. The model's predicted probability that the $i^{th}$ observation belongs to class 1 is represented by $p_i$. when the true class, $y_i$, is 1, the first term, $y_ilog(p_i)$, is all that is considered in the loss function, as the second term, $(1-y_i)log(1-p_i), becomes 0- Because of the negative sign, a minimal loss value is archived as the predicted probability, $p_i$, approaches 1. But, when the true class, $p_i$, is 0, only the second term, $(1-y_i)log(1-p_i), is considered. In this case, the loss is minimized as $p_i$ approaches 0.
 
-Alternative evaluation methods are the Area Under Curve (AUC) metrics. Two primary types of AUC metrics are the Receiver Operating Characteristic (ROC) curve and the Precision-Recall (PR) curve. While their computation may be more intensive than that of alternative methods, their utility in certain situations can be significant.
+However, other loss functions can also be formulated. In binary classification problems (0 if negative and 1 if positive), the default loss function is the binary cross-entropy, also known as the log-loss, given by
+$$
+L(\beta) = -\sum_{i=1}^n \left[ y_i\log(p(x_i,\beta)) + (1-y_i)\log(1-p(x_i,\beta)) \right],
+$$
 
-These curves are generated by evaluating a model's performance across various classification thresholds. Each threshold produces a single point on the curve, and the area under this resulting curve is then estimated.
+where $p(x_i,\beta)$ is the model's predicted probability that the $i^{th}$ observation belongs to the positive class given model parameters $\beta$ and predictors $x_i$. When the true class is positive ($y_i = 1$), only the first term, $y_i \log(p(x_i,\beta))$ contributes to the loss function, as the second term, $(1-y_i)log(1-p(x_i,\beta)), becomes 0, and vice versa when the true class $y_i$ is 0.
 
-Initially, the ROC curve is considered. This curve plots the true positive rate (TPR), or sensitivity, against the false positive rate (FPR), which is equivalent to $1−Specificity$. The ROC curve indicates a model's discriminative capability between classes. The maximum possible value for AUC is 1.0, which represents a perfect classifier. A ROC curve's diagnostic ability is visually represented against a random classifier, which would yield an AUC value of 0.5. An AUC-ROC score significantly above 0.5 is an indication of superior classification performance. An example of a ROC curve is displayed below.
+Alternative evaluation methods are Area Under the Curve (AUC) metrics, which are threshold-independent performance metrics. These metrics summarises the information given by, e.g., the Receiver Operating Characteristic (ROC) curve or the Precision-Recall (PR) curve. These curves are generated by evaluating a model's performance across various classification thresholds, $c$. Each threshold produces a single point on the curve, and the area under this resulting curve is then estimated.
+
+The ROC curve provides a visual representation of a model's ability to discriminate classes by plotting the true positive rate (TPR), or sensitivity, against the false positive rate (FPR), which is equivalent to $1−Specificity$, as the classification threshold $c$ varies from 0 to 1 (Figure 5) . The ROC curve illustrates the trade-off between TPR and FPR: increasing the classification threshold reduces FPR but also lowers TPR. The maximum possible value for ROC AUC is 1.0, which represents a perfect classifier, while a random classifier follows the diagonal and yields a ROC AUC of 0.5 (Figure 5). Thus, a ROC AUC significantly above 0.5 indicates superior classification performance.
 
 <div style="overflow: auto; text-align: center;">
    <img src="../images/ROC.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-As an alternative to the ROC curve, the Precision-Recall (PR) curve is introduced. In this case, the y-axis represents precision, and the x-axis represents sensitivity, also known as recall. The PR curve is particularly useful when a dataset contains class imbalance, where the positive class is significantly smaller than the negative class. This is due to the metric focuses solely on the positive class, as the true negative class is not considered in the calculation. A high score is not easily achieved just by correctly classifying the majority class. The performance of a model is compared to a random classifier, which is represented by a horizontal line. The position of this line is determined by the proportion of positive cases in the dataset. An ideal model would have a PR AUC score of 1, which indicates a perfect score on both precision and recall. An example of a PR curve is shown below.
+Figure 5: Illustration of a ROC curve and its corresponding ROC AUC. The diagonal line represents the performance of a random classifier. The red area is the AUC performance of a given classifier. Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
+
+The PR curve plots precision against sensitivity, also known as recall (Figure 6). It shows the trade-off between precision and recall: a higher classification threshold $c$ increases precision by reducing false positives but decreases recall by reducing false positives. The PR curve is particularly useful when a dataset contains class imbalance, where the positive class is significantly smaller than the negative class. It emphasises the model’s performance on identifying positive cases by using precision and recall. True negatives are not part of these calculations, which makes the PR curve more informative than the ROC curve when the negative class dominates. The PR curve for a model is often compared to that of a random classifier represented by a horizontal line (Figure 6). This baseline value of the PR AUC (often approximated by *average precision*) is the proportion of positive cases in the dataset. An ideal model would have a PR AUC of 1, which indicates a perfect score on both precision and recall.
 
 <div style="overflow: auto; text-align: center;">
    <img src="../images/PR.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
+Figure 6: Illustration of PR curve and its corresponding PR AUC (here AP = average precision). The horizontal line illustrates the performance of a random classifier. Image credit [Vesteghem, C. (2022)]( https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
-The measurement of a model's performance, using loss functions and AUC metrics, is crucial. Although model performance is influenced by the selected loss function, it is also heavily affected by internal settings. Therefore, the optimization of these settings is performed to achieve most optimal predictive accuracy. The following section introduces multiple techniques to optimize hyperparameters.
+Ref: [James et al. 2014:300-301](https://www.statlearning.com/)
 
-# Predictive models
+# Predictive modelling
 
-This section introduces popular models for dynamic risk prediction. The models are presented in order, progressing from simple, interpretable algorithms to complex "black-box" systems.
+This section introduces popular models for dynamic risk prediction. The models are presented from simple, interpretable algorithms to complex, "black-box" algorithms.
 
 ## Logistic regression
-In a classification task, one of the most well-known models is logistic regression. This supervised model is appropriate when the outcome is categorical.
-A significant advantage of logistic regression is its explainability. This means that the model's coefficients can be directly interpreted to understand the relationship between each predictor and the log-odds of the outcome. This allows for a high degree of interpretability, as the impact of each predictor on the predicted probability can be readily understood. Because of this, logistic regression is often considered a suitable baseline model when multiple models are being benchmarked to identify the most effective risk prediction model.
-Logistic regression is a linear model that outputs a probability score instead of a direct linear combination. To express this mathematically:
+One of the most well-known models is logistic regression. This model is appropriate when the outcome is binary.
+A significant advantage of logistic regression is its explainability. This means that the model's coefficients can be directly interpreted to understand the relationship between each predictor and the outcome. This allows for a high degree of interpretability, as the impact of each predictor on the predicted probability can be readily understood. Because of this and its inherent simplicity, logistic regression is often considered a suitable baseline model when multiple models are benchmarked to identify the most effective risk prediction model.
+Logistic regression is a linear model that outputs a probability score instead of a direct linear combination. This can be expressed formally as:
 
-$$\hat{p} = \sigma(\theta^T \mathbf{x})$$
+$$p (x,\beta) = \sigma(\beta^T x)$$
 
-Parameters, denoted as $\theta$ (also referred to as beta or weights), are generally utilized to optimize linear models. A probability function, $\sigma$, is employed to transform the linear combination into a probability ranging from 0 to 1. This function is mathematically defined as the sigmoid function:
+where $\sigma$ is the logistic function that transforms the linear combination of predictor variables into a probability ranging from 0 to 1 (Figure 7). It is given by
 
-$$\sigma(t) = \frac{1}{1 + \exp(-t)}$$
+$$\sigma(t) = \frac{1}{1 + \exp(-t)}.$$
 
-As $t$ approaches positive infinity, the sigmoid function approaches 1. In contrast, as $t$ approaches negative infinity, the sigmoid function approaches 0.
+As $t$ approaches infinity, the logistic function approaches 1. In contrast, as $t$ approaches minus infinity, the logistic function approaches 0.
 
-Where logit transforms the linear combinations into a value ranging from 0 to 1. This transformation is based on the concept of the logarithm of the odds ratio.
 
-The S-shaped curve of the sigmoid function is used to map data points to probabilities approaching either 0 or 1, thereby facilitating binary classification. The interplay between the sigmoid function, threshold, and decision boundary, which is typically set to 0.5, is illustrated in the figure provided below.
+
+The relationship between the logistic function, a threshold (typically $c = 0.5$), and the decision boundary are illustrated in Figure 7 in case of a single predictor.
 
 <div style="text-align: center;">
    <img src="../images/Log_reg_decision_boundary.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 75%);">
  </div>
-The visualization stems from this [mini course](https://ds100.org/course-notes-su23/logistic_regression_2/logistic_reg_2.html).
-
-In practice, logistic regression models are trained through optimization. This process involves the iterative adjustment of a model's parameters, where predictions generated by the model are continuously compared against the true values. This iterative refinement continues until the optimal parameters are determined. The optimization method employed may range from a straightforward gradient descent to a more advanced algorithm. Further information regarding optimization algorithms for determining optimal parameters in logistic regression can be accessed via the provided [link](https://medium.com/@arnavr/scikit-learn-solvers-explained-780a17bc322d).
-
-As mentioned above, a typical loss function for logistic regression is the log-loss function.
- The goal of the optimizer is to minimize the loss function concerning $\beta$ (implicitly present via $p_i$), and it keeps adjusting the values until the loss no longer improves significantly.
-
-In the prediction of outcomes involving numerous predictor variables, a challenge is presented if the count of these potential predictors (m) surpasses the number of data points within the dataset (n). To address this imbalance effectively, regularization methods may be employed to construct a sparse model, specifically one in which only a select few important features are retained, and others are excluded [(Hastie et al. 2001:649-664)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf). Regularization is also essential for mitigating model overfitting, a common issue that has been addressed in the bias-variance trade-off section.
-
-One of the most well-known and used regularization techniques is Ridge regression (L2):
- $$
- \lambda\sum_{j=1}^{m} \beta_{j}^{2}
- $$
-The idea is to penalize the weights of the model, and in the case of ridge, it would be with the sum of the squared coefficients, times a tuning parameter $\lambda$ to decide the strength of the regularization.
-The benefit of Ridge regression is that it pushes the weights towards zero, relative to the size.
-This means that large weights are heavily penalized and small weights rarely hit zero.
-
-Penalization of a model's weights is the fundamental principle of Ridge regression. Specifically, this is achieved by adding a penalty term that consists of the sum of the squared coefficients, which is scaled by a tuning parameter, $\delta$. This parameter determines the strength of the regularization applied. A benefit of Ridge regression is its capacity to shrink the weights towards zero. In contrast, larger weights are subjected to heavier penalization, while smaller weights are reduced towards zero but rarely to become exactly zero.
-
-Alternatively, weight penalization can be performed using the absolute value rather than the squared sum. This approach, known as the Least Absolute Shrinkage and Selection Operator (LASSO) or L1 regularization, is mathematically represented as:
- $$
- \lambda\sum_{j=1}^{m} |\beta_j|
- $$
- This regularization method is highly effective for model regularization and, crucially, for feature selection. Since the weights are penalized proportionally to their absolute value, they are encouraged to shrink to exactly zero. Consequently, small weights that contribute more noise than predictive accuracy can be effectively eliminated from the model.
-
-This means that small weights that cause more noise than accuracy can be removed from the model.
-
-These terms are added to the loss function when minimizing, i.e., with LASSO regularization, the optimization problem becomes
- $$
- \min_{\beta}\sum_{i\mid y_i=1} \log\big(1-p(x_i)\big) + \sum_{i\mid y_i=0} \log\big(p(x_i)\big) + \lambda\sum_{j=1}^{m} |\beta_j|
- $$
-LASSO has the added functionality of variable selection, but it also implicitly assumes some parameters are equal to 0, meaning if all predictors truly are relevant to the response variable, it might lead to worse predictions.
-Otherwise, the performance of the two regularization types is similar, and which performs best varies from problem to problem [(Hastie et al. 2001:245-247)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf).
+Figure 7: Illustration of the predicted probability of belonging to the positive class in a logistic regression with a single predictor $x_1$. Using a classification threshold of $c = 0.5$ (horizontal dotted line), the vertical dotted line marks the corresponding decision boundary in $x_1$-space, separating datapoints into predicted negative (green) and positive (red) classes.
 
 
-In certain scenarios, a benefit can be gained by combining the regularization properties of Ridge regression and LASSO. This approach also allows for the adjustment of the weighting of the two methods. To facilitate this flexible methodology, a technique known as [**Elastic Net**](https://en.wikipedia.org/wiki/Elastic_net_regularization) can be employed. The Elastic Net penalty is expressed as:
+In practice, logistic regression models are trained by minimising a loss function in $\beta$, such as the binary cross-entropy computed from the predicted probabilities given by the logistic function. The optimisation method may range from a straightforward gradient descent to more advanced algorithms.
+
+In prediction problems involving numerous predictors, a challenge is presented if the number of potential predictors ($m$) surpasses the number of data points within the dataset ($n$). To address this imbalance effectively, regularization methods may be employed to construct a sparse model, specifically one in which only a select few important features are retained, and others are excluded [(Hastie et al. 2001:649-664)](http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf). Regularization is also used for mitigating model overfitting, a common issue that has been addressed in the underfitting and overfitting section.
+
+
+One of the most well-known and used regularization techniques is *ridge regression* (aka L2-regularization), in which a regularization term is added to the loss function:
 
 $$
- \min_{\beta} \frac{1}{N} \sum_{i=1}^{N} l(y_i, \beta, x_i) + \lambda \sum_{j=1}^{p} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|)
- $$
 
-where $\lambda$ still is the strength hyperparameter and $\alpha$ is the mixture parameter. Alpha lies between 0 and 1, where 0 is a purely LASSO regularization and 1 is purely ridge regression. This method can provide flexibility in the modelling while also test the effect of the two methods combined in different proportions.
+L(\beta) = \sum_{i : y_i=1} \log\big(1-p(\beta,  x_i)\big) + \sum_{i : y_i=0} \log\big(p(\beta, x_i)\big) + \lambda\sum_{j=1}^{m} \beta_j^2,
+$$
 
-In the next part, the **Classification Trees** be presented, which is a more flexible but also powerful model.
+where $\lambda$ is a tunable parameter controlling the amount of regularization.
 
-## Decision Trees
- [**Decision trees**](https://en.wikipedia.org/wiki/Decision_tree) are non-parametric models, their structure being entirely determined by the data through iterative examination. These machine learning models are versatile, meaning that they apply to both regression and classification problems. Decision regions are continuously split into two, typically using recursive binary splitting, until specific criteria are met.
+A benefit of ridge regression is its capacity to shrink the coefficients ($\beta$) towards zero. In contrast, larger coefficients are subjected to heavier penalization, while smaller coefficients are reduced towards zero (but rarely exactly zero).
 
-Initially, all data is contained within a single region, referred to as the **root** node. Next, a predictor and a corresponding value are chosen, for instance, 'age above 65.' This selection results in the formation of two distinct decision regions, which are known as **branches**. The process continues iteratively. A region is selected for further splitting, and a predictor is then identified to facilitate this split. For example, the 'age under 65' region might be chosen for splitting based on 'bodyweight over 100kg', leading to the creation of additional regions. Each time a region is split, new branches are formed. The process of recursive binary splitting is continued until specific criteria are met, such as a maximum depth being reached or a minimum number of samples being present in a node. When the algorithm terminates, the final distinct regions are known as **leaf nodes**.
+Alternatively, penalization can be performed using the absolute value rather than the squared sum. This approach, known as the *Least Absolute Shrinkage and Selection Operator (LASSO)* (aka L1-regularization):
 
-In classification, the [**Gini index**](https://medium.com/@ompramod9921/decision-trees-91530198a5a5) is the metric utilized to determine which region should be split. This index quantifies the **impurity** of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index is given by:
- $$
- \text{Gini index}_i = 1 - \sum_{k=1}^{n} p_{i,k}^2
- $$
-where $p_{i,k}$ is the proportion of samples that belong to class $k$ at node $i$.
+$$
+L(\beta) = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda\sum_{j=1}^{m} |\beta_j|.
+$$
+
+This regularization method is highly effective for controlling model complexity and performing feature selection. By penalising coefficients proportionally to their absolute value, it encourages some coefficients to shrink to exactly zero. Consequently, predictors that contribute more noise than predictive signal can be effectively removed from the model.
+
+Compared to ridge regression, LASSO additionally performs variable selection by allowing some coefficients to be equal to 0. However, if all predictors are truly relevant, this might lead to worse predictions.
+Otherwise, the performance of the two regularization types is similar, and which method performs best varies from problem to problem.
+
+In certain scenarios, a benefit can be gained by combining the regularization properties of ridge regression and LASSO. This can be obtained by using elastic net regularizationhttps://en.wikipedia.org/wiki/Elastic_net_regularization that also allows for the adjustment of the weighting of the two methods. The elastic net penalty is expressed as:
+
+$$
+L(\beta) =   = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda \sum_{j=1}^{m} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|),
+$$
+
+where $\lambda$ is still the regularization strength hyperparameter and $\alpha$ is a parameter between 0 and 1 that controls the weighting between ridge and LASSO penalties. When $\alpha = 0$ it is a pure LASSO regularization and $\alpha = 1$ is pure ridge regression. This method can provide flexibility in the modelling while also testing the effect of the two methods combined in different proportions.
+
+For further reading regarding the topics of this section, see ref: [James et al. 2014:138-144;237-250](https://www.statlearning.com/)
+
+## Decision trees
+Decision trees are intuitive algorithms that can be applied to both regression and classification problems. They recursively split the data, asking simple yes/no questions about the predictors, until specific criteria are met.
+
+Initially, all observations are contained within a single region called the root node. Next, a predictor and a threshold are chosen (e.g., 'age above 65') to split the data into two distinct decision regions called branches. This recursive binary splitting process continues: a region is selected for further splitting, a predictor and a threshold is selected and new branches are created (e.g., splitting the 'age under 65' region by 'bodyweight over 100kg') (Figure 8). The splitting process continues until a stopping criteria is met, such as reaching a maximum tree depth or a minimum number of samples in a node. The final regions at the end of the branches are called leaf nodes, which provide the predicted class or value for observations within that region.
+
+When decision trees are used for classification, loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index for the $i$th node is given by:
+$$
+\text{Gini index}_i = 1 - \sum_{k=1}^{n} r_{i,k}^2,
+$$
+where $r_{i,k}$ is the proportion of samples that belong to class $k$ (among $n$ possible classes) at node $i$. For binary prediction, this reduces to
+
+$$
+
+\text{Gini index}_i = 2*r_i (1 – r_i),
+
+$$
+
+where $r_i$ is the proportion of observations of one class in node $i$.
+
+During the model optimization process, the algorithm evaluates the quality of potential splits using this index. The decision tree algorithm evaluates the potential splits using the Gini index. The process is selected based on the weighted average of the Gini indices of the resulting child nodes. A split is chosen only if the total impurity of the two new nodes is lower than the impurity of the original parent node. By selecting the split that results in the lowest combined Gini index, nodes are created that are as pure as possible.
+
 
 The maximum depth of the tree, representing the highest permissible number of branches between the root node and the leaves, is considered the most significant hyperparameter. By restricting the depth, the tree is prevented from becoming overly complex and possibly overfitting the data.
 
-However, this represents one of several available regularization hyperparameters exclusive to decision trees. Another regularization method involves establishing a minimum number of data points that must be present in each node. The regularization techniques specifically employed for decision trees are referred to as **pruning**.
+Another regularization method, referred to as pruning, involves establishing a minimum number of data points that must be present in each node.
 
-This works similarly in regression problems, except [Mean Squared Error (MSE)](https://en.wikipedia.org/wiki/Mean_squared_error) is used instead of the Gini index for evaluating node impurity.
- More information about Classification and Regression Trees can be found [here](https://en.wikipedia.org/wiki/Decision_tree_learning), and an example of a simple classification tree is shown below.
+In regression problems, the methodology is similar as for classification. However, node impurity is evaluated using metrics such as the mean squared error (or other suitable regression metrics) instead of the Gini index.
+An example of a simple classification tree is shown in Figure 8.
 
 <div style="text-align: center;">
-   <img src="../images/Decision_trees.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
+   <img src="../images/Decision_trees_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
    <div>
    **Note**: Decision nodes are <u>Blue</u> and the Leaf nodes are <u>Green</u>.
    </div>
  </div>
 
-While decision trees are inherently powerful models, their utility is limited by instability, as their structures are highly sensitive to variations in the data. Significant differences in tree structures can be produced by minor variations within the training dataset, given that locally optimal decisions are made by the greedy splitting algorithm at each node. Complex structures that capture noise rather than underlying patterns may be generated by decision trees due to this high variance.
+Figure 8: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age > 65, then further by weight and height, until four leaf nodes are reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.
 
-To address these issues, **[ensemble methods](https://en.wikipedia.org/wiki/Ensemble_learning)** can be employed and are what powers methods like **Random forest** and **Gradient boosting**.
+
+While decision trees are powerful models, they can be unstable as their structures are highly sensitive to small changes in the data. This sensitivity can lead to overly complex structures that capture noise rather than true patterns, and as a result, their predictive accuracy may be lower than that of other methods.
+
+To address these issues, ensemble learning methods can be employed.
 
 ## Ensemble learning methods
-Ensemble methods combine multiple models to solve problems better than any single model could. They work by merging several weak learners into one strong predictor. This is also known as *wisdom of the crowd*. The most popular methods combining ensembling and decision trees are Bagging, Random Forest, and Gradient Boosted Trees.
- 
+In general, *ensemble learning methods* combine multiple models to solve problems better than any single model could, thus merging several weak learners into one (hopefully) strong predictor. This is also known as ‘wisdom of the crowd’. The most popular ensemble learning method for decision trees are bagging, random forest, and gradient boosted decision trees.
+
+ For further reading, see this ref: [James et al. 2014:331-341](https://www.statlearning.com/)
+
+
 ### Bagging
-[**Bagging (Bootstrap Aggregating)**](https://en.wikipedia.org/wiki/Bootstrap_aggregating) is a technique where numerous independent models are built from random data samples, and their predictions are averaged. In regression problems, this aggregation is commonly achieved through the computation of the mean or median. For classification problems, the aggregation function most frequently employed is the statistical mode, representing the most common prediction. Each model is trained on distinct data subsets, which are created through random sampling with replacement. When sampling is performed without replacement, the technique is referred to as **pasting**.
+*Bagging* (short for bootstrap aggregating) is an ensemble technique that helps prevent overfitting. In bagging, numerous independent models are trained on different subsets of the data, created through random sampling with replacement. Their predictions are then aggregated: in regression, typically taking the mean or median, and in classification, by taking the most common prediction (corresponding to the mode).
 
-Both variance reduction and the prevention of overfitting are achieved by this approach. The basic bootstrap ensemble serves as a classic example, in which predictions are made by multiple decision trees and combined through voting (for classification) or averaging (for regression). This method is crucial for decision trees, given that individual decision trees are characterized by low bias and high variance.
 
-In addition to the typical hyperparameters associated with decision trees, the bagging method has a hyperparameter determining the number of trees used in the aggregation.
 
-As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of a large number of trees, possibly built using different variables at different times.
+In addition to the typical hyperparameters associated with decision trees, the bagging method has hyperparameters determining the number of trees used in the aggregation and the size of the sampled subsets.
+
+As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of many trees with (possibly) different structures.
 However, the decrease in the Gini index for each predictor can be averaged over all trees to get an estimate of the variable importance.
 
 ### Random Forest
-A limitation associated with bagging is that the decision trees utilized in the aggregation may be similar. This situation arises when a single predictor has significant importance that its selection for the initial split is consistently ensured. An example is the predictor age in a mortality prediction study.
+A limitation of bagging is that the decision trees utilised in the aggregation may be similar. This situation arises when a single predictor has significant importance, so that its selection for the initial split is consistently ensured.
 
-To address this issue, Random Forests extend the bagging methodology by incorporating an additional layer of randomness. Not only are data points sampled, but features are also sampled during the construction of each tree.
- Typically, for a dataset with $p$ predictors, the number of features is chosen as $\sqrt{p}$, but it is also possible to include this as a hyperparameter.
 
-When growing trees, Random Forests consider only a random subset of features at each split point.
- This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise.
+To address this issue, *random forests* extend the bagging method by incorporating an additional layer of randomness. In addition to sampling data points, a random subset of predictors is considered at each split within a tree. This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise. For a dataset with $m$ predictors, it is common to use $\sqrt{m}$ predictors per split (for classification), though this number can be treated as a tunable hyperparameter.
 
-### Gradient Boosted Trees
-Unlike bagging methods, where independent models are built, boosting methods involve the sequential construction of models. Each subsequent model is developed to address the errors of previously combined models, with residuals from the overall model being utilized as the response variable. Among the various boosting methods, [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) is recognized as being particularly popular.
 
-In Gradient Boosted Trees, new weak learners (typically shallow decision trees) are introduced to address the errors generated by existing trees. At each step, the gradient of the loss function is minimized, which is the origin of the term 'gradient' in its name.
+### Gradient boosted trees
+Unlike bagging methods, where independent models are built, boosting methods construct models sequentially, where each new model is developed to address the errors of the models built so far. Among the various boosting methods, *gradient boosting* is particularly popular.
 
-For iteration $i + 1$, this process can be expressed as:
- $$ F_{i+1}=F_i+\delta f_i $$
+In gradient boosting, a new (typically shallow) tree is at each iteration fitted to the negative gradients of the specified loss function with respect to the current model’s predictions. Each tree therefore learns how to correct the remaining mistakes of the ensemble rather than predicting the target variable directly.
 
-Where $F_i$ represents the cumulative model constructed from trees up to iteration $i, f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a hyperparameter that determines the shrinkage applied. This shrinkage parameter is sometimes referred to as the learning rate.
+For iteration $i + 1$, the update can be expressed as:
+
+
+$$
+
+F_{i+1}=F_i+\delta f_i,
+
+$$
+
+where $F_i$ represents the current ensemble model after $i$ iterations, $f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
 
 Highly accurate models are generated through this sequential improvement process. However, careful hyperparameter adjustment is necessary to prevent overfitting. Specifically, the occurrence of severe overfitting can result from shrinkage parameter values approaching 1.
+Ref: [James et al. 2014:343-362](https://www.statlearning.com/)
 
-## Neural Networks
-The human brain is composed of numerous interconnected neurons, forming an extensive network characterized by a vast number of neural cells and an even greater multitude of connections. Information is transmitted across this network through the propagation of minute electrical charges by these neurons. Learning new information is facilitated as these neural pathways are strengthened through repeated activation. This description, while a simplification of biological reality, serves to provide the foundational concept behind the naming of [**neural networks**](https://medium.com/deep-learning-demystified/introduction-to-neural-networks-part-1-e13f132c6d7e).
 
-Functionally, neural networks are composed of nodes, often referred to as neurons, organized into a specific number of layers. Within this structure, each node in a preceding layer is connected to the nodes of the subsequent layer by assigned weights.
+## Neural networks
+*Neural networks* are composed of interconnected nodes (or neurons) arranged in layers, each containing a customizable number of nodes. The structure consists of an input layer, one or more hidden layers, and an output layer. A network with two or more hidden layers is termed a *deep neural network*. An illustration of a neural network with three hidden layers is provided in Figure 9.
 
-The initial layer is designated as the input layer, and its node count corresponds to the number of predictors. Following this are the hidden layers, which constitute a variable number of layers containing a customizable quantity of nodes. Per definition are two or more hidden layers are necessary for what is termed deep learning or deep neural networks.
+The prediction process is initiated at the input layer, which consists of $m$ nodes that represents the $m$ input features $x_{i1}, \dots, x_{im}$ associated with the $i$th sample. The connections between nodes are defined by weights, which together with *bias terms* constitute the tuneable parameters of the network. The weights determine how strongly the output of one node influences nodes in the subsequent layer. In each node, a weighted sum of the inputs is calculated and a bias term added before applying a non-linear activation function. The activation function allows the model to capture complex patterns in the data. Formally, we assume for the $p$th node in the $q$th hidden layer with activation $A_p^{(q)}$, we can write this process as
 
-Finally, an output layer is present, typically comprising a single node for regression or two-class classification problems, and K nodes for K-class classification problems.
+$$
 
-An illustration of a neural network is provided below ([image source](https://medium.com/@sukmaanindita/artificial-neural-network-using-r-studio-3eb538fa39fb)).
+A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
 
-In addition to the depicted weights, each neuron typically incorporates a bias. This bias is an independent constant value that is added to the weighted sum of inputs.
+$$
+
+where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
+
+
+
+
+
+tThe $q$th hidden layer has $k_q$ nodes. The activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
+
+$$
+A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
+
+$$
+
+where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
+
+We can continue this process, calculating the activation of the first node in the second layer, $A_1^{(2)}$, using the $k_1$ output values $A_1^{(1)}, \dots, A_{k_1}^{(1)}$ from the first hidden layer:
+
+$$
+
+A_1^{(2)} = g(B_{2,1,0} + \sum_{j=1}^kB_{2,1,j}A_j^{(1)}).
+
+$$
+
+In general, for the $p$th node in the $q$th hidden layer with activation $A_p^{(q)}$, we can write this process as
+
+$$
+
+A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
+
+$$
+
+where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$.
+
+The activations from the last hidden layer are passed to the output layer. There, a final linear combination of the inputs is computed and then passed through an output activation function, such as the logistic function $\sigma$ in the case of a binary outcome, to produce the final prediction (denoted $Y_i$ in Figure 9).
 
 <div style="text-align: center;">
    <img src="../images/neural_network.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 80%);">
  </div>
+Figure 9: An illustration of a deep feedforward neural network with three hidden layers ($L_1$, $L_2$, and $L_3$). The input layer consists of the data points $x_{ij}$ with $m$ features. The $q$th layer consists of $k_q$ nodes which are fully connected to all the nodes in the next layer. $B_1$, $B_2$, $B_3$, and $B_4$ denote the weight/bias matrices that defines the layer-to-layer transformations, $f$ the output activation function, and $Y_i$ the final prediction.
 
-Each node contains some value from the previous layer, or the input for the input layer.
-The value in the first node in layer $h_1$ is given by
-$$
-h_{1,1} = f(w_{1,1,0} + w_{1,1,1}x_1 + \cdots + w_{1,1,n}x_n)
-$$
-And the first node in layer $h_2$ is given by
-$$
-h_{2,1} = f(w_{2,1,0} + w_{2,1,1}h_{1,1} + \cdots + w_{2,1,n}h_{1,n})
-$$
-Where $f$ is a function determining the relationship between layers, called the activation function.
-The activation function introduces non-linearity in the model, and allows the model to capture complex patterns in the data.
-Typical choices of activation function are the ReLU function, $\max(0,x)$, i.e., linear for all positive values, or the sigmoid function introduced in the logistic regression section.
+Note, the number of parameters in neural networks can grow rapidly, as adding a single node to a layer introduces one weight for each node in the subsequent layer, and an additional bias parameter.
 
-For binary risk classification, the logistic function can be employed to determine the output variable, thereby allowing the results to be interpreted as risk scores.
 
-It should be recognized that each weight within the model constitutes a parameter, which can lead to overfitting if an insufficient quantity of data is available. Furthermore, significant computational resources are required for the calculation of these weights in more complex models. The number of parameters in neural networks is known to expand rapidly, as the incorporation of a single node introduces several weights equivalent to the sum of nodes in both the preceding and subsequent layers.
-
-To exemplify the vast number of parameters that can be present in neural networks, consider OpenAI's GPT-4 model, which is estimated to possess  [1.8 trillion parameters](https://explodingtopics.com/blog/gpt-parameters), a considerable increase when compared to the 175 billion parameters of its predecessor, [GPT-3](https://en.wikipedia.org/wiki/GPT-3).
 
 ### Training a neural network
-Parameter estimation is required for all model parameters. Similar to previously discussed methods, a loss function, such as log-loss, is required to be minimized. Evaluation metrics like accuracy or AUC are also employed, though they are not typically used as direct loss functions during optimization. Initial values are required for the weights, these can be randomly assigned, though [more complex initialization methods](https://machinelearningmastery.com/weight-initialization-for-deep-learning-neural-networks/) are available, but will not be discussed in this course.
+To estimate model parameters, a loss function $L$ is minimised as previously discussed:
+
+$$
+
+L(\beta) = \sum_{i=1}^n|y_i-f(x_i, \beta)|^2,
+
+$$
+
+where $\beta$ is now the weights and bias terms of the neural network.
+
+First, the weights of the network are initialised. Data is then passed through the network to produce predicted outcomes based on the initialised weights. The prediction error is then computed at the output layer, and during a process called *backpropagation* the derivate of this error is propagated backward through the hidden layers by partial derivatives to calculate the gradients of the loss function with respect to each parameter. Finally, the parameters are then updated in the direction of the gradient.
+
+The size of the update step taking in the direction of the gradient is called the learning rate. The learning rate is one of multiple hyperparameters in neural networks that control how training is performed.
 
 
-Parameter estimation is performed using [backpropagation](https://medium.com/deep-learning-demystified/introduction-to-neural-networks-part-2-c261a99f4138).
-It is motivated by the fact that every single weight affects the output variable, meaning that directly estimating the parameters is nearly impossible.
+Key hyperparameters for neural networks are:
 
-Initially, data are fed into the network, and a predicted outcome is calculated using the initialized weights. The loss function is minimized concerning the network's parameters (weights and biases). This minimization is achieved through the gradient descent algorithm, wherein the partial derivatives of the loss function concerning each parameter are utilized. As the weights directly connected to the output layer are most proximate to the error, their adjustments are computed first. The weights in preceding layers, such as those between the second-to-last and last hidden layers, are similarly updated in sequence. This process is termed backpropagation because the algorithm first propagates information forward to compute the predicted outcome, and then propagates error gradients backward to adjust the weights.
+- Learning rate: step size for updating parameters during gradient descent
 
-The gradient descent algorithm uses the derivatives and takes a step in the direction that minimizes the loss function.
-The length of this step is called the learning rate, and can be seen marked red in the figure below.
+- Network structure: Number of layers and nodes
 
-<div style="text-align: center;">
-   <img src="../images/gradient_descent.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
- </div>
+- Batch size: number of samples processed before updating model parameters
 
-Learning rate is one of multiple hyperparameters in neural networks that control how the neural network is trained.
- The key hyperparameters for neural networks are:
+- Regularization strength: degree to which the model penalises large weights to prevent overfitting
 
-- Learning rate: Controls how much the weights change with each update
+- Activation functions: non-linear function applied to a nodes output to introduce non-linearity
 
-- Network structure: How many layers and nodes to use
+To learn more about this topic, see this ref: [James et al. 2014:399-406](https://www.statlearning.com/)
 
-- Batch size: How many examples to process before updating weights
+## Model training
 
-- Regularization strength: How strongly to prevent overfitting
+In the training process, the objective is to find values of the model’s parameters and hyperparameters that minimise the difference between the predictions and the observed outcome, as measured by the loss function. The goal for the model is to capture the underlying patterns in the data, enabling accurate predictions on unseen data. In this section, we will address  the subject of model training.
 
-- Activation functions: Which mathematical operations transform data between layers
+The foundational algorithm for training a model is *gradient descent*. Gradient descent is an iterative process that updates the model parameters in the direction that minimizes the loss function. It is an automated process in the training, with the *learning rate* as the only adjustable factor. The learning rate controls the size of the step taken in the direction of decreasing the loss. There are many versions of gradient descent and alternatives.
 
-Systematic testing is required for the identification of optimal hyperparameters. Performance can be significantly improved or degraded by minor adjustments. Given the time-consuming nature of the tuning process, automated hyperparameter search algorithms can be employed to explore a wide range of hyperparameter combinations. Careful consideration of hyperparameter selection is paramount, as the network's learning capabilities and generalization performance on unseen data are determined by it.
+Most of the models presented in the previous section are controlled by several hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models.
 
-## Model Training <!-- "Måske det skal komme efter modeller / Er det ikke det samme? "
+These values can be chosen based on common practice or, more systematically, through a process called tuning. During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was covered in the data preprocessing part of this course. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified based on a stopping criterion.
 
-Most of the models presented in the next section are controlled by a number of hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models, The goal is to achieve the best results on the validation set.
+There are three popular approaches for hyperparameter search:
 
-These values can be chosen based on common practice or, more systematically, through a process called [tuning](https://medium.com/@abelkuriakose/a-guide-to-hyperparameter-tuning-enhancing-machine-learning-models-69dc9e0f02ea). During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was previously introduced in the data preprocessing part of this course. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified.
-
-
-Overall, there are three main approaches:
-
-- Gradient descent???? <!-- Kan ikke forstå hvorfor gradient descent skal med? -->
 - Grid search
 - Random search
-- Bayesian optimization
-
-These methods are frequently used, and they are powerful each in their own way and the applications for these methods are based on the given problem.
+- Bayesian optimisation
 
 ### Grid search
 
-The first main method for hyperparameter tuning involves the use of [grid search](https://medium.com/@hammad.ai/using-grid-search-for-hyper-parameter-tuning-bad6756324cc). This method systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. This approach constitutes an exhaustive search. However, the search space should be broad enough to allow for the observation of a diverse range of hyperparameter values, but constrained enough to avoid long computation times.
+*Grid search* is a method for hyperparameter tuning that systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. The combination that yields the best performance on a validation set is then selected. Figure 11 illustrates the result of a grid search considering two hyperparameters.
 
-An example of a grid search on a logistic regression with elastic net is shown below. <!-- vi ved ikke hvad det er endnu (Det problem er løst hvis model training kommer efter modelling - JBKS) -->
-In this example, two hyperparameters are searched through: the mixing parameter $\alpha$ and the penalty parameter $\lambda$.
-The optimal combination is marked in red.
+This approach constitutes an exhaustive search. The search space should be broad enough to explore a diverse range of hyperparameter values yet constrained to keep computation time manageable.
 
 <div style="text-align: center;">
    <img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
  </div>
 
-The models performance is being measured on what combination of the two hyperparameters, mixing parameter and inverse penalty, provides the best result on the validation set. The red box marks that a mixing parameter of 0.6 and a inverse penalty of 0.002 gave the highest score.
+Figure 11: Results from a grid search for an elastic net model with the two hyperparameters:  $\alpha$ (mixing parameter) and $\lambda$ (penalty parameter). Grid values are the average precision. The red box indicates the combination of hyperparameters which produces the highest average precision (mixing parameter = 0.6 and inverse penalty of 0.002). Image credit [Vesteghem, C. (2022)]( https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
-Grid search is characterized by significant computational cost, as a new model is fitted for each combination of hyperparameter values. However, the effectiveness is limited by the dimensionality of the hyperparameter space as it increases. Its application is suitable for models such as logistic regression with regularization and certain tree-based methods, provided that only a limited number of hyperparameters are taken into consideration. It is generally not recommended to use grid search for complex models with a lot of hyperparameters, such as neural networks, due to their typically higher dimensionality and the extensive computational resources required for training numerous network configurations. The mentioned models will be addressed in the predictive model section [Hyperlink ref til sektionen].
+Grid search can be computationally expensive, as a new model is fitted for each combination of hyperparameters. Its effectiveness is also limited by the dimensionality of the hyperparameter. Grid search is most suitable for models such as regularised logistic regression and certain tree-based methods, provided that only a limited number of hyperparameters are involved. It is generally not recommended for complex models with many hyperparameters, such as neural networks, due to their high dimensionality and the extensive computational resources required to train numerous network configurations.
+
 
 ## Random search
+In contrast to the rigorous grid search method, computational complexity can be optimised through a technique known as *random search*. This approach involves the random sampling of a predetermined number of hyperparameter combinations.
 
-In contrast to the rigorous grid search method, computational complexity can be optimized through a technique known as [random search](https://medium.com/@hammad.ai/tuning-model-hyperparameters-with-random-search-f4c1cc88f528). This approach involves the random sampling of a predetermined number of hyperparameter combinations.
+For this process, a defined sampling space is required for each hyperparameter. Unlike grid search, it does not evaluate every possible combination, but instead randomly sample hyperparameters to evaluate. This is repeated until a predefined stopping criteria is met.
 
-For this process, a defined sampling space is required for each hyperparameter. This space, which comprises a specified range or sets of relevant values, is custom-designed. From this space, combinations are randomly selected, and a model is then trained and evaluated using each selected combination.
+Random search effectively manages higher dimensionality because the number of models trained is explicitly controlled. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
 
-This method effectively manages higher dimensionality because the number of models trained is explicitly controlled. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.
+## Bayesian Optimisation
 
-## Bayesian Optimization
-
-Unlike random search, Bayesian optimization performs sampling from the hyperparameter space through a more informed, model-based approach. The method's objective is to become more accurate with additional data. This is achieved by using a probabilistic model, known as the surrogate function, which models the relationship between hyperparameters and the objective function's score, including a measure of uncertainty:
-
-$$p(score|hyperparameters)$$
-
-The algorithm's operation involves an iterative process. An initial surrogate function is constructed, often with a few random hyperparameter samples. An acquisition function is then used to propose the next set of hyperparameters to be evaluated. The real objective function is then evaluated with these new hyperparameters, and the surrogate function is updated. This process is repeated until a stopping condition is met. Although more time may be spent selecting each hyperparameter set, fewer overall hyperparameter combinations are required to be examined:
+Bayesian optimisationhttps://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a model that predicts how well different hyperparameters will perform. The algorithm then chooses new hyperparameters to test based on this model, balancing exploration of unknown regions and exploitation of promising areas. After each evaluation, the model is updated with the results, gradually improving its predictions. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 12 illustrates Bayesian optimization.
 
 <div style="text-align: center;">
   <img src="../images/modelling/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
 </div>
 
-The surrogate function is represented by a solid line, and its associated uncertainty, indicated by a shaded red region. It can be seen that the surrogate function progressively aligns with the true function over multiple iterations, while the uncertainty is gradually reduced. The reduction in uncertainty directly impacts the expected improvement, as shown in the plots below. The expected improvement is decrease over time as the uncertainty shrinks, which is due model becoming more confident in its prediction of the optimal location.
+Figure 12: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the expected improvements as the surrogate models the unknown loss function over multiple iterations.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
 
-## Evaluation of Model Performance
 
-Evaluating a machine learning model's performance is a crucial step in its development and deployment. It involves assessing how well the model generalizes to new, unseen data and how reliable its predictions are in real-world scenarios. The statistical metrics introduced is also an important part of evaluation. However, a comprehensive evaluation also considers the practical utility and interpretability of the model, ensuring it can be effectively understood and utilized by its intended users. This section introduces various techniques and considerations for evaluating model performance, from robust validation strategies to understanding the practical implications of the model's predictions.
+For further reading, see for example [Shahriari et al. (2015)](https://ieeexplore.ieee.org/document/7352306)
 
-### Cross Validation
-When predictive models are developed, it is crucial to ensure their performance on unseen data. A common initial approach, as introduced in the data preprocessing section of this course, is the data split process. While simple, a single train-test split can lead to an evaluation that's highly dependent on that specific division of data. To overcome this limitation and obtain a more robust and reliable estimate of a model's generalization performance, cross-validation is used.
+##  Performance evaluation
 
-[Cross-validation](https://www.geeksforgeeks.org/machine-learning/cross-validation-machine-learning/) is a technique employed to assess how a model performs on unseen data. The model is trained on a portion of the data and tested on other portions. This process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, the performance from each validation step is averaged to estimate the model's overall performance. Cross-validation is an effective measure against overfitting, which occurs when a model perfectly fits the training data but performs poorly on new data.
+Evaluating a dynamic prediction model's performance involves assessing how well the model generalises to new, unseen data and how reliable its predictions are in real-world scenarios.
 
-In other words, an unbiased estimate of how a model will perform in production can be provided by a held-out set. The generalization of the model will be tested by multiple splits (or multiple scenarios). These splits are also known as "folds," and the method used for testing these different splits of the data is known as K-fold cross-validation. In practice, [k=5 is enough, but some suggest k=10 (James et al. 2013:206](https://www.statlearning.com/).
+### Cross-validation
+A common approach for evaluating model performance on unseen data, as discussed in Data Preprocessing, is to split data into separate subsets: a training set for fitting model parameters, a validation set for tuning hyperparameters, and a test set for assessing performance on unseen data – sometimes with an additional calibration set. While simple, performing these splits only once can lead to an evaluation that's highly dependent on that specific division of the data. To address this limitation and obtain a more robust and reliable estimate of a model's generalization performance, *cross-validation* is commonly used.
+
+Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, called *folds* (Figure 13), the performance across test sets is averaged to estimate the model's overall performance. If $K$ splits were performed, it is called $K$-fold cross-validation.
+
+[The number of folds is widely discussed, but often a value between 5 and 10 is used (James et al. 2013:206](https://www.statlearning.com/)].
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
+Figure 13: Illustration of 5-fold cross-validation. Visualise the process of using different parts of the dataset for test set across 5 splits of the dataset.
 
-### Nested Cross Validation
+If the cross-validation confirms an acceptable generalizability, a final model can be fitted using a train/validation split on the entire dataset.
 
-Although K-fold cross-validation provides a more robust performance estimate than a single train-test split, a potential for bias exists if hyperparameter tuning is performed incorrectly within the cross-validation procedure. If the test fold in each iteration of K-fold cross-validation is used to evaluate different hyperparameter settings, information from the test fold influences the selection of the best hyperparameters. This can lead to an overly optimistic performance estimate.
+Ref: [James et al. 2014:202-212](https://www.statlearning.com/)
 
-To address this potential bias, [Nested Cross-Validation](https://machinelearningmastery.com/nested-cross-validation-for-machine-learning-with-python/) can be employed. This technique uses two levels of cross-validation loops. An outer loop and an inner loop. The outer loop divides the data into 'k' folds, with folds for training and testing in each iteration, similar to standard K-fold cross-validation. But, within each iteration of the outer loop, an inner K-fold cross-validation is performed using only the training data portion from the outer loop. This inner loop's purpose is hyperparameter optimization. The best hyperparameters identified by the inner loop are then used to train a model on the outer loop's training data. Finally, this model's performance is evaluated on the outer loop's test fold. This process is repeated for all outer loop folds.
+
+### Nested cross-validation
+
+Although $K$-fold cross-validation provides a more robust performance estimate than a single data split, a potential for bias exists if hyperparameter tuning is performed incorrectly within the cross-validation procedure. If the test set in each fold is used to evaluate different hyperparameter settings, information from the test set influences the selection of the best hyperparameters. This can lead to an overly optimistic estimate of model performance.
+
+To address this potential bias, *nested cross-validation* can be employed.
+
+This technique introduces an additional level of folding: First, the dataset is divided data into $K$ *outer* folds, with each fold providing a portion of data for constructing training and validation sets, similar to standard $K$-fold cross-validation. Within each outer fold, an inner $L$-fold cross-validation is performed using only the training/validation portion (Figure 14). The purpose of this “inner layer” is hyperparameter optimisation. The best hyperparameters identified by the inner $L$-fold cross-validation are then used to train a model on the combined training/validation set of the outer fold. Finally, model performance is evaluated on the outer fold's test set. This process is repeated for all outer folds.
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/nested_cross_validation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-As only a subset of the dataset, one fold at a time (outer loop), is evaluated with an additional k-fold cross-validation (inner loop), the risk of the models overfitting the data is greatly reduced.
+Figure 14: Illustration of nested cross-validation with five outer folds and three inner folds.
 
-After a robust and unbiased estimate of a model's performance is achieved through cross-validation, the practical implications of deployment are considered.  There is a still a long process ahead from having a well-performing model in a closed lab to a full deployment in production. In the following section, deployment concepts will be introduced, focusing on the themes of utility and explainability.
+
+Because each outer fold is evaluated using an additional $L$-fold cross-validation, the risk of overfitting is greatly reduced, and the estimated model performance is more reliable.
+
+If the nested cross-validation confirms an acceptable generalizability, a final model can be fitted using a train/validation split on the entire dataset.
+
+For further reading, see [Gary Colins (2024) Evaluation of clinical prediction models (part 1): from development to external validation](https://www.bmj.com/content/384/bmj-2023-074819)
 
 ## Utility and explainability
 
-Beyond the statistical methods used for measuring and improving models through optimization is the implementation of predictive models. To ensure the models quality when deployed, there are some tools which can be included for measuring and understanding performance, hence the utility and explainability. For stakeholders, especially in fields like healthcare, there is a need to understand why models predict as they do and evidence of the practical advantages. This section explores how to evaluate a model's real-world impact and the methods available to interpret the produced results.
+Below, we explore the **utility** and **explainability** of prediction models, examining not only how well they perform but also how their predictions can be interpreted and trusted by stakeholders. In fields such as healthcare, it is crucial to understand why models predict as they do and to see evidence of their practical benefits.
+
 
 ### Utility
- First, consider the utility of the model.
- This involves evaluating the clinical impact that would come from implementing the model in the real world.
 
-Model performance is evaluated using statistical metrics. These may include ROC AUC or PR AUC, but the value of the metrics is probably unusable to most clinicians.
-It is important to remember who decides whether the model is used in practice.
-Clinicians might be presented the model as a prediction tool, but if they do not understand the predictions and how it works, it would never actually get used.
-This is why it is necessary to illustrate the usage in a clinical context, which could be using a clinical scenario.
+Model performance can be evaluated by statistical metrics such ROC AUC or PR AUC, as described in the section about performance metrics, but these metrics are probably not of much use for clinicians as the primary users of the prediction model.
 
-To setup the clinical scenario, you start by stating the **objective**, which should be something the model is capable of achieving.
-Then the **usage** is described, i.e. when and how the model is used in a practical problem, considering the clinicians limited time, their accessibility of the data, and availability of the patient.
-This should be combined with a **rule** clarifying how the results of the model should be interpreted.
-It is important to state the **adverse consequences** that would come if the model made a false positive prediction.
-Finally, the model should have a **measurable impact**, such as optimizing resource usage and lowering mortality.
+Clinicians might be presented with the model as a prediction tool, but if they do not understand the predictions and how it works, they may be reluctant to use it. Therefore, its usage should be demonstrated within the specific clinical context for which the model is intended, e.g. by considering a clinical scenario.
+To set up a clinical scenario, you
 
-In the context of the **motivational example** from the introduction of the course, the objective is to limit the amount of late SACT treatments, i.e. those administered within 30 days of death.
-The model is used before each treatment cycle to aid in clinicians' evaluation of whether the patient is fit to receive the treatment, with the rule that if the model predicts 30-day mortality to be above 50% likely, the treatment should not be given.
-As for adverse consequences, the treatment would be stopped early, or perhaps just delayed to a later point.
-The measurable impact of the model is that it prevents suffering from the late SACT treatments, and lessens the amount of chemotherapy given.
+State an objective, which should be something the model can achieve.
 
-The utility of the 30-day mortality model is illustrated below, where the curly bracket denotes the counterproductive administrations.
-Note the "acceptable" class, which belongs to neither the positive or the negative class.
-This is added because the improvement in life quality after the SACT treatments would be short-lived, and it is debatable if it is worth it, considering the decrease in life quality under the treatment.
+Describe its intended use in in practice, considering the clinicians' limited time, their accessibility to the data, and the availability of the patient.
+
+Describe how model results should be interpreted.
+
+Disclose possible adverse consequences and how to mitigate them in case of false positive or negative prediction.
+
+Describe the measurable impact om employing the prediction model, such as optimising resource usage and lowering mortality.
+
+
+The course’s motivational example is to limit the amount of late Systematic Anti-Cancer Treatment (SACT) treatments, i.e., those administered within 30 days of death.
+In this context, a dynamic risk prediction model is applied before each treatment cycle to aid in clinicians in evaluating of whether the patient is fit to receive the treatment, with the rule that treatment should generally be withheld if the model predicts a 30-day mortality risk above 50%.
+
+The believed measurable impact of the model is that it prevents suffering from the late SACT treatments and lessens the amount of chemotherapy given. Regarding adverse consequences, a false positive (i.e., predicting death within 30 days when the patient does not die within 30 days) could lead to the treatment would be stopped early, or perhaps just delayed to a later point.
+
+
+The utility of the 30-day mortality model is illustrated in Figure 15 where the predicted probability of dying within 30 days of a SACT administration is shown for each of the four outcomes from the confusion matrix (true positive, false positive, true negative, false negative) using a classification threshold of 50%. Here we consider 30 days before death as the appropriate time for cessation as opposed to continuing treatment when entering the last 30 days before death. Thus, the true negatives correspond to what we deem as “appropriate administrations”, while the true positives correspond to “appropriate stoppage”. Among the false positives, which are the cases where the model predicted death within 30 days incorrectly, the utility assessment here discriminates between “early stoppage” (died > 90 days after SACT administration) and “acceptable stoppage” (died within 90 days after SACT administration). This division was included because the improvement in life quality after the SACT treatments would be short-lived, and it is debatable if it is worth it, considering the decrease in life quality under the treatment. In the study of [Vesteghem et al.](https://pubmed.ncbi.nlm.nih.gov/36379004/) the authors conclude that by applying this simple threshold, 40% of late SACT administrations could have been prevented, at the cost of only 2% of patients stopping their treatment more than 90 days before death.
 
 <div style="text-align: center;">
    <img src="../images/utility_example.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
+Figure 15: A practical example of a confusion matrix related to 30-day mortality prediction in lung cancer. The scatter plot shows the predicted risk of dying within 30 days from a SACT administration versus days to actual death. The plot is divided into two zones on the horizontal line, which is the 50% mortality risk threshold. A vertical line indicates when the patient is within the last 30 days before death. The curly bracket denotes the counterproductive administrations.Image credit: [Vesteghem et al. (2022)](https://ascopubs.org/doi/pdf/10.1200/CCI.22.00054)
+
+
 ### Calibration
-For classification problems, when the models make their predictions, they output risk scores in the form of probabilities for each class.
-Upon seeing these probabilities, one would assume they correspond to reality if made over a large number of instances.
-This is important, as for example if a model predicts a 40% chance of mortality in the next 30 days, there is more cause for concern compared to a 10% chance.
-It is, not always the case that these probabilities align with reality, which is possible if the model is not calibrated.
-Note that calibration is not related to the accuracy of the model, and it is possible to have an accurate model without it being calibrated and vice versa.
+For classification problems, the prediction model outputs risk scores, which are often scaled to values between 0 and 1 by a sigmoid function and often interpreted as class probabilities.
+It is often assumed that these “probabilities” accurately reflect real-world outcomes when based on a large dataset. However, this assumption dos not always holds, especially if the model is not properly *calibrated*. Calibration refers to the agreement between predicted probabilities and observed outcomes: a well-calibrated model produces predictions that match the true likelihood of events, so that, for example, among instances predicted with a probability of 0.7, roughly 70% belong to the positive class. When a model is mis calibrated, post-hoc techniques can be applied to adjust the predicted probabilities.
 
-This subsection introduces methods for ensuring [model calibration](https://medium.com/@sahilbansal480/understanding-model-calibration-in-machine-learning-6701814dbb3a).
-
-The first method for testing calibration, is by using calibration plots, that compare the predicted risk scores with the actual class.
-An example of a calibration plot can be seen below ([image source](https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html)).
+Model calibration can be assessed by comparing predicted risk scores with observed outcomes. This can for example be done by calibration plots, where predicted risk scores are averaged over a suitable bin and then plotted against the observed frequency of the positive class (for binary prediction); an example of a calibration plot can be seen in Figure 16. In this type of plot, the ideally calibrated model follows the identity line, while points above the line indicate the predicted risk score is smaller than the observed probability and vice versa for points below the line. 
 
 <div style="text-align: center;">
    <img src="../images/calibration_plot.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-In this type of plot, the ideally calibrated model follows the dashed line, and points above the line indicate overconfidence, i.e., the prediction is larger than expected, and vice versa for points below the line.
+Figure 16: Example of a calibration plot for four different models. Image credit: [Scikti-learn.org](https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html)
 
-Alternatively, the Brier score can be inspected, a model evaluation metric particularly useful for evaluating the calibration of two-class classification models, but is also versatile in that it is usable in multi-class classification problems as well.
- It does so by quantifying the closeness of the predictions ($\hat{p}_i$) to the reality ($y_i$) by
+
+Alternatively, the [Brier score](https://en.wikipedia.org/wiki/Brier_score) provides a useful measure of calibration in binary classification, but can also be used in multi-class problems.
+The Brier score quantifies the closeness of the predicted risk scores ($\hat{p}_i(\hat{beta},x_i)$) to the observed outcome ($y_i$) by
+
  $$
- \text{Brier score} = \frac{1}{N} \sum_{i=1}^N (p_i-y_i)^2
- $$
- Where $N$ is the number of predictions.
- It is useful because it combines calibration and confidence, since a score equal to 0 would only happen for perfectly predicted probabilities, i.e. 0% for class 0 observations and 100% for class 1 observations.
+\text{Brier score} = \frac{1}{n} \sum_{i=1}^n (p_i (\hat{beta},x_i) -y_i)^2,
+$$
 
-If the model is not calibrated, it is possible to adress this by using either **Platt Scaling** or **Isotonic regression**.
+where $n$ is the number of predictions. A lower the Brier score indicates that the model provides more accurate probability estimates.
+Note, the Brier score reflects both how well the predicted probabilities align with actual outcomes (calibration) and the confidence of the predictions. A score of 0 indicates perfect predictions, where every probability exactly corresponds to the true outcome.
 
-In [Platt scaling](https://medium.com/@ChandraPrakash-Bathula/machine-learning-concept-68-platts-scaling-b8245421739e), the risk scores are extracted from the model, and then a logistic regression model is fitted to these, with the true labels as the response variable.
- The predictions from this model would then correspond to calibrated probabilities.
- For a given risk score $r(x)$ achieved from the fitted model with $x$ being the predictors, Platt scaling transforms the probabilities using.
- $$
- \hat{p} = \frac{1}{1 + \exp\Big(- (\beta_1 r(x) + \beta_0)\Big)}
- $$
- This method is efficient, as it is adapted to smaller data sets, but it is built on some strong assumptions, such as assuming the relationship between the risk scores and the probabilities is [sigmoidal](https://en.wikipedia.org/wiki/Sigmoid_function), which is why its performance is often compromised when handling imbalanced datasets.
+If the model is not well calibrated, post-hoc calibration techniques can be applied to improve the agreement between predicted probabilities and observed outcomes. A common method is [isotonic regression](https://en.wikipedia.org/wiki/Isotonic_regression), which fits a non-parametric monotonic function to adjust the predicted probabilities. The isotonic function is typically a piecewise constant function, which ensures that probabilities are increasing.
 
-As an alternative to Platt scaling, [isotonic regression](https://en.wikipedia.org/wiki/Isotonic_regression) can be employed. This is a non-parametric method that involves fitting an isotonic (non-decreasing) function to the data. The isotonic function utilized is typically a piecewise constant function, which ensures that probabilities are increasing. Fewer assumptions are made by this method than by the previous one, making it more generalizable to complex models and capable of handling imbalanced datasets. However, it is more prone to overfitting. Meaning, a larger volume of data is required to mitigate this risk, and predictions generated by the piecewise constant function may exhibit reduced smoothness.
+Following model calibration, calibration can again be checked using a calibration plot and the Brier score.
 
-Following model calibration, verification of their calibration can be checked using a calibration plot and the Brier score.
 
-Note that because Platt scaling utilizes a strictly monotone function, the AUC metrics (ROC and PR) are not affected, as [these are based on the probabilities' rank](https://scikit-learn.org/stable/modules/calibration.html).
-The isotonic regression, is not strictly monotone and can introduce "ties" in the predicted probabilities, meaning multiple data points might end up with the exact same calibrated probability value. Because AUC metrics like ROC AUC and PR AUC rely on the ranking of these probabilities to determine their values, introducing these ties can alter that ranking and can change the calculated AUC scores.
+For further reading, see [Richard D. Riley (2024) Evaluation of clinical prediction models (part 1): from development to external validation](https://www.bmj.com/content/384/bmj-2023-074820)
 
 ### Explainability
- Models applied in the real world should have a good [explainability](https://medium.com/@rohanmistry231/model-interpretability-explainability-in-machine-learning-af2b0deaa3ea).
-It should be possible to gain insight into why it predicts the way it does and identify the most important predictors.
-For example, when predicting mortality, this could help identify possible causes and effects to target treatment towards (keeping in mind that correlation does not equal causation).
+Ideally, it should be possible to gain insight into why a dynamic risk prediction model predicts the way it does and to identify the most important predictors. This property is known as *explainability*.
+For example, in a model predicting mortality risk, explainability allows clinicians to see which patient features most strongly drive the predicted risk, supporting more informed decision-making.
 
-Some models are inherently explainable, such as logistic regression, where all parameter values are calculated, and can be compared (assuming the data has been normalized), and decision trees, where the splits are made on specific predictors based on impurity.
-These models are known as [white-box models](https://medium.com/data-science/machine-learning-interpretability-techniques-662c723454f3), as everything is illuminated and visible.
 
-In contrast, the only obvious thing for [black-box models](https://medium.com/data-science/machine-learning-interpretability-techniques-662c723454f3) is the input and output.
-These are complex models such as the ensemble methods (e.g., random forests) and neural networks.
-However, just because they are not inherently explainable does not mean that some information can not be extracted using external methods.
+Some models are inherently explainable, such as logistic regression, where the effect of all predictors is visible through the model parameters, and decision trees, where the splits are made on specific predictors based on impurity.
+In contrast, in black-box models, such as ensemble methods (random forest, etc.) and neural networks, the relation between input and output is highly complex and not directly “visible”. Even though these models are not inherently explainable some information can be extracted using external methods.
 
-The industry standard for explainability of black-box models is called [Shapley Additive explanation](https://medium.com/biased-algorithms/shap-values-explained-08764ab16466) (SHAP) values, and is based on game theory.
-It is based on the concept that in a cooperative game, each individual contributes to the result, and should get their fair share of the outcome, based on their contribution.
-In terms of modelling, every predictor gives a positive or negative effect on the prediction, for example, if a house is predicted to be worth 1.000.000, maybe +500.000 is from the location, the size adds another +600.000, but the age of the house detracts -200.000 and so on.
-This can be visualized in a waterfall plot inspecting a specific prediction, an example of which is seen below, visualizing the effect of being a 45 year old man with an albumin level of 2.9 g/dL on 30-day mortality rate.
+The standard for explainability of black-box models is called *Shapley Additive explanation SHAP* values and is based on game theory. SHAP values assign a contribution to each feature, showing how much, it increases or decreases the predicted risk compared to the average prediction.
+
+SHAP can be visualised in a waterfall plot inspecting a specific prediction; an example is shown in Figure 17, visualizing the effect of being a 45-year-old man with an albumin level of 2.9 g/dL on the 30-day mortality rate.
 
 <div style="text-align: center;">
    <img src="../images/SHAP_waterfall.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
  </div>
 
-Practically, the SHAP values can be calculated by considering the model for each combination of predictors, including a null model, as seen below.
-
-<div style="text-align: center;">
-   <img src="../images/SHAP_explained.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
- </div>
-
-The null model determines the mean (13% in this example).
- Then, to analyze the effect of a predictor value, all models without the given predictor are compared to a corresponding model with the predictor added.
-For example, considering the age, the prediction for the null model is compared to the 1-variable model containing only age.
-Additionally, the model containing only the sex predictor is compared to the 2-variable model containing age and sex, and so on.
-Adding these changes together, weighted with the total amount of model changes gives the SHAP value for this predictor value.
-An example using age is seen below.
-
-<div style="text-align: center;">
-   <img src="../images/SHAP_explained_age.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
- </div>
-
-In this case, the contribution of age is
- $$\text{Age contribution} = \frac{-5\%}{3} + \frac{-25\%}{6} + \frac{-25\%}{6} + \frac{-24\%}{3} = -18\%$$
- Correspondingly, the contribution of the other predictors can be calculated, giving the waterfall plot shown further up.
-
-It should be noted, that this only gives an idea of the predictor importance, but not necessarily the whole truth.
+Figure 17: Waterfall plot of individual feature importance in prediction of 30-day mortality. It shows how features adjust the prediction from the average risk (Mean = 13%) to the final calculated probability (p = 24.5%). The red arrows denote variables which increase the risk while the green arrow shows variables which decrease the risk. [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf).
 
 # Exercises
 
-In this workshop you will train and test at least one prediction model based on the data sets you prepared in Workshop 1 (in case you did not succeed with Workshop 1, a prepared data set is available on PhD Moodle under Day 2/Workshop 2. In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”).
- Go through the following steps:
+In this exercise you will train and test at least one prediction model based on the data sets you prepared in Exercise 1 (in case you did not succeed with Exercise 2, a prepared data set is available on *some link*. In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”). Go through the following steps:
 
-1)  Choose a performance metric for final test of model performance (is there class imbalance in your data?)
-2)  Choose a model to train (e.g. logistic regression with elastic net or random forest). What parameters and hyperparameters does the model have?
-3)  Train model and tune hyperparameters.
-4)  How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did you predict both positive and negative outcomes well?
-5)  Train a calibration model. How well is the model calibrated, considering the test set?
+1. Choose a performance metric for final test of model performance (is there class imbalance in your data?)
+2. Choose a model to train (e.g. logistic regression with elastic net or random forest). What parameters and hyperparameters does the model have?
+3. Train model and tune hyperparameters.
+4. How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did you predict both positive and negative outcomes well?
+5. Train a calibration model. How well is the model calibrated, considering the test set?
 
-## Reference
- Introduction to statistical learning (2001), Trevor Hastie, Gareth James, Daniela Witten and Robert Tibshirani, [https://www.statlearning.com/](https://www.statlearning.com/)
+To proceed to the next section of the course, please click the button below.
 
-[^1]: https://dev.to/petercour/machine-learning-classification-vs-regression-1gn
+&nbsp;
+
+ <p align="center">
+  <a href="http://localhost:4707/lectures/implementation.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Continue to
+    Implementation
+  </a>
+</p>
+
+&nbsp;

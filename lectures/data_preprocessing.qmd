@@ -8,7 +8,6 @@ format: html
 
 This section aims to prepare participants for the necessary considerations encountered during data preparation for dynamic risk prediction modelling.
 
-
 Throughout this module, the following topics will be covered:
 
 - Establishing the Data Analysis Protocol
@@ -17,7 +16,6 @@ Throughout this module, the following topics will be covered:
 - Splitting Data for Model Evaluation
 - Feature Engineering
 - **Exercises**
-
 
 ## Establishing the Data Analysis Protocol
 
@@ -40,10 +38,7 @@ The protocol can contain the following elements:
 
 Having established a clinically relevant problem, identified the patient population, and defined outcomes and predictive variables (item 1 to 4 in the protocol), as well as acquired access to data, the next step is to prepare data for building a dynamic risk prediction model. This process involves several steps, the first of which is to become familiar with the data in order to identify potential challenges and develop appropriate mitigation strategies.
 
-
-
 #### Talk to domain experts
-
 
 Close collaboration with the health care personnel collecting the data becomes essential, as their expertise is vital for the correct interpretation, correction, and understanding of the data.
 The following topics are examples of beneficial information:
@@ -53,7 +48,6 @@ The following topics are examples of beneficial information:
 - Potential systemic flaws or sources of error
 - Any updates to the coding standards or practices during data collection
 - Reasons behind missing values or unusual data
-
 
 #### Is the recording of the outcome (and predictive variables) of good quality?
 
@@ -65,13 +59,9 @@ Another example of a potential reliability issue is found in the **Danish Regist
 
 These examples illustrate that even long-standing administrative registers, originally designed for operational use, may have limitations in data validity when repurposed for research. Thus, there is a need for critical evaluation of all data sources to ensure accuracy and reliability. It is recommended to review existing literature on the validity and limitations of the selected data sources.
 
-
-
-
 #### Make summary statistics
 
 Using summary statistics is a key step in exploring the data’s distribution and quality, helping to detect:
-
 
 - Missing data
 - Outliers
@@ -87,21 +77,16 @@ Missing values are typically categorised into three distinct types:
 
 - **Missing completely at random (MCAR)**: Missingness occurs entirely at random, meaning there are no systematic differences between individuals with missing data and those with complete data with respect to either measured or unmeasured characteristics.
 
-- **Missing at random (MAR)**:
-Missingness depends only on observed data, not on the missing values themselves. In other words, any systematic differences between individuals with and without missing data can be fully explained by variables that have been measured.
+- **Missing at random (MAR)**: Missingness depends only on observed data, not on the missing values themselves. In other words, any systematic differences between individuals with and without missing data can be fully explained by variables that have been measured.
 
-- **Missing not at random (MNAR)**:
-Missingness depends on the unobserved values themselves, even after accounting for observed variables. That is, systematic differences remain between individuals with and without missing data, related to the missing values that were not observed.
+- **Missing not at random (MNAR)**: Missingness depends on the unobserved values themselves, even after accounting for observed variables. That is, systematic differences remain between individuals with and without missing data, related to the missing values that were not observed.
 
-
-Missingness in the data can, for example, be addressed by
+Missingness in the data can, for example, be addressed by:
 
 - **Deletion**: Remove individuals or predictive variables with missing values. Removing all individuals with missing in any of the variables of interest is also referred to as complete case analysis
 - **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or most frequent value
 - **Constant Value Imputation**: Fill missing values with a specific constant (e.g., zeroes or a designated "missing" value)
-
 - **Carry forward**: For longitudinal data, fill missing values with the last observed value.
-
 - **Predictive Modeling**: Use machine learning algorithms to predict missing values based on other features
 
 The choice of a strategy for handling missing data in a variable depends on the type of missingness and whether the variable is independent of the outcome or not. For MCAR data, complete case analysis provides unbiased results, but doing so may result in an insufficient sample size. This also applies to MAR and MNAR data, provided the missingness is independent of the outcome being studied. If this is not the case, it is however challenging to achieve truly unbiased results for MNAR data as the missingness depends on unobserved data, while unbiased results for MAR data often can be employed by using multiple imputation. Simple methods imputing with a single value such as the sample mean may introduce bias, even for MCAR data. To read more about the different types of missingness and strategies for handling them see e.g. [here](https://www.ncbi.nlm.nih.gov/books/NBK493611/pdf/Bookshelf_NBK493611.pdf).
@@ -116,7 +101,6 @@ In health care, data are typically collected at irregular time intervals, reflec
 Selection of a suitable discretization interval is required to structure the irregularly timed data. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
 
 Several predictor values may be available within the same time interval, and these must be aggregated into a single representative value, for example by taking the mean. Figure 1 illustrates bundling measurements of albumin levels into 6-hour time intervals (for a single patient), where multiple measurements in a time interval is aggregated by the mean, and where predictions are regularly triggered every 6 hours.
-
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -146,7 +130,7 @@ To ensure a predictive model can be applied in a real-world setting, it must per
 
 To assess a model's ability to generalise, the dataset is typically divided into at least two distinct subsets: a training and a test set. The training set is used to train the prediction model, while the test set, which the model has never seen before, is used to evaluate its performance.
 
-Data splitting strategies can become more extensive depending on the model class. When a model involves *hyperparameters* (see the *Modelling* section), a typical approach is to consider a validation set alongside the training and test sets. The validation set is used to compare different hyperparameter configurations and select the best-performing one before evaluating the model on the test set. This helps prevent overfitting to the test set during hyperparameter tuning. Lastly, if a model requires *calibration* (see the *Modelling* section), a separate calibration set might also be used.
+Data splitting strategies can become more extensive depending on the model class. When a model involves *hyperparameters* (see the [Modelling section](modelling.qmd)), a typical approach is to consider a validation set alongside the training and test sets. The validation set is used to compare different hyperparameter configurations and select the best-performing one before evaluating the model on the test set. This helps prevent overfitting to the test set during hyperparameter tuning. Lastly, if a model requires *calibration* (see the [Modelling section](modelling.qmd)), a separate calibration set might also be used.
 
 Typical splitting ratios allocate a larger portion of the data for training, such as 80% for training and 20% for testing, in a simple setup. However, the ratio can be adjusted based on factors like the total volume of available data and the task requirements. When using multiple splits, the ratios are adapted. A train/validation/test split might use a 70/10/20 ratio, while a train/validation/calibration/test split could use a 60/10/10/20 ratio, as illustrated in Figure 3.
 
@@ -175,9 +159,6 @@ Insights from clinicians’ expertise can help identify features that are partic
 After feature selection, it may be necessary to create new features from existing ones. This can be required by certain modelling algorithms that expect data in specific formats, for example, transforming categorical variables into binary variables. It can also be done because model performance may be improved by derived features that provide useful context. For example, continuous variables can be transformed into clinically meaningful categories based on reference value, such as classifying blood pressure as low, normal, or high. Categorising continuous variables in this way can help the model interpret the clinical meaning of their ranges.
 
 Categorical variables can cause problems when some categories have very few observations. With limited data, the model may struggle to learn meaningful patterns and risk overfitting to these rare cases. This can lead the model to interpret random noise as a significant relationship. An example with patient symptoms is shown in Table 1 and 2, where the symptoms skin rash and body ache are rare and thus collapsed into an 'Other symptoms' category.
-
-
-
 
 *Original Dataset: Patient Primary Symptoms*
 
@@ -248,15 +229,12 @@ Ref: [Aurélien Géron (2019):65-67](https://www.oreilly.com/library/view/hands-
 
 ## Final Step
 
-Now we have
+Now we have:
 
-Restructured data according to fixed time intervals, giving at most one row per time interval with both current and historical features
-
-Split data into training, validation, calibration, and test set as needed
-
-Performed feature engineering, constructing relevant predictors
-
-Imputed missing values
+1. Restructured data according to fixed time intervals, giving at most one row per time interval with both current and historical features
+2. Split data into training, validation, calibration, and test set as needed
+3. Performed feature engineering, constructing relevant predictors
+4. Imputed missing values
 
 All in all, a dataset ready for training a predictive model has been constructed. For most models, only time intervals related to a prediction time point will be kept for the modelling. In that case a final step in the data preprocessing is to remove all rows not related to a prediction time point as illustrated in Figure 4.
 
@@ -275,19 +253,20 @@ This course focuses on preparing data for dynamic risk prediction models, i.e., 
 
 Go through the following steps:
 
-Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+1. Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+2. Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+3. Add baseline variables (in baseline_data) to the dataset (join by patient id).
+4. Determine which patients goes into the training, validation, calibration, and test set(using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which set each observation belongs to or split your data into the four pieces.
+5. Perform feature engineering, for example:
+    a. Do we want to remove some predictors? (e.g., due to missingness or weird values)
+    b. One-hot encoding of categorical predictors
+    c. Construct feature for age at each time point
+    d. How to handle missing values? Imputation, presence variables, …?
+    e. Cap and normalise numerical predictors
+    f. Summary variables (aggregating historical information)
+6. Filter your data to only keep rows related to prediction time points (time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
 
-Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
-
-Add baseline variables (in baseline_data) to the dataset (join by patient id).
-
-Determine which patients goes into the training, validation, calibration, and test set(using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which set each observation belongs to or split your data into the four pieces.
-
-Perform feature engineering, for example: a. Do we want to remove some predictors? (e.g., due to missingness or weird values) b. One-hot encoding of categorical predictors c. Construct feature for age at each time point d. How to handle missing values? Imputation*, presence variables, …? e. Cap and normalise numerical predictors** f. Summary variables (aggregating historical information)
-
-Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
-
-*If you use the mean or regression to impute variables, you should base this on the training set only **The values you cap and the values you use to normalise should be based on the training set only
+**If you use the mean or regression to impute variables, you should base this on the training set only.** The values you cap and the values you use to normalise should be based on the training set only
 
 To proceed to the next section of the course, please click the button below.
 
