@@ -49,7 +49,7 @@ To manage and analyse large amounts of health data, standardised coding and clas
 
 A central Danish health data classification system is the Sundhedsvæsenet Klassifikationsystem (SKS), which is managed by [The Danish Health Data Authority](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications). SKS is the national standard used throughout the Danish healthcare system.
 
-The SKS uses the [World Health Organisation's International Classification of Diseases](International Classification of Diseases (ICD)), 10th Revision (ICD-10) for diagnostic data, thereby ensuring that Danish data is aligned with international standards.
+The SKS uses the [World Health Organisation's International Classification of Diseases](https://www.who.int/standards/classifications/classification-of-diseases), 10th Revision (ICD-10) for diagnostic data, thereby ensuring that Danish data is aligned with international standards.
 
 All Danish diagnostic SKS code data can be searched through an open database, to either find a diagnosis by code or a code by diagnosis, as illustrated in Figure 1.
 
@@ -62,16 +62,15 @@ For specific types of data, such as clinical laboratory data, more specialised t
 
 
 
-SNOMED CT (Systematised Nomenclature of Medicine Clinical Terms) is the most comprehensive multilingual clinical terminology in the world. The core purpose is to serve as an ontology (a  “Model of Meaning”) for clinical information. Enabling a common language to exchange information about diagnosis, procedures, medicine, and much more.  SNOMED CT is a terminology designed to be logical, by having nested structures for all the information. It is designed to be flexible, as different variations of SNOMED CT for specific applications exist. Examples of such is the Danish pathology database Patobank, which adds letters to the SNOMED CT code to provide additional coding axes, such as structure, location, and cause, for the cancer data. See more on [Patobank.dk](A._Introduktion_og_vejledning_til_SNOMED-2.pdf
-). Having standardised code for medical information is one of the main components of being able to have functional interoperability between units which share medical information.
+SNOMED CT (Systematised Nomenclature of Medicine Clinical Terms) is the most comprehensive multilingual clinical terminology in the world. The core purpose is to serve as an ontology (a  “Model of Meaning”) for clinical information. Enabling a common language to exchange information about diagnosis, procedures, medicine, and much more.  SNOMED CT is a terminology designed to be logical, by having nested structures for all the information. It is designed to be flexible, as different variations of SNOMED CT for specific applications exist. Examples of such is the Danish pathology database Patobank, which adds letters to the SNOMED CT code to provide additional coding axes, such as structure, location, and cause, for the cancer data. See more on [Patobank.dk](https://www.patobank.dk/wp-content/uploads/2019/10/A._Introduktion_og_vejledning_til_SNOMED-2.pdf). Having standardised code for medical information is one of the main components of being able to have functional interoperability between units which share medical information.
 
-For further information, please see this book: [Benson, Tim, and Grahame Grieve. (2021) "Principles of health interoperability.”](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)
+For further information, please see this book: [Benson, Tim, and Grahame Grieve. (2021) "Principles of health interoperability.”](https://link.springer.com/book/10.1007/978-3-030-56883-2)
 
 
 ## Health Data Providers in Denmark
 
 
-Denmark has a unique system of [nationwide health registries](Danish registries - dsfe.dk ) that collect data on diseases, treatment, and outcomes. These comprehensive databases form a valuable foundation for developing predictive models and research in general. The registries are administered by major public organisations in Denmark, which act as the official data controllers responsible for safeguarding information due to its person-sensitive nature.
+Denmark has a unique system of [nationwide health registries](https://dsfe.dk/danish-registries/) that collect data on diseases, treatment, and outcomes. These comprehensive databases form a valuable foundation for developing predictive models and research in general. The registries are administered by major public organisations in Denmark, which act as the official data controllers responsible for safeguarding information due to its person-sensitive nature.
 Below follows two of the major data controllers of healthcare data in Denmark.
 
 
