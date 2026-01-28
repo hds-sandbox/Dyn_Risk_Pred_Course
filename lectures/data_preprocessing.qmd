@@ -6,124 +6,129 @@ format: html
 # Data Preprocessing
 :::
 
-This section aims to equip participants with the essential knowledge required for effective data preparation, focusing on common challenges and the strategies employed to overcome them. Participants will be prepared for the potential pitfalls and considerations encountered during data preparation for dynamic risk prediction models. Strategies and methods for addressing these challenges are also included. At the conclusion of this part, participants' knowledge can be tested through the creation of preprocessing code for several datasets, which are to be prepared for an analysis, forming the practical exercise for the next part of this course.
+This section aims to prepare participants for the necessary considerations encountered during data preparation for dynamic risk prediction modelling.
+
 
 Throughout this module, the following topics will be covered:
 
-- Establishing the Data Analysis protocol
-- Challenges in Data Handling
+- Establishing the Data Analysis Protocol
+- Challenges in Data Preprocessing
 - Data Representation Techniques
-- Splitting data for Model Evaluation
+- Splitting Data for Model Evaluation
 - Feature Engineering
 - **Exercises**
 
 
-## Establishing the Data Analysis protocol
+## Establishing the Data Analysis Protocol
 
-Continuing from the concepts introduced earlier in the course, this section provides a detailed guide on establishing a formal data analysis protocol. This protocol functions as a "checklist" before the actual building of a dynamic risk prediction model. To demonstrate this process, will the example of the dynamic prediction model for palliative SACT treatment introduced in the introduction section, be utilized again.
+Before starting any data preprocessing and data analysis, one should establish a data analysis protocol, which will function as a "recipe" for the upcoming data preprocessing and analysis. This is an important step to get an overview of the necessary steps in establishing a dynamic prediction model and to avoid manipulating data until one gets the desired output.
 
-To ensure efficient structuring of the modeling process, the implementation of a well-established framework is recommended. To illustrate the establishment of such a research framework, the dynamic prediction model for palliative SACT treatment, as introduced earlier in this course, will be further explored. For a more advanced reference on framework development, the work by [Tomašev et al. (2021), 'Use of deep learning to develop continuous-risk models for adverse event prediction from electronic health records'](https://www.nature.com/articles/s41596-021-00513-5), is recommended, as it exemplifies a complete end-to-end dynamic prediction model, including detailed discussions on data preprocessing.
+The protocol can contain the following elements:
 
-The design of such a framework for the SACT prediction model example is outlined below:
+Description of the clinical problem
 
-| Setting | 30-day mortality example |
-|:----|:----|
-| A clinically relevant problem is identified | Can mortality within 30 days be predicted for patients with advanced cancer? |
-| It has been decided how the outcome will be evaluated | Date of death (any cause) extracted from the CPR register. |
-| Inclusion and exclusion criteria are set (Note: Criteria must be generalizable to a prospective setting and assessable from the point where model inference begins) | Patients in contact with the Department of Oncology, who received SACT for cancer or were diagnosed with cancer, are included. |
-| Prediction time points are defined | Every registered contact the patient has with the Department of Oncology. |
-| Potential predictors identified | BMI, diagnoses, biomarkers, treatment data, surgery, etc. |
+Inclusion/exclusion criteria of patients
 
-A framework, representing the study design, has now been established. An overview of the study's aims and methods is provided by this structure. However, potential data issues and mitigation strategies must also be considered. Potential issues and corresponding countermeasures are covered in the next section.
+Description of data
 
-## Challenges in Data Handling
+Definition of predictive variables and outcomes
 
-After the data are obtained, dataset flaws should be identified. Real-world datasets are rarely cleaned and ready to be input into a pipeline. An understanding of dataset flaws is therefore foundational to the data management strategy.
+Strategies for investigating and improving data quality
+
+Feature engineering
+
+Data splitting into training, validation, calibration, and test sets
+
+Choice of prediction models
+
+Choice of evaluation metrics for the predictive performance
+
+Formulation and communication of results
 
 
-### Data quality in registry data
 
-Registry data quality can be significantly affected by the circumstances of its collection. Factors such as manual data entry, variability among different healthcare professionals, and system evolution can introduce inconsistencies and errors. These pitfalls means that  researchers must maintain awareness of potential data quality issues.
 
-These issues can include data entry errors, inconsistencies in how data is recorded, missing data, and biases introduced during the collection process. Also, the official changes in diagnosis codes over time can complicate longitudinal analysis. Given the complexity of these challenges, assessing data quality is difficult. Close collaboration with clinicians becomes essential, as their expertise is vital for the correct interpretation and understanding of the data.
+## Challenges in Data Preprocessing
 
-### Data collected for purposes other than modeling
+Having established a clinically relevant problem, identified the patient population, and defined outcomes and predictive variables (item 1 to 4 in the protocol), as well as acquired access to data, the next step is to prepare data for building a dynamic risk prediction model. This process involves several steps, the first of which is to become familiar with the data in order to identify potential challenges and develop appropriate mitigation strategies.
 
-Considering patient registries, the data was mainly collected for administration and to document patients.
-Similar to many other data sources, these registries were not originally designed for storing data for predictive modeling. This inherent characteristic makes data management a crucial and time-consuming process.
 
-It can be concluded that there are many pitfalls when working with registry data, and some of these issues have been presented in this course. This leads to the natural question of **what to do about it?**
 
-### Checklist for your data
+#### Talk to domain experts
 
-For reliable model output to be obtained, high-quality input data is required. This requirement can be addressed through several approaches detailed below:
 
-#### Talk to personnel
+Close collaboration with the health care personnel collecting the data becomes essential, as their expertise is vital for the correct interpretation, correction, and understanding of the data.
+The following topics are examples of beneficial information:
 
-Consultation with domain experts and personnel directly involved in data collection is important for effective data preprocessing. Through consultation, an understanding can be gained regarding several aspects of data management:
-
-- How data is collected by clinicians
+- How data are collected
 - Dilemmas or constraints associated with the data collection process
 - Potential systemic flaws or sources of error
-- Any updates to the coding standards or practices regarding health data
-- Reasons why some data values or patterns might appear unusual
+- Any updates to the coding standards or practices during data collection
+- Reasons behind missing values or unusual data
+
+
+#### Is the recording of the outcome (and predictive variables) of good quality?
+
+The quality of data sources can vary significantly, and poor-quality data can lead to inaccurate predictions. A critical assessment of data sources is necessary to ensure that the recorded data is reliable and representative. This requires an awareness of potential biases and data collection inaccuracies.
+
+For example, the **Danish National Patient Register** is a centralised registry containing information routinely collected at hospital contacts, such as discharge diagnoses and surgical and medical procedures. Because the registry only includes information about individuals that have been in contact with a hospital, its data can suffer from [informed presence bias]( https://pubmed.ncbi.nlm.nih.gov/27852603/). This bias can lead to a higher observed prevalence of illness than in the general population. Further, [Schmidt et al.](The Danish National Patient Registry: a review of content, data quality, and research potential - PubMed  have shown that the recording of diseases and treatments may be poor with positive predictive value varying between <15% and 100%.
+
+Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study, by [Karin Helweg-Larsen](The Danish Register of Causes of Death - Karin Helweg-Larsen, 2011), focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate.
+
+These examples illustrate that even long-standing administrative registers, originally designed for operational use, may have limitations in data validity when repurposed for research. Thus, there is a need for critical evaluation of all data sources to ensure accuracy and reliability. It is recommended to review existing literature on the validity and limitations of the selected data sources.
+
+
+
 
 #### Make summary statistics
 
-Making summary statistics can offer a lot of information regarding the dataset. There are some expectations for the data that can be examined through summary statistics.
-Some of the things that become apparent when looking at the data are the degree of:
+Using summary statistics is a key step in exploring the data’s distribution and quality, helping to detect:
+
 
 - Missing data
 - Outliers
 - Unexpectedly recurring values
 
-When there is an overview of these flaws, the next step is to make a data preprocessing strategy that takes these flaws into account.
+After obtaining an overview of these issues, the next step is to ensure that they are appropriately accounted for in the data analysis protocol.
 
-#### Pattern or random missing?
+#### Missing data
 
-The initial step in addressing missing data involves a thorough investigation for underlying patterns. This assessment is crucial before imputation or removal methods are considered, as the nature of missingness can significantly impact the validity of analyses. For instance, it should be determined whether missing data consistently occurs within specific intervals or under particular conditions.
+The initial step in addressing missing data involves a thorough investigation of the underlying pattern of missingness. This assessment is crucial before imputation or removal methods are considered, as the nature of missingness can significantly impact the validity of analyses. For instance, it should be determined whether missing data consistently occurs within specific intervals or under particular conditions.
 
-Missing values are typically categorized into three distinct types:
+Missing values are typically categorised into three distinct types:
 
-##### Missing completely at random (MCAR):
-The data is missing completely at random, meaning there is no relationship between the missing data and any other values related to the dataset.
+- **Missing completely at random (MCAR)**: Missingness occurs entirely at random, meaning there are no systematic differences between individuals with missing data and those with complete data with respect to either measured or unmeasured characteristics.
 
-##### Missing at random (MAR):
-Data are considered missing at random when the probability of missingness is dependent on an observed variable within the dataset, but not on the value of the missing data itself. For example, surveys within a depression registry may contain a significant amount of missing data. However, when surveys are stratified by gender, a pattern of male non-completion could be observed relative to female completion. In this scenario, the missingness of survey data is related to the observed variable of gender, thus illustrating the concept of Missing at Random.
+- **Missing at random (MAR)**:
+Missingness depends only on observed data, not on the missing values themselves. In other words, any systematic differences between individuals with and without missing data can be fully explained by variables that have been measured.
 
-##### Missing not at random (MNAR):
-Missing not at random refers to a scenario where the pattern of missing data is related to the unobserved values themselves. In the example of a depression registry, individuals with severe depression may have a high probability of not completing a survey. In such a case, the missingness is related to the severity of depression, which remains unobserved for those who do not complete the survey. When the data contains such pattern, it can be explicitly modeled, as otherwise would result in a biased analysis.
+- ** Missing not at random (MNAR)**:
+Missingness depends on the unobserved values themselves, even after accounting for observed variables. That is, systematic differences remain between individuals with and without missing data, related to the missing values that were not observed.
 
-Further information, including additional details on the concepts, can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK493614/).
 
-The choice of a strategy for handling missing data, depends on the type of missingness. For MCAR data, simple methods like deletion or mean/median imputation are often sufficient. For MAR data, more advanced predictive modeling is generally required to avoid bias. For MNAR, specialized models are necessary to explicitly model the missingness itself, [as simple imputation methods would likely result in a analysis being biased](https://www.ncbi.nlm.nih.gov/books/NBK493611/pdf/Bookshelf_NBK493611.pdf).
+Missingness in the data can, for example, be addressed by
 
-- **Deletion**: Remove rows or columns with missing values
-- **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or frequent value
-- **Constant Value Imputation**: Fill missing values with a specific constant (e.g. zeroes or a designated "missing" value)
+- **Deletion**: Remove individuals or predictive variables with missing values. Removing all individuals with missing in any of the variables of interest is also referred to as complete case analysis
+- **Mean/Median/Mode Imputation**: Replace missing values with the average, median, or most frequent value
+- **Constant Value Imputation**: Fill missing values with a specific constant (e.g., zeroes or a designated "missing" value)
+
+- **Carry forward**: For longitudinal data, fill missing values with the last observed value.
+
 - **Predictive Modeling**: Use machine learning algorithms to predict missing values based on other features
 
-#### Is the recording of the outcome good enough?
+The choice of a strategy for handling missing data in a variable depends on the type of missingness and whether the variable is independent of the outcome or not. For MCAR data, complete case analysis provides unbiased results, but doing so may result in an insufficient sample size. This also applies to MAR and MNAR data, provided the missingness is independent of the outcome being studied. If this is not the case, it is however challenging to achieve truly unbiased results for MNAR data as the missingness depends on unobserved data, while unbiased results for MAR data often can be employed by using multiple imputation. Simple methods imputing with a single value such as the sample mean may introduce bias, even for MCAR data. To read more about the different types of missingness and strategies for handling them see e.g. [here](https://www.ncbi.nlm.nih.gov/books/NBK493611/pdf/Bookshelf_NBK493611.pdf).
 
-The quality of data sources can vary significantly, and poor quality input can lead to inaccurate predictions. A critical assessment of data sources is necessary to ensure that the recorded outcomes are reliable and representative. This requires an awareness of potential biases and data collection inaccuracies.
+Before employing strategies to handle missing data, the dataset used for dynamic risk prediction must first be restructured as described in the next section *Data Representation Techniques*. Only after this restructuring should imputation be performed.
 
-For example, the **Danish National Patient Register (DNPR)** is a centralized registry of patients who have been in contact with hospitals. Because it only includes those who access hospital care, it can suffer from a phenomenon called [informed presence bias](https://catalogofbias.org/biases/informed-presence-bias/). This bias creates an artificially higher prevalence of illness within the dataset, as it does not represent the general population.
-
-Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate. For a more in-depth explanation of this issue, please consider reading [Goldstein, et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27852603/). This highlights that even well-established official registers can have data quality issues.
-
-These examples demonstrate that researchers must apply critical evaluation to all data sources to ensure the accuracy and reliability of their analyses.
 
 ## Data Representation Techniques
 
-In dynamic risk prediction, data is often collected at irregular time intervals. This irregularity originates from unpredictable factors like human interaction and the need for medical treatment. To be able to use models that typically operate on fixed time intervals, requires irregular time points to be structured appropriately. Time discretization can be employed for this purpose. This process transforms the original patient data, which is recorded continuously over time, into discrete time intervals, such as hours or days. By discretizing, the data is simplified and made suitable for various modeling techniques.
+In health care, data are typically collected at irregular time intervals, reflecting when patients seek care and when clinicians record information. Following the data preparation protocol proposed by [Tomašev et al.](https://www.nature.com/articles/s41596-021-00513-5) for dynamic risk prediction, an initial step involves structuring the data into fixed time intervals and aggregating the available information within each interval. This process transforms the original continuously recorded patient data into discrete time segments, such as hours or days.
 
-For dynamic risk prediction using unstructured healthcare data recorded at irregular intervals, **time discretization** can be employed effectively. As patients arrive at varying times and progress through different parts of the healthcare system during the day, and researcher may consider transforming the data into a structured format to help the prediction model process it efficiently.
+Selection of a suitable discretization interval is required to structure the irregularly timed data. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
 
-Selection of a suitable time interval is required to structure the irregularly timed data. The interval size (e.g., hours, days, weeks) is determined primarily by data frequency. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
-
-
-To increase the performance of the prediction model, it is better to have low data granularity to present as many details as possible to the model, which also makes the output more detailed. The selection of the discretization interval is influenced by data volume, data frequency, and potentially by prior data preprocessing steps.
-
+Several predictor values may be available within the same time interval, and these must be aggregated into a single representative value, for example by taking the mean. Figure 1 illustrates bundling measurements of albumin levels into 6-hour time intervals (for a single patient), where multiple measurements in a time interval is aggregated by the mean, and where predictions are regularly triggered every 6 hours.
+..........................
 <div style="overflow: auto; text-align: center;">
   <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"> <!-- "Opdater til 2025 versionen". Tror det er næste figur der mentes. Denne figur er næsten 1-1 med 2025 slides. -->
 </div>
