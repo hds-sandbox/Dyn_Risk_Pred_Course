@@ -9,7 +9,7 @@ format: html
 Up to this point, we have focused on how to develop a dynamic risk prediction model, yet this is only half the challenge. The real impact happens when these models are seamlessly integrated into clinical workflows, connected to real-world data sources, and delivered to clinicians in real time.
 
 This section introduces the practical side of deploying prediction models in health care, which is
-made possible by established data exchange standards such as FHIR [Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir). This standard streamlines the interaction with healthcare data globally. FHIR was briefly introduced under Data Sources and Data Acquisition and will be further elaborated here.
+made possible by established data exchange standards such as FHIR [Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir). This standard streamlines the interaction with healthcare data globally. FHIR was briefly introduced under [Data Sources and Data Acquisition](data_management.qmd) and will be further elaborated here.
 
 This section will cover:
 
@@ -48,7 +48,7 @@ This process is illustrated in Figure 2.
 
 Figure 2: Network infrastructure of a risk assessment tool for clinicians. It shows how data is accessed directly at the data sources and how they are processed in the data management component, then feed into the predictive model which is hosted on a server. The result of the model is then displayed on an interface on a local computer.
 
-Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component is the data management component, which is what handle the data acquisition and preprocessing.  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
+Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component is the data management component, which is what handle the [data acquisition](data_management.qmd) and [preprocessing](data_preprocessing.qmd).  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
 Access to data is typically not direct, it goes via an *Application Programming Interface (API)*, which acts as a bridge between the user and the databases.
 This approach is effective because it allows for the establishment of automated tasks using a *cron job*, which is a scheduled task that is executed at a predetermined time or interval.
 For example, such jobs could involve updating the database for all the blood tests collected throughout the day at midnight for display on an app or webpage. The display on the app or webpage would be through an API communicating with the database and reading the appropriate data for the given tasks.
@@ -110,7 +110,7 @@ Technical validation of the implementation is a process of ensuring the function
 
 In terms of technical validation of the implementation, there are [three main types](https://www.learngxp.com/good-validation-practices/the-difference-between-prospective-concurrent-and-retrospective-validation/): prospective, concurrent, and retrospective.
 
-The prospective technical validation is an important validation type, as it validates that the system performs as intended, based on its protocols, after the system is used in practice. There is an emphasis on verifying that the technical implementation functions, separate from the clinical validation of the prediction model as discussed in earlier in the course.
+The prospective technical validation is an important validation type, as it validates that the system performs as intended, based on its protocols, after the system is used in practice. There is an emphasis on verifying that the technical implementation functions, separate from the clinical validation of the prediction model [as discussed in earlier in the course](modelling.qmd).
 
 The validation process typically follows a systematic approach, starting with the process design, then going through the installation, operational, and performance qualifications.
 It is typically required that the system pass the validation checks before it is deployed.
@@ -126,52 +126,34 @@ The main reason to use this type of validation is if no prospective validation w
 
 For further information, please see this book: [Benson, Tim, and Grahame Grieve. (2021) "Principles of health interoperability.”](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)
 
-# Exercise ################### Hertil....
-Exercise 1: List patients using the get method from requests_fhir.
+# Exercise
+### Exercise 1: List patients using the get method from requests_fhir.
 
 This exercise’s goal is to fetch a list of all the patients from the mock FHIR server and display their information. This is a hands-on simulation of querying a secure database for pulling a cohort of patients. The steps are as follows:
 
-Define the base URL for the mock server: https://test/fhir
+1. Define the base URL for the mock server: https://test/fhir
+2. Construct the full URL to access the patient resource. By following the RESTful principles, this can be achieved by appending /Patient to the base URL.
+3. Use the provided get() (get_r in the R mock server) method to request the URL
+4. The mock server will return a JSON object. Parse the JSON object to extract the list of patient entries.
+5. Iterate through the entries and extract the available variables
+6. Organize this information into a dataframe. The file request_fhir.py or request_fhir.R should be in the same folder as this markdown file.
 
-Construct the full URL to access the patient resource. By following the RESTful principles, this can be achieved by appending /Patient to the base URL.
+**Python hints:**
 
-Use the provided get() (get_r in the R mock server) method to request the URL
+- Import the request_fhir.py as request and the libraries `Json`
+- Use an f-string to create the URL:patients_url = f’{BASE_URL}/Patient’
+- The response content is located in response._content. Use json.load()` to parse the json object.
+- The patient data is nested in the JSON structure under [‘entry’]. Iterate through this list.
+- Create an empty dataframe and append the patient information into the empty dataframe
 
-The mock server will return a JSON object. Parse the JSON object to extract the list of patient entries.
+**R hints:**
 
-Iterate through the entries and extract the available variables
+- Source the request_fhir.R
+- Construct the URL by using paste0()
+- Retrieve the content by using get_r() with the patient URL. The content is in patient_url$content.
+- Use fromJSON to parse the data
 
-Organize this information into a dataframe. The file request_fhir.py or request_fhir.R should be in the same folder as this markdown file.
-
-
-
-Python hints:
-
-Import the request_fhir.py as request and the libraries `Json`
-
-Use an f-string to create the URL:patients_url = f’{BASE_URL}/Patient’
-
-The response content is located in response._content. Use json.load()` to parse the json object.
-
-The patient data is nested in the JSON structure under [‘entry’]. Iterate through this list.
-
-Create an empty dataframe and append the patient information into the empty dataframe
-
-
-
-R hints:
-
-Source the request_fhir.R
-
-Construct the URL by using paste0()
-
-Retrieve the content by using get_r() with the patient URL. The content is in patient_url$content.
-
-Use fromJSON to parse the data
-
-
-
-Exercise 2: Find the code for a specific observation
+### Exercise 2: Find the code for a specific observation
 
 In this exercise, a standardized code is needed to extract information about a patient. The code of interest is the code for cholesterol. Look into the snomed.csv and search for labels like 'ldl' or 'chol'.
 
@@ -179,21 +161,14 @@ Exercise 3: Get measurements of cholesterol for a patient and plot them over tim
 
 This exercise will combine the two previous exercises by fetching a single individual and plotting their cholesterol level over time. The steps are as follows:
 
-Choose a patient_id from the retrieved list from Exercise 1.
+- Choose a patient_id from the retrieved list from Exercise 1.
+- Use the cholesterol code found in Exercise 2.
+- Construct a new URL to query the Observation resource. The format of the URL will be …/Observation?patient={patient_id}&code={chol_code}
+- Make a GET request to the URL
+- Parse the JSON object to extract the cholesterol values and the dates recorded as effectiveDateTime
+- Plot the values over time.
 
-Use the cholesterol code found in Exercise 2.
-
-Construct a new URL to query the Observation resource. The format of the URL will be …/Observation?patient={patient_id}&code={chol_code}
-
-Make a GET request to the URL
-
-Parse the JSON object to extract the cholesterol values and the dates recorded as effectiveDateTime
-
-Plot the values over time.
-
-
-
-Coding hints:
+**Coding hints:**
 
 The steps are similar to the code in Exercise 1.
 
@@ -201,7 +176,7 @@ When iterating through the [‘entry’] in the response list, the value is nest
 
 
 
-BONUS FOR PYTHON USERS
+## BONUS FOR PYTHON USERS
 
 
 
