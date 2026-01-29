@@ -31,7 +31,6 @@ The specific topics of this module are:
 - Predictive modelling
     - Logistic regression
     - Decision trees
-
     - Neural networks
 - Ensemble learning methods
    - Bagging
@@ -80,7 +79,7 @@ In classification, predictor variables are used to assign an observation to a ca
 
 Figure 1: Illustration of a classification (left) and a regression (right) problem. On the left, data is separated into two classes (positive and negative) based on the predictors $x_1$ and $x_2$. On the right, a fitted line shows the relationship between the predictor $x$ and the outcome $y$.
 
-
+&nbsp;
 
 In healthcare applications, prediction models are typically trained using large datasets containing clinical information, lifestyle factors, genetic data, or medical imaging. The model learns patterns between predictors and outcome by estimating its parameters and can then be employed to predict outcomes, such as the risk of a binary event, for new patients.
 
@@ -96,8 +95,9 @@ Figure 2 illustrates the model performance of three different models with varyin
    <img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-
 Figure 2: Illustration of how model flexibility affects performance. White and black dots represent the true classes. Green and red backgrounds indicate predicted classes, while green-circled dots are correctly classified and red-circled dots are mis-classified. Image credit [Vesteghem, C. (2022)]( https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
+
+&nbsp;
 
 To achieve the right balance between underfitting and overfitting, a model is trained on the training set to learn its parameters $\beta$. Its performance is then evaluated on a validation set, which is used to tune hyperparameters. After the final model and hyperparameters are chosen its generalization performance is assessed on a separate test set that was not used in any part of the training or tuning process.
 Ref: [James et al. 2014:31-34](https://www.statlearning.com/)
@@ -175,7 +175,7 @@ The values of all these metrics are bounded between 0 and 1. A value closer to 1
 Note, the performance metrics introduced above are all threshold-dependent, meaning that their values depend on the choice of $c$. Changing the threshold alters the balance of true/false positives/negatives and therefore affects the resulting metrics.
 
 
-** Example **
+**Example**
 
 Consider the following distribution of false/true positives/negatives:
 
@@ -196,7 +196,7 @@ Then the metrics described above can be calculated, obtaining:
 
 In the above example, it has been demonstrated how to compute a range of well-known performance metrics. An efficient way of understanding the dynamics of these metrics is to try to compute them yourself. To do this, a new distribution of TP, FP, TN, and FN is provided:
 
-**TP:* 90
+**TP:** 90
 
 **FP:** 10
 
@@ -206,15 +206,11 @@ In the above example, it has been demonstrated how to compute a range of well-kn
 
 Compute the following metrics:
 
-Accuracy
-
-Sensitivity
-
-Specificity
-
-Precision
-
-F1 score
+- Accuracy
+- Sensitivity
+- Specificity
+- Precision
+- F1 score
 
 Based on the provided formulas from this course. Enter the number in the following boxes and check if you have reached the correct numbers.
 
@@ -231,12 +227,10 @@ To learn more about confusion metrics and performance metrics, see this ref: [Ja
 
 During model training, a metric indicating the difference between the predicted value and the true outcome variable is required. This metric, often called the *loss functions*, enables the algorithm to improve the predicted output by adjusting model parameters to minimise the difference [(James et al 2014:300-301)](https://www.statlearning.com/). Loss functions are thus the main component to "learn" the best model parameters to make the most optimal predictions.
 
-Let $(x_1, y_1),…,(x_n,y_n) $, denote a series of corresponding predictor ($x_i$) and outcome  ($y_i$) variables. A general loss function for continuous outcome variables $y_i$ to be minimised as function of the tuneable parameter $\beta$ can be expressed as the average distance between the outcome variables $y_i$ and the predicted outcome $f(x_i, \beta)$ given the predictors $x_i$ and the parameter $\beta$:
+Let $(x_1, y_1),…,(x_n,y_n)$, denote a series of corresponding predictor ($x_i$) and outcome  ($y_i$) variables. A general loss function for continuous outcome variables $y_i$ to be minimised as function of the tuneable parameter $\beta$ can be expressed as the average distance between the outcome variables $y_i$ and the predicted outcome $f(x_i, \beta)$ given the predictors $x_i$ and the parameter $\beta$:
 
 $$
-
-                      L(\beta) =  \sum_{i=1}^n (y_i – f(x_i,\beta)) ^2.
-
+L(\beta) =  \sum_{i=1}^n (y_i – f(x_i,\beta)) ^2.
 $$
 
 
@@ -257,6 +251,8 @@ The ROC curve provides a visual representation of a model's ability to discrimin
  </div>
 
 Figure 5: Illustration of a ROC curve and its corresponding ROC AUC. The diagonal line represents the performance of a random classifier. The red area is the AUC performance of a given classifier. Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
+
+&nbsp;
 
 The PR curve plots precision against sensitivity, also known as recall (Figure 6). It shows the trade-off between precision and recall: a higher classification threshold $c$ increases precision by reducing false positives but decreases recall by reducing false positives. The PR curve is particularly useful when a dataset contains class imbalance, where the positive class is significantly smaller than the negative class. It emphasises the model’s performance on identifying positive cases by using precision and recall. True negatives are not part of these calculations, which makes the PR curve more informative than the ROC curve when the negative class dominates. The PR curve for a model is often compared to that of a random classifier represented by a horizontal line (Figure 6). This baseline value of the PR AUC (often approximated by *average precision*) is the proportion of positive cases in the dataset. An ideal model would have a PR AUC of 1, which indicates a perfect score on both precision and recall.
 
@@ -293,6 +289,7 @@ The relationship between the logistic function, a threshold (typically $c = 0.5$
  </div>
 Figure 7: Illustration of the predicted probability of belonging to the positive class in a logistic regression with a single predictor $x_1$. Using a classification threshold of $c = 0.5$ (horizontal dotted line), the vertical dotted line marks the corresponding decision boundary in $x_1$-space, separating datapoints into predicted negative (green) and positive (red) classes.
 
+&nbsp;
 
 In practice, logistic regression models are trained by minimising a loss function in $\beta$, such as the binary cross-entropy computed from the predicted probabilities given by the logistic function. The optimisation method may range from a straightforward gradient descent to more advanced algorithms.
 
@@ -302,7 +299,6 @@ In prediction problems involving numerous predictors, a challenge is presented i
 One of the most well-known and used regularization techniques is *ridge regression* (aka L2-regularization), in which a regularization term is added to the loss function:
 
 $$
-
 L(\beta) = \sum_{i : y_i=1} \log\big(1-p(\beta,  x_i)\big) + \sum_{i : y_i=0} \log\big(p(\beta, x_i)\big) + \lambda\sum_{j=1}^{m} \beta_j^2,
 $$
 
@@ -343,9 +339,7 @@ $$
 where $r_{i,k}$ is the proportion of samples that belong to class $k$ (among $n$ possible classes) at node $i$. For binary prediction, this reduces to
 
 $$
-
 \text{Gini index}_i = 2*r_i (1 – r_i),
-
 $$
 
 where $r_i$ is the proportion of observations of one class in node $i$.
@@ -369,6 +363,7 @@ An example of a simple classification tree is shown in Figure 8.
 
 Figure 8: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age > 65, then further by weight and height, until four leaf nodes are reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.
 
+&nbsp;
 
 While decision trees are powerful models, they can be unstable as their structures are highly sensitive to small changes in the data. This sensitivity can lead to overly complex structures that capture noise rather than true patterns, and as a result, their predictive accuracy may be lower than that of other methods.
 
@@ -406,9 +401,7 @@ For iteration $i + 1$, the update can be expressed as:
 
 
 $$
-
 F_{i+1}=F_i+\delta f_i,
-
 $$
 
 where $F_i$ represents the current ensemble model after $i$ iterations, $f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
@@ -423,9 +416,7 @@ Ref: [James et al. 2014:343-362](https://www.statlearning.com/)
 The prediction process is initiated at the input layer, which consists of $m$ nodes that represents the $m$ input features $x_{i1}, \dots, x_{im}$ associated with the $i$th sample. The connections between nodes are defined by weights, which together with *bias terms* constitute the tuneable parameters of the network. The weights determine how strongly the output of one node influences nodes in the subsequent layer. In each node, a weighted sum of the inputs is calculated and a bias term added before applying a non-linear activation function. The activation function allows the model to capture complex patterns in the data. Formally, we assume for the $p$th node in the $q$th hidden layer with activation $A_p^{(q)}$, we can write this process as
 
 $$
-
 A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
-
 $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
@@ -438,7 +429,6 @@ tThe $q$th hidden layer has $k_q$ nodes. The activation of the first node in the
 
 $$
 A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
-
 $$
 
 where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
@@ -446,17 +436,13 @@ where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th
 We can continue this process, calculating the activation of the first node in the second layer, $A_1^{(2)}$, using the $k_1$ output values $A_1^{(1)}, \dots, A_{k_1}^{(1)}$ from the first hidden layer:
 
 $$
-
 A_1^{(2)} = g(B_{2,1,0} + \sum_{j=1}^kB_{2,1,j}A_j^{(1)}).
-
 $$
 
 In general, for the $p$th node in the $q$th hidden layer with activation $A_p^{(q)}$, we can write this process as
 
 $$
-
 A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
-
 $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$.
@@ -468,6 +454,8 @@ The activations from the last hidden layer are passed to the output layer. There
  </div>
 Figure 9: An illustration of a deep feedforward neural network with three hidden layers ($L_1$, $L_2$, and $L_3$). The input layer consists of the data points $x_{ij}$ with $m$ features. The $q$th layer consists of $k_q$ nodes which are fully connected to all the nodes in the next layer. $B_1$, $B_2$, $B_3$, and $B_4$ denote the weight/bias matrices that defines the layer-to-layer transformations, $f$ the output activation function, and $Y_i$ the final prediction.
 
+&nbsp;
+
 Note, the number of parameters in neural networks can grow rapidly, as adding a single node to a layer introduces one weight for each node in the subsequent layer, and an additional bias parameter.
 
 
@@ -476,9 +464,7 @@ Note, the number of parameters in neural networks can grow rapidly, as adding a 
 To estimate model parameters, a loss function $L$ is minimised as previously discussed:
 
 $$
-
 L(\beta) = \sum_{i=1}^n|y_i-f(x_i, \beta)|^2,
-
 $$
 
 where $\beta$ is now the weights and bias terms of the neural network.
@@ -530,6 +516,8 @@ This approach constitutes an exhaustive search. The search space should be broad
 
 Figure 11: Results from a grid search for an elastic net model with the two hyperparameters:  $\alpha$ (mixing parameter) and $\lambda$ (penalty parameter). Grid values are the average precision. The red box indicates the combination of hyperparameters which produces the highest average precision (mixing parameter = 0.6 and inverse penalty of 0.002). Image credit [Vesteghem, C. (2022)]( https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
+&nbsp;
+
 Grid search can be computationally expensive, as a new model is fitted for each combination of hyperparameters. Its effectiveness is also limited by the dimensionality of the hyperparameter. Grid search is most suitable for models such as regularised logistic regression and certain tree-based methods, provided that only a limited number of hyperparameters are involved. It is generally not recommended for complex models with many hyperparameters, such as neural networks, due to their high dimensionality and the extensive computational resources required to train numerous network configurations.
 
 
@@ -542,7 +530,7 @@ Random search effectively manages higher dimensionality because the number of mo
 
 ## Bayesian Optimisation
 
-Bayesian optimisationhttps://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a model that predicts how well different hyperparameters will perform. The algorithm then chooses new hyperparameters to test based on this model, balancing exploration of unknown regions and exploitation of promising areas. After each evaluation, the model is updated with the results, gradually improving its predictions. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 12 illustrates Bayesian optimization.
+[Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f)  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a model that predicts how well different hyperparameters will perform. The algorithm then chooses new hyperparameters to test based on this model, balancing exploration of unknown regions and exploitation of promising areas. After each evaluation, the model is updated with the results, gradually improving its predictions. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 12 illustrates Bayesian optimization.
 
 <div style="text-align: center;">
   <img src="../images/modelling/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
@@ -550,7 +538,7 @@ Bayesian optimisationhttps://medium.com/data-science/a-conceptual-explanation-of
 
 Figure 12: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the expected improvements as the surrogate models the unknown loss function over multiple iterations.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
-
+&nbsp;
 
 For further reading, see for example [Shahriari et al. (2015)](https://ieeexplore.ieee.org/document/7352306)
 
@@ -563,12 +551,14 @@ A common approach for evaluating model performance on unseen data, as discussed 
 
 Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, called *folds* (Figure 13), the performance across test sets is averaged to estimate the model's overall performance. If $K$ splits were performed, it is called $K$-fold cross-validation.
 
-[The number of folds is widely discussed, but often a value between 5 and 10 is used (James et al. 2013:206](https://www.statlearning.com/)].
+[The number of folds is widely discussed, but often a value between 5 and 10 is used (James et al. 2013:206](https://www.statlearning.com/).
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 Figure 13: Illustration of 5-fold cross-validation. Visualise the process of using different parts of the dataset for test set across 5 splits of the dataset.
+
+&nbsp;
 
 If the cross-validation confirms an acceptable generalizability, a final model can be fitted using a train/validation split on the entire dataset.
 
@@ -589,6 +579,7 @@ This technique introduces an additional level of folding: First, the dataset is 
 
 Figure 14: Illustration of nested cross-validation with five outer folds and three inner folds.
 
+&nbsp;
 
 Because each outer fold is evaluated using an additional $L$-fold cross-validation, the risk of overfitting is greatly reduced, and the estimated model performance is more reliable.
 
@@ -646,6 +637,7 @@ Model calibration can be assessed by comparing predicted risk scores with observ
 
 Figure 16: Example of a calibration plot for four different models. Image credit: [Scikti-learn.org](https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html)
 
+&nbsp;
 
 Alternatively, the [Brier score](https://en.wikipedia.org/wiki/Brier_score) provides a useful measure of calibration in binary classification, but can also be used in multi-class problems.
 The Brier score quantifies the closeness of the predicted risk scores ($\hat{p}_i(\hat{beta},x_i)$) to the observed outcome ($y_i$) by

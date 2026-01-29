@@ -18,7 +18,7 @@ website:
       - href: lectures/data_preprocessing.qmd
         text: Data Preprocessing
       - href: lectures/modelling.qmd
-        text: Modeling
+        text: Modelling
       - href: lectures/implementation.qmd
         text: Implementation
     right: 

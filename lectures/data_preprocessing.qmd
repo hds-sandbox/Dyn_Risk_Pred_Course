@@ -108,6 +108,8 @@ Several predictor values may be available within the same time interval, and the
 
 Figure 1: Bundling data into 6-hour intervals, where predictions are regularly triggered every 6 hours.
 
+&nbsp;
+
 When structuring data into fixed time intervals, care must be taken to prevent information from future events from influencing prediction at the current time point. Special attention is for example needed if a predictor value is recorded with a coarser time stamp than the one chosen for bundling data. Suppose information on a given surgical procedure is recorded only by date, while other predictors are timestamped more precisely and bundled into 6-hour time intervals. In that case, information about the surgical procedure should be assigned to the first 6-hour interval on the day following the recorded date to avoid incorporating information from the future.
 
 Now that data has been structured into discrete time intervals a *current value* for each predictor at the specific prediction time has been obtained. By aggregating all available information within each interval, we create a snapshot of the patient’s most recent clinical status that can be used for prediction.
@@ -119,6 +121,8 @@ In addition to the current values discussed above, it is often valuable to inclu
 </div>
 
 Figure 2: Illustration of a lookback window for prediction.
+
+&nbsp;
 
 Different summaries of data within the look back window can be used, for example:
 
@@ -242,6 +246,8 @@ All in all, a dataset ready for training a predictive model has been constructed
 <img src="../images/table36.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 Figure 4. A dataset prepared for modelling. Rows highlighted in green represent prediction time points, which typically serve as the model’s input.
+
+&nbsp;
 
 To reinforce what you have learned from this lesson, try the exercise below before proceeding to the next course section on modelling. After concluding the exercise, the next section can be accessed by pressing the button located below.
 

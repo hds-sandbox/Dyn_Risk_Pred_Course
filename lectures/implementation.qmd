@@ -34,6 +34,8 @@ Servers typically operate within a client-server architecture, a fundamental mod
 </div>
 Figure 1: Illustration of the interaction of servers and clients through networks.
 
+&nbsp;
+
 There exist different types of servers, such as those for websites, search engines, email services, and databases. A database server is a type of server through which information is managed for easy access, management, and updating of databases. A database is composed of physical storage and software that enable the insertion, retrieval, and management of data from storage.
 
 To generate a new risk prediction from a trained model, the required raw input data must be retrieved, possibly preprocessed, and then made available to the model. This data will be placed in a database hosted on a database server.
@@ -47,6 +49,8 @@ This process is illustrated in Figure 2.
 </div>
 
 Figure 2: Network infrastructure of a risk assessment tool for clinicians. It shows how data is accessed directly at the data sources and how they are processed in the data management component, then feed into the predictive model which is hosted on a server. The result of the model is then displayed on an interface on a local computer.
+
+&nbsp;
 
 Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component is the data management component, which is what handle the [data acquisition](data_management.qmd) and [preprocessing](data_preprocessing.qmd).  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
 Access to data is typically not direct, it goes via an *Application Programming Interface (API)*, which acts as a bridge between the user and the databases.
@@ -88,6 +92,8 @@ FHIR is used to access real-time data from various sources, which can then infor
 </div>
 
 Figure 3: Network architecture of a risk assessment tool including FHIR interaction.
+
+&nbsp;
 
 The FHIR [administration module](https://www.hl7.org/fhir/administration-module.html) covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.
 

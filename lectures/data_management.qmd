@@ -53,7 +53,10 @@ All Danish diagnostic SKS code data can be searched through an open database, to
 <div style="overflow: auto;">
   <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
 </div>
+
 Figure 1: SKS browser for code description. Screenshot from [medinfo.dk](medinfo.dk)
+
+&nbsp;
 
 For specific types of data, such as clinical laboratory data, more specialised terminologies are required. This type of data also has a widely adopted standard called Nomenclature for Properties and Units (NPU) terminology. The NPU provides unique identification codes for each type of laboratory analysis, e.g. blood tests, and are adopted in laboratory databases in Denmark, such as [LABKA](https://www.dovepress.com/the-danish-lymphoid-cancer-research-daly-care-data-resource-the-basis--peer-reviewed-fulltext-article-CLEP).
 

@@ -131,6 +131,8 @@ The course discusses key elements of the journey from data acquisition to the im
 
 Figure 1: A simplified workflow for a dynamic risk prediction model.
 
+&nbsp;
+
 The course material is divided into five core modules:
 
 1) **Introduction:**
@@ -165,6 +167,8 @@ Traditional risk prediction generates a risk estimate at a specific time point i
 
 Figure 2: Illustration of dynamic risk prediction.
 
+&nbsp;
+
 Dynamic risk prediction models are relevant because they can:
 
 - Continuously monitor changes in patient risk over time.
@@ -191,7 +195,6 @@ Predictions may be generated at regular intervals, for example every six hours, 
 
 Figure 3: Dynamic risk prediction with irregularly triggered prediction times.
 
-
 ## Example: 30-day Mortality in Advanced Lung Cancer
 
 Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to slow disease progression and improve their quality of life. While SACT can provide substantial benefits, it may also cause serious and in some cases fatal adverse effects. Administering SACT requires balancing the potential benefits in survival against adverse side effects and impacts on quality of life, as illustrated in Figure 4. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.
@@ -201,6 +204,8 @@ Patients suffering from cancer may receive systemic anti-cancer treatment (SACT)
 </div>
 Figure 4: Model of health-related quality of life for a patient with limited life expectancy. Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf
 )
+
+&nbsp;
 
 To decide whether to initiate, continue, or stop SACT is a complex and difficult decision. To support this decision-making process, the development of dynamic predictive models may be a valuable tool. In a study by [Vesteghem et al. (2022)](https://ascopubs.org/doi/10.1200/CCI.22.00054?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed), the 30-day mortality risk for patients with advanced lung cancer was predicted dynamically for patients in the North Denmark Region. Extensive electronic health record and administrative data were used in the predictive models, including demographic information, cancer diagnosis, comorbidities, treatments, and biological tests. A new risk estimate was provided each time a patient was administered a drug at the Department of Oncology, Aalborg University Hospital.
 
