@@ -113,7 +113,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 - Utility and Explainability
 - Exercises
 
-
 ### [Part 5 - Implementation](implementation.qmd)
 
 - Hosting and Access to Data
@@ -125,9 +124,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 This course provides an overview of the principles of dynamic risk prediction in healthcare applications. However, most of the concepts introduced in this course are general to predictive modelling and can be applied outside dynamic risk prediction in healthcare.
 
-&nbsp;
-
-
 The course discusses key elements of the journey from data acquisition to the implementation of a dynamic risk prediction model, as illustrated in Figure 1.
 <div style="overflow: auto; text-align: center;">
   <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
@@ -135,11 +131,7 @@ The course discusses key elements of the journey from data acquisition to the im
 
 Figure 1: A simplified workflow for a dynamic risk prediction model.
 
-&nbsp;
-
-The course material is
-
-divided into five core modules:
+The course material is divided into five core modules:
 
 1) **Introduction:**
 
