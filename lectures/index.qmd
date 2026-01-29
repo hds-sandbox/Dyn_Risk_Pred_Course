@@ -55,19 +55,8 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-5. **SLIDES:** Course slides can be downloaded here:
 
- &nbsp;
-
- <p align="center">
-  <a href="https://phd.moodle.aau.dk/" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-    Download course slides
-  </a>
-</p>
-
-&nbsp;
-
-6. **COURSE EVALUATION SURVEY:**  The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+5. **COURSE EVALUATION SURVEY:**  The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
 
@@ -210,7 +199,7 @@ Figure 4: Model of health-related quality of life for a patient with limited lif
 To decide whether to initiate, continue, or stop SACT is a complex and difficult decision. To support this decision-making process, the development of dynamic predictive models may be a valuable tool. In a study by [Vesteghem et al. (2022)](https://ascopubs.org/doi/10.1200/CCI.22.00054?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed), the 30-day mortality risk for patients with advanced lung cancer was predicted dynamically for patients in the North Denmark Region. Extensive electronic health record and administrative data were used in the predictive models, including demographic information, cancer diagnosis, comorbidities, treatments, and biological tests. A new risk estimate was provided each time a patient was administered a drug at the Department of Oncology, Aalborg University Hospital.
 
 
-# Exercise:
+# Exercise
 
 Consider patients with Crohn’s disease, a chronic inflammatory bowel disease with a fluctuating course, where periods of remission are interrupted by disease flares that may require hospitalization. Because patients have repeated contacts with the healthcare system (e.g., outpatient visits, medical treatment, and surgery), clinical data is collected over time. This includes biomarkers (faecal calprotectin, C-reactive protein), medication data, healthcare utilisation, etc. Further, information about age, sex, and comorbidities at time of diagnosis is available. We build a prediction model that estimate the risk of hospitalisation within the next year each time the patient is in contact with the hospital.
 
@@ -269,7 +258,7 @@ Based on what has been presented in this chapter, please choose the correct opti
 <span class="q-header">2) Predictions are triggered:
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q2', 'Correct!">a. irregularly
+<div class="opt-btn" onclick="check(this, true, 'q2', 'Correct!')">a. irregularly
 </div>
 <div class="opt-btn" onclick="check(this, false, 'q2', 'Incorrect.')">b. regularly
 </div>
@@ -358,7 +347,7 @@ To proceed to the next section of the course, please click the button below.
 &nbsp;
 
  <p align="center">
-  <a href="http://localhost:4707/lectures/data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Data Sources and Data Acquisition
   </a>

@@ -35,6 +35,12 @@ When working with data, it is useful to differentiate between **data** and **met
   <img src="../images/table21.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
 </div>
 
+*Example of metadata for the blood pressure data:*
+
+<div style="overflow: auto; text-align: center;">
+  <img src="../images/table22.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
+</div>
+
 ### Description of the data
 
 A critical requirement for performing any kind of modelling involving data is to have a deep understanding of the data. To be able to provide a detailed description of the data is an efficient approach to understand the background, implications, and meaning of the data. Knowing who collected the data at which time can provide some insight of the standards at the given time. Understanding the meaning of the columns, what the values represent, the population in the data, and the data distribution is the foundation for conducting meaningful modelling of the data.
@@ -51,10 +57,9 @@ The SKS uses the [World Health Organisation's International Classification of Di
 All Danish diagnostic SKS code data can be searched through an open database, to either find a diagnosis by code or a code by diagnosis, as illustrated in Figure 1.
 
 <div style="overflow: auto;">
-  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 50px; width: 80%;">
+  <img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 5px; width: 80%;">
 </div>
-
-Figure 1: SKS browser for code description. Screenshot from [medinfo.dk](medinfo.dk)
+Figure 1: SKS browser for code description. Screenshot from [medinfo.dk](https://medinfo.dk/)
 
 &nbsp;
 
@@ -148,10 +153,10 @@ Based on the module regarding Danish health registries and data acquisition, ple
 <span class="q-header">2) You want to study patients with type 2 diabetes using the Danish National Patient Registry (DNPR). Can you reliably identify all patients with type 2 diabetes using DNPR alone?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect. DNPR primarily focuses on hospital-level contacts.')">a. Yes, DNPR captures all type 2 diabetes diagnoses.
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">a. Yes, DNPR captures all type 2 diabetes diagnoses.
 </div>
-<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct! Type 2 diabetes is often managed in primary care, which DNPR (hospital-focused) does not fully cover.')">b. No, because type 2 diabetes is usually managed in general practice; only hospital-related cases appear in DNPR.</div>
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect. This would still miss the vast majority of patients managed by GPs.')">c. Yes, but only if you include emergency admissions.
+<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">b. No, because type 2 diabetes is usually managed in general practice; only hospital-related cases appear in DNPR.</div>
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">c. Yes, but only if you include emergency admissions.
 </div>
 </div>
 <div class="feedback-text" id="fb-q-dnpr-identification">
@@ -162,11 +167,11 @@ Based on the module regarding Danish health registries and data acquisition, ple
 <span class="q-header">3) Can the Danish National Prescription Registry be used to identify patients with type 2 diabetes?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q-prescription-identification', 'Correct! Medications like Metformin can be used for multiple conditions (e.g., PCOS).')">a. Yes, but you must consider that some medications may be prescribed for other conditions.
+<div class="opt-btn" onclick="check(this, true, 'q-prescription-identification', 'Correct!')">a. Yes, but you must consider that some medications may be prescribed for other conditions.
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect. Prescriptions provide a proxy for diagnosis, even if not directly linked.')">b. No, prescriptions are not linked to diagnoses.
+<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">b. No, prescriptions are not linked to diagnoses.
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect. Off-label use and multi-purpose drugs mean exceptions always exist.')">c. Yes, prescriptions perfectly identify type 2 diabetes without exceptions.
+<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">c. Yes, prescriptions perfectly identify type 2 diabetes without exceptions.
 </div>
 </div>
 <div class="feedback-text" id="fb-q-prescription-identification">
@@ -199,7 +204,7 @@ To proceed to the next section of the course, please click the button below.
 &nbsp;
 
  <p align="center">
-  <a href="http://localhost:4707/lectures/data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Preprocessing
   </a>

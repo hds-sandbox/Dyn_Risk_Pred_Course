@@ -279,7 +279,7 @@ To proceed to the next section of the course, please click the button below.
 &nbsp;
 
  <p align="center">
-  <a href="http://localhost:4707/lectures/modelling.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="modelling.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Modelling
   </a>

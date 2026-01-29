@@ -61,3 +61,8 @@ print_results("User's Original Distribution", metrics_1, tp_1, fp_1, tn_1, fn_1)
 tp_2, fp_2, tn_2, fn_2 = 24, 5, 25, 4
 metrics_2 = calculate_metrics(tp_2, fp_2, tn_2, fn_2)
 print_results("New Illustrative Distribution (High Precision, Moderate Sensitivity)", metrics_2, tp_2, fp_2, tn_2, fn_2)
+
+# Exercise solution
+tp_2, fp_2, tn_2, fn_2 = 90, 10, 85, 15
+metrics_2 = calculate_metrics(tp_2, fp_2, tn_2, fn_2)
+print_results("New Illustrative Distribution (High Precision, Moderate Sensitivity)", metrics_2, tp_2, fp_2, tn_2, fn_2)

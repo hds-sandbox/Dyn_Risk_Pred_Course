@@ -67,7 +67,7 @@ The API can be seen as a function which facilitates the request. The client make
 
 An example of using a RESTful API could be to get data on a certain patient from a database. In this case, there must be a server address, the server needs to have a patient list, and the patients need to have some identifiers, like an ID number. If the server requirements are satisfied, the GET action can be employed:
 
-`GET(https://server.com/Patient/123 )`
+`GET(https://server.com/Patient/123)`
 
 This call would return a structured output, such as JSON or XML of the available patient data for the patient with ID 123. This output could look like the following:
 
@@ -202,12 +202,12 @@ INFO: 127.0.0.1:60161 - "GET /Patient/7ce15ccd-47d5-4808-bbd8-3eef4c7738b2 HTTP/
 
 
 
-### Task 4.1: Creating a Patient Resource
+### Task 1: Creating a Patient Resource
 
 
 
 A patient resource must be created that includes a human name and a contact point. The fhir.resources package in Python will be needed for this task. This package aligns directly with the FHIR documentation and resource content, as can be seen at https://hl7.org/fhir/patient.html.
 
-### Task 4.2: Interacting with a FHIR Database
+### Task 2: Interacting with a FHIR Database
 
 After a patient has been successfully created, an interaction with a FHIR database must be attempted using a URL for a database on a server. A mock server can be run on a local machine for this task. The exercise files directory must be found, and the following command must be executed: $ python mock_fhir_server.py. Through the use of this mock server, interaction with a server is made possible.

@@ -74,7 +74,7 @@ In regression, one or more predictor variables are used to predict the value of 
 In classification, predictor variables are used to assign an observation to a category or class. This applies to both binary classification problems and multi-class problems. For example, predicting the presence of type 2 diabetes (binary outcome) based on lifestyle factors or predicting a patient’s blood type (multi-class outcome) based on genetic markers and clinical variables. In the following, we focus on binary classification problems, where the two possible outcomes are labelled *positive* and *negative*.
 
 <div style="text-align: center;">
-   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+   <img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
  </div>
 
 Figure 1: Illustration of a classification (left) and a regression (right) problem. On the left, data is separated into two classes (positive and negative) based on the predictors $x_1$ and $x_2$. On the right, a fitted line shows the relationship between the predictor $x$ and the outcome $y$.
@@ -84,7 +84,7 @@ Figure 1: Illustration of a classification (left) and a regression (right) probl
 In healthcare applications, prediction models are typically trained using large datasets containing clinical information, lifestyle factors, genetic data, or medical imaging. The model learns patterns between predictors and outcome by estimating its parameters and can then be employed to predict outcomes, such as the risk of a binary event, for new patients.
 
 
-For further reading on classification and regression problems, seer: [James et al. 2024:15-27](https://www.statlearning.com/)
+For further reading on classification and regression problems, see: [James et al. 2024:15-27](https://www.statlearning.com/)
 
 ### Underfitting and overfitting
 *Underfitting* and *overfitting* are fundamental concepts in predictive modelling that describe how well a model learns from data. Underfitting happens when a model is too simple to capture the underlying patterns, resulting in poor performance on both the training set and unseen data. For example, a linear model is simple, and it is often unlikely for a real-world problem to have a perfectly linear relationship. This means that the model misses important relations among the features and the target. Overfitting, on the other hand, occurs when a model is very flexible and (almost) perfectly fits the training data, capturing the noise rather than the underlying general pattern, which leads to poor performance on new unseen data. The goal is to find a balance that allows the model to generalise well to new data.
@@ -122,7 +122,7 @@ After having obtained a predicted class for each case, the results can be catego
 This can be aggregated in a so-called *confusion matrix*:
 
 <div style="overflow: auto; text-align: center;">
-   <img src="../images/iamconfusion.png" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(400px, 100%);">
+   <img src="../images/iamconfusion.JPG" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(300px, 100%);">
  </div>
 
 The relative importance of different types of errors depends on the specific use-case. For example, in genetic testing, a type I error, i.e., incorrectly labelling a healthy person as ill, can cause unnecessary anxiety and interventions. In contrast, in cancer diagnosis, a type II error, that is, failing to detect disease in a patient who has cancer, may be considered more serious, as it delays treatment.
@@ -156,16 +156,13 @@ Other aspects of model performance are reflected by metrics such as *sensitivity
 
 
 
-The $F_1$ score is a single measure that combines sensitivity and precision, that is particularly useful when there is a trade-off between catching positive cases (sensitivity) and avoiding false positives (precision) and when class imbalance is present. It is given by
-$$
+The $F_1$ score is a single measure that combines sensitivity and precision, that is particularly useful when there is a trade-off between catching positive cases (sensitivity) and avoiding false positives (precision) and when class imbalance is present. It is given by:
 
 \begin{align}
 
       F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}.
 
 \end{align}
-
-$$
 
 
 
@@ -196,25 +193,117 @@ Then the metrics described above can be calculated, obtaining:
 
 In the above example, it has been demonstrated how to compute a range of well-known performance metrics. An efficient way of understanding the dynamics of these metrics is to try to compute them yourself. To do this, a new distribution of TP, FP, TN, and FN is provided:
 
-**TP:** 90
+- **TP:** 90
 
-**FP:** 10
+- **FP:** 10
 
-**TN:** 85
+- **TN:** 85
 
-**FN:** 15
+- **FN:** 15
 
 Compute the following metrics:
 
 - Accuracy
+
 - Sensitivity
+
 - Specificity
+
 - Precision
+
 - F1 score
 
 Based on the provided formulas from this course. Enter the number in the following boxes and check if you have reached the correct numbers.
 
+```{=html}
+<style>
+  .quiz-container { font-family: sans-serif; max-width: 850px; margin: 20px 0; }
+  .q-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .q-header { font-weight: bold; font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; }
+  .metric-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    border: 2px solid #d1d5da;
+    border-radius: 6px;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .ans-correct { background-color: #d4edda !important; border-color: #28a745 !important; }
+  .ans-wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; }
 
+  .feedback { font-size: 0.9em; margin-top: 8px; font-weight: bold; min-height: 1.2em; }
+  .text-correct { color: #155724; }
+  .text-wrong { color: #721c24; }
+</style>
+
+<div class="quiz-container">
+  <div class="q-card">
+    <span class="q-header">Accuracy</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.875)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Sensitivity (Recall)</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.857)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Specificity</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.895)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Precision</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.900)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">F1 Score</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.878)">
+    <div class="feedback"></div>
+  </div>
+</div>
+
+<script>
+  function checkNumeric(el, correctVal) {
+    const val = parseFloat(el.value);
+    const feedback = el.nextElementSibling;
+
+    if (isNaN(val)) {
+      el.classList.remove('ans-correct', 'ans-wrong');
+      feedback.innerHTML = "";
+      return;
+    }
+
+    const isCorrect = Math.abs(val - correctVal) < 0.01;
+
+    if (isCorrect) {
+      el.classList.add('ans-correct');
+      el.classList.remove('ans-wrong');
+      feedback.innerHTML = "Correct!";
+      feedback.className = "feedback text-correct";
+    } else {
+      el.classList.add('ans-wrong');
+      el.classList.remove('ans-correct');
+      feedback.innerHTML = "Incorrect. Try again.";
+      feedback.className = "feedback text-wrong";
+    }
+  }
+</script>
+```
 
 
 
@@ -240,7 +329,7 @@ $$
 L(\beta) = -\sum_{i=1}^n \left[ y_i\log(p(x_i,\beta)) + (1-y_i)\log(1-p(x_i,\beta)) \right],
 $$
 
-where $p(x_i,\beta)$ is the model's predicted probability that the $i^{th}$ observation belongs to the positive class given model parameters $\beta$ and predictors $x_i$. When the true class is positive ($y_i = 1$), only the first term, $y_i \log(p(x_i,\beta))$ contributes to the loss function, as the second term, $(1-y_i)log(1-p(x_i,\beta)), becomes 0, and vice versa when the true class $y_i$ is 0.
+where $p(x_i,\beta)$ is the model's predicted probability that the $i^{th}$ observation belongs to the positive class given model parameters $\beta$ and predictors $x_i$. When the true class is positive ($y_i = 1$), only the first term, $y_i \log(p(x_i,\beta))$ contributes to the loss function, as the second term, $(1-y_i)log(1-p(x_i,\beta))$, becomes 0, and vice versa when the true class $y_i$ is 0.
 
 Alternative evaluation methods are Area Under the Curve (AUC) metrics, which are threshold-independent performance metrics. These metrics summarises the information given by, e.g., the Receiver Operating Characteristic (ROC) curve or the Precision-Recall (PR) curve. These curves are generated by evaluating a model's performance across various classification thresholds, $c$. Each threshold produces a single point on the curve, and the area under this resulting curve is then estimated.
 
@@ -317,7 +406,7 @@ This regularization method is highly effective for controlling model complexity 
 Compared to ridge regression, LASSO additionally performs variable selection by allowing some coefficients to be equal to 0. However, if all predictors are truly relevant, this might lead to worse predictions.
 Otherwise, the performance of the two regularization types is similar, and which method performs best varies from problem to problem.
 
-In certain scenarios, a benefit can be gained by combining the regularization properties of ridge regression and LASSO. This can be obtained by using elastic net regularizationhttps://en.wikipedia.org/wiki/Elastic_net_regularization that also allows for the adjustment of the weighting of the two methods. The elastic net penalty is expressed as:
+In certain scenarios, a benefit can be gained by combining the regularization properties of ridge regression and LASSO. This can be obtained by using [elastic net regularization](https://en.wikipedia.org/wiki/Elastic_net_regularization) that also allows for the adjustment of the weighting of the two methods. The elastic net penalty is expressed as:
 
 $$
 L(\beta) =   = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda \sum_{j=1}^{m} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|),
@@ -355,11 +444,8 @@ In regression problems, the methodology is similar as for classification. Howeve
 An example of a simple classification tree is shown in Figure 8.
 
 <div style="text-align: center;">
-   <img src="../images/Decision_trees_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
-   <div>
-   **Note**: Decision nodes are <u>Blue</u> and the Leaf nodes are <u>Green</u>.
-   </div>
- </div>
+   <img src="../images/Decision_tree_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
+</div>
 
 Figure 8: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age > 65, then further by weight and height, until four leaf nodes are reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.
 
@@ -421,11 +507,7 @@ $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
-
-
-
-
-tThe $q$th hidden layer has $k_q$ nodes. The activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
+The $q$th hidden layer has $k_q$ nodes. The activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
 
 $$
 A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
@@ -478,7 +560,7 @@ Key hyperparameters for neural networks are:
 
 - Learning rate: step size for updating parameters during gradient descent
 
-- Network structure: Number of layers and nodes
+- Network structure: number of layers and nodes
 
 - Batch size: number of samples processed before updating model parameters
 
@@ -533,7 +615,7 @@ Random search effectively manages higher dimensionality because the number of mo
 [Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f)  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a model that predicts how well different hyperparameters will perform. The algorithm then chooses new hyperparameters to test based on this model, balancing exploration of unknown regions and exploitation of promising areas. After each evaluation, the model is updated with the results, gradually improving its predictions. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 12 illustrates Bayesian optimization.
 
 <div style="text-align: center;">
-  <img src="../images/modelling/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+  <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
 </div>
 
 Figure 12: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the expected improvements as the surrogate models the unknown loss function over multiple iterations.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
@@ -599,15 +681,15 @@ Model performance can be evaluated by statistical metrics such ROC AUC or PR AUC
 Clinicians might be presented with the model as a prediction tool, but if they do not understand the predictions and how it works, they may be reluctant to use it. Therefore, its usage should be demonstrated within the specific clinical context for which the model is intended, e.g. by considering a clinical scenario.
 To set up a clinical scenario, you
 
-State an objective, which should be something the model can achieve.
+1. State an objective, which should be something the model can achieve.
 
-Describe its intended use in in practice, considering the clinicians' limited time, their accessibility to the data, and the availability of the patient.
+2. Describe its intended use in in practice, considering the clinicians' limited time, their accessibility to the data, and the availability of the patient.
 
-Describe how model results should be interpreted.
+3. Describe how model results should be interpreted.
 
-Disclose possible adverse consequences and how to mitigate them in case of false positive or negative prediction.
+4. Disclose possible adverse consequences and how to mitigate them in case of false positive or negative prediction.
 
-Describe the measurable impact om employing the prediction model, such as optimising resource usage and lowering mortality.
+5. Describe the measurable impact om employing the prediction model, such as optimising resource usage and lowering mortality.
 
 
 The course’s motivational example is to limit the amount of late Systematic Anti-Cancer Treatment (SACT) treatments, i.e., those administered within 30 days of death.
@@ -689,7 +771,7 @@ To proceed to the next section of the course, please click the button below.
 &nbsp;
 
  <p align="center">
-  <a href="http://localhost:4707/lectures/implementation.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="implementation.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Implementation
   </a>
