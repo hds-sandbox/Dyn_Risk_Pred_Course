@@ -138,11 +138,11 @@ Based on the module regarding Danish health registries and data acquisition, ple
 <span class="q-header">1) When using Danish registry data for research, which statement best reflects a potential source of bias?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect. Registries are subject to data quality and completeness issues.')">a. All patients are always captured, so no bias is possible.
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">a. All patients are always captured, so no bias is possible.
 </div>
-<div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct! Frequent healthcare contacts lead to higher data density for sicker patients.')">b. Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.
+<div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">b. Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect. Standardised systems like SKS reduce errors, but do not eliminate them.')">c. Registry data automatically eliminates all errors in diagnosis coding.
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">c. Registry data automatically eliminates all errors in diagnosis coding.
 </div>
 </div>
 <div class="feedback-text" id="fb-q-registry-bias">

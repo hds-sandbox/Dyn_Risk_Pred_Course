@@ -164,15 +164,12 @@ After feature selection, it may be necessary to create new features from existin
 
 Categorical variables can cause problems when some categories have very few observations. With limited data, the model may struggle to learn meaningful patterns and risk overfitting to these rare cases. This can lead the model to interpret random noise as a significant relationship. An example with patient symptoms is shown in Table 1 and 2, where the symptoms skin rash and body ache are rare and thus collapsed into an 'Other symptoms' category.
 
-*Original Dataset: Patient Primary Symptoms*
 
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table32.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 
 Table 1: Before collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
-
-*After Collapsing Infrequent Values*
 
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table33.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
