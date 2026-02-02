@@ -75,7 +75,7 @@ This call would return a structured output, such as JSON or XML of the available
 
 An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR.
 
-For further information about API and API design, see this book: [Lauret, Arnaud. (2025) ‘The Design of Web API’s.](The Design of Web APIs, Second Edition - Arnaud Lauret)
+For further information about API and API design, see this book: [Lauret, Arnaud. (2025) ‘The Design of Web API’s.](https://www.manning.com/books/the-design-of-web-apis-second-edition)
 
 # FHIR
 
