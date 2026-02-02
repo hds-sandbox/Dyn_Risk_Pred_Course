@@ -578,7 +578,7 @@ The foundational algorithm for training a model is *gradient descent*. Gradient 
 
 Most of the models presented in the previous section are controlled by several hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models.
 
-These values can be chosen based on common practice or, more systematically, through a process called tuning. During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was covered in the data preprocessing part of this course. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified based on a stopping criterion.
+These values can be chosen based on common practice or, more systematically, through a process called tuning. During this process, different combinations of hyperparameter values are used to fit a model. Each model's predictive ability is then evaluated on a separate validation set, a concept that was covered in the data [preprocessing part of this course](data_preprocessing.qmd). This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified based on a stopping criterion.
 
 There are three popular approaches for hyperparameter search:
 
@@ -629,7 +629,7 @@ For further reading, see for example [Shahriari et al. (2015)](https://ieeexplor
 Evaluating a dynamic prediction model's performance involves assessing how well the model generalises to new, unseen data and how reliable its predictions are in real-world scenarios.
 
 ### Cross-validation
-A common approach for evaluating model performance on unseen data, as discussed in Data Preprocessing, is to split data into separate subsets: a training set for fitting model parameters, a validation set for tuning hyperparameters, and a test set for assessing performance on unseen data – sometimes with an additional calibration set. While simple, performing these splits only once can lead to an evaluation that's highly dependent on that specific division of the data. To address this limitation and obtain a more robust and reliable estimate of a model's generalization performance, *cross-validation* is commonly used.
+A common approach for evaluating model performance on unseen data, as discussed in [Data Preprocessing](data_preprocessing.qmd), is to split data into separate subsets: a training set for fitting model parameters, a validation set for tuning hyperparameters, and a test set for assessing performance on unseen data – sometimes with an additional calibration set. While simple, performing these splits only once can lead to an evaluation that's highly dependent on that specific division of the data. To address this limitation and obtain a more robust and reliable estimate of a model's generalization performance, *cross-validation* is commonly used.
 
 Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, called *folds* (Figure 13), the performance across test sets is averaged to estimate the model's overall performance. If $K$ splits were performed, it is called $K$-fold cross-validation.
 
@@ -665,7 +665,7 @@ Figure 14: Illustration of nested cross-validation with five outer folds and thr
 
 Because each outer fold is evaluated using an additional $L$-fold cross-validation, the risk of overfitting is greatly reduced, and the estimated model performance is more reliable.
 
-If the nested cross-validation confirms an acceptable generalizability, a final model can be fitted using a train/validation split on the entire dataset.
+When the nested cross-validation process has provided a reliable estimate of performance, a final round of hyperparameter tuning is performed on the entire dataset. The resulting 'best' hyperparameters are then used to train the final model on the available data to produce a single final model for deployment.
 
 For further reading, see [Gary Colins (2024) Evaluation of clinical prediction models (part 1): from development to external validation](https://www.bmj.com/content/384/bmj-2023-074819)
 
@@ -758,7 +758,7 @@ Figure 17: Waterfall plot of individual feature importance in prediction of 30-d
 
 # Exercises
 
-In this exercise you will train and test at least one prediction model based on the data sets you prepared in Exercise 1 (in case you did not succeed with Exercise 2, a prepared data set is available on *some link*. In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”). Go through the following steps:
+In this exercise you will train and test at least one prediction model based on the data sets you prepared in Exercise 1 (in case you did not succeed with Exercise 2, a prepared data set is available [here](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/formatted_data). In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”). Go through the following steps:
 
 1. Choose a performance metric for final test of model performance (is there class imbalance in your data?)
 2. Choose a model to train (e.g. logistic regression with elastic net or random forest). What parameters and hyperparameters does the model have?
