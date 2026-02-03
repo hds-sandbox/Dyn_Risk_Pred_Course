@@ -207,18 +207,6 @@ In the above example, it has been demonstrated how to compute a range of well-kn
 
 Compute the following metrics:
 
-- Accuracy
-
-- Sensitivity
-
-- Specificity
-
-- Precision
-
-- F1 score
-
-Based on the provided formulas from this course. Enter the number in the following boxes and check if you have reached the correct numbers.
-
 ```{=html}
 <style>
   .quiz-container { font-family: sans-serif; max-width: 850px; margin: 20px 0; }
@@ -413,7 +401,7 @@ Otherwise, the performance of the two regularization types is similar, and which
 In certain scenarios, a benefit can be gained by combining the regularization properties of ridge regression and LASSO. This can be obtained by using [elastic net regularization](https://en.wikipedia.org/wiki/Elastic_net_regularization) that also allows for the adjustment of the weighting of the two methods. The elastic net penalty is expressed as:
 
 $$
-L(\beta) =   = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda \sum_{j=1}^{m} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|),
+L(\beta) = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda \sum_{j=1}^{m} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|),
 $$
 
 where $\lambda$ is still the regularization strength hyperparameter and $\alpha$ is a parameter between 0 and 1 that controls the weighting between ridge and LASSO penalties. When $\alpha = 0$ it is a pure LASSO regularization and $\alpha = 1$ is pure ridge regression. This method can provide flexibility in the modelling while also testing the effect of the two methods combined in different proportions.
@@ -432,7 +420,7 @@ $$
 where $r_{i,k}$ is the proportion of samples that belong to class $k$ (among $n$ possible classes) at node $i$. For binary prediction, this reduces to
 
 $$
-\text{Gini index}_i = 2*r_i (1 – r_i),
+\text{Gini index}_i = 2*r_i (1 \; – \; r_i),
 $$
 
 where $r_i$ is the proportion of observations of one class in node $i$.
@@ -517,7 +505,7 @@ $$
 A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
 $$
 
-where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
+where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature $x_j$ given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
 We can continue this process, calculating the activation of the first node in the second layer, $A_1^{(2)}$, using the $k_1$ output values $A_1^{(1)}, \dots, A_{k_1}^{(1)}$ from the first hidden layer:
 
@@ -637,7 +625,7 @@ A common approach for evaluating model performance on unseen data, as discussed 
 
 Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, called *folds* (Figure 11), the performance across test sets is averaged to estimate the model's overall performance. If $K$ splits were performed, it is called $K$-fold cross-validation.
 
-[The number of folds is widely discussed, but often a value between 5 and 10 is used (James et al. 2013:206](https://www.statlearning.com/).
+The number of folds is widely discussed, but often a value between 5 and 10 is used [(James et al. 2013:206)](https://www.statlearning.com/).
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
@@ -671,7 +659,7 @@ Because each outer fold is evaluated using an additional $L$-fold cross-validati
 
 When the nested cross-validation process has provided a reliable estimate of performance, a final round of hyperparameter tuning is performed on the entire dataset. The resulting 'best' hyperparameters are then used to train the final model on the available data to produce a single final model for deployment.
 
-For further reading, see [Gary Colins (2024) Evaluation of clinical prediction models (part 1): from development to external validation](https://www.bmj.com/content/384/bmj-2023-074819)
+For further reading, see [Colins, G. (2024).](https://www.bmj.com/content/384/bmj-2023-074819)
 
 ## Utility and explainability
 
@@ -702,7 +690,7 @@ In this context, a dynamic risk prediction model is applied before each treatmen
 The believed measurable impact of the model is that it prevents suffering from the late SACT treatments and lessens the amount of chemotherapy given. Regarding adverse consequences, a false positive (i.e., predicting death within 30 days when the patient does not die within 30 days) could lead to the treatment would be stopped early, or perhaps just delayed to a later point.
 
 
-The utility of the 30-day mortality model is illustrated in Figure 13 where the predicted probability of dying within 30 days of a SACT administration is shown for each of the four outcomes from the confusion matrix (true positive, false positive, true negative, false negative) using a classification threshold of 50%. Here we consider 30 days before death as the appropriate time for cessation as opposed to continuing treatment when entering the last 30 days before death. Thus, the true negatives correspond to what we deem as “appropriate administrations”, while the true positives correspond to “appropriate stoppage”. Among the false positives, which are the cases where the model predicted death within 30 days incorrectly, the utility assessment here discriminates between “early stoppage” (died > 90 days after SACT administration) and “acceptable stoppage” (died within 90 days after SACT administration). This division was included because the improvement in life quality after the SACT treatments would be short-lived, and it is debatable if it is worth it, considering the decrease in life quality under the treatment. In the study of [Vesteghem et al.](https://pubmed.ncbi.nlm.nih.gov/36379004/) the authors conclude that by applying this simple threshold, 40% of late SACT administrations could have been prevented, at the cost of only 2% of patients stopping their treatment more than 90 days before death.
+The utility of the 30-day mortality model is illustrated in Figure 13 where the predicted probability of dying within 30 days of a SACT administration is shown for each of the four outcomes from the confusion matrix (true positive, false positive, true negative, false negative) using a classification threshold of 50%. Here we consider 30 days before death as the appropriate time for cessation as opposed to continuing treatment when entering the last 30 days before death. Thus, the true negatives correspond to what we deem as “appropriate administrations”, while the true positives correspond to “appropriate stoppage”. Among the false positives, which are the cases where the model predicted death within 30 days incorrectly, the utility assessment here discriminates between “early stoppage” (died > 90 days after SACT administration) and “acceptable stoppage” (died within 90 days after SACT administration). This division was included because the improvement in life quality after the SACT treatments would be short-lived, and it is debatable if it is worth it, considering the decrease in life quality under the treatment. In the study of [Vesteghem et al. (2022)](https://pubmed.ncbi.nlm.nih.gov/36379004/) the authors conclude that by applying this simple threshold, 40% of late SACT administrations could have been prevented, at the cost of only 2% of patients stopping their treatment more than 90 days before death.
 
 <div style="text-align: center;">
    <img src="../images/utility_example.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
@@ -721,15 +709,15 @@ Model calibration can be assessed by comparing predicted risk scores with observ
    <img src="../images/calibration_plot.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
  </div>
 
-Figure 14: Example of a calibration plot for four different models. Image credit: [Scikti-learn.org](https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html)
+Figure 14: Example of a calibration plot for four different models. Image credit: [Scikit-learn.org](https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html)
 
 &nbsp;
 
 Alternatively, the [Brier score](https://en.wikipedia.org/wiki/Brier_score) provides a useful measure of calibration in binary classification, but can also be used in multi-class problems.
-The Brier score quantifies the closeness of the predicted risk scores ($\hat{p}_i(\hat{beta},x_i)$) to the observed outcome ($y_i$) by
+The Brier score quantifies the closeness of the predicted risk scores ($\hat{p}_i(\hat{\beta},x_i)$) to the observed outcome ($y_i$) by
 
  $$
-\text{Brier score} = \frac{1}{n} \sum_{i=1}^n (p_i (\hat{beta},x_i) -y_i)^2,
+\text{Brier score} = \frac{1}{n} \sum_{i=1}^n (p_i (\hat{\beta},x_i) -y_i)^2,
 $$
 
 where $n$ is the number of predictions. A lower the Brier score indicates that the model provides more accurate probability estimates.
@@ -740,7 +728,7 @@ If the model is not well calibrated, post-hoc calibration techniques can be appl
 Following model calibration, calibration can again be checked using a calibration plot and the Brier score.
 
 
-For further reading, see [Richard D. Riley (2024) Evaluation of clinical prediction models (part 1): from development to external validation](https://www.bmj.com/content/384/bmj-2023-074820)
+For further reading, see [Riley, R. (2024).](https://www.bmj.com/content/384/bmj-2023-074820)
 
 ### Explainability
 Ideally, it should be possible to gain insight into why a dynamic risk prediction model predicts the way it does and to identify the most important predictors. This property is known as *explainability*.

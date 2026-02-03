@@ -53,9 +53,9 @@ The following topics are examples of beneficial information:
 
 The quality of data sources can vary significantly, and poor-quality data can lead to inaccurate predictions. A critical assessment of data sources is necessary to ensure that the recorded data is reliable and representative. This requires an awareness of potential biases and data collection inaccuracies.
 
-For example, the **Danish National Patient Register** is a centralised registry containing information routinely collected at hospital contacts, such as discharge diagnoses and surgical and medical procedures. Because the registry only includes information about individuals that have been in contact with a hospital, its data can suffer from [informed presence bias](https://pubmed.ncbi.nlm.nih.gov/27852603/). This bias can lead to a higher observed prevalence of illness than in the general population. Further, [Schmidt et al.](https://pubmed.ncbi.nlm.nih.gov/26604824/) have shown that the recording of diseases and treatments may be poor with positive predictive value varying between <15% and 100%.
+For example, the **Danish National Patient Register** is a centralised registry containing information routinely collected at hospital contacts, such as discharge diagnoses and surgical and medical procedures. Because the registry only includes information about individuals that have been in contact with a hospital, its data can suffer from [informed presence bias](https://pubmed.ncbi.nlm.nih.gov/27852603/). This bias can lead to a higher observed prevalence of illness than in the general population. Further, [Schmidt et al. (2015)](https://pubmed.ncbi.nlm.nih.gov/26604824/) have shown that the recording of diseases and treatments may be poor with positive predictive value varying between <15% and 100%.
 
-Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study, by [Karin Helweg-Larsen](https://pubmed.ncbi.nlm.nih.gov/21775346/), focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate.
+Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study, by [Helweg-Larsen (2011)](https://pubmed.ncbi.nlm.nih.gov/21775346/), focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate.
 
 These examples illustrate that even long-standing administrative registers, originally designed for operational use, may have limitations in data validity when repurposed for research. Thus, there is a need for critical evaluation of all data sources to ensure accuracy and reliability. It is recommended to review existing literature on the validity and limitations of the selected data sources.
 
@@ -96,7 +96,7 @@ Before employing strategies to handle missing data, the dataset used for dynamic
 
 ## Data Representation Techniques
 
-In health care, data are typically collected at irregular time intervals, reflecting when patients seek care and when clinicians record information. Following the data preparation protocol proposed by [Tomašev et al.](https://www.nature.com/articles/s41596-021-00513-5) for dynamic risk prediction, an initial step involves structuring the data into fixed time intervals and aggregating the available information within each interval. This process transforms the original continuously recorded patient data into discrete time segments, such as hours or days.
+In health care, data are typically collected at irregular time intervals, reflecting when patients seek care and when clinicians record information. Following the data preparation protocol proposed by [Tomašev et al. (2021)](https://www.nature.com/articles/s41596-021-00513-5) for dynamic risk prediction, an initial step involves structuring the data into fixed time intervals and aggregating the available information within each interval. This process transforms the original continuously recorded patient data into discrete time segments, such as hours or days.
 
 Selection of a suitable discretization interval is required to structure the irregularly timed data. For instance, if data points are recorded frequently within hourly periods, an hourly interval might be considered appropriate.
 
@@ -134,7 +134,7 @@ To ensure a predictive model can be applied in a real-world setting, it must per
 
 To assess a model's ability to generalise, the dataset is typically divided into at least two distinct subsets: a training and a test set. The training set is used to train the prediction model, while the test set, which the model has never seen before, is used to evaluate its performance.
 
-Data splitting strategies can become more extensive depending on the model class. When a model involves *hyperparameters* (see the [Modelling section](modelling.qmd)), a typical approach is to consider a validation set alongside the training and test sets. The validation set is used to compare different hyperparameter configurations and select the best-performing one before evaluating the model on the test set. This helps prevent overfitting to the test set during hyperparameter tuning. Lastly, if a model requires *calibration* (see the [Modelling section](modelling.qmd)), a separate calibration set might also be used.
+Data splitting strategies can become more extensive depending on the model class. When a model involves *hyperparameters* (see the [Modelling](modelling.qmd)), a typical approach is to consider a validation set alongside the training and test sets. The validation set is used to compare different hyperparameter configurations and select the best-performing one before evaluating the model on the test set. This helps prevent overfitting to the test set during hyperparameter tuning. Lastly, if a model requires *calibration* (see the [Modelling](modelling.qmd)), a separate calibration set might also be used.
 
 Typical splitting ratios allocate a larger portion of the data for training, such as 80% for training and 20% for testing, in a simple setup. However, the ratio can be adjusted based on factors like the total volume of available data and the task requirements. When using multiple splits, the ratios are adapted. A train/validation/test split might use a 70/10/20 ratio, while a train/validation/calibration/test split could use a 60/10/10/20 ratio, as illustrated in Figure 3.
 
@@ -169,28 +169,23 @@ Categorical variables can cause problems when some categories have very few obse
 <img src="../images/table32.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Table 1: Before collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
+Before collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
 
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table33.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
-Table 2: After collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
+After collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
 
 Below, we outline typical methods for creating and transforming features, including encoding, handling outliers, and scaling.
 
 
 **One-Hot Encoding**
 
-One-hot encoding is a common method used to represent categorical values in a format suitable for machine learning models. Each category of the categorical variable is transformed into a separate binary (0 or 1) feature, where a value of 1 indicates the presence of that category and 0 its absence. For example, a variable describing biological sex with categories “Female” and “Male” can be transformed into two features as shown in Figure 3 and 4. This transformation allows categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
+One-hot encoding is a common method used to represent categorical values in a format suitable for machine learning models. Each category of the categorical variable is transformed into a separate binary (0 or 1) feature, where a value of 1 indicates the presence of that category and 0 its absence. For example, a variable describing biological sex with categories “Female” and “Male” can be transformed into two features. This transformation allows categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table34.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
-Table 3: A Simple table with one column of genders. Before One-Hot Encoding.
-
-<div style="overflow: auto; text-align: center;">
-<img src="../images/table35.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
-</div>
-Table 4: A Simple table with two columns of genders. After One-Hot Encoding.
+A Simple table with one column of sex. Before and after One-Hot Encoding.
 
 Including binary variables for all categories introduces linear dependence among these features. For some models (like logistic regressions), this causes computational issues and one of the binary variables is typically left out to remove this dependence. The left-out category then becomes the baseline or reference level.
 
@@ -220,7 +215,7 @@ $$x_{scaled} = \frac{x - \mu_{train}}{\sigma_{train}}$$
 
 - **Min-max scaling:** Rescales features using the minimum ($min_{train}$) and maximum ($max_{train}$) values from the training data, so that it lies within a range between 0 and 1. This is done by taking the feature value $x$, subtracting the minimum value and dividing by the range of the feature:
 
-$$x_{scaled} = \frac{x – min_{train}}{max_{train} – min_{train}}$$
+$$x_{scaled} = \frac{x \; – \; min_{train}}{max_{train} \; – \; min_{train}}$$
 
 To prevent data leakage, the mean, standard deviation, minimum and maximum are computed exclusively from the training set and used for scaling across all data sets. This prevents information from the validation and test sets to influence the training process. The selection between scaling methods should be informed by the specific machine learning algorithm being used and the characteristics of the data itself.
 
