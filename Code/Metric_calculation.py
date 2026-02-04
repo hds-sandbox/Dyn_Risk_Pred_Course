@@ -51,18 +51,8 @@ def print_results(title, metrics, tp, fp, tn, fn):
 
 
 # Example 1: The distribution shown in the provided image (TP=10, FP=20, TN=75, FN=0)
-tp_1, fp_1, tn_1, fn_1 = 10, 20, 75, 0
+tp_1, fp_1, tn_1, fn_1 = 10, 20, 75, 4
 metrics_1 = calculate_metrics(tp_1, fp_1, tn_1, fn_1)
 print_results("User's Original Distribution", metrics_1, tp_1, fp_1, tn_1, fn_1)
 
 
-# Example 2: A new distribution designed to clearly show differences between metrics.
-# This set illustrates a model with high Precision but moderate Sensitivity.
-tp_2, fp_2, tn_2, fn_2 = 24, 5, 25, 4
-metrics_2 = calculate_metrics(tp_2, fp_2, tn_2, fn_2)
-print_results("New Illustrative Distribution (High Precision, Moderate Sensitivity)", metrics_2, tp_2, fp_2, tn_2, fn_2)
-
-# Exercise solution
-tp_2, fp_2, tn_2, fn_2 = 90, 10, 85, 15
-metrics_2 = calculate_metrics(tp_2, fp_2, tn_2, fn_2)
-print_results("New Illustrative Distribution (High Precision, Moderate Sensitivity)", metrics_2, tp_2, fp_2, tn_2, fn_2)
