@@ -169,12 +169,7 @@ Categorical variables can cause problems when some categories have very few obse
 <img src="../images/table32.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Before collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
-
-<div style="overflow: auto; text-align: center;">
-<img src="../images/table33.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
-</div>
-After collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
+Before and after collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
 
 Below, we outline typical methods for creating and transforming features, including encoding, handling outliers, and scaling.
 
@@ -200,7 +195,7 @@ Outliers are extreme values that deviate markedly from the rest of the data and 
 
 Presence features, also known as missingness indicators, are binary variables that record whether a value for a given feature is missing or observed. Including these indicators in a prediction model can be valuable because the fact that data are missing may itself carry predictive information. For example, in clinical data, a missing lab test might reflect a clinician’s judgment that the test was unnecessary, indirectly signalling a lower level of concern. By explicitly modelling missingness, presence features can help the model capture such informative patterns and improve predictive performance.
 
-Ref: [Sinan Ozdemir (2022)](https://www.manning.com/books/feature-engineering-bookcamp)
+Ref: [Ozdemir, S. (2022)](https://www.manning.com/books/feature-engineering-bookcamp)
 
 
 **Feature scaling**
@@ -220,7 +215,7 @@ $$x_{scaled} = \frac{x \; – \; min_{train}}{max_{train} \; – \; min_{train}}
 To prevent data leakage, the mean, standard deviation, minimum and maximum are computed exclusively from the training set and used for scaling across all data sets. This prevents information from the validation and test sets to influence the training process. The selection between scaling methods should be informed by the specific machine learning algorithm being used and the characteristics of the data itself.
 
 
-Ref: [Aurélien Géron (2019):65-67](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
+Ref: [Géron, A. (2019):65-67](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
 
 
 ## Final Step

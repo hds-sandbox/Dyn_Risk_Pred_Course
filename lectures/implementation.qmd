@@ -75,7 +75,7 @@ This call would return a structured output, such as JSON or XML of the available
 
 An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR.
 
-For further information about API and API design, see this book: [Lauret, Arnaud. (2025)](https://www.manning.com/books/the-design-of-web-apis-second-edition)
+For further information about API and API design, see this book: [Lauret, A. (2025)](https://www.manning.com/books/the-design-of-web-apis-second-edition)
 
 # FHIR
 
@@ -130,7 +130,7 @@ Finally, the retrospective validation, which uses historical data and records to
 The main reason to use this type of validation is if no prospective validation was made before launching, and thus, no evidence for the system's efficiency exists.
 
 
-For further information, please see this book: [Benson, Tim, and Grahame, Grieve. (2021)](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)
+For further information, please see this book: [Benson, Tim, and Grahame, Grieve. (2021).](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)
 
 # Exercise
 ### Exercise 1: List patients using the get method from requests_fhir.

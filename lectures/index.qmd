@@ -285,7 +285,7 @@ Based on what has been presented in this chapter, please choose the correct opti
 
   <!-- Q4 -->
 <div class="q-card" id="q4">
-<span class="q-header">4) Can we conclude that biological therapies cause an increased need for hospitalisation?
+<span class="q-header">4) We find that biological therapies (an intensive treatment for Crohn’s disease) is a strong predictor. Can we conclude that biological therapies cause an increased need for hospitalisation?
 </span>
 <div class="opt-list">
 <div class="opt-btn" onclick="check(this, false, 'q4', 'Incorrect.')">a. Yes, because they are strong treatments.
