@@ -132,82 +132,79 @@ The main reason to use this type of validation is if no prospective validation w
 
 For further information, please see this book: [Benson, Tim, and Grahame, Grieve. (2021).](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)
 
-# Exercise
-### Exercise 1: List patients using the get method from requests_fhir.
+# Exercises
 
-This exercise’s goal is to fetch a list of all the patients from the mock FHIR server and display their information. This is a hands-on simulation of querying a secure database for pulling a cohort of patients. The steps are as follows:
+### Before You Begin: Environment Setup
 
-1. Define the base URL for the mock server: https://test/fhir
-2. Construct the full URL to access the patient resource. By following the RESTful principles, this can be achieved by appending /Patient to the base URL.
-3. Use the provided get() (get_r in the R mock server) method to request the URL
-4. The mock server will return a JSON object. Parse the JSON object to extract the list of patient entries.
-5. Iterate through the entries and extract the available variables
-6. Organize this information into a dataframe. The file request_fhir.py or request_fhir.R should be in the same folder as this markdown file.
+In a real-world scenario, you would connect to a remote hospital server via the internet using HTTP protocols. To save you the hassle of setting up API authentication, VPNs, and security clearances for this exercise, there are provided a simulated 'mock server (the `requests_fhir` scripts) for both R and Python.
 
-**Python hints:**
+You will construct URLs and pass them to this script exactly as if you were communicating with a real web server, but it will process the data locally on your machine.
 
-- Import the request_fhir.py as request and the libraries `Json`
-- Use an f-string to create the URL:patients_url = f’{BASE_URL}/Patient’
-- The response content is located in response._content. Use json.load()` to parse the json object.
-- The patient data is nested in the JSON structure under [‘entry’]. Iterate through this list.
-- Create an empty dataframe and append the patient information into the empty dataframe
+#### File Setup:
 
-**R hints:**
+Because the mock server acts as a stand-in for a real database, it needs to follow a exact folder structure. the folder structure should look as follows:
+1. Create a main folder for this exercise on your computer.
+2. Download the mock server script [(`requests_fhir.py` or `request_fhir.R`)](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/Code) and place it in this main folder.
+3. Create a subfolder named exactly `data` inside your main folder.
+4. Download the [raw exercise data](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data) and place all the CSV files into this `data` subfolder.
 
-- Source the request_fhir.R
-- Construct the URL by using paste0()
-- Retrieve the content by using get_r() with the patient URL. The content is in patient_url$content.
-- Use fromJSON to parse the data
+Please note, that when a single patient is requested from a FHIR server, it returns a single "Patient" object. However, when you query a list of patients or multiple observations, FHIR groups them into a `Bundle`. When the JSON response is received your, there is a extra step of navigating into the Bundle (usually under a key called `entry` or `resource`) to extract the individual records.
+
+
+### Exercise 1: List patients using the GET method
+
+This exercise’s goal is to fetch a list of all the patients from the mock FHIR server and display their information. This is a hands-on simulation of querying a secure database to pull a cohort of patients.
+
+The steps are as follows:
+
+1. Define the base URL for the mock server: `https://test/fhir`
+    - Python hint: Import the `requests_fhir.py` script as `request` and the `json` library.
+    - R hint: Source the `request_fhir.R` script.
+2. Construct the full URL to access the patient resource. Following RESTful principles, this is achieved by appending `/Patient` to the base URL.
+    - Python hint: Use an f-string to create the URL: `patients_url = f'{BASE_URL}/Patient'`
+    - R hint: Construct the URL by using `paste0()`.
+3. Make the request using the provided `get()` method (`get_r()` in R) with your URL.
+    - Python hint: The response content is located in `response._content`.
+    - R hint: Retrieve the content using `patient_url$content`.
+4. Parse the JSON object to extract the list of patient entries.
+    - Python hint: Use `json.loads()` to parse the object. It is highly recommended to print your JSON object (e.g., `print(json.dumps(parsed_data, indent=2))`) to visually inspect the nested Bundle structure.
+    - R hint: Use `jsonlite::fromJSON()` to parse the data.
+5. Extract the variables and build a dataframe.
+    - Iterate through the nested entries to pull out the relevant patient data and organize it into a structured dataframe.
+
+Python hints:
+- The patient data is nested in the JSON structure under `['entry']`. Iterate through this list to access the `['resource']` for each patient.
+- Create an empty list, append the extracted patient dictionaries to it, and then convert the list into a Pandas DataFrame.
+
+R hints:
+- The parsed data is a list containing the Bundle. The patient information is nested inside `parsed_data$entry$resource`.
+- You can use `dplyr::bind_rows()` or functions from the `purrr` package to flatten this nested structure into a clean dataframe.
+
 
 ### Exercise 2: Find the code for a specific observation
 
-In this exercise, a standardized code is needed to extract information about a patient. The code of interest is the code for cholesterol. Look into the snomed.csv and search for labels like 'ldl' or 'chol'.
+In medical databases, clinical concepts are standardized using coding systems (like SNOMED CT). To extract information about a patient's cholesterol, you first need to know the correct system code.
+
+Task: Look into the `snomed.csv` file (located in your `data` folder) and search for labels like 'ldl' or 'chol' to find the standardized code for cholesterol. Keep this code handy for the next exercise.
+
+
 
 ### Exercise 3: Get measurements of cholesterol for a patient and plot them over time
 
-This exercise will combine the two previous exercises by fetching a single individual and plotting their cholesterol level over time. The steps are as follows:
+This exercise will combine the two previous exercises by fetching a single individual's data and plotting their cholesterol level over time.
 
-- Choose a patient_id from the retrieved list from Exercise 1.
-- Use the cholesterol code found in Exercise 2.
-- Construct a new URL to query the Observation resource. The format of the URL will be …/Observation?patient={patient_id}&code={chol_code}
-- Make a GET request to the URL
-- Parse the JSON object to extract the cholesterol values and the dates recorded as effectiveDateTime
-- Plot the values over time.
+Query Parameters: To filter data in a REST API, there is a "query parameters" at the end of your URL. You start the filter with a question mark `?`, assign a value with `=`, and chain multiple filters together using an ampersand `&`.
 
-**Coding hints:**
+The steps are as follows:
 
-The steps are similar to the code in Exercise 1.
+1. Select a patient: Choose a specific `patient_id` from the dataframe you created in Exercise 1.
+2. Select the code: Use the cholesterol code you found in Exercise 2.
+3. Construct the URL: Query the Observation resource and filter by your patient and code. The format of the URL will be: `.../Observation?patient={patient_id}&code={chol_code}`
+4. Make the request: Send a GET request to the mock server using this newly constructed URL.
+5. Parse and Extract: Parse the JSON Bundle. Extract the cholesterol values and their corresponding dates (recorded under `effectiveDateTime`).
+6. Visualize: Plot the extracted cholesterol values over time.
 
-When iterating through the [‘entry’] in the response list, the value is nested inside ['resource']['valueQuantity']['value'], and the date is in ['resource']['effectiveDateTime'] in Python. In R, the syntax is written as: resource.effectiveDateTime and resource.valueQuantity.value.
-
-
-
-## BONUS FOR PYTHON USERS
-
-
-
-A bonus exercise has been created exclusively for Python users, which involves working with FHIR. The exercise is possible due to the [fhir.resoruces](https://github.com/nazrulworld/fhir.resources) packages exclusively made for Python, which are made to simulate the interactions with FHIR-based API’s. The package provides all the tools and classes for all the FHIR resources defined in the FHIR specification. This enables the creation and manipulation of resources in Python.
-
-
-
-This exercise is completed when the following server responses have been achieved:
-
-
-
-INFO: 127.0.0.1:60160 - "POST /Patient HTTP/1.1" 200 OK
-
-
-
-INFO: 127.0.0.1:60161 - "GET /Patient/7ce15ccd-47d5-4808-bbd8-3eef4c7738b2 HTTP/1.1" 200 OK
-
-
-
-### Task 1: Creating a Patient Resource
-
-
-
-A patient resource must be created that includes a human name and a contact point. The fhir.resources package in Python will be needed for this task. This package aligns directly with the FHIR documentation and resource content, as can be seen at https://hl7.org/fhir/patient.html.
-
-### Task 2: Interacting with a FHIR Database
-
-After a patient has been successfully created, an interaction with a FHIR database must be attempted using a URL for a database on a server. A mock server can be run on a local machine for this task. The exercise files directory must be found, and the following command must be executed: $ python mock_fhir_server.py. Through the use of this mock server, interaction with a server is made possible.
+Coding hints:
+- The extraction steps are similar to the code you wrote in Exercise 1.
+- When iterating through the `['entry']` list in Python, the value is nested inside `['resource']['valueQuantity']['value']`, and the date is in `['resource']['effectiveDateTime']`.
+- In R, the equivalent syntax within your extracted dataframe will look something like `resource$effectiveDateTime` and `resource$valueQuantity$value`.
