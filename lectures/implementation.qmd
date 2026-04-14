@@ -148,45 +148,144 @@ Because the mock server acts as a stand-in for a real database, it needs to foll
 3. Create a subfolder named exactly `data` inside your main folder.
 4. Download the [raw exercise data](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data) and place all the CSV files into this `data` subfolder.
 
-Please note, that when a single patient is requested from a FHIR server, it returns a single "Patient" object. However, when you query a list of patients or multiple observations, FHIR groups them into a `Bundle`. When the JSON response is received your, there is a extra step of navigating into the Bundle (usually under a key called `entry` or `resource`) to extract the individual records.
+Your folder should look like this:
+```
+my_exercise_folder/
+├── requests_fhir.py
+├── requests_fhir.R
+└── data/
+    ├── baseline_data.csv
+    ├── blood_data.csv
+    ├── diag_data.csv
+    ├── quest_data.csv
+    ├── snomed.csv
+    ├── treat_data.csv
+    └── visit_date.csv
+```
+
+Please note, that when a single patient is requested from a FHIR server, it returns a single "Patient" object. However, when you query a list of patients or multiple observations, FHIR groups them into a `Bundle`. When the JSON response is received, there is a extra step of navigating into the Bundle (in this exercise, under a key called `entry` or `resource`) to extract the individual records.
 
 
 ### Exercise 1: List patients using the GET method
 
-This exercise’s goal is to fetch a list of all the patients from the mock FHIR server and display their information. This is a hands-on simulation of querying a secure database to pull a cohort of patients.
+The goal of this exercise is to fetch a list of all the patients from the mock FHIR server and display their information. This is a realistic experience of querying a secure database to pull a cohort of patients.
 
 The steps are as follows:
 
 1. Define the base URL for the mock server: `https://test/fhir`
-    - Python hint: Import the `requests_fhir.py` script as `request` and the `json` library.
-    - R hint: Source the `request_fhir.R` script.
+
+Python hint: Import the `requests_fhir.py` script as `request` and the `json` library:
+
+```
+import requests_fhir as request
+import json
+import pandas as pd
+
+BASE_URL = 'https://test/fhir'
+```
+
+R hint: Source the `request_fhir.R` script:
+
+```
+source("request_fhir.R")
+library(jsonlite)
+library(dplyr)
+
+BASE_URL <- "https://test/fhir"
+```
+
 2. Construct the full URL to access the patient resource. Following RESTful principles, this is achieved by appending `/Patient` to the base URL.
-    - Python hint: Use an f-string to create the URL: `patients_url = f'{BASE_URL}/Patient'`
-    - R hint: Construct the URL by using `paste0()`.
+
+Python hint: Use an f-string to create the URL:
+
+```
+patients_url = f'{BASE_URL}/Patient'
+```
+
+R hint: Construct the URL by using `paste0()`:
+
+```
+patients_url <- paste0(BASE_URL, "/Patient")
+```
+
 3. Make the request using the provided `get()` method (`get_r()` in R) with your URL.
-    - Python hint: The response content is located in `response._content`.
-    - R hint: Retrieve the content using `patient_url$content`.
+
+Python hint:
+
+```
+response = request.get(patients_url)
+```
+
+R hint:
+
+```
+response <- get_r(patients_url)
+```
+
 4. Parse the JSON object to extract the list of patient entries.
-    - Python hint: Use `json.loads()` to parse the object. It is highly recommended to print your JSON object (e.g., `print(json.dumps(parsed_data, indent=2))`) to visually inspect the nested Bundle structure.
-    - R hint: Use `jsonlite::fromJSON()` to parse the data.
+
+Python hint: Use `json.loads()` to parse the object. It is highly recommended to print your JSON object (e.g., `print(json.dumps(parsed_data, indent=2))`) to visually inspect the nested Bundle structure:
+
+```
+parsed_data = json.loads(response._content)
+```
+
+R hint: Use `jsonlite::fromJSON()` to parse the data:
+
+```
+parsed_data <- fromJSON(response$content)
+```
+
 5. Extract the variables and build a dataframe.
-    - Iterate through the nested entries to pull out the relevant patient data and organize it into a structured dataframe.
+
+- Iterate through the nested entries to pull out the relevant patient data and organize it into a structured dataframe.
 
 Python hints:
+
 - The patient data is nested in the JSON structure under `['entry']`. Iterate through this list to access the `['resource']` for each patient.
 - Create an empty list, append the extracted patient dictionaries to it, and then convert the list into a Pandas DataFrame.
 
+Python example code:
+
+```
+patients = []
+for entry in parsed_data['entry']:
+    resource = entry['resource']
+    patients.append({
+        'id': resource['id'],
+        'gender': resource['gender'],
+        'birthDate': resource['birthDate']
+    })
+
+patients_df = pd.DataFrame(patients)
+print(patients_df)
+```
+
 R hints:
+
 - The parsed data is a list containing the Bundle. The patient information is nested inside `parsed_data$entry$resource`.
 - You can use `dplyr::bind_rows()` or functions from the `purrr` package to flatten this nested structure into a clean dataframe.
+
+R example code:
+
+```
+entries <- parsed_data$entry$resource
+patients_df <- data.frame(
+  id = entries$id,
+  gender = entries$gender,
+  birthDate = entries$birthDate
+)
+print(patients_df)
+```
 
 
 ### Exercise 2: Find the code for a specific observation
 
 In medical databases, clinical concepts are standardized using coding systems (like SNOMED CT). To extract information about a patient's cholesterol, you first need to know the correct system code.
 
-Task: Look into the `snomed.csv` file (located in your `data` folder) and search for labels like 'ldl' or 'chol' to find the standardized code for cholesterol. Keep this code handy for the next exercise.
+Task: Look into the `snomed.csv` file (located in your `data` folder) and search for labels like 'ldl' or 'chol' to find the standardized code for cholesterol. Keep this code, as it will be utilized for the next exercise.
 
+This exercise can be completed with R and Python. But the files can also be inspected manually.
 
 
 ### Exercise 3: Get measurements of cholesterol for a patient and plot them over time
@@ -195,16 +294,43 @@ This exercise will combine the two previous exercises by fetching a single indiv
 
 Query Parameters: To filter data in a REST API, there is a "query parameters" at the end of your URL. You start the filter with a question mark `?`, assign a value with `=`, and chain multiple filters together using an ampersand `&`.
 
+The URL string should somewhat like this:
+
+```
+https://test/fhir/Observation?patient=123&code=456
+```
+
 The steps are as follows:
 
 1. Select a patient: Choose a specific `patient_id` from the dataframe you created in Exercise 1.
 2. Select the code: Use the cholesterol code you found in Exercise 2.
 3. Construct the URL: Query the Observation resource and filter by your patient and code. The format of the URL will be: `.../Observation?patient={patient_id}&code={chol_code}`
-4. Make the request: Send a GET request to the mock server using this newly constructed URL.
+4. Make the request: Send a GET request to the mock server using this newly constructed URL (similar as to exercise 5.1).
 5. Parse and Extract: Parse the JSON Bundle. Extract the cholesterol values and their corresponding dates (recorded under `effectiveDateTime`).
-6. Visualize: Plot the extracted cholesterol values over time.
 
-Coding hints:
-- The extraction steps are similar to the code you wrote in Exercise 1.
-- When iterating through the `['entry']` list in Python, the value is nested inside `['resource']['valueQuantity']['value']`, and the date is in `['resource']['effectiveDateTime']`.
-- In R, the equivalent syntax within your extracted dataframe will look something like `resource$effectiveDateTime` and `resource$valueQuantity$value`.
+Python hint:
+
+```
+dates = []
+values = []
+for entry in parsed_obs['entry']:
+    resource = entry['resource']
+    dates.append(resource['effectiveDateTime'])
+    values.append(float(resource['valueQuantity']['value']))
+
+obs_df = pd.DataFrame({'date': pd.to_datetime(dates), 'cholesterol': values})
+print(obs_df)
+```
+
+R hint:
+
+```
+entries <- parsed_obs$entry$resource
+obs_df <- data.frame(
+  date = as.Date(entries$effectiveDateTime),
+  cholesterol = as.numeric(entries$valueQuantity$value)
+)
+print(obs_df)
+```
+
+6. Visualize: Plot the extracted cholesterol values over time.
