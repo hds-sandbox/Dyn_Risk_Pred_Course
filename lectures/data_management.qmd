@@ -50,7 +50,7 @@ A critical requirement for performing any kind of modelling involving data is to
 To manage and analyse large amounts of health data, standardised coding and classification systems are essential. These systems simplify complex medical information, such as diagnoses, procedures, and lab results and is widely implemented across health registries.
 
 
-A central Danish health data classification system is the Sundhedsvæsenet Klassifikationsystem (SKS), which is managed by [The Danish Health Data Authority](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications). SKS is the national standard used throughout the Danish healthcare system.
+A central Danish health data classification system is the Sundhedsvæsenets Klassifikationssystem (SKS), which is managed by [The Danish Health Data Authority](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications). SKS is the national standard used throughout the Danish healthcare system.
 
 The SKS uses the [World Health Organisation's International Classification of Diseases](https://www.who.int/standards/classifications/classification-of-diseases), 10th Revision (ICD-10) for diagnostic data, thereby ensuring that Danish data is aligned with international standards.
 
