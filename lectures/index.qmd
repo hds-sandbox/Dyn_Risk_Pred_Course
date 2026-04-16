@@ -148,7 +148,7 @@ The final module explores the challenges of implementing predictive tools in cli
 
 In general, risk prediction refers to estimating how likely a binary future event is based on present, relevant information, commonly through statistical or machine learning models. In healthcare, risk prediction often focuses on estimating an individual’s likelihood of developing a disease or experiencing a medical event to guide prevention and treatment. The estimation is typically based on a variety of variables, such as clinical, demographic, and lifestyle data.
 
-Traditional risk prediction generates a risk estimate at a specific time point in a patient’s disease trajectory, such as the risk of death within 30 days after surgery. In contrast, dynamic risk prediction enables repeated risk estimation over time, allowing the patient’s risk to be updated as new clinical information becomes available. Using data available up to the time of prediction, the prediction model outputs an estimate of the individual experiencing the event within a specified prediction horizon for each prediction time, as illustrated in Figure 2. Examples of binary outcomes include hospitalisation within the next six months, response to treatment within one month, or death in the following week for a patient in an intensive care unit.
+Dynamic risk prediction enables repeated risk estimation over time, allowing the patient’s risk to be updated as new clinical information becomes available. Using data available up to the time of prediction, the prediction model outputs an estimate of the individual experiencing the event within a specified prediction horizon for each prediction time, as illustrated in Figure 2. Examples of binary outcomes include hospitalisation within the next six months, response to treatment within one month, or death in the following week for a patient in an intensive care unit.
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
@@ -244,9 +244,9 @@ Based on what has been presented in this chapter, please choose the correct opti
 <span class="q-header">1) What is the prediction horizon?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q1', 'Correct!')">a. 30 days
+<div class="opt-btn" onclick="check(this, false, 'q1', 'Incorrect!')">a. 30 days
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q1', 'Incorrect.')">b. One year
+<div class="opt-btn" onclick="check(this, true, 'q1', 'Correct.')">b. One year
 </div>
 </div>
 <div class="feedback-text" id="fb-q1">
