@@ -53,12 +53,12 @@ The specific topics of this module are:
 ## Introduction to predictive modelling
 
 
-Predictive modelling uses statistical or machine learning models to identify patterns in historical data and apply them to predict future events or outcomes. For this course, these models are used to estimate the changing risk of a binary clinical events over time to assist clinicians in deciding upon potential interventions. In mathematical terms, predictive modelling involves finding a function $f$ that accurately maps one or more predictor variables $x$ (also called independent/explanatory variables or features) to an outcome $y$ (also called a dependent variable), such that $y=f(x)$. Estimating an arbitrary functional relation $f$ is a complex, high-dimensional problem. Therefore, the function is typically parametrised by a finite-dimensional parameter vector $\beta$. This relationship can be expressed as:
+Predictive modelling uses statistical or machine learning models to identify patterns in historical data and apply them to predict future events or outcomes. For this course, these models are used to estimate the changing risk of a binary clinical event over time to assist clinicians in deciding upon potential interventions. In mathematical terms, predictive modelling involves finding a function $f$ that accurately maps one or more predictor variables $x$ (also called independent/explanatory variables or features) to an outcome $y$ (also called a dependent variable), such that $y=f(x)$. Estimating an arbitrary functional relation $f$ is a complex, high-dimensional problem. Therefore, the function is typically parametrised by a parameter vector $\beta$. This relationship can be expressed as:
 
 
 $$y=f(x,\beta).$$
 
-The parameter vector $\beta$ determines how the predictor variables $x$ are combined to make predictions. During model training, the algorithm “learns” the values of $\beta$ that make $f(x, \beta)$ best fit the observed data. In addition to the model parameters described by $\beta$, many models have *hyperparameters*, which are set control the model’s structure or learning process. Hyperparameters are typically chosen by assessing model performance on a validation set.
+The parameter vector $\beta$ determines how the predictor variables $x$ are combined to make predictions. During model training, the algorithm “learns” the values of $\beta$ that make $f(x, \beta)$ best fit the observed data. In addition to the model parameters described by $\beta$, many models have *hyperparameters*, which control the model’s structure or learning process. Hyperparameters are typically chosen by assessing model performance on a validation set.
 
 For example, in a simple linear regression model, the relationship between $x$ and $y$ is described by
 
@@ -425,15 +425,6 @@ $$
 
 where $r_i$ is the proportion of observations of one class in node $i$.
 
-During the model optimization process, the algorithm evaluates the quality of potential splits using this index. The decision tree algorithm evaluates the potential splits using the Gini index. The process is selected based on the weighted average of the Gini indices of the resulting child nodes. A split is chosen only if the total impurity of the two new nodes is lower than the impurity of the original parent node. By selecting the split that results in the lowest combined Gini index, nodes are created that are as pure as possible.
-
-
-The maximum depth of the tree, representing the highest permissible number of branches between the root node and the leaves, is considered the most significant hyperparameter. By restricting the depth, the tree is prevented from becoming overly complex and possibly overfitting the data.
-
-Another regularization method, referred to as pruning, involves establishing a minimum number of data points that must be present in each node.
-
-In regression problems, the methodology is similar as for classification. However, node impurity is evaluated using metrics such as the mean squared error (or other suitable regression metrics) instead of the Gini index.
-An example of a simple classification tree is shown in Figure 7.
 
 <div style="text-align: center;">
    <img src="../images/Decision_tree_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
@@ -450,7 +441,7 @@ To address these issues, ensemble learning methods can be employed.
 ## Ensemble learning methods
 In general, *ensemble learning methods* combine multiple models to solve problems better than any single model could, thus merging several weak learners into one (hopefully) strong predictor. This is also known as ‘wisdom of the crowd’. The most popular ensemble learning method for decision trees are bagging, random forest, and gradient boosted decision trees.
 
- For further reading, see this ref: [James et al. 2014:331-341](https://www.statlearning.com/)
+ For further reading, see: [James et al. 2014:331-341](https://www.statlearning.com/)
 
 
 ### Bagging
@@ -513,14 +504,6 @@ $$
 A_1^{(2)} = g(B_{2,1,0} + \sum_{j=1}^kB_{2,1,j}A_j^{(1)}).
 $$
 
-In general, for the $p$th node in the $q$th hidden layer with activation $A_p^{(q)}$, we can write this process as
-
-$$
-A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
-$$
-
-where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$.
-
 The activations from the last hidden layer are passed to the output layer. There, a final linear combination of the inputs is computed and then passed through an output activation function, such as the logistic function $\sigma$ in the case of a binary outcome, to produce the final prediction (denoted $Y_i$ in Figure 8).
 
 <div style="text-align: center;">
@@ -538,12 +521,12 @@ Note, the number of parameters in neural networks can grow rapidly, as adding a 
 To estimate model parameters, a loss function $L$ is minimised as previously discussed:
 
 $$
-L(\beta) = \sum_{i=1}^n|y_i-f(x_i, \beta)|^2,
+L(\beta) = \sum_{i=1}^n(y_i-f(x_i, \beta))^2,
 $$
 
 where $\beta$ is now the weights and bias terms of the neural network.
 
-First, the weights of the network are initialised. Data is then passed through the network to produce predicted outcomes based on the initialised weights. The prediction error is then computed at the output layer, and during a process called *backpropagation* the derivate of this error is propagated backward through the hidden layers by partial derivatives to calculate the gradients of the loss function with respect to each parameter. Finally, the parameters are then updated in the direction of the gradient.
+First, the weights of the network are initialised. Data is then passed through the network to produce predicted outcomes based on the initialised weights. The prediction error is then computed at the output layer, and during a process called *backpropagation* the derivative of this error is propagated backward through the hidden layers by partial derivatives to calculate the gradients of the loss function with respect to each parameter. Finally, the parameters are then updated in the direction of the gradient.
 
 The size of the update step taking in the direction of the gradient is called the learning rate. The learning rate is one of multiple hyperparameters in neural networks that control how training is performed.
 
@@ -675,17 +658,17 @@ To set up a clinical scenario, you
 
 1. State an objective, which should be something the model can achieve.
 
-2. Describe its intended use in in practice, considering the clinicians' limited time, their accessibility to the data, and the availability of the patient.
+2. Describe its intended use in practice, considering the clinicians' limited time, their accessibility to the data, and the availability of the patient.
 
 3. Describe how model results should be interpreted.
 
 4. Disclose possible adverse consequences and how to mitigate them in case of false positive or negative prediction.
 
-5. Describe the measurable impact om employing the prediction model, such as optimising resource usage and lowering mortality.
+5. Describe the measurable impact on employing the prediction model, such as optimising resource usage and lowering mortality.
 
 
 The course’s motivational example is to limit the amount of late Systematic Anti-Cancer Treatment (SACT) treatments, i.e., those administered within 30 days of death.
-In this context, a dynamic risk prediction model is applied before each treatment cycle to aid in clinicians in evaluating of whether the patient is fit to receive the treatment, with the rule that treatment should generally be withheld if the model predicts a 30-day mortality risk above 50%.
+In this context, a dynamic risk prediction model is applied before each treatment cycle to aid in clinicians in evaluating whether the patient is fit to receive the treatment, with the rule that treatment should generally be withheld if the model predicts a 30-day mortality risk above 50%.
 
 The believed measurable impact of the model is that it prevents suffering from the late SACT treatments and lessens the amount of chemotherapy given. Regarding adverse consequences, a false positive (i.e., predicting death within 30 days when the patient does not die within 30 days) could lead to the treatment would be stopped early, or perhaps just delayed to a later point.
 

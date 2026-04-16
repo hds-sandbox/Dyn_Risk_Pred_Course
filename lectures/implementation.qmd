@@ -23,7 +23,7 @@ Healthcare professionals generate and record much of the data in healthcare. How
 
 Through this infrastructure, information about patients, such as diagnoses and treatments, can be transferred, stored, and reused by researchers. The infrastructure also provides services support of decision-making processes.
 
-Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types are classified from local, such as Bluetooth or Wi-Fi, to wider area networks, including hospital systems or the internet. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.
+Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types include Local Area Networks (LAN), which are clusters of connected devices. A LAN can be anything from a household with a Wi-Fi router to a university or hospital having a local, closed network where data can only be shared within that specific network. The other network type is the Wide Area Network (WAN), which is the global network that connects all the LAN networks, making data sharing among a wide range of devices possible. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.
 
 These networks are connected by physical devices, such as routers or access points, which enable data retrieval and transmission to the intended locations within the networks. Through these mechanisms, the sharing of resources is facilitated, and the distribution of information is secured.
 
@@ -79,11 +79,11 @@ For further information about API and API design, see this book: [Lauret, A. (20
 
 # FHIR
 
-FHIR is a global healthcare standard published by [HL7]( Health Level Seven International - Homepage | HL7 International) that facilitates the exchange of health data. Built on a RESTful architecture, FHIR allows for standardized data access, which is beneficial for interoperability between different systems.
+FHIR is a global healthcare standard published by [HL7](https://www.hl7.org/) that facilitates the exchange of health data. Built on a RESTful architecture, FHIR allows for standardized data access, which is beneficial for interoperability between different systems.
 
 To improve usability, FHIR resources are made available in both human-readable and machine-readable formats. This dual-format structure enables the development of applications that can access and process real-time data, which is especially beneficial for research.
 
-[In Denmark, FHIR has already been implemented in electronic patient record systems at hospitals and municipalities, such as Columna CIS and Columna Cura](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
+[In Denmark, FHIR has already been implemented in electronic patient record systems, such as Columna CIS and Columna Cura](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
 
 FHIR is used to access real-time data from various sources, which can then inform prediction models. FHIR reduces the time and effort needed for data collection and preparation, facilitating clinical implementation. The pipeline in Figure 2 is updated with FHIR implementation in Figure 3:
 
@@ -98,7 +98,7 @@ Figure 3: Network architecture of a risk assessment tool including FHIR interact
 The FHIR [administration module](https://www.hl7.org/fhir/administration-module.html) covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.
 
 
-Considering the example of predicting 30-day mortality in lung cancer from the introduction of the course, relevant live data in a FHIR format looks as follows:
+Considering the example of predicting 30-day mortality in lung cancer from the introduction of the course. Relevant live data in a FHIR format looks as follows:
 
 1) Patient: the baseline information about the person (e.g., sex and age), along with something unique to identify them by (e.g., CPR number in Denmark).
 2) EpisodeOfCare: Information about long-term care episodes, along with diagnoses and a time frame of when they were in care. Such as cancer diagnosis, comorbidities, and contacts.
