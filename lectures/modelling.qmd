@@ -413,7 +413,9 @@ Decision trees are intuitive algorithms that can be applied to both regression a
 
 Initially, all observations are contained within a single region called the root node. Next, a predictor and a threshold are chosen (e.g., 'age above 65') to split the data into two distinct decision regions called branches. This recursive binary splitting process continues: a region is selected for further splitting, a predictor and a threshold is selected and new branches are created (e.g., splitting the 'age under 65' region by 'bodyweight over 100kg') (Figure 7). The splitting process continues until a stopping criteria is met, such as reaching a maximum tree depth or a minimum number of samples in a node. The final regions at the end of the branches are called leaf nodes, which provide the predicted class or value for observations within that region.
 
-When decision trees are used for classification, loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index for the $i$th node is given by:
+When decision trees are used for classification, the tree recursively partitions the data by splitting it in "nodes", which is decision potins where the tree algorithm chooses a feature and a threshold to divide the observation ontp two subgroups. The goal is to make the subgroups as "pure" as possible, meaning taht each subgroup ideally only have observations from one class. If the subgroup have a mix of class, the degree of the mix is known as "impurity".
+
+ Loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index for the $i$th node is given by:
 $$
 \text{Gini index}_i = 1 - \sum_{k=1}^{n} r_{i,k}^2,
 $$
@@ -423,7 +425,7 @@ $$
 \text{Gini index}_i = 2*r_i (1 \; – \; r_i),
 $$
 
-where $r_i$ is the proportion of observations of one class in node $i$.
+where $r_i$ is the proportion of observations of one class in node $i$. To illustrate: if a node is evenly divided between two classes, such as benign and malignant cancer, then $R_i = 0.5$, which are the maximum degree of impurity. The algorithm chooses the split that minimizes the Gini index across the "nodes" in the three structure.
 
 
 <div style="text-align: center;">
@@ -452,7 +454,8 @@ In general, *ensemble learning methods* combine multiple models to solve problem
 In addition to the typical hyperparameters associated with decision trees, the bagging method has hyperparameters determining the number of trees used in the aggregation and the size of the sampled subsets.
 
 As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of many trees with (possibly) different structures.
-However, the decrease in the Gini index for each predictor can be averaged over all trees to get an estimate of the variable importance.
+However, variable importance can still be estimated. Each split in a decision tree is chosen to reduce the Gini index as much as possible. The total reduction in Gini index due to to a given predictor across all splits in a single tree measures how much that predictor contributes to the model. In bagging, this quantity is averaged over all trees in the ensemble, providing an overall estimate of each predictor's importance.
+
 
 ### Random Forest
 A limitation of bagging is that the decision trees utilised in the aggregation may be similar. This situation arises when a single predictor has significant importance, so that its selection for the initial split is consistently ensured.
@@ -464,16 +467,15 @@ To address this issue, *random forests* extend the bagging method by incorporati
 ### Gradient boosted trees
 Unlike bagging methods, where independent models are built, boosting methods construct models sequentially, where each new model is developed to address the errors of the models built so far. Among the various boosting methods, *gradient boosting* is particularly popular.
 
-In gradient boosting, a new (typically shallow) tree is at each iteration fitted to the negative gradients of the specified loss function with respect to the current model’s predictions. Each tree therefore learns how to correct the remaining mistakes of the ensemble rather than predicting the target variable directly.
+The core idea of this method is that after an initial model is fitted, the differences between the true values and the model's predictions, also known as the residuals, are computed. In each iteration, a new decision tree is fitted to the negative gradients of the specified loss function with respect to the current predictions. The remaining mistakes of the model built are specifically targeted and corrected by each new tree. The principle behind the way where trees are sequentially fitted to the negative gradients of a loss function is the reason for the name 'gradient boosted trees'.
 
 For iteration $i + 1$, the update can be expressed as:
-
 
 $$
 F_{i+1}=F_i+\delta f_i,
 $$
 
-where $F_i$ represents the current ensemble model after $i$ iterations, $f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
+where $F_i$ represents the predictions of the current current ensemble model after $i$ iterations, $f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
 
 Highly accurate models are generated through this sequential improvement process. However, careful hyperparameter adjustment is necessary to prevent overfitting. Specifically, the occurrence of severe overfitting can result from shrinkage parameter values approaching 1.
 Ref: [James et al. 2014:343-362](https://www.statlearning.com/)
@@ -490,7 +492,7 @@ $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
-The $q$th hidden layer has $k_q$ nodes. The activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
+Assuming the $q$th hidden layer contains  $k_q$ nodes, the activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
 
 $$
 A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
@@ -504,7 +506,7 @@ $$
 A_1^{(2)} = g(B_{2,1,0} + \sum_{j=1}^kB_{2,1,j}A_j^{(1)}).
 $$
 
-The activations from the last hidden layer are passed to the output layer. There, a final linear combination of the inputs is computed and then passed through an output activation function, such as the logistic function $\sigma$ in the case of a binary outcome, to produce the final prediction (denoted $Y_i$ in Figure 8).
+The activations from the last hidden layer are passed to the output layer. There, a final weighted sum of the outputs from the $q$th hidden layer is computed and then passed through an output activation function, such as the logistic function $\sigma$ in the case of a binary outcome, to produce the final prediction (denoted $Y_i$ in Figure 8).
 
 <div style="text-align: center;">
    <img src="../images/neural_network.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 80%);">
@@ -587,13 +589,13 @@ Random search effectively manages higher dimensionality because the number of mo
 
 ## Bayesian Optimisation
 
-[Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f)  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a model that predicts how well different hyperparameters will perform. The algorithm then chooses new hyperparameters to test based on this model, balancing exploration of unknown regions and exploitation of promising areas. After each evaluation, the model is updated with the results, gradually improving its predictions. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 10 illustrates Bayesian optimization.
+[Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f)  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a probabilistic surrogate model that predicts how well different hyperparameters will perform while also quantifying the uncertainty of those predictions. The algorithm then chooses new hyperparameters to test based on a mathematical strategy that balances the exploration of unknown regions and exploitation of promising areas, also known as the acquisition function. After each evaluation, the surrogate model is updated with the results to form new probability distributions, gradually improving its predictions and decreasing uncertainty. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 10 illustrates Bayesian optimization.
 
 <div style="text-align: center;">
   <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
 </div>
 
-Figure 10: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the expected improvements as the surrogate models the unknown loss function over multiple iterations.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
+Figure 10: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the acquisition function, here represented as expected improvement.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
 
 &nbsp;
 
