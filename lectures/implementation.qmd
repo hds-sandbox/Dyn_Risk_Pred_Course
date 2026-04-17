@@ -23,9 +23,9 @@ Healthcare professionals generate and record much of the data in healthcare. How
 
 Through this infrastructure, information about patients, such as diagnoses and treatments, can be transferred, stored, and reused by researchers. The infrastructure also provides services support of decision-making processes.
 
-Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types include Local Area Networks (LAN), which are clusters of connected devices. A LAN can be anything from a household with a Wi-Fi router to a university or hospital having a local, closed network where data can only be shared within that specific network. The other network type is the Wide Area Network (WAN), which is the global network that connects all the LAN networks, making data sharing among a wide range of devices possible. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.
+Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types includes Local Area Networks (LAN), which are clusters of connected devices. A LAN can be anything from a household with a Wi-Fi router to a university or hospital having a local, closed network where data can only be shared within that specific network. The other network type is the Wide Area Network (WAN), which is the global network that connects all the LAN networks, making data sharing among a wide range of devices possible. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.
 
-These networks are connected by physical devices, such as routers or access points, which enable data retrieval and transmission to the intended locations within the networks. Through these mechanisms, the sharing of resources is facilitated, and the distribution of information is secured.
+The LAN and WAN networks are connected by physical devices, such as routers or access points, which enable data retrieval and transmission to the intended locations within the networks. Through these mechanisms, the sharing of resources and information is securely facilitated.
 
 Servers typically operate within a client-server architecture, a fundamental model of network interaction. The client-to-server architecture is illustrated in Figure 1:
 
@@ -53,17 +53,16 @@ Figure 2: Network infrastructure of a risk assessment tool for clinicians. It sh
 &nbsp;
 
 Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component is the data management component, which is what handle the [data acquisition](data_management.qmd) and [preprocessing](data_preprocessing.qmd).  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
-Access to data is typically not direct, it goes via an *Application Programming Interface (API)*, which acts as a bridge between the user and the databases.
-This approach is effective because it allows for the establishment of automated tasks using a *cron job*, which is a scheduled task that is executed at a predetermined time or interval.
-For example, such jobs could involve updating the database for all the blood tests collected throughout the day at midnight for display on an app or webpage. The display on the app or webpage would be through an API communicating with the database and reading the appropriate data for the given tasks.
 
-For each API, a set of rules and techniques is established that outlines how the API should be implemented and used.
-These rules, known as the API protocol, specify the applicable data formats, commands and overall behavior of the API.
-Many different API protocols exist, but the Representational State Transfer (REST) protocol is particularly relevant here.
+Access to data is typically not direct, but rather goes via an Application Programming Interface (API). At is core are an API a standardized set of rules and protocols that allows two separate software applications to communicate with each other. Because APIs provide a structured way for systems to interact, this approach is effective for establishing automated tasks using a cron job, which is a scheduled task that is executed at a predetermined time or interval. For example, such jobs could involve triggering an API to update the database at midnight with all the blood tests collected throughout the day. The display on the app or webpage would then function through an API communicating with the backend system to securely read the appropriate data for the given tasks.
+
+Each API consists of a set of rules/language that dictates how a client communicates with a server.
+These rules, known as the API protocol or architecture, specify the applicable data formats, commands and overall behavior of the API.
+Many different API protocols and architectures exist, but the Representational State Transfer (REST) architectural style is typically used.
 REST is considered versatile, as no single message format is enforced by the style itself for the messages that can be handled.
-For REST interactions, a Uniform Resource Locator (URL) is used as the endpoint, and HyperText Transfer Protocol (HTTP) verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). The relevance of this protocol is established by its facilitation of interactions that enable data exchange between servers and clients. An API that follows this protocol is referred to as a RESTful API.
+For REST interactions, a Uniform Resource Locator (URL) is used as the endpoint, and HyperText Transfer Protocol (HTTP) verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). It is useful and often used because it facilitates the exchange of data between servers and clients. An API that follows this style is referred to as a RESTful API.
 
-The API can be seen as a function which facilitates the request. The client makes a request through the API for specific data. The data is pulled from a server and provided to the client. With the RESTful API, the request is made as a specific URL address and an action.
+When a client wants to retrieve a specific dataset from a database, they formulate a request that specifies exactly what they need, for instance, the target dataset, specific variables, or a particular time period. The data is then pulled from a server and provided to the client. With a RESTful API, this request is formulated as a specific URL address and follows the HTTP protocol.
 
 An example of using a RESTful API could be to get data on a certain patient from a database. In this case, there must be a server address, the server needs to have a patient list, and the patients need to have some identifiers, like an ID number. If the server requirements are satisfied, the GET action can be employed:
 
@@ -79,11 +78,11 @@ For further information about API and API design, see this book: [Lauret, A. (20
 
 # FHIR
 
-FHIR is a global healthcare standard published by [HL7](https://www.hl7.org/) that facilitates the exchange of health data. Built on a RESTful architecture, FHIR allows for standardized data access, which is beneficial for interoperability between different systems.
+FHIR is a global standard published by HL7 for formatting and sharing health data. Built on a RESTful architecture, FHIR allows for standardized data access, which is beneficial for interoperability between different systems. Within this framework, health information is organized into discrete, standardized units called "resources", such as a patient profile, a diagnostic report, or a medication.
 
-To improve usability, FHIR resources are made available in both human-readable and machine-readable formats. This dual-format structure enables the development of applications that can access and process real-time data, which is especially beneficial for research.
+To improve usability, these FHIR resources are made available in both human-readable and machine-readable formats. While the RESTful architecture enables the actual access to real-time data, this standardized structure ensures that developers can easily interpret the information, and software applications can reliably process it.
 
-[In Denmark, FHIR has already been implemented in electronic patient record systems, such as Columna CIS and Columna Cura](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
+[In Denmark, FHIR has already been implemented in the form of electronic health record systems, such as Columna CIS and Columna Cura, at hospitals and municipalities](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
 
 FHIR is used to access real-time data from various sources, which can then inform prediction models. FHIR reduces the time and effort needed for data collection and preparation, facilitating clinical implementation. The pipeline in Figure 2 is updated with FHIR implementation in Figure 3:
 
@@ -95,7 +94,7 @@ Figure 3: Network architecture of a risk assessment tool including FHIR interact
 
 &nbsp;
 
-The FHIR [administration module](https://www.hl7.org/fhir/administration-module.html) covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.
+The FHIR standard is organized into modules, which categories related health data structures (resources) based on their clinical or administrative purpose. For instance, the FHIR [administration module](https://www.hl7.org/fhir/administration-module.html) covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.
 
 
 Considering the example of predicting 30-day mortality in lung cancer from the introduction of the course. Relevant live data in a FHIR format looks as follows:
