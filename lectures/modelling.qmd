@@ -411,14 +411,14 @@ For further reading regarding the topics of this section, see ref: [James et al.
 ## Decision trees
 Decision trees are intuitive algorithms that can be applied to both regression and classification problems. They recursively split the data, asking simple yes/no questions about the predictors, until specific criteria are met.
 
-Initially, all observations are contained within a single region called the root node. Next, a predictor and a threshold are chosen (e.g., 'age above 65') to split the data into two distinct decision regions called branches. This recursive binary splitting process continues: a region is selected for further splitting, a predictor and a threshold is selected and new branches are created (e.g., splitting the 'age under 65' region by 'bodyweight over 100kg') (Figure 7). The splitting process continues until a stopping criteria is met, such as reaching a maximum tree depth or a minimum number of samples in a node. The final regions at the end of the branches are called leaf nodes, which provide the predicted class or value for observations within that region.
+Initially, all observations are contained within a single region called the root node. Next, a predictor and a threshold are chosen (e.g., 'age above 65') to split the data into two distinct decision regions called branches. This recursive binary splitting process continues: a region is selected for further splitting, a predictor and a threshold is selected and new branches are created (e.g., splitting the 'age under 65' region by 'bodyweight over 100kg') (Figure 7). The splitting process continues until a stopping criteria is met, such as reaching a maximum tree depth or a minimum number of samples in a node. The final regions at the end of the branches are called leaf nodes, which provide the predicted class or value for observations within that region. The goal is to make the subgroups as "pure" as possible, meaning that each subgroup ideally only have observations from one class. If the subgroup have a mix of class, the degree of the mix is known as "impurity".
 
-When decision trees are used for classification, the tree recursively partitions the data by splitting it in "nodes", which is decision potins where the tree algorithm chooses a feature and a threshold to divide the observation ontp two subgroups. The goal is to make the subgroups as "pure" as possible, meaning taht each subgroup ideally only have observations from one class. If the subgroup have a mix of class, the degree of the mix is known as "impurity".
+Loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index for the $i$th node is given by:
 
- Loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. The Gini index for the $i$th node is given by:
 $$
 \text{Gini index}_i = 1 - \sum_{k=1}^{n} r_{i,k}^2,
 $$
+
 where $r_{i,k}$ is the proportion of samples that belong to class $k$ (among $n$ possible classes) at node $i$. For binary prediction, this reduces to
 
 $$
@@ -467,7 +467,7 @@ To address this issue, *random forests* extend the bagging method by incorporati
 ### Gradient boosted trees
 Unlike bagging methods, where independent models are built, boosting methods construct models sequentially, where each new model is developed to address the errors of the models built so far. Among the various boosting methods, *gradient boosting* is particularly popular.
 
-The core idea of this method is that after an initial model is fitted, the differences between the true values and the model's predictions, also known as the residuals, are computed. In each iteration, a new decision tree is fitted to the negative gradients of the specified loss function with respect to the current predictions. The remaining mistakes of the model built are specifically targeted and corrected by each new tree. The principle behind the way where trees are sequentially fitted to the negative gradients of a loss function is the reason for the name 'gradient boosted trees'.
+The core idea of this method is that after an initial model is fitted, the differences between the true values and the model's predictions, also known as the residuals, are computed. In each iteration, a new decision tree is fitted to the negative gradients of the specified loss function with respect to the current predictions. Practically, this means the new tree uses the original input features to predict these errors rather than the original target variable. The remaining mistakes of the model built are specifically targeted and corrected by each new tree. The principle behind the way where trees are sequentially fitted to the negative gradients of a loss function is the reason for the name 'gradient boosted trees'.
 
 For iteration $i + 1$, the update can be expressed as:
 
@@ -475,7 +475,7 @@ $$
 F_{i+1}=F_i+\delta f_i,
 $$
 
-where $F_i$ represents the predictions of the current current ensemble model after $i$ iterations, $f_i$ denotes the tree fitted to the residuals of $F_i$, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
+where $F_i$ represents the predictions, the actual output values and not the model parameters, of the current current ensemble model after $i$ iterations. $f_i$ denotes the tree fitted to the residuals of $F_i$ so that its predictions can be added to the ensemble to directly correct the remaining mistakes, and $\delta$  is a shrinkage hyperparameter (also called learning rate) that determines how much influence the new tree has on the updated model.
 
 Highly accurate models are generated through this sequential improvement process. However, careful hyperparameter adjustment is necessary to prevent overfitting. Specifically, the occurrence of severe overfitting can result from shrinkage parameter values approaching 1.
 Ref: [James et al. 2014:343-362](https://www.statlearning.com/)
@@ -608,7 +608,7 @@ Evaluating a dynamic prediction model's performance involves assessing how well 
 ### Cross-validation
 A common approach for evaluating model performance on unseen data, as discussed in [Data Preprocessing](data_preprocessing.qmd), is to split data into separate subsets: a training set for fitting model parameters, a validation set for tuning hyperparameters, and a test set for assessing performance on unseen data – sometimes with an additional calibration set. While simple, performing these splits only once can lead to an evaluation that's highly dependent on that specific division of the data. To address this limitation and obtain a more robust and reliable estimate of a model's generalization performance, *cross-validation* is commonly used.
 
-Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the process is repeated multiple times, with different parts of the data allocated for training and testing. After a number of repetitions, called *folds* (Figure 11), the performance across test sets is averaged to estimate the model's overall performance. If $K$ splits were performed, it is called $K$-fold cross-validation.
+Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the entire dataset is divided into $K$ subsets, called *folds* (Figure 11). In turn, each fold is left out of the total dataset, and the model is trained, validated, and calibrated on all the remaining data, and finally tested on the left-out fold. Based on the model's test performance across these $K$ folds, its overall performance is evaluated. This specific process is known as $K$-fold cross-validation.
 
 The number of folds is widely discussed, but often a value between 5 and 10 is used [(James et al. 2013:206)](https://www.statlearning.com/).
 
