@@ -589,13 +589,7 @@ Random search effectively manages higher dimensionality because the number of mo
 
 ## Bayesian Optimisation
 
-[Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f)  is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a probabilistic surrogate model that predicts how well different hyperparameters will perform while also quantifying the uncertainty of those predictions. The algorithm then chooses new hyperparameters to test based on a mathematical strategy that balances the exploration of unknown regions and exploitation of promising areas, also known as the acquisition function. After each evaluation, the surrogate model is updated with the results to form new probability distributions, gradually improving its predictions and decreasing uncertainty. This approach often finds good hyperparameters with fewer experiments than grid or random search. Figure 10 illustrates Bayesian optimization.
-
-<div style="text-align: center;">
-  <img src="../images/bayes_opt.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
-</div>
-
-Figure 10: Illustration of Bayesian optimisation. The top graph shows how an unknown loss function (solid line) is modelled by a surrogate function (the dashed line) which also provides a measure of the uncertainty of the surrogate function (the shaded area). The bottom graph shows the acquisition function, here represented as expected improvement.  Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf)
+[Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f) is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a probabilistic 'surrogate' model that predicts how well different hyperparameters will perform while also quantifying the uncertainty of those predictions. The algorithm then chooses new hyperparameters to test based on a mathematical strategy that balances the exploration of unknown regions and exploitation of promising areas, also known as the 'acquisition function'. After each evaluation, the surrogate model is updated with the results to form new probability distributions, gradually improving its predictions and decreasing uncertainty. This approach often finds good hyperparameters with fewer experiments than grid or random search.
 
 &nbsp;
 
