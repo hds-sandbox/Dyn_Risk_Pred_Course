@@ -247,9 +247,13 @@ This course focuses on preparing data for dynamic risk prediction models, i.e., 
 Go through the following steps:
 
 1. Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+
 2. Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+
 3. Add baseline variables (in baseline_data) to the dataset (join by patient id).
+
 4. Determine which patients goes into the training, validation, calibration, and test set(using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which set each observation belongs to or split your data into the four pieces.
+
 5. Perform feature engineering, for example:
     a. Do we want to remove some predictors? (e.g., due to missingness or weird values)
     b. One-hot encoding of categorical predictors
