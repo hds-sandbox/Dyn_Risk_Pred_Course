@@ -591,9 +591,7 @@ Random search effectively manages higher dimensionality because the number of mo
 
 [Bayesian optimisation](https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f) is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a probabilistic 'surrogate' model that predicts how well different hyperparameters will perform while also quantifying the uncertainty of those predictions. The algorithm then chooses new hyperparameters to test based on a mathematical strategy that balances the exploration of unknown regions and exploitation of promising areas, also known as the 'acquisition function'. After each evaluation, the surrogate model is updated with the results to form new probability distributions, gradually improving its predictions and decreasing uncertainty. This approach often finds good hyperparameters with fewer experiments than grid or random search.
 
-&nbsp;
-
-For further reading, see for example [Shahriari et al. (2015)](https://ieeexplore.ieee.org/document/7352306)
+For further reading, see [Shahriari et al. (2015)](https://ieeexplore.ieee.org/document/7352306)
 
 ##  Performance evaluation
 
