@@ -244,9 +244,9 @@ Based on what has been presented in this chapter, please choose the correct opti
 <span class="q-header">1) What is the prediction horizon?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q1', 'Correct!')">a. 30 days
+<div class="opt-btn" onclick="check(this, false, 'q1', 'Incorrect!')">a. 30 days
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q1', 'Incorrect.')">b. One year
+<div class="opt-btn" onclick="check(this, true, 'q1', 'Correct.')">b. One year
 </div>
 </div>
 <div class="feedback-text" id="fb-q1">

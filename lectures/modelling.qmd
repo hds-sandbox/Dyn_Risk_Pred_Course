@@ -422,7 +422,7 @@ $$
 where $r_{i,k}$ is the proportion of samples that belong to class $k$ (among $n$ possible classes) at node $i$. For binary prediction, this reduces to
 
 $$
-\text{Gini index}_i = 2*r_i (1 \; – \; r_i),
+\text{Gini index}_i = 2r_i (1 \; – \; r_i),
 $$
 
 where $r_i$ is the proportion of observations of one class in node $i$. To illustrate: if a node is evenly divided between two classes, such as benign and malignant cancer, then $R_i = 0.5$, which are the maximum degree of impurity. The algorithm chooses the split that minimizes the Gini index across the "nodes" in the three structure.
@@ -492,7 +492,7 @@ $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
-Assuming the $q$th hidden layer contains  $k_q$ nodes, the activation of the first node in the first hidden layer, $A_1^{(1)}$, is then given by
+Assuming the $q$th hidden layer contains  $k_q$ nodes, the activation of the first node in the first hidden layer, $A_1^{(1)}$, is given by
 
 $$
 A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),

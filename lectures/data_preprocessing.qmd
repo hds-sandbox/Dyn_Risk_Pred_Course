@@ -1,5 +1,8 @@
 ---
 format: html
+title: "Your Document Title"
+resources:
+  - "exercise_data/PAD-introduction.html"
 ---
 
 :::{.hero-banner}
@@ -240,7 +243,7 @@ To reinforce what you have learned from this lesson, try the exercise below befo
 
 # Exercise
 
-In this exercise, you will prepare data for training and testing a dynamic risk prediction model. The data is described in [PAD-introduction.html](https://htmlpreview.github.io/?https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/blob/webpage-quarto/exercise_data/PAD-introduction.html) and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) are all found [here](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data)
+In this exercise, you will prepare data for training and testing a dynamic risk prediction model. The data is described in [PAD-introduction.html](../exercise_data/PAD-introduction.html) and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) are all found [here](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data)
 
 This course focuses on preparing data for dynamic risk prediction models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome, you can, for example, choose 1-year mortality, but you are welcome to choose another outcome based on the events data set.
 

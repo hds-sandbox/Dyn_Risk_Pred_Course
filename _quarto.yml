@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+      - "exercise_data/PAD-introduction.html"
   render:
     - "*.qmd"
     - "lectures/"
