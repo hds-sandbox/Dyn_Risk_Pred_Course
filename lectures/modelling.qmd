@@ -741,7 +741,7 @@ In this exercise you will train and test at least one prediction model based on 
 
 5.	Train a calibration model. How well is the model calibrated, considering the test set?*
 
-*Note: due to high class imbalance, too little data, and the small variation of predicted probabilities, the calibration plots generated here are not that meaningful unfortunately. Do not put too much energy in trying to decipher the calibration results.
+**Note**: due to high class imbalance, too little data, and the small variation of predicted probabilities, the calibration plots generated here are not that meaningful unfortunately. Do not put too much energy in trying to decipher the calibration results.
 
 
 To proceed to the next section of the course, please click the button below.
