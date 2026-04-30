@@ -245,28 +245,31 @@ To reinforce what you have learned from this lesson, try the exercise below befo
 
 In this exercise, you will prepare data for training and testing a dynamic risk prediction model. The data is described in [PAD-introduction.html](../exercise_data/PAD-introduction.html) and the data files (baseline_date.csv, diag_data.csv, dict_data.csv, blood_data.csv, quest_data.csv, treat_data.csv, event.csv and vist_date.csv) are all found [here](https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data)
 
-This course focuses on preparing data for dynamic risk prediction models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As your binary outcome, you can, for example, choose 1-year mortality, but you are welcome to choose another outcome based on the events data set.
+This course focuses on preparing data for dynamic risk prediction models, i.e., the goal is a dataset with one row per prediction time point with patient history aggregated into separate features. As event of interest, we consider events of type “major”, “minor” and “death” from the ‘event’ dataset. The binary outcome is whether the event happens within the next year from the prediction time point.
 
 Go through the following steps:
 
-1. Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible predictors (e.g., check for proportion of missing values). Consider translating diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
+1.	Load all the datasets and get acquainted with them, including reading the data description, making simple checks on the possible. Translate diagnosis codes in diag_data to a more descriptive diagnosis code using the key in dict_data.
 
-2. Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date as you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and date.
+2.	Join the feature datasets variables (blood_data, diag_data, quest_data, and treat_data) and the visits data set (visit_date) on patient id and date to obtain a dataset with one row per unique date. As you only will have one observation per day this corresponds to bundling in 1-day time steps. Order data by patient id and then date.
 
-3. Add baseline variables (in baseline_data) to the dataset (join by patient id).
+3.	Add baseline variables (in baseline_data) to the dataset you just created (join by patient id).
 
-4. Determine which patients goes into the training, validation, calibration, and test set(using, e.g., 80% training, 5% validation, 5% calibration, and 10% test). You can either add a variable indicating which set each observation belongs to or split your data into the four pieces.
+4.	Determine which patients goes into the training, validation, calibration, and test set (using 70% training, 10% validation, 10% calibration, and 10% test). Add a variable indicating which set each observation belongs to.
 
-5. Perform feature engineering, for example:
-    a. Do we want to remove some predictors? (e.g., due to missingness or weird values)
-    b. One-hot encoding of categorical predictors
-    c. Construct feature for age at each time point
-    d. How to handle missing values? Imputation, presence variables, …?
-    e. Cap and normalise numerical predictors
-    f. Summary variables (aggregating historical information)
-6. Filter your data to only keep rows related to prediction time points (time of a visit) and use the dataset events to define your outcome for each time point and add to the dataset you just created.
+5.	Perform feature engineering. We suggest the following steps (for easy comparison with the provided prepared data):
+    a)	Remove features with >20% missing on a patient-level
+    b)	Construct feature with age at each visit
+    c)	Make one-hot encoding of sex, smoking, and diagnoses
+    d)	Use a carry-forward approach for imputing diagnoses, blood, treatment, and questionnaire data. If the initial record is missing, impute with mean value (from training data)
+    e)	Cap and min-max normalise non-categorical features
 
-**If you use the mean or regression to impute variables, you should base this on the training set only.** The values you cap and the values you use to normalise should be based on the training set only
+You may further create summary variables (aggregating historical information), add presence features, or construct other derived features.
+
+6.	Filter your data to only keep rows related to prediction time points (=time of a visit) and use the dataset “events” to define your outcome for each time point and add to the dataset you just created
+
+Note: Packages like tidymodels in R can automate several of these data preprocessing steps. In particular, during cross-validation, they make sure that e.g., imputing missing values or scaling variables are based only on the training data within each fold, and then applied to the validation data. This is important to avoid data leakage. Here, we perform these steps manually to better understand what is happening behind the scenes.
+
 
 To proceed to the next section of the course, please click the button below.
 
