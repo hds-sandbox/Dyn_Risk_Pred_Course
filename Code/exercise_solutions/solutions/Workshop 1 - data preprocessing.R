@@ -6,14 +6,14 @@ library(tidyverse)
 
 # Data saved in a folder named "Raw_data" in the working directory
 
-baseline <- read.csv("Raw_data/baseline_data.csv")
-diag     <- read.csv("Raw_data/diag_data.csv")
-dict     <- read.csv("Raw_data/dict_data.csv") 
-quest    <- read.csv("Raw_data/quest_data.csv") 
-blood    <- read.csv("Raw_data/blood_data.csv") 
-treat    <- read.csv("Raw_data/treat_data.csv")
-events   <- read.csv("Raw_data/events.csv") 
-visits   <- read.csv("Raw_data/visit_date.csv")  
+baseline <- read.csv("exercise_data/raw_data/baseline_data.csv")
+diag     <- read.csv("exercise_data/raw_data/diag_data.csv")
+dict     <- read.csv("exercise_data/raw_data/dict_data.csv") 
+quest    <- read.csv("exercise_data/raw_data/quest_data.csv") 
+blood    <- read.csv("exercise_data/raw_data/blood_data.csv") 
+treat    <- read.csv("exercise_data/raw_data/treat_data.csv")
+events   <- read.csv("exercise_data/raw_data/events.csv") 
+visits   <- read.csv("exercise_data/raw_data/visit_date.csv")  
 
 
 ## -----------------------------------------------------------------------------
@@ -33,6 +33,12 @@ diag <-
 # Adds indicator "visit" (used later for filtering to visit times only)
 visits$visit <- T
 
+# Rename columns before joining
+blood <- blood %>% rename(id = ..record.id)
+treat <- treat %>% rename(id = record_id)
+quest <- quest %>% rename(date = date.x)
+
+
 # Merge data - one row per unique time stamp (per patient)
 feat_merged <- 
   blood %>% 
@@ -49,6 +55,9 @@ feat_merged <-
 full_dat <- 
   feat_merged %>% 
   full_join(baseline, by = "id") 
+
+### SPØRG HEIDI OM DER ER EN MENING MED X.X, X.X.X, X.Y OSV 
+full_dat <- full_dat %>% select(-matches("^X\\."))
 
 set.seed(123)
 
@@ -187,7 +196,7 @@ final_data <-
   distinct(id, date, .keep_all = T) %>% 
   # Outcome as factor
   mutate(event_1y = factor(as.integer(event_1y), levels = c(1, 0))) %>% 
-  select(-d.event, -event, -type)  
+  select(-d.event, -event, -type) 
 
 
 # Note: as we have capped using q1 and q99 from the training set, the above
@@ -199,10 +208,10 @@ final_data <-
 # Summary of the final data
 skimr::skim(final_data)
 
+summary(final_data)
+
 ## -----------------------------------------------------------------------------
 ## Data prepared for workshop 2
 ## -----------------------------------------------------------------------------
-write.csv(final_data, "Data_ready_for_workshop2.csv", row.names = F) 
-saveRDS(final_data, "Data_ready_for_workshop2.rds") # preferred for R (save factor levels etc.)
-
-
+write.csv(final_data, "Data_ready_for_workshop2_test.csv", row.names = F)  #### Change back so don't have "_test" in either 
+saveRDS(final_data, "Data_ready_for_workshop2_test.rds") # preferred for R (save factor levels etc.) #### Change back so don't have "_test" in either 

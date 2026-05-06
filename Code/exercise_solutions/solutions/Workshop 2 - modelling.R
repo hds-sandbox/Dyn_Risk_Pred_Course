@@ -15,14 +15,12 @@ library(tidymodels)
 library(vip)
 library(probably)
 
-options(yardstick.event_first = TRUE) # treat the first level (1) as “positive” 
-
 ## -----------------------------------------------------------------------------
 ## Load and prepare preprocessed data
 ## -----------------------------------------------------------------------------
 
 # Load data
-df <- readRDS("Data_ready_for_workshop2.rds")
+df <- readRDS("Code/exercise_solutions/Data_ready_for_workshop2.rds")
 
 # Test and calibration data
 df_test <- 
@@ -88,7 +86,7 @@ blr_res <-
 blr_val_pr <- 
   blr_res %>% 
   collect_predictions() %>% 
-  pr_curve(event_1y, .pred_1) %>% 
+  pr_curve(event_1y, .pred_1, event_level = "first") %>% 
   mutate(model = "Logistic Regression")
 
 autoplot(blr_val_pr)
@@ -234,12 +232,12 @@ results %>%
 pr_curves <- bind_rows(
   blr_last_fit %>%
     collect_predictions() %>%
-    pr_curve(event_1y, .pred_1) %>%
+    pr_curve(event_1y, .pred_1, event_level = "first") %>%
     mutate(model = "Logistic"),
   
   el_last_fit %>%
     collect_predictions() %>%
-    pr_curve(event_1y, .pred_1) %>%
+    pr_curve(event_1y, .pred_1, event_level = "first") %>%
     mutate(model = "Elastic Net")
 )
 
