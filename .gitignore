@@ -49,3 +49,7 @@ _site
 /.quarto/
 
 **/*.quarto_ipynb
+
+Workshop 2 - modelling.md
+workshop_1_diff_RandPy.md
+workshop_2_R.md

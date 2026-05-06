@@ -1,13 +1,10 @@
 ---
 format: html
-title: "Your Document Title"
+title: "Data Preprocessing"
 resources:
   - "exercise_data/PAD-introduction.html"
 ---
 
-:::{.hero-banner}
-# Data Preprocessing
-:::
 
 This section aims to prepare participants for the necessary considerations encountered during data preparation for dynamic risk prediction modelling.
 
