@@ -33,11 +33,6 @@ diag <-
 # Adds indicator "visit" (used later for filtering to visit times only)
 visits$visit <- T
 
-# Rename columns before joining
-blood <- blood %>% rename(id = ..record.id)
-treat <- treat %>% rename(id = record_id)
-quest <- quest %>% rename(date = date.x)
-
 
 # Merge data - one row per unique time stamp (per patient)
 feat_merged <- 
@@ -55,9 +50,6 @@ feat_merged <-
 full_dat <- 
   feat_merged %>% 
   full_join(baseline, by = "id") 
-
-### SPØRG HEIDI OM DER ER EN MENING MED X.X, X.X.X, X.Y OSV 
-full_dat <- full_dat %>% select(-matches("^X\\."))
 
 set.seed(123)
 
