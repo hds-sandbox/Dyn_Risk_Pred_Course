@@ -342,7 +342,7 @@ Based on what has been presented in this chapter, please choose the correct opti
 
 
 
-To proceed to the next section of the course, please click the button below.
+<p align="center">To proceed to the next section of the course, please click the button below.</p>
 
 &nbsp;
 

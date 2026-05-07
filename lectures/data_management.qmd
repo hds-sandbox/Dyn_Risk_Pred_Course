@@ -199,10 +199,11 @@ Based on the module regarding Danish health registries and data acquisition, ple
   }
 </script>
 
-To proceed to the next section of the course, please click the button below.
+
+
+<p align="center">To proceed to the next section of the course, please click the button below.</p>
 
 &nbsp;
-
  <p align="center">
   <a href="data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to

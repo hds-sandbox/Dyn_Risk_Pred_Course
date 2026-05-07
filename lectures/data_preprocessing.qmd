@@ -268,7 +268,7 @@ You may further create summary variables (aggregating historical information), a
 **Note**: Packages like tidymodels in R can automate several of these data preprocessing steps. In particular, during cross-validation, they make sure that e.g., imputing missing values or scaling variables are based only on the training data within each fold, and then applied to the validation data. This is important to avoid data leakage. Here, we perform these steps manually to better understand what is happening behind the scenes.
 
 
-To proceed to the next section of the course, please click the button below.
+<p align="center">To proceed to the next section of the course, please click the button below.</p>
 
 &nbsp;
 

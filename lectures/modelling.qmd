@@ -15,6 +15,8 @@ This module introduces the concepts of training, validating, and testing predict
 
 Foundational challenges, such as overfitting, will be addressed, along with an introduction to how loss functions guide model training. An introduction to hyperparameter optimisation techniques for fine-tuning models to achieve optimal performance will also be provided.
 
+
+
 These concepts will then be linked to practical, real-world applications, covering model utility, the importance of prediction calibration, and methods for achieving explainability of "black-box" models, such as using SHAP values.
 
 The specific topics of this module are:
@@ -733,7 +735,7 @@ In this exercise you will train and test at least one prediction model based on 
 **Note**: due to high class imbalance, too little data, and the small variation of predicted probabilities, the calibration plots generated here are not that meaningful unfortunately. Do not put too much energy in trying to decipher the calibration results.
 
 
-To proceed to the next section of the course, please click the button below.
+<p align="center">To proceed to the next section of the course, please click the button below.</p>
 
 &nbsp;
 
