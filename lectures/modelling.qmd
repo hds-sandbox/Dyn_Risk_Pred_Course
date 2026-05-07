@@ -17,10 +17,6 @@ Foundational challenges, such as overfitting, will be addressed, along with an i
 
 These concepts will then be linked to practical, real-world applications, covering model utility, the importance of prediction calibration, and methods for achieving explainability of "black-box" models, such as using SHAP values.
 
-
-
-
-
 The specific topics of this module are:
 
 - Introduction to predictive modelling
