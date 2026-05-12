@@ -20,13 +20,6 @@ events = pd.read_csv("../../../exercise_data/raw_data/events.csv").drop(columns=
 visits = pd.read_csv("../../../exercise_data/raw_data/visit_date.csv")
 
 # ==============================================================================
-# Data cleaning: rename columns
-# ==============================================================================
-blood = blood.rename(columns={"..record.id": "id"})
-treat = treat.rename(columns={"record_id": "id"})
-quest = quest.rename(columns={"date.x": "date"})
-
-# ==============================================================================
 # 2. Translate diagnosis codes
 # ==============================================================================
 diag = diag.merge(dict_, on="code", how="left").drop(columns=["code"])
