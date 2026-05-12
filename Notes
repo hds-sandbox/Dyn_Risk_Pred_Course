@@ -1,5 +1,0 @@
-- Add images to .rmd:
-```{r, echo = TRUE, eval = TRUE, out.width="50%"}
-
-knitr::include_graphics("./img/logo.png")
-```
