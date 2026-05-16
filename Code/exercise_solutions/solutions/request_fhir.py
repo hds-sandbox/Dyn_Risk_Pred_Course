@@ -1,16 +1,9 @@
 from urllib.parse import urlparse, parse_qs
 import json
-import os
 import random
 import pandas as pd
 from requests.models import Response
 
-# Calculate data directory path relative to this script
-_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-_DATA_DIR = os.path.abspath(os.path.join(_SCRIPT_DIR, '../../../exercise_data/raw_data'))
-
-"""NOTE: This code creates a simulated server or a 'mock api', designed to handle data in FHIR format. 
-The code simulates the process of GET data and the request to create data (POST). """
 
 BASE_URL = 'https://test/fhir'
 JSON_HEADERS = {'Content-type': 'application/json', 'Accept': 'text/plain'}
@@ -24,7 +17,7 @@ RAW_PROCEDURE_STR = ('{{"resourceType":"Procedure","id":"10308213","meta":{{"ver
                      '"code":{{"coding":[{{"system":"http://snomed.info/sct","code":"{code}"}}]}},"subject":{{"reference":"Patient/{patient_id}"}},'
                      '"performedDateTime":"{date}","valueQuantity":{{"value":"{value}"}}}}')
 RAW_ENTRY_START_STR = '{{"fullUrl":"{base_url}/{entity}/{id}","resource":'
-RAW_ENTRY_END_STR = ',"search":{{"mode":"match"}}}'
+RAW_ENTRY_END_STR = ',"search":{{"mode":"match"}}}}'
 RAW_BUNDLE_STR = ('{{"resourceType":"Bundle","id":"512f46e7-1df0-4fc9-83c9-f871a625558d","meta":{{"lastUpdated":"2023-06-09T09:54:34.061+00:00"}},'
                   '"type":"searchset","link":[{{"relation":"self","url":"{base_url}/{entity}"}}],"entry":[{entries}]}}')
 
@@ -88,8 +81,8 @@ def get(url):
         else:
             entity_id = int(entity_id)
 
-    baseline_df = pd.read_csv(os.path.join(_DATA_DIR, 'baseline_data.csv'), parse_dates=['d.birth'])
-    snomed_df = pd.read_csv(os.path.join(_DATA_DIR, 'snomed.csv'))
+    baseline_df = pd.read_csv('../../../exercise_data/raw_data/baseline_data.csv', parse_dates=['d.birth'])
+    snomed_df = pd.read_csv('../../../exercise_data/raw_data/snomed.csv')
 
     if entity == 'Patient':
         if entity_id:
@@ -136,8 +129,8 @@ def get(url):
             return response
 
         if entity == 'Procedure':
-            treat_df = pd.read_csv(os.path.join(_DATA_DIR, 'treat_data.csv'), parse_dates=['treat_start_date'], index_col=0)
-            event_df = (pd.read_csv(os.path.join(_DATA_DIR, 'events.csv'), parse_dates=['date'], index_col=0)
+            treat_df = pd.read_csv('Data/treat_data.csv', parse_dates=['treat_start_date'], index_col=0)
+            event_df = (pd.read_csv('Data/events.csv', parse_dates=['date'], index_col=0)
                         .query("type != 'death'")
                         .assign(revascularization=lambda df: (df["event"] == "revascularization").astype(int),
                                 malignancy=lambda df: (df["event"] == "malignancy").astype(int),
@@ -146,10 +139,10 @@ def get(url):
                                 stroke=lambda df: (df["event"] == "stroke").astype(int)))
 
         if entity == 'Observation':
-            blood_df = pd.read_csv(os.path.join(_DATA_DIR, 'blood_data.csv'), parse_dates=['sample_date'], index_col=0)
-            diag_df = pd.read_csv(os.path.join(_DATA_DIR, 'diag_data.csv'), parse_dates=['sample_date'], index_col=0)
-            quest_df = pd.read_csv(os.path.join(_DATA_DIR, 'quest_data.csv'), parse_dates=['date.x'], index_col=0)
-            visit_df = pd.read_csv(os.path.join(_DATA_DIR, 'visit_date.csv'), parse_dates=['visit_date'], index_col=0)
+            blood_df = pd.read_csv('../../../exercise_data/raw_data/blood_data.csv', parse_dates=['sample_date'], index_col=0)
+            diag_df = pd.read_csv('../../../exercise_data/raw_data/diag_data.csv', parse_dates=['sample_date'], index_col=0)
+            quest_df = pd.read_csv('../../../exercise_data/raw_data/quest_data.csv', parse_dates=['date'], index_col=0)
+            visit_df = pd.read_csv('../../../exercise_data/raw_data/visit_date.csv', parse_dates=['visit_date'], index_col=0)
 
         entries_list = []
 
@@ -174,7 +167,7 @@ def get(url):
                 snomed_info = snomed_list_df.iloc[0]
 
                 if snomed_info['source'] == 'blood_data':
-                    entries_temp_df = blood_df.loc[blood_df['..record.id'] == patient_id][['sample_date', snomed_info['label']]].rename(
+                    entries_temp_df = blood_df.loc[blood_df['id'] == patient_id][['sample_date', snomed_info['label']]].rename(
                         columns={'sample_date': 'date', snomed_info['label']: 'value'})
 
                 elif snomed_info['source'] == 'diag_data':
