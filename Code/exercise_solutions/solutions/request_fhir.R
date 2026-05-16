@@ -142,14 +142,14 @@ get_r <- function(url) {
   }
   
   tryCatch({
-    baseline_df <- read_csv("data/baseline_data.csv",
+    baseline_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/baseline_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sex = col_character(),
                               `d.birth` = col_date(format = ""),
                               smoking = col_character()
                             ), show_col_types = FALSE)
-    snomed_df <- read_csv("data/snomed.csv",
+    snomed_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/snomed.csv",
                           col_types = cols(
                             code = col_double(),
                             label = col_character(),
@@ -245,13 +245,13 @@ get_r <- function(url) {
     
     tryCatch({
       if (entity == 'Procedure') {
-        treat_df <- read_csv("data/treat_data.csv",
+        treat_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/treat_data.csv",
                              col_types = cols(
                                record_id = col_double(),
                                treat_start_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        event_df <- read_csv("data/events.csv",
+        event_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/events.csv",
                              col_types = cols(
                                id = col_double(),
                                date = col_date(format = ""),
@@ -265,26 +265,26 @@ get_r <- function(url) {
                  stroke            = case_when(event == "stroke" ~ 1, T ~ 0))
       }
       if (entity == 'Observation') {
-        blood_df <- read_csv("data/blood_data.csv",
+        blood_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/blood_data.csv",
                              col_types = cols(
                                `..record.id` = col_double(),
                                sample_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        diag_df <- read_csv("data/diag_data.csv",
+        diag_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/diag_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sample_date = col_date(format = ""),
                               code = col_character(),
                               .default = col_guess()
                             ), show_col_types = FALSE)
-        quest_df <- read_csv("data/quest_data.csv",
+        quest_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/quest_data.csv",
                              col_types = cols(
                                id = col_double(),
                                `date.x` = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        visit_df <- read_csv("data/visit_date.csv",
+        visit_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/visit_date.csv",
                              col_types = cols(
                                id = col_double(),
                                visit_date = col_date(format = ""),

@@ -1,5 +1,4 @@
-PATH <- "C:/Users/r0xp/Documents/Dyn_Risk_Pred_course/Exercise 5 Main folder"
-setwd(PATH)
+PATH <- "~/Dyn_Risk_Pred_Course/Code/exercise_solutions/solutions"
 source(paste0(PATH, "/request_fhir.R"))
 library(jsonlite)
 library(dplyr)
@@ -26,7 +25,7 @@ patients_df <- data.frame(
 )
 
 ## EXERCISE 2
-snomed <- read.csv("data/snomed.csv")
+snomed <- read.csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/snomed.csv")
 chol_std_code <- snomed$code[which(snomed$label == "chol")]
 ldl_std_code <- snomed$code[which(snomed$label == "ldl")]
 
