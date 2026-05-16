@@ -16,7 +16,7 @@ Dyn_Risk_Pred_Course/
 │   ├── data_preprocessing.qmd # Data preprocessing
 │   ├── modelling.qmd          # Modellering
 │   ├── implementation.qmd     # Implementering
-│   └── images/                # Billeder til forelæsninger
+│   └── images/                # Billeder til kursusgangene
 │
 ├── Code/                      # Kode og øvelsesløsninger
 │   ├── exercise_solutions/    # Løsninger til workshop-øvelser

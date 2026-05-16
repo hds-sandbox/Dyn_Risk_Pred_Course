@@ -7,7 +7,7 @@ from requests.models import Response
 
 # Calculate data directory path relative to this script
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-_DATA_DIR = os.path.abspath(os.path.join(_SCRIPT_DIR, '../../exercise_data/raw_data'))
+_DATA_DIR = os.path.abspath(os.path.join(_SCRIPT_DIR, '../../../exercise_data/raw_data'))
 
 """NOTE: This code creates a simulated server or a 'mock api', designed to handle data in FHIR format. 
 The code simulates the process of GET data and the request to create data (POST). """
