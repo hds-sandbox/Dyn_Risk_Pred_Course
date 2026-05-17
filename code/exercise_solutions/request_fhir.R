@@ -142,38 +142,38 @@ get_r <- function(url) {
   }
   
   tryCatch({
-    baseline_df <- read_csv("data/baseline_data.csv",
+    baseline_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/baseline_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sex = col_character(),
                               `d.birth` = col_date(format = ""),
                               smoking = col_character()
                             ), show_col_types = FALSE)
-    snomed_df <- read_csv("data/snomed.csv",
+    snomed_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/snomed.csv",
                           col_types = cols(
                             code = col_double(),
                             label = col_character(),
                             source = col_character()
                           ), show_col_types = FALSE)
   }, error = function(e) {
-    
+
     stop(glue("Error loading essential CSV files: {e$message}"))
-    
+
   })
-  
+
   if (!is.null(response$content) && response$status_code != 200) return(response)
-  
-  
+
+
   if (entity == 'Patient') {
     if (entity_id != 0) {
       patient_list <- baseline_df %>% filter(id == entity_id)
-      
+
       if (nrow(patient_list) != 1) {
         return(create_error_response(404, "NOT_FOUND", "The patient was not found."))
       }
-      
+
       patient_info <- patient_list %>% head(n = 1) #måske redundant
-      
+
       patient_str <- glue(
         RAW_PATIENT_STR,
         id = patient_info$id,
@@ -182,12 +182,12 @@ get_r <- function(url) {
       )
       response$content <- patient_str
       return(response)
-      
+
     } else {
       entries_list <- vector("list", nrow(baseline_df))
       for (i in 1:nrow(baseline_df)) {
         patient_info <- baseline_df[i, ]
-        
+
         patient_body <- glue(
           RAW_PATIENT_STR,
           id = patient_info$id,
@@ -202,13 +202,13 @@ get_r <- function(url) {
         )
         entries_list[[i]] <- paste0(temp_interpolated_start_str, patient_body, RAW_ENTRY_END_STR)
       }
-      
+
       entries_str <- paste(entries_list, collapse = ",\n")
-      
+
       generated_bundle_id <- paste0("bundle-", sample(1356:9871, 1))
       formatted_timestamp <- strftime(Sys.time(), format = "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
       current_query_str <- "" # Initialize here
-      
+
       bundle_str <- glue(
         RAW_BUNDLE_STR,
         bundle_id = generated_bundle_id,
@@ -225,39 +225,39 @@ get_r <- function(url) {
     if (entity_id != 0) {
       return(create_error_response(501, "NOT_IMPLEMENTED", glue("You cannot fetch a {entity} using an ID.")))
     }
-    
+
     parsed_url <- parse_url(url)
     query_params <- parsed_url$query
-    
+
     if (is.null(query_params$patient) || is.null(query_params$code)) {
       return(create_error_response(501, "NOT_IMPLEMENTED", glue("You cannot request all {entity}s, please specify one or more patient IDs and one or more codes (e.g., ?patient=1,2&code=100,200).")))
     }
-    
+
     patient_ids_str <- str_split(query_params$patient, ",")[[1]]
     snomed_codes_str <- str_split(query_params$code, ",")[[1]]
-    
+
     patient_ids <- suppressWarnings(as.numeric(patient_ids_str))
     snomed_codes <- suppressWarnings(as.numeric(snomed_codes_str))
-    
+
     if(any(is.na(patient_ids)) || any(is.na(snomed_codes))) {
       return(create_error_response(400, "BAD_REQUEST", "Invalid patient IDs or SNOMED codes provided. Ensure they are numeric."))
     }
-    
+
     tryCatch({
       if (entity == 'Procedure') {
-        treat_df <- read_csv("data/treat_data.csv",
+        treat_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/treat_data.csv",
                              col_types = cols(
-                               record_id = col_double(),
+                               id = col_double(),
                                treat_start_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        event_df <- read_csv("data/events.csv",
+        event_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/events.csv",
                              col_types = cols(
                                id = col_double(),
                                date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE) %>%
-          filter(type != "death") %>% 
+          filter(type != "death") %>%
           mutate(revascularization = case_when(event == "revascularization" ~ 1, T ~ 0),
                  malignancy        = case_when(event == "malignancy" ~ 1, T ~ 0),
                  infarction        = case_when(event == "infarction" ~ 1, T ~ 0),
@@ -265,26 +265,26 @@ get_r <- function(url) {
                  stroke            = case_when(event == "stroke" ~ 1, T ~ 0))
       }
       if (entity == 'Observation') {
-        blood_df <- read_csv("data/blood_data.csv",
+        blood_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/blood_data.csv",
                              col_types = cols(
-                               `..record.id` = col_double(),
+                               `id` = col_double(),
                                sample_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        diag_df <- read_csv("data/diag_data.csv",
+        diag_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/diag_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sample_date = col_date(format = ""),
                               code = col_character(),
                               .default = col_guess()
                             ), show_col_types = FALSE)
-        quest_df <- read_csv("data/quest_data.csv",
+        quest_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/quest_data.csv",
                              col_types = cols(
                                id = col_double(),
-                               `date.x` = col_date(format = ""),
+                               `date` = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        visit_df <- read_csv("data/visit_date.csv",
+        visit_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/visit_date.csv",
                              col_types = cols(
                                id = col_double(),
                                visit_date = col_date(format = ""),
@@ -295,37 +295,37 @@ get_r <- function(url) {
       response <- create_error_response(500, "SERVER_ERROR", paste("Could not load data files for", entity, ":", e$message))
     })
     if (!is.null(response$content) && response$status_code != 200) return(response)
-    
-    
+
+
     entries_list_df <- list()
-    
+
     param_grid <- expand.grid(patient_id = patient_ids, snomed_code = snomed_codes)
-    
+
     for (i in 1:nrow(param_grid)) {
       p_id <- param_grid$patient_id[i]
       s_code <- param_grid$snomed_code[i]
-      
+
       patient_list_df <- baseline_df %>% filter(id == p_id)
       if (nrow(patient_list_df) != 1) {
         return(create_error_response(404, "NOT_FOUND", glue("Patient with ID {p_id} was not found.")))
       }
       patient_info <- patient_list_df %>% head(n = 1)#måske overflødig
-      
+
       snomed_list_df <- snomed_df %>% filter(code == s_code)
       if (nrow(snomed_list_df) != 1) {
         return(create_error_response(404, "NOT_FOUND", glue("SNOMED code {s_code} was not found.")))
       }
       snomed_info <- snomed_list_df %>% head(n = 1)#måske overflødig
-      
+
       entries_temp_df <- NULL
-      
+
       required_label <- snomed_info$label
-      
+
       tryCatch({
         if (snomed_info$source == 'blood_data' && entity == 'Observation') {
           if (!required_label %in% names(blood_df)) next
           patient_blood_df <- blood_df %>%
-            filter(`..record.id` == p_id) %>%
+            filter(`id` == p_id) %>%
             select(sample_date, all_of(required_label))
           if(nrow(patient_blood_df) > 0) {
             entries_temp_df <- patient_blood_df %>%
@@ -344,15 +344,15 @@ get_r <- function(url) {
           if (!required_label %in% names(quest_df)) next
           patient_quest_df <- quest_df %>%
             filter(id == p_id) %>%
-            select(`date.x`, all_of(required_label))
+            select(`date`, all_of(required_label))
           if(nrow(patient_quest_df) > 0) {
             entries_temp_df <- patient_quest_df %>%
-              rename(date = `date.x`, value = all_of(required_label))
+              rename(date = `date`, value = all_of(required_label))
           }
         } else if (snomed_info$source == 'treat_data' && entity == 'Procedure') {
           if (!required_label %in% names(treat_df)) next
           patient_treat_df <- treat_df %>%
-            filter(record_id == p_id) %>%
+            filter(id == p_id) %>%
             select(treat_start_date, all_of(required_label))
           if(nrow(patient_treat_df) > 0) {
             entries_temp_df <- patient_treat_df %>%
