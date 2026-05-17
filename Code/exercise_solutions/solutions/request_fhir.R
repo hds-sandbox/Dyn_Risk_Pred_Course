@@ -257,7 +257,7 @@ get_r <- function(url) {
                                date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE) %>%
-          filter(type != "death") %>% 
+          filter(type != "death") %>%
           mutate(revascularization = case_when(event == "revascularization" ~ 1, T ~ 0),
                  malignancy        = case_when(event == "malignancy" ~ 1, T ~ 0),
                  infarction        = case_when(event == "infarction" ~ 1, T ~ 0),
@@ -295,32 +295,32 @@ get_r <- function(url) {
       response <- create_error_response(500, "SERVER_ERROR", paste("Could not load data files for", entity, ":", e$message))
     })
     if (!is.null(response$content) && response$status_code != 200) return(response)
-    
-    
+
+
     entries_list_df <- list()
-    
+
     param_grid <- expand.grid(patient_id = patient_ids, snomed_code = snomed_codes)
-    
+
     for (i in 1:nrow(param_grid)) {
       p_id <- param_grid$patient_id[i]
       s_code <- param_grid$snomed_code[i]
-      
+
       patient_list_df <- baseline_df %>% filter(id == p_id)
       if (nrow(patient_list_df) != 1) {
         return(create_error_response(404, "NOT_FOUND", glue("Patient with ID {p_id} was not found.")))
       }
       patient_info <- patient_list_df %>% head(n = 1)#måske overflødig
-      
+
       snomed_list_df <- snomed_df %>% filter(code == s_code)
       if (nrow(snomed_list_df) != 1) {
         return(create_error_response(404, "NOT_FOUND", glue("SNOMED code {s_code} was not found.")))
       }
       snomed_info <- snomed_list_df %>% head(n = 1)#måske overflødig
-      
+
       entries_temp_df <- NULL
-      
+
       required_label <- snomed_info$label
-      
+
       tryCatch({
         if (snomed_info$source == 'blood_data' && entity == 'Observation') {
           if (!required_label %in% names(blood_df)) next
