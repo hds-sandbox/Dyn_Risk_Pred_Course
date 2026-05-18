@@ -15,35 +15,55 @@ Dyn_Risk_Pred_Course/
 │   ├── data_management.qmd    # Data management
 │   ├── data_preprocessing.qmd # Data preprocessing
 │   ├── modelling.qmd          # Modellering
-│   ├── implementation.qmd     # Implementering
-│   └── images/                # Billeder til kursusgangene
+│   └── implementation.qmd     # Implementering
 │
-├── Code/                      # Kode og øvelsesløsninger
-│   ├── exercise_solutions/    # Løsninger til workshop-øvelser
-│   │   ├── solutions/         # Færdige løsninger
-│   │   │   ├── Workshop_0_data_sources_asquisition.*  # Data kilder
-│   │   │   ├── Workshop_1_data_management.*          # Data håndtering
-│   │   │   ├── Workshop_2_Modelling.*                 # Modellering
-│   │   │   ├── Workshop_3_Implementation.*            # Implementering
-│   │   │   └── modelling_simlpified.py               # Forenklet modellering
-│   │   ├── fhir_mock_server.py                       # FHIR mock server
-│   │   ├── request_fhir.py                            # FHIR request script (Python)
-│   │   └── request_fhir.R                            # FHIR request script (R)
+├── Code/                      # Kode og script filer
+│   ├── request_fhir.R         # FHIR request script (R)
+│   ├── requests_fhir.py       # FHIR request script (Python)
+│   │
+│   ├── exercise_solutions/    # Øvelsesdata og løsninger
+│   │   ├── solutions/         # Færdige løsninger til workshops
+│   │   │   ├── Workshop 1 - data preprocessing.R
+│   │   │   ├── Workshop 2 - modelling.R
+│   │   │   ├── Workshop 3 - Implementation.R
+│   │   │   ├── Workshop_1_data_management.ipynb
+│   │   │   ├── Workshop_2_Modelling.ipynb
+│   │   │   ├── Workshop_3_Implementation.ipynb
+│   │   │   ├── request_fhir.R         # FHIR request (kopi for øvelser)
+│   │   │   ├── request_fhir.py        # FHIR request (kopi for øvelser)
+│   │   │   └── requirements.txt       # Python afhængigheder
 │   │
 │   └── additional_code/       # Yderligere hjælpekode
-│       └── Metric_calculation.py                     # Metrik beregninger
-│
+│       └── Metric_calculation.py     # Metrik beregninger
 │
 ├── exercise_data/             # Øvelsesdata
-│   ├── formatted_data/        # Formaterede datafiler
-│   ├── raw_data/              # Rå data
 │   └── PAD-introduction.html  # Introduktion til PAD
 │
-├── images/                    # Billeder og illustrationer ( Bruges i forelæsninger)
-├── img/                       # Yderligere billeder
-├── cards/                     # (Kort/ flashcards til kursus)
 ├── css/                       # CSS stilarter
-├── martin_guide/              # Yderligere vejledning (Martin)
+│   ├── materialark.scss
+│   ├── materialight.scss
+│   └── styles.css
+│
+├── cards/                     # Billeder af Sandbox crew
+│   ├── AlbaMartinez.qmd
+│   ├── JacobHansen.qmd
+│   ├── JakobSkelmose.qmd
+│   ├── JenniferBartell.qmd
+│   └── SamueleSoraggi.qmd
+│
+├── img/                       # Billeder
+│   ├── logo.png
+│   ├── AlbaMartinez.jpg
+│   ├── AlexJose.jpg
+│   └── ...
+│
+├── images/                    # Billeder til forelæsninger
+│   ├── calibration_plot.png
+│   ├── class_problem.png
+│   ├── Decision_tree_l4.png
+│   └── ...
+│
+├── martin_guide               # Yderligere vejledningsdokument
 │
 ├── Data_ready_for_workshop2.csv      # Forberedt data til workshop 2
 ├── Data_ready_for_workshop2_test.csv  # Test data til workshop 2
@@ -54,12 +74,15 @@ Dyn_Risk_Pred_Course/
 ├── .quarto/                   # Quarto cache
 ├── Dyn_Risk_Pred_Course.Rproj # RStudio projektfil
 ├── renv.lock                  # R pakke versioner
+├── .Rbuildignore              # R build ignore regler
+├── DESCRIPTION                # Projekt beskrivelse
+├── LICENSE.md                 # Licens
 └── .gitignore                 # Git ignore regler
 ```
 
 ---
 
-## 📚 Undervisningsmateriale (lectures/)
+## Undervisningsmateriale (lectures/)
 
 Forelæsningsmapperne indeholder al det teoretiske undervisningsmateriale i **Quarto Markdown (.qmd)** format. 
 
@@ -73,33 +96,37 @@ Forelæsningsmapperne indeholder al det teoretiske undervisningsmateriale i **Qu
 
 **Bemærk:** Quarto-filer (.qmd) kan renderes til HTML, PDF eller andre formater ved hjælp af Quarto CLI.
 
+**Kør kursus lokalt:** Kursus kan blive testet på lokal enhed ved at bruge følgende commando i terminalen i root mappen: `quarto preview lecture/index.md`
+
 ---
 
-## 💻 Kode og Øvelser (Code/)
+## Kode og Øvelser (Code/)
 
-### exercise_solutions/
-
-Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne. Løsningerne findes i `solutions/` undermappen og er organiseret efter workshop-nummer:
-
-| Workshop | Filer | Beskrivelse |
-|----------|-------|------------|
-| **Workshop 0** | `Workshop_0_data_sources_asquisition.ipynb/.Rmd` | Data kilder og indhentning |
-| **Workshop 1** | `Workshop_1_data_management.ipynb`, `.py`, `.R` | Data håndtering og forberedelse |
-| **Workshop 2** | `Workshop_2_Modelling.ipynb`, `.py`, `.R`, `.md` | Modellering og evaluering |
-| **Workshop 3** | `Workshop_3_Implementation.ipynb`, `.py`, `.R` | Implementering af modeller |
-
-**Yderligere filer:**
-- `modelling_simlpified.py` - Forenklet version af modellering
-- `requirements.txt` - Python afhængigheder
-- `Data_ready_for_workshop2_pytest.csv` - Test data
-
-### Hjælpe scripts
+### Root niveau scripts
 
 | Fil | Formål |
 |-----|--------|
-| `request_fhir.py` | Python script til FHIR API anmodninger |
 | `request_fhir.R` | R script til FHIR API anmodninger |
-| `fhir_mock_server.py` | Mock server til test af FHIR integration |
+| `requests_fhir.py` | Python script til FHIR API anmodninger |
+
+### exercise_solutions/
+
+Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne i `solutions/` undermappen:
+
+| Workshop | Filer | Beskrivelse |
+|----------|-------|------------|
+| **Workshop 1** | `Workshop 1 - data preprocessing.R`, `Workshop_1_data_management.ipynb` | Data forbehandling |
+| **Workshop 2** | `Workshop 2 - modelling.R`, `Workshop_2_Modelling.ipynb` | Modellering og evaluering |
+| **Workshop 3** | `Workshop 3 - Implementation.R`, `Workshop_3_Implementation.ipynb` | Implementering af modeller |
+
+**Yderligere filer i solutions/:**
+- `request_fhir.R` - Kopi af FHIR script til øvelser
+- `request_fhir.py` - Kopi af FHIR script til øvelser
+- `requirements.txt` - Python afhængigheder (Når man skal lave kurset i python, starter mane med at skrive følgende i python terminalen: `pip install -r requirements.tx`)
+
+**Datafiler i exercise_solutions/:**
+- `Data_ready_for_workshop2.csv` - Forberedt data til workshop 2
+- `Data_ready_for_workshop2.rds` - Forberedt data (R format)
 
 ### additional_code/
 
@@ -109,12 +136,10 @@ Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne. Lø
 
 ---
 
-## 📊 Data (exercise_data/)
+## Data (exercise_data/)
 
-| Mappe/Fil | Beskrivelse |
-|-----------|------------|
-| `formatted_data/` | Forbehandlede datafiler klar til brug |
-| `raw_data/` | Rå datafiler (uforbehandlede) |
+| Fil | Beskrivelse |
+|-----|------------|
 | `PAD-introduction.html` | Introduktion til Peripheral Artery Disease (PAD) |
 
 **Rodniveau datafiler:**
@@ -124,30 +149,17 @@ Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne. Lø
 
 ---
 
-## 🎨 Asset Mapper
+## Asset Mapper
 
-| Mappe | Beskrivelse |
-|-------|------------|
-| `images/` | Billeder brugt i forelæsninger og dokumentation |
-| `img/` | Yderligere billeder |
-| `css/` | CSS stilarter til projektet |
-| `cards/` | Flashcards eller kort til kursusmateriale |
+| Mappe | Beskrivelse | Indhold |
+|-------|------------|---------|
+| `css/` | CSS stilarter til projektet | materialark.scss, materialight.scss, styles.css |
+| `cards/` | Flashcards til kursusdeltagere | .qmd filer med kontaktinformation |
+| `img/` | Billeder af kursusdeltagere | Profilbilleder og logoer |
+| `images/` | Billeder til forelæsninger | Diagrammer, plots, illustrationer |
 
 ---
 
-## 🛠 Værktøjer og Teknologier
-
-### Brugte Teknologier
-
-| Teknologi | Formål |
-|-----------|--------|
-| **R** | Statistisk analyse og modellering |
-| **Python** | Scripting, data forbehandling, maskinlæring |
-| **Quarto** | Dokumentations generering (HTML/PDF) |
-| **Jupyter Notebooks** | Interaktive øvelser og løsninger |
-| **FHIR** | Sundhedsdata standard (HL7) |
-| **RStudio** | Udviklingsmiljø (R) |
-| **renv** | R pakke management |
 
 ### Projekt Konfiguration
 
@@ -155,94 +167,69 @@ Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne. Lø
 - **`renv.lock`** - Låste R pakke versioner
 - **`.gitignore`** - Git ignore regler
 - **`Dyn_Risk_Pred_Course.Rproj`** - RStudio projektfil
+- **`.Rbuildignore`** - R build ignore regler
+- **`DESCRIPTION`** - Projekt beskrivelse
+- **`LICENSE.md`** - Licensinformation
 
 ---
 
-## 🚀 Hurtig Start Guide
+## Quarto Installation
 
-### 1. Opsætning af Udviklingsmiljø
+For at kunne arbejde med kursusmaterialet lokalt, skal Quarto være installeret.
 
-#### For R udvikling:
-```bash
-# Installer renv (hvis ikke allerede installeret)
-install.packages("renv")
+### Installér Quarto CLI
 
-# Åben projektet i RStudio
-# Kør for at genoprette pakker
-renv::restore()
-```
+1. **Download** Quarto fra [quarto.org](https://quarto.org/docs/get-started/)
+2. **Windows/Mac:** Kør installationsprogrammet og følg instruktionerne
+3. **Linux (Ubuntu/Debian):** `sudo apt-get install quarto`
+4. **Verificer installation:** `quarto --version`
 
-#### For Python udvikling:
-```bash
-# Opret virtuel miljø (anbefalet)
-python -m venv venv
+### Konfiguration til R
 
-# Aktiver miljø (Windows)
-venv\Scripts\activate
+- Installér R fra [CRAN](https://cran.r-project.org/)
+- Installér nødvendige pakker i R:
+  ```r
+  install.packages(c("rmarkdown", "reticulate"))
+  ```
 
-# Installer afhængigheder
-pip install -r Code/exercise_solutions/solutions/requirements.txt
-```
+### Konfiguration til Python
 
-### 2. Bygning af Dokumentation
+- Installér Python 3 fra [python.org](https://www.python.org/downloads/)
+- Installér Jupyter:
+  ```bash
+  pip install jupyter
+  ```
 
-```bash
-# Installer Quarto (hvis ikke installeret)
-# Se https://quarto.org/docs/get-started/
+### Yderligere værktøjer
 
-# Byg alle forelæsninger
-quarto render lectures/
+- **PDF output:** Installér LaTeX (anbefalet: TinyTeX)
+  ```bash
+  quarto install tinytex
+  ```
 
-# Byg specifik fil
-quarto render lectures/index.qmd
-```
+
 
 ### 3. Kørsel af Øvelser
 
 - Åben Jupyter Notebooks i `Code/exercise_solutions/solutions/`
 - Eller kør R scripts direkte i RStudio
-- Python scripts kan køres med: `python Code/exercise_solutions/solutions/Workshop_2_Modelling.py`
+- Python scripts kan køres med: `python Code/requests_fhir.py`
 
 ---
 
-## 📝 Arbejdsflow
 
-### Typisk Udviklingsflow
-
-1. **Rediger forelæsninger** → Rediger `.qmd` filer i `lectures/`
-2. **Test kode** → Kør scripts i `Code/` mapperne
-3. **Opdater data** → Placér nye datafiler i `exercise_data/`
-4. **Byg dokumentation** → `quarto render`
-5. **Test løsninger** → Verificér workshop løsninger
-6. **Commit ændringer** → Git commit og push
-
----
-
-## 🔍 Fejlfinding
-
-### Almindelige Problemer
-
-| Problem | Løsning |
-|---------|---------|
-| Quarto render fehler | Kontroller at alle afhængigheder er installeret (`quarto check`) |
-| R pakker mangler | Kør `renv::restore()` |
-| Python pakker mangler | Kør `pip install -r requirements.txt` |
-| FHIR API fehler | Kontroller API endpoint og autentifikation |
-| Data filer mangler | Kontroller stier i scripts |
-
----
 
 ## Github manual: 
 
-1) Åben Rstudio/python med 'audited privileges'
+1) Åben Rstudio/Python med 'audited privileges'
 
-2) Åben terminalen i R studio (Top bar -> Tools -> Terminal -> New Terminal)
+2) Åben terminalen i R Studio (Top bar -> Tools -> Terminal -> New Terminal)
 
 3) skriv i terminalen: "git pull"
 
 4) skriv i terminalen: "quarto preview lectures/index.qmd" for at se kurset i hjemmeside format.
 
-5) Lav ændringer i kursus filenere eller kode til øvelser
+5) Lav ændringer i kursus filerne eller kode til øvelser
 
 6) (HVIS DER BLIVER ÆNDRET NOGET) Skriv i terminalen:
     6.1 'git add .' (Tilføj alle ændringer)
@@ -252,4 +239,4 @@ quarto render lectures/index.qmd
 ---
 
 *Dokument oprettet: 12-05-2026*
-*Senest opdateret: 12-05-2026*
+*Senest opdateret: 17-05-2026*
