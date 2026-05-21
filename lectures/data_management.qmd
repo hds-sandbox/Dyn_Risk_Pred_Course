@@ -47,7 +47,7 @@ A critical requirement for performing any kind of modelling involving data is to
 
 ## Coding and Classification Systems
 
-To manage and analyse large amounts of health data, standardised coding and classification systems are essential. These systems simplify complex medical information, such as diagnoses, procedures, and lab results and is widely implemented across health registries.
+To manage and analyse large amounts of health data, standardised coding and classification systems are essential. These systems simplify complex medical information (such as diagnoses, procedures, and lab results) and these systems are are widely implemented across health registries.
 
 
 A central Danish health data classification system is the Sundhedsvæsenets Klassifikationssystem (SKS), which is managed by [The Danish Health Data Authority](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications). SKS is the national standard used throughout the Danish healthcare system.
@@ -67,9 +67,9 @@ For specific types of data, such as clinical laboratory data, more specialised t
 
 
 
-SNOMED CT (Systematised Nomenclature of Medicine Clinical Terms) is the most comprehensive multilingual clinical terminology in the world. The core purpose is to serve as an ontology (a  “Model of Meaning”) for clinical information. Enabling a common language to exchange information about diagnosis, procedures, medicine, and much more.  SNOMED CT is a terminology designed to be logical, by having nested structures for all the information. It is designed to be flexible, as different variations of SNOMED CT for specific applications exist. Examples of such is the Danish pathology database Patobank, which adds letters to the SNOMED CT code to provide additional coding axes, such as structure, location, and cause, for the cancer data. See more on [Patobank.dk](https://www.patobank.dk/wp-content/uploads/2019/10/A._Introduktion_og_vejledning_til_SNOMED-2.pdf). Having standardised code for medical information is one of the main components of being able to have functional interoperability between units which share medical information.
+SNOMED CT (Systematised Nomenclature of Medicine Clinical Terms) is the most comprehensive multilingual clinical terminology in the world. The core purpose is to serve as an ontology (a  “Model of Meaning”) for clinical information. Enabling a common language to exchange information about diagnosis, procedures, medicine, and much more.  SNOMED CT is a terminology designed to be logical, by having nested structures for all the information. It is designed to be flexible, as different variations of SNOMED CT for specific applications exist. Examples of such is the Danish pathology database Patobank, which adds letters to the SNOMED CT code to provide additional coding axes, such as structure, location, and cause, for the cancer data. See more on [Patobank.dk](https://www.patobank.dk/wp-content/uploads/2019/10/A._Introduktion_og_vejledning_til_SNOMED-2.pdf). Having standardised codes for medical information is one of the main components of being able to have functional interoperability between units that share medical information.
 
-For further information, please see this book: [Benson, Tim, and Grahame Grieve. (2021) "Principles of health interoperability.”](https://link.springer.com/book/10.1007/978-3-030-56883-2)
+For further information, please see this book: [Benson, Tim, and Grahame Grieve. (2021) "Principles of health interoperability."](https://link.springer.com/book/10.1007/978-3-030-56883-2)
 
 
 ## Health Data Providers in Denmark
@@ -90,9 +90,9 @@ Below follows two of the major data controllers of healthcare data in Denmark.
 [**The Danish Healthcare Quality Institute**](https://www.sundk.dk/about/) is an organization that collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. This institute facilitates access to numerous health-related databases, including over 40 clinical quality databases, such as:
 
 - Danish Head and Neck Cancer Database
-- Danish Prostate Cancer database
+- Danish Prostate Cancer Database
 - Danish Diabetic Database
-- Danish Heart registry
+- Danish Heart Registry
 - Danish Lymphoma Database
 
 # Exercise

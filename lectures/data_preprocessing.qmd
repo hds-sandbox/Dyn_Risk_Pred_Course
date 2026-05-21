@@ -19,7 +19,7 @@ Throughout this module, the following topics will be covered:
 
 ## Establishing the Data Analysis Protocol
 
-Before starting any data preprocessing and data analysis, one should establish a data analysis protocol, which will function as a "recipe" for the upcoming data preprocessing and analysis. This is an important step to get an overview of the necessary steps in establishing a dynamic prediction model and to avoid manipulating data until one gets the desired output.
+Before starting any data preprocessing and data analysis, one should establish a data analysis protocol, which functions as a "recipe" for the upcoming data preprocessing and analysis. This is an important step to get an overview of the necessary steps in establishing a dynamic prediction model and to avoid manipulating data until one gets the desired output.
 
 The protocol can contain the following elements:
 
@@ -38,7 +38,7 @@ The protocol can contain the following elements:
 
 Having established a clinically relevant problem, identified the patient population, and defined outcomes and predictive variables (item 1 to 4 in the protocol), as well as acquired access to data, the next step is to prepare data for building a dynamic risk prediction model. This process involves several steps, the first of which is to become familiar with the data in order to identify potential challenges and develop appropriate mitigation strategies.
 
-#### Talk to domain experts
+#### Talk to Domain Experts
 
 Close collaboration with the health care personnel collecting the data becomes essential, as their expertise is vital for the correct interpretation, correction, and understanding of the data.
 The following topics are examples of beneficial information:
@@ -124,7 +124,7 @@ Figure 2: Illustration of a lookback window for prediction.
 
 &nbsp;
 
-Different summaries of data within the look back window can be used, for example:
+Different summaries of data within the lookback window can be used, for example:
 
 - For continuous values: count, median, mean, standard deviation, maximum/minimum values, average difference between subsequent entries within the window, etc.
 - For categorical values: a count or a binary indicator of occurrence within the window (e.g. specific diagnosis presence)
@@ -138,13 +138,13 @@ Data splitting strategies can become more extensive depending on the model class
 
 Typical splitting ratios allocate a larger portion of the data for training, such as 80% for training and 20% for testing, in a simple setup. However, the ratio can be adjusted based on factors like the total volume of available data and the task requirements. When using multiple splits, the ratios are adapted. A train/validation/test split might use a 70/10/20 ratio, while a train/validation/calibration/test split could use a 60/10/10/20 ratio, as illustrated in Figure 3.
 
-Note that the training, validation, calibration, and test sets should be independent, with no overlapping records. In dynamic risk prediction, where some patients have multiple prediction time points, all records for records for a given patient should remain within the same split to maintain independence. This prevents any leakage of information at the patient-level.
+Note that the training, validation, calibration, and test sets should be independent, with no overlapping records. In dynamic risk prediction, where some patients have multiple prediction time points, all records for a given patient should remain within the same split to maintain independence. This prevents any leakage of information at the patient-level.
 
 <div style="overflow: auto; text-align: center;">
 <img src="../images/Data_split.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 
-Figure 3: Training, validation, calibration, and test set data splitting.
+Figure 3: Training, validation, calibration, and test sets data splitting.
 
 
 [James et al. (2014):202-212](https://www.statlearning.com/)
@@ -227,7 +227,7 @@ Now we have:
 3. Performed feature engineering, constructing relevant predictors
 4. Imputed missing values
 
-All in all, a dataset ready for training a predictive model has been constructed. For most models, only time intervals related to a prediction time point will be kept for the modelling. In that case a final step in the data preprocessing is to remove all rows not related to a prediction time point as illustrated in Figure 4.
+All in all, a dataset ready for training a predictive model has been constructed. For most models, only time intervals related to a prediction time point are kept for the modelling. In that case a final step in the data preprocessing is to remove all rows not related to a prediction time point as illustrated in Figure 4.
 
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table36.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
@@ -252,7 +252,7 @@ Go through the following steps:
 
 3.	Add baseline variables (in baseline_data) to the dataset you just created (join by patient id).
 
-4.	Determine which patients goes into the training, validation, calibration, and test set (using 70% training, 10% validation, 10% calibration, and 10% test). Add a variable indicating which set each observation belongs to.
+4.	Determine which patients goes into the training, validation, calibration, and test sets (using 70% training, 10% validation, 10% calibration, and 10% test). Add a variable indicating which set each observation belongs to.
 
 5.	Perform feature engineering. We suggest the following steps (for easy comparison with the provided prepared data):
     a)	Remove features with >20% missing on a patient-level

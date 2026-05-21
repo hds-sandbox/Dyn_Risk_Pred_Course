@@ -51,7 +51,7 @@ Dyn_Risk_Pred_Course/
 │   ├── JenniferBartell.qmd
 │   └── SamueleSoraggi.qmd
 │
-├── img/                       # Billeder
+├── img/                       # Billeder til obligatorisk setup
 │   ├── logo.png
 │   ├── AlbaMartinez.jpg
 │   ├── AlexJose.jpg

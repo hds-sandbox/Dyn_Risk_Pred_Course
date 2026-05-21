@@ -113,7 +113,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 This course provides an overview of the principles of dynamic risk prediction in healthcare applications. However, most of the concepts introduced in this course are general to predictive modelling and can be applied outside dynamic risk prediction in healthcare.
 
-The course discusses key elements of the journey from data acquisition to the implementation of a dynamic risk prediction model, as illustrated in Figure 1.
+The course discusses key elements of the journey from data acquisition to implementation of a dynamic risk prediction model, as illustrated in Figure 1.
 <div style="overflow: auto; text-align: center;">
   <img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;">
 </div>
@@ -165,7 +165,7 @@ Dynamic risk prediction models are relevant because they can:
 - Contribute to more efficient allocation of healthcare resources.
 
 
-To build a dynamic risk prediction model, we need to have:
+To build a dynamic risk prediction model, we need:
 
 - A **cohort of patients** with clinical outcomes and relevant data recorded over time.
 - **Prediction time points** $t_{ij}$ that denote the specific time at which a prediction was made for the $i$'th patient at the $j$'th time point.
@@ -186,12 +186,12 @@ Figure 3: Dynamic risk prediction with irregularly triggered prediction times.
 
 ## Example: 30-day Mortality in Advanced Lung Cancer
 
-Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to slow disease progression and improve their quality of life. While SACT can provide substantial benefits, it may also cause serious and in some cases fatal adverse effects. Administering SACT requires balancing the potential benefits in survival against adverse side effects and impacts on quality of life, as illustrated in Figure 4. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.
+Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to slow disease progression and improve their quality of life. While SACT can provide substantial benefits, it may also cause serious and in some cases fatal adverse effects. Administering SACT requires balancing the potential survival benefits against adverse side effects and impacts on quality of life, as illustrated in Figure 4. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.
 
 <div style="overflow: auto; text-align: center;">
   <img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 80%;">
 </div>
-Figure 4: Model of health-related quality of life for a patient with limited life expectancy. Image credit [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf
+Figure 4: Model of health-related quality of life for a patient with limited life expectancy. Image credit: [Vesteghem, C. (2022)](https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf
 )
 
 &nbsp;
@@ -201,7 +201,7 @@ To decide whether to initiate, continue, or stop SACT is a complex and difficult
 
 # Exercise
 
-Consider patients with Crohn’s disease, a chronic inflammatory bowel disease with a fluctuating course, where periods of remission are interrupted by disease flares that may require hospitalization. Because patients have repeated contacts with the healthcare system (e.g., outpatient visits, medical treatment, and surgery), clinical data is collected over time. This includes biomarkers (faecal calprotectin, C-reactive protein), medication data, healthcare utilisation, etc. Further, information about age, sex, and comorbidities at time of diagnosis is available. We build a prediction model that estimate the risk of hospitalisation within the next year each time the patient is in contact with the hospital.
+Consider patients with Crohn’s disease, a chronic inflammatory bowel disease with a fluctuating course, where periods of remission are interrupted by disease flares that may require hospitalization. Because patients have repeated contacts with the healthcare system (e.g., outpatient visits, medical treatment, and surgery), clinical data is collected over time. This includes biomarkers (faecal calprotectin, C-reactive protein), medication data, healthcare utilisation, etc. Further, information about age, sex, and comorbidities at time of diagnosis is available. We build a prediction model that estimates the risk of hospitalisation within the next year each time the patient is in contact with the hospital.
 
 Based on what has been presented in this chapter, please choose the correct option for the questions:
 

@@ -9,7 +9,7 @@ format: html
 Up to this point, we have focused on how to develop a dynamic risk prediction model, yet this is only half the challenge. The real impact happens when these models are seamlessly integrated into clinical workflows, connected to real-world data sources, and delivered to clinicians in real time.
 
 This section introduces the practical side of deploying prediction models in health care, which is
-made possible by established data exchange standards such as FHIR [Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir). This standard streamlines the interaction with healthcare data globally. FHIR was briefly introduced under [Data Sources and Data Acquisition](data_management.qmd) and will be further elaborated here.
+made possible by established data exchange standards, such as FHIR [Fast Healthcare Interoperability Resources (FHIR)](https://www.healthit.gov/topic/standards-technology/standards/fhir). This standard streamlines the interaction with healthcare data globally. FHIR was briefly introduced under [Data Sources and Data Acquisition](data_management.qmd) and will be further elaborated here.
 
 This section will cover:
 
@@ -19,9 +19,9 @@ This section will cover:
 - **Exercises**
 
 # Hosting and access to data
-Healthcare professionals generate and record much of the data in healthcare. However, the personnel cannot manage this data on their own. It must be stored digitally in an infrastructure that is easily accessible, secure, and allows for the storage of all data from every health care professional at a regional, national, or even international level.
+Healthcare professionals generate and record much of the data in healthcare. However, they cannot manage it on their own. It must be stored digitally in an infrastructure that is easily accessible, secure, and can store all data from every health care professional at a regional, national, or even international level.
 
-Through this infrastructure, information about patients, such as diagnoses and treatments, can be transferred, stored, and reused by researchers. The infrastructure also provides services support of decision-making processes.
+Through this infrastructure, information about patients, such as diagnoses and treatments, can be transferred, stored, and reused by researchers. The infrastructure also provides services support for decision-making processes.
 
 Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types includes Local Area Networks (LAN), which are clusters of connected devices. A LAN can be anything from a household with a Wi-Fi router to a university or hospital having a local, closed network where data can only be shared within that specific network. The other network type is the Wide Area Network (WAN), which is the global network that connects all the LAN networks, making data sharing among a wide range of devices possible. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.
 
@@ -52,25 +52,25 @@ Figure 2: Network infrastructure of a risk assessment tool for clinicians. It sh
 
 &nbsp;
 
-Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component is the data management component, which is what handle the [data acquisition](data_management.qmd) and [preprocessing](data_preprocessing.qmd).  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
+Figure 2 shows the structure and the components necessary to build a basic predictive modelling system.  The two main component are the data management component, which is what handle the [data acquisition](data_management.qmd) and [preprocessing](data_preprocessing.qmd).  The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.
 
 Access to data is typically not direct, but rather goes via an Application Programming Interface (API). An API a standardized set of rules and protocols that allows two separate software applications to communicate with each other. Because APIs provide a structured way for systems to interact, this approach is effective for establishing automated tasks using a cron job, which is a scheduled task that is executed at a predetermined time or interval. For example, such jobs could involve triggering an API to update the database at midnight with all the blood tests collected throughout the day. The display on the app or webpage would then function through an API communicating with the backend system to securely read the appropriate data for the given tasks.
 
-Each API consists of a set of rules/language that dictates how a client communicates with a server.
-These rules, known as the API protocol or architecture, specify the applicable data formats, commands and overall behavior of the API.
+Each API consists of a set of rules and a language that dictate how a client communicates with a server.
+These rules, known as the API protocol or architecture, specifies the applicable data formats, commands and overall behavior of the API.
 Many different API protocols and architectures exist, but the Representational State Transfer (REST) architectural style is typically used.
 REST is considered versatile, as no single message format is enforced by the style itself for the messages that can be handled.
-For REST interactions, a Uniform Resource Locator (URL) is used as the endpoint, and HyperText Transfer Protocol (HTTP) verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). It is useful and often used because it facilitates the exchange of data between servers and clients. An API that follows this style is referred to as a RESTful API.
+For REST interactions, a Uniform Resource Locator (URL) is used as the endpoint, and HyperText Transfer Protocol (HTTP) verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). It is useful because it facilitates the exchange of data between servers and clients. An API that follows this style is referred to as a RESTful API.
 
 When a client wants to retrieve a specific dataset from a database, they formulate a request that specifies exactly what they need, for instance, the target dataset, specific variables, or a particular time period. The data is then pulled from a server and provided to the client. With a RESTful API, this request is formulated as a specific URL address and follows the HTTP protocol.
 
-An example of using a RESTful API could be to get data on a certain patient from a database. In this case, there must be a server address, the server needs to have a patient list, and the patients need to have some identifiers, like an ID number. If the server requirements are satisfied, the GET action can be employed:
+An example of using a RESTful API could be to get data on a certain patient from a database. In this case, there must be a server address, the server needs to have a patient list, and the patients need to have some identifiers, like an ID number. If the server requirements are satisfied. The GET action can be employed:
 
 `GET(https://server.com/Patient/123)`
 
 This call would return a structured output, such as JSON or XML of the available patient data for the patient with ID 123. This output could look like the following:
 
-` { "id": "123", "name": "Hans Hansen", "age": "56", "Gender": “Male” } `
+` { "id": "123", "name": "Hans Hansen", "age": "56", "Gender": "Male" } `
 
 An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR.
 
@@ -82,7 +82,7 @@ FHIR is a global standard published by HL7 for formatting and sharing health dat
 
 To improve usability, these FHIR resources are made available in both human-readable and machine-readable formats. While the RESTful architecture enables the actual access to real-time data, this standardized structure ensures that developers can easily interpret the information, and software applications can reliably process it.
 
-[In Denmark, FHIR has already been implemented in the form of electronic health record systems, such as Columna CIS and Columna Cura, at hospitals and municipalities](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
+[In Denmark, FHIR has been implemented in electronic health record systems, such as Columna CIS and Columna Cura, at hospitals and municipalities](https://hl7.dk/FHIR-implementations-1.0.0.html). The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.
 
 FHIR is used to access real-time data from various sources, which can then inform prediction models. FHIR reduces the time and effort needed for data collection and preparation, facilitating clinical implementation. The pipeline in Figure 2 is updated with FHIR implementation in Figure 3:
 
@@ -105,7 +105,7 @@ Considering the example of predicting 30-day mortality in lung cancer from the i
 3) Observation: Anything measured, such as weight, the results of biochemical tests (Albumin, LDH), and BMI.
 4) Procedure: Drug administrations, surgeries.
 
-The first two points are from the administration module, the third point is from the [diagnostic module](https://www.hl7.org/fhir/diagnostics-module.html), and the final point is from the [clinical module](https://www.hl7.org/fhir/clinicalsummary-module.html).
+The first two points are from the administration module, the third from the [diagnostic module](https://www.hl7.org/fhir/diagnostics-module.html), and the final from the [clinical module](https://www.hl7.org/fhir/clinicalsummary-module.html).
 
 
 # Technical validation of the implementation
@@ -121,12 +121,12 @@ The validation process typically follows a systematic approach, starting with th
 It is typically required that the system pass the validation checks before it is deployed.
 
 Next is the concurrent validation, which is relevant when the system has been implemented and used.
-It serves to check whether the system is still in control and compliance.
+It serves to check whether the system is still in control and is compliant.
 This type of validation is typically used when something related to the system is changed, such as the introduction of new data (e.g., another hospital's data is made available and is used in the model) or a change of equipment.
 As it is concurrent, any deviations found can be corrected on an ongoing basis.
 
 Finally, the retrospective validation, which uses historical data and records to validate the system.
-The main reason to use this type of validation is if no prospective validation was made before launching, and thus, no evidence for the system's efficiency exists.
+The main reason to use this type of validation is if no prospective validation was performed before launching, and thus, no evidence for the system's efficiency exists.
 
 
 For further information, please see this book: [Benson, Tim, and Grahame, Grieve. (2021).](Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink)

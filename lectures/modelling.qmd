@@ -636,10 +636,10 @@ Below, we explore the **utility** and **explainability** of prediction models, e
 
 ### Utility
 
-Model performance can be evaluated by statistical metrics such ROC AUC or PR AUC, as described in the section about performance metrics, but these metrics are probably not of much use for clinicians as the primary users of the prediction model.
+Model performance can be evaluated using statistical metrics such as ROC AUC or PR AUC, as described in the section about performance metrics, but these metrics are probably not of much use for clinicians as the primary users of the prediction model.
 
 Clinicians might be presented with the model as a prediction tool, but if they do not understand the predictions and how it works, they may be reluctant to use it. Therefore, its usage should be demonstrated within the specific clinical context for which the model is intended, e.g. by considering a clinical scenario.
-To set up a clinical scenario, you
+To set up a clinical scenario:
 
 1. State an objective, which should be something the model can achieve.
 
@@ -669,7 +669,7 @@ Figure 13: A practical example of a confusion matrix related to 30-day mortality
 
 ### Calibration
 For classification problems, the prediction model outputs risk scores, which are often scaled to values between 0 and 1 by a sigmoid function and often interpreted as class probabilities.
-It is often assumed that these “probabilities” accurately reflect real-world outcomes when based on a large dataset. However, this assumption dos not always holds, especially if the model is not properly *calibrated*. Calibration refers to the agreement between predicted probabilities and observed outcomes: a well-calibrated model produces predictions that match the true likelihood of events, so that, for example, among instances predicted with a probability of 0.7, roughly 70% belong to the positive class. When a model is mis calibrated, post-hoc techniques can be applied to adjust the predicted probabilities.
+It is often assumed that these “probabilities” accurately reflect real-world outcomes when based on a large dataset. However, this assumption does not always holds, especially if the model is not properly *calibrated*. Calibration refers to the agreement between predicted probabilities and observed outcomes: a well-calibrated model produces predictions that match the true likelihood of events, so that, for example, among instances predicted with a probability of 0.7, roughly 70% belong to the positive class. When a model is miscalibrated, post-hoc techniques can be applied to adjust the predicted probabilities.
 
 Model calibration can be assessed by comparing predicted risk scores with observed outcomes. This can for example be done by calibration plots, where predicted risk scores are averaged over a suitable bin and then plotted against the observed frequency of the positive class (for binary prediction); an example of a calibration plot can be seen in Figure 14. In this type of plot, the ideally calibrated model follows the identity line, while points above the line indicate the predicted risk score is smaller than the observed probability and vice versa for points below the line.
 
@@ -706,7 +706,7 @@ For example, in a model predicting mortality risk, explainability allows clinici
 Some models are inherently explainable, such as logistic regression, where the effect of all predictors is visible through the model parameters, and decision trees, where the splits are made on specific predictors based on impurity.
 In contrast, in black-box models, such as ensemble methods (random forest, etc.) and neural networks, the relation between input and output is highly complex and not directly “visible”. Even though these models are not inherently explainable some information can be extracted using external methods.
 
-The standard for explainability of black-box models is called *Shapley Additive explanation SHAP* values and is based on game theory. SHAP values assign a contribution to each feature, showing how much, it increases or decreases the predicted risk compared to the average prediction.
+The standard for explainability of black-box models is called *Shapley Additive explanation SHAP* values and is based on game theory. SHAP values assign a contribution to each feature, showing how much it increases or decreases the predicted risk compared to the average prediction.
 
 SHAP can be visualised in a waterfall plot inspecting a specific prediction; an example is shown in Figure 15, visualizing the effect of being a 45-year-old man with an albumin level of 2.9 g/dL on the 30-day mortality rate.
 
