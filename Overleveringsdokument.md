@@ -37,7 +37,19 @@ Dyn_Risk_Pred_Course/
 │       └── Metric_calculation.py     # Metrik beregninger
 │
 ├── exercise_data/             # Øvelsesdata
-│   └── PAD-introduction.html  # Introduktion til PAD
+│   ├── PAD-introduction.html  # Introduktion til PAD
+│   ├── raw_data/              # Rå data
+│   │   ├── baseline_data.csv
+│   │   ├── blood_data.csv
+│   │   ├── diag_data.csv
+│   │   ├── dict_data.csv
+│   │   ├── events.csv
+│   │   ├── quest_data.csv
+│   │   ├── snomed.csv
+│   │   ├── treat_data.csv
+│   │   └── visit_date.csv
+│   └── formatted_data/         # Formateret data
+│       └── data_ready.csv
 │
 ├── css/                       # CSS stilarter
 │   ├── materialark.scss
@@ -147,6 +159,30 @@ Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne i `s
 - `Data_ready_for_workshop2_test.csv` - Test dataset
 - `Data_ready_for_workshop2_test.rds` - Test dataset i R format
 
+### raw_data/
+
+Rå data til øvelserne:
+
+| Fil | Beskrivelse |
+|-----|------------|
+| `baseline_data.csv` | Baseline data for patienter |
+| `blood_data.csv` | Blodprøve data |
+| `diag_data.csv` | Diagnose data |
+| `dict_data.csv` | Ordbogsdata / reference data |
+| `events.csv` | Begivenhedsdata / events |
+| `quest_data.csv` | Spørgeskema data |
+| `snomed.csv` | SNOMED CT kode referencer |
+| `treat_data.csv` | Behandlingsdata |
+| `visit_date.csv` | Besøgsdatoer for patienter |
+
+### formatted_data/
+
+Forbehandlet og formateret data:
+
+| Fil | Beskrivelse |
+|-----|------------|
+| `data_ready.csv` | Færdig forbehandlet data klar til analyse |
+
 ---
 
 ## Asset Mapper
@@ -184,39 +220,6 @@ For at kunne arbejde med kursusmaterialet lokalt, skal Quarto være installeret.
 3. **Linux (Ubuntu/Debian):** `sudo apt-get install quarto`
 4. **Verificer installation:** `quarto --version`
 
-### Konfiguration til R
-
-- Installér R fra [CRAN](https://cran.r-project.org/)
-- Installér nødvendige pakker i R:
-  ```r
-  install.packages(c("rmarkdown", "reticulate"))
-  ```
-
-### Konfiguration til Python
-
-- Installér Python 3 fra [python.org](https://www.python.org/downloads/)
-- Installér Jupyter:
-  ```bash
-  pip install jupyter
-  ```
-
-### Yderligere værktøjer
-
-- **PDF output:** Installér LaTeX (anbefalet: TinyTeX)
-  ```bash
-  quarto install tinytex
-  ```
-
-
-
-### 3. Kørsel af Øvelser
-
-- Åben Jupyter Notebooks i `Code/exercise_solutions/solutions/`
-- Eller kør R scripts direkte i RStudio
-- Python scripts kan køres med: `python Code/requests_fhir.py`
-
----
-
 
 
 ## Github manual: 
@@ -239,4 +242,4 @@ For at kunne arbejde med kursusmaterialet lokalt, skal Quarto være installeret.
 ---
 
 *Dokument oprettet: 12-05-2026*
-*Senest opdateret: 17-05-2026*
+*Senest opdateret: 22-05-2026*
