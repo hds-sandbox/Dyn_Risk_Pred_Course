@@ -79,7 +79,7 @@ Denmark has a unique system of [nationwide health registries](https://dsfe.dk/da
 Below follows two of the major data controllers of healthcare data in Denmark.
 
 
-[**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers) is one of the country's primary entities for managing and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
+[**The Danish Health Data Authority**](https://english.sundhedsdatastyrelsen.dk/health-data-and-registers) is one of Denmark's primary entities for managing and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:
 
 - The Danish Register of Causes of Death
 - The Danish National Patient Register
@@ -142,7 +142,7 @@ Based on the module regarding Danish health registries and data acquisition, ple
 </div>
 <div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">b. Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">c. Registry data automatically eliminates all errors in diagnosis coding.
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">c. Registry data automatically eliminates all errors in diagnosis coding through the application of specialized internal statistical models.
 </div>
 </div>
 <div class="feedback-text" id="fb-q-registry-bias">
@@ -153,9 +153,9 @@ Based on the module regarding Danish health registries and data acquisition, ple
 <span class="q-header">2) You want to study patients with type 2 diabetes using the Danish National Patient Registry (DNPR). Can you reliably identify all patients with type 2 diabetes using DNPR alone?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">a. Yes, DNPR captures all type 2 diabetes diagnoses.
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">a. Yes, DNPR captures all type 2 diabetes diagnoses, as all type 2 diabetes cases are recorded in the hospital notes.
 </div>
-<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">b. No, because type 2 diabetes is usually managed in general practice; only hospital-related cases appear in DNPR.</div>
+<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">b. No, because type 2 diabetes is usually managed in general practice. Only hospital-related cases appear in DNPR.</div>
 <div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">c. Yes, but only if you include emergency admissions.
 </div>
 </div>

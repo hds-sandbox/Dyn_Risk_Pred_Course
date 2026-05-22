@@ -15,8 +15,6 @@ This module introduces the concepts of training, validating, and testing predict
 
 Foundational challenges, such as overfitting, will be addressed, along with an introduction to how loss functions guide model training. An introduction to hyperparameter optimisation techniques for fine-tuning models to achieve optimal performance will also be provided.
 
-
-
 These concepts will then be linked to practical, real-world applications, covering model utility, the importance of prediction calibration, and methods for achieving explainability of "black-box" models, such as using SHAP values.
 
 The specific topics of this module are:
@@ -439,7 +437,7 @@ While decision trees are powerful models, they can be unstable as their structur
 To address these issues, ensemble learning methods can be employed.
 
 ## Ensemble learning methods
-In general, *ensemble learning methods* combine multiple models to solve problems better than any single model could, thus merging several weak learners into one (hopefully) strong predictor. This is also known as ‘wisdom of the crowd’. The most popular ensemble learning method for decision trees are bagging, random forest, and gradient boosted decision trees.
+In general, *ensemble learning methods* combine multiple models to solve problems better than any single model could, thus merging several weak learners into one strong predictor. This is also known as ‘wisdom of the crowd’. The most popular ensemble learning method for decision trees are bagging, random forest, and gradient boosted decision trees.
 
  For further reading, see: [James et al. 2014:331-341](https://www.statlearning.com/)
 
@@ -449,7 +447,7 @@ In general, *ensemble learning methods* combine multiple models to solve problem
 
 In addition to the typical hyperparameters associated with decision trees, the bagging method has hyperparameters determining the number of trees used in the aggregation and the size of the sampled subsets.
 
-As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of many trees with (possibly) different structures.
+As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of many trees with different structures.
 However, variable importance can still be estimated. In ensemble methods like Random Forest, the Gini index is used as a splitting criterion within each individual tree during construction. While the index itself is not aggregated for making predictions, the Gini reductions across all trees are summed to calculate variable importance. Gini reduction measures the decrease in impurity from a split, calculated as the parent node's Gini index minus the weighted average of its children's Gini indices. Variables that consistently yield higher Gini reductions across trees are deemed more important features.
 
 
@@ -491,13 +489,13 @@ $$
 
 where $B_{q,p,0}$ is the bias of node $p$ in layer $q$ and $B_{q,p,j}$ (for $j\geq 1$) is the weight connecting node $j$ in layer $q-1$ to node $p$ in layer $q$. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
-Assuming the $q$th hidden layer contains  $k_q$ nodes, the activation of the first node in the first hidden layer, $A_1^{(1)}$, is given by
+Assuming the $q$th hidden layer contains  $k_q$ nodes, the activation of the first node in the first hidden layer, $A_p^{(1)}$, is given by
 
 $$
-A_1^{(1)} = g(B_{1,1,0} + \sum_{j=1}^m B_{1,1,j}x_j),
+A_p^{(1)} = g(B_{1,p,0} + \sum_{j=1}^m B_{1,p,j}x_j),
 $$
 
-where $B_{1, 1, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature $x_j$ given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
+where $B_{1, p, 0}$ is the bias term and $B_{0,1,j}$ is the weight for the $j$th feature $x_j$ given in the input layer. Further, $g$ is the activation function, often the ReLU function, $\max(0,x)$ or the logistic function.
 
 We can continue this process, calculating activations layer by layer using outputs from the previous layer. The activations from the last hidden layer are passed to the output layer, where a final weighted sum is computed and passed through an output activation function, such as the logistic function $\sigma$ in the case of a binary outcome, to produce the final prediction (denoted $Y_i$ in Figure 8).
 

@@ -40,7 +40,7 @@ Having established a clinically relevant problem, identified the patient populat
 
 #### Talk to Domain Experts
 
-Close collaboration with the health care personnel collecting the data becomes essential, as their expertise is vital for the correct interpretation, correction, and understanding of the data.
+Close collaboration with the healthcare personnel collecting the data becomes essential, as their expertise is vital for the correct interpretation, correction, and understanding of the data.
 The following topics are examples of beneficial information:
 
 - How data are collected
@@ -53,7 +53,7 @@ The following topics are examples of beneficial information:
 
 The quality of data sources can vary significantly, and poor-quality data can lead to inaccurate predictions. A critical assessment of data sources is necessary to ensure that the recorded data is reliable and representative. This requires an awareness of potential biases and data collection inaccuracies.
 
-For example, the **Danish National Patient Register** is a centralised registry containing information routinely collected at hospital contacts, such as discharge diagnoses and surgical and medical procedures. Because the registry only includes information about individuals that have been in contact with a hospital, its data can suffer from [informed presence bias](https://pubmed.ncbi.nlm.nih.gov/27852603/). This bias can lead to a higher observed prevalence of illness than in the general population. Further, [Schmidt et al. (2015)](https://pubmed.ncbi.nlm.nih.gov/26604824/) have shown that the recording of diseases and treatments may be poor with positive predictive value varying between <15% and 100%.
+For example, the **Danish National Patient Register** is a centralised registry containing information routinely collected at hospital contacts, such as discharge diagnoses, surgical-, and medical procedures. Because the registry only includes information about individuals that have been in contact with a hospital, its data can suffer from [informed presence bias](https://pubmed.ncbi.nlm.nih.gov/27852603/). This bias can lead to a higher observed prevalence of illness than in the general population. Further, [Schmidt et al. (2015)](https://pubmed.ncbi.nlm.nih.gov/26604824/) have shown that the recording of diseases and treatments may be poor with positive predictive value varying between <15% and 100%.
 
 Another example of a potential reliability issue is found in the **Danish Register of Causes of Death**. In one study, by [Helweg-Larsen, K. (2011)](https://pubmed.ncbi.nlm.nih.gov/21775346/), focusing on this register, it was shown that a significant proportion of the recorded causes of death were inaccurate.
 
@@ -147,7 +147,7 @@ Note that the training, validation, calibration, and test sets should be indepen
 Figure 3: Training, validation, calibration, and test sets data splitting.
 
 
-[James et al. (2014):202-212](https://www.statlearning.com/)
+Ref: [James et al. (2014):202-212](https://www.statlearning.com/)
 
 
 ## Feature engineering
@@ -176,11 +176,11 @@ Below, we outline typical methods for creating and transforming features, includ
 
 **One-Hot Encoding**
 
-One-hot encoding is a common method used to represent categorical values in a format suitable for machine learning models. Each category of the categorical variable is transformed into a separate binary (0 or 1) feature, where a value of 1 indicates the presence of that category and 0 its absence. For example, a variable describing biological sex with categories “Female” and “Male” can be transformed into two features. This transformation allows categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
+One-Hot Encoding is a common method used to represent categorical values in a format suitable for machine learning models. Each category of the categorical variable is transformed into a separate binary (0 or 1) feature, where a value of 1 indicates the presence of that category and 0 its absence. For example, a variable describing biological sex with categories “Female” and “Male” can be transformed into two features. This transformation allows categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
 <div style="overflow: auto; text-align: center;">
 <img src="../images/table34.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
-A Simple table with one column of sex. Before and after One-Hot Encoding.
+A simple table with one column of sex. Before and after One-Hot Encoding.
 
 Including binary variables for all categories introduces linear dependence among these features. For some models (like logistic regressions), this causes computational issues and one of the binary variables is typically left out to remove this dependence. The left-out category then becomes the baseline or reference level.
 
@@ -189,7 +189,7 @@ Using one-hot encoding can significantly increase number of features, especially
 
 **Outliers**
 
-Outliers are extreme values that deviate markedly from the rest of the data and can distort model training. They may arise from measurement error, data entry mistakes, or true rare events. One way to identify outliers is by examining how far values deviate from the bulk of the data, using measures like percentiles and interquartile range. Visual tools such as boxplots or histograms can also help locate extreme values. If extreme values seem to be a product of a mistake, a common approach is to cap them at a chosen percentile. Note, however, it is generally not recommended to remove valid outliers.
+Outliers are extreme values that deviate markedly from the rest of the data and can distort model training. They may arise from measurement error, data entry mistakes, or true rare events. One way to identify outliers is by examining how far values deviate from the bulk of the data, using measures like percentiles and interquartile range. Visual tools such as boxplots or histograms can also help locate extreme values. If extreme values seem to be a product of a mistake, a common approach is to cap them at a chosen percentile. However, it is generally not recommended to remove valid outliers.
 
 **Presence features**
 

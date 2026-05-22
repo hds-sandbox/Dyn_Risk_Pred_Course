@@ -23,10 +23,10 @@ Dyn_Risk_Pred_Course/
 │   │
 │   ├── exercise_solutions/    # Øvelsesdata og løsninger
 │   │   ├── solutions/         # Færdige løsninger til workshops
-│   │   │   ├── Workshop 1 - data preprocessing.R
-│   │   │   ├── Workshop 2 - modelling.R
-│   │   │   ├── Workshop 3 - Implementation.R
-│   │   │   ├── Workshop_1_data_management.ipynb
+│   │   │   ├── Workshop_1_data_preprocessing.R
+│   │   │   ├── Workshop_2_modelling.R
+│   │   │   ├── Workshop_3_Implementation.R
+│   │   │   ├── Workshop_1_data_preprocessing.ipynb
 │   │   │   ├── Workshop_2_Modelling.ipynb
 │   │   │   ├── Workshop_3_Implementation.ipynb
 │   │   │   ├── request_fhir.R         # FHIR request (kopi for øvelser)
@@ -49,7 +49,8 @@ Dyn_Risk_Pred_Course/
 │   │   ├── treat_data.csv
 │   │   └── visit_date.csv
 │   └── formatted_data/         # Formateret data
-│       └── data_ready.csv
+│       ├── Data_ready_for_workshop2.csv
+│       └── Data_ready_for_workshop2.rds
 │
 ├── css/                       # CSS stilarter
 │   ├── materialark.scss
@@ -74,12 +75,6 @@ Dyn_Risk_Pred_Course/
 │   ├── class_problem.png
 │   ├── Decision_tree_l4.png
 │   └── ...
-│
-├── martin_guide               # Yderligere vejledningsdokument
-│
-├── Data_ready_for_workshop2.csv      # Forberedt data til workshop 2
-├── Data_ready_for_workshop2_test.csv  # Test data til workshop 2
-├── Data_ready_for_workshop2_test.rds  # Test data (R format)
 │
 ├── README.md                  # Hoved README
 ├── _quarto.yml                # Quarto konfigurationsfil
@@ -125,20 +120,16 @@ Forelæsningsmapperne indeholder al det teoretiske undervisningsmateriale i **Qu
 
 Denne mappe indeholder **færdige løsninger** til alle workshop-øvelserne i `solutions/` undermappen:
 
-| Workshop | Filer | Beskrivelse |
-|----------|-------|------------|
-| **Workshop 1** | `Workshop 1 - data preprocessing.R`, `Workshop_1_data_management.ipynb` | Data forbehandling |
-| **Workshop 2** | `Workshop 2 - modelling.R`, `Workshop_2_Modelling.ipynb` | Modellering og evaluering |
-| **Workshop 3** | `Workshop 3 - Implementation.R`, `Workshop_3_Implementation.ipynb` | Implementering af modeller |
+| Workshop | Filer                                                                    | Beskrivelse |
+|----------|--------------------------------------------------------------------------|------------|
+| **Workshop 1** | `Workshop_1_data_preprocessing.R`, `Workshop_1_data_preprocessing.ipynb` | Data forbehandling |
+| **Workshop 2** | `Workshop_2_modelling.R`, `Workshop_2_Modelling.ipynb`                   | Modellering og evaluering |
+| **Workshop 3** | `Workshop_3_Implementation.R`, `Workshop_3_Implementation.ipynb`         | Implementering af modeller |
 
 **Yderligere filer i solutions/:**
 - `request_fhir.R` - Kopi af FHIR script til øvelser
 - `request_fhir.py` - Kopi af FHIR script til øvelser
 - `requirements.txt` - Python afhængigheder (Når man skal lave kurset i python, starter mane med at skrive følgende i python terminalen: `pip install -r requirements.tx`)
-
-**Datafiler i exercise_solutions/:**
-- `Data_ready_for_workshop2.csv` - Forberedt data til workshop 2
-- `Data_ready_for_workshop2.rds` - Forberedt data (R format)
 
 ### additional_code/
 
@@ -181,7 +172,8 @@ Forbehandlet og formateret data:
 
 | Fil | Beskrivelse |
 |-----|------------|
-| `data_ready.csv` | Færdig forbehandlet data klar til analyse |
+| `Data_ready_for_workshop2.csv` | Forberedt data til workshop 2 (CSV format) |
+| `Data_ready_for_workshop2.rds` | Forberedt data til workshop 2 (R format) |
 
 ---
 
