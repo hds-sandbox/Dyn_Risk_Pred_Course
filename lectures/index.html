@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Data Scientist, Southern Denmark University">
 
-<title>Jacob Fredegaard Hansen – Dynamic Risk Prediction</title>
+<title>index – Dynamic Risk Prediction</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -76,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -263,7 +291,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../lectures/index.html"> 
+    <a class="nav-link active" href="../lectures/index.html" aria-current="page"> 
 <span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
@@ -306,44 +334,395 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#development-and-implementation-of-machine-learning-models-for-dynamic-risk-prediction-in-health-care-applications" id="toc-development-and-implementation-of-machine-learning-models-for-dynamic-risk-prediction-in-health-care-applications" class="nav-link active" data-scroll-target="#development-and-implementation-of-machine-learning-models-for-dynamic-risk-prediction-in-health-care-applications">Development and Implementation of Machine Learning Models for Dynamic Risk Prediction in Health Care Applications</a></li>
+  <li><a href="#access-sandbox-resources" id="toc-access-sandbox-resources" class="nav-link" data-scroll-target="#access-sandbox-resources">Access Sandbox resources</a></li>
+  <li><a href="#course-agenda" id="toc-course-agenda" class="nav-link" data-scroll-target="#course-agenda">Course Agenda</a>
+  <ul class="collapse">
+  <li><a href="#part-1---introduction" id="toc-part-1---introduction" class="nav-link" data-scroll-target="#part-1---introduction">Part 1 - Introduction</a></li>
+  <li><a href="#part-2---data-sources-and-data-acquisition" id="toc-part-2---data-sources-and-data-acquisition" class="nav-link" data-scroll-target="#part-2---data-sources-and-data-acquisition">Part 2 - Data Sources and Data Acquisition</a></li>
+  <li><a href="#part-3---data-preprocessing" id="toc-part-3---data-preprocessing" class="nav-link" data-scroll-target="#part-3---data-preprocessing">Part 3 - Data Preprocessing</a></li>
+  <li><a href="#part-4---modelling" id="toc-part-4---modelling" class="nav-link" data-scroll-target="#part-4---modelling">Part 4 - Modelling</a></li>
+  <li><a href="#part-5---implementation" id="toc-part-5---implementation" class="nav-link" data-scroll-target="#part-5---implementation">Part 5 - Implementation</a></li>
+  <li><a href="#course-overview" id="toc-course-overview" class="nav-link" data-scroll-target="#course-overview">Course Overview</a></li>
+  <li><a href="#introduction-to-dynamic-risk-prediction" id="toc-introduction-to-dynamic-risk-prediction" class="nav-link" data-scroll-target="#introduction-to-dynamic-risk-prediction">Introduction to Dynamic Risk Prediction</a></li>
+  <li><a href="#example-30-day-mortality-in-advanced-lung-cancer" id="toc-example-30-day-mortality-in-advanced-lung-cancer" class="nav-link" data-scroll-target="#example-30-day-mortality-in-advanced-lung-cancer">Example: 30-day Mortality in Advanced Lung Cancer</a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Jacob Fredegaard Hansen</h1>
+
+
+
+<section id="development-and-implementation-of-machine-learning-models-for-dynamic-risk-prediction-in-health-care-applications" class="level1 hero-banner">
+<h1>Development and Implementation of Machine Learning Models for Dynamic Risk Prediction in Health Care Applications</h1>
+</section>
+<div class="callout callout-style-default callout-warning callout-titled" title="Course requirements">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-<div>
-  <div class="description">
-    Data Scientist, Southern Denmark University
-  </div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Course requirements
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The participants are expected to have basic knowledge on regression analysis as well as programming experience in a statistical software tool, such as R or Python.</p>
+</div>
+</div>
+<section id="access-sandbox-resources" class="level2">
+<h2 class="anchored" data-anchor-id="access-sandbox-resources">Access Sandbox resources</h2>
+<p>Our first choice is to provide all the <strong>training materials, tutorials, and tools as interactive apps on UCloud</strong>, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:</p>
+<ol type="1">
+<li><strong>UCLOUD:</strong> a Danish university ID so you can sign on to UCloud via WAYF<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
+</ol>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> For UCloud access click here </a>
+</p>
+<p>&nbsp;</p>
+<ol start="2" type="1">
+<li><strong>REQUIREMENTS:</strong> Basic ability to navigate in Linux/RStudio/Jupyter. <strong>You don’t need to be an expert</strong>, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="3" type="1">
+<li><strong>CODE:</strong> Notebooks and scripts can be downloaded here:</li>
+</ol>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/Code" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Download code </a>
+</p>
+<p>&nbsp;</p>
+<ol start="4" type="1">
+<li><strong>COURSE EVALUATION SURVEY:</strong> The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!</li>
+</ol>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://forms.office.com/e/Hapv2e03aM" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Evaluation survey link </a>
+</p>
+<p>&nbsp;</p>
+</section>
+<section id="course-agenda" class="level1">
+<h1>Course Agenda</h1>
+<section id="part-1---introduction" class="level3">
+<h3 class="anchored" data-anchor-id="part-1---introduction">Part 1 - Introduction</h3>
+<ul>
+<li>Course Overview</li>
+<li>Introduction to Dynamic Risk Prediction</li>
+<li>Example: 30-day Mortality in Advanced Lung Cancer</li>
+</ul>
+</section>
+<section id="part-2---data-sources-and-data-acquisition" class="level3">
+<h3 class="anchored" data-anchor-id="part-2---data-sources-and-data-acquisition"><a href="../lectures/data_management.html">Part 2 - Data Sources and Data Acquisition</a></h3>
+<ul>
+<li>Data and Metadata</li>
+<li>Health Data Providers in Denmark</li>
+<li>Coding and Classification Systems</li>
+<li>Exercises</li>
+</ul>
+</section>
+<section id="part-3---data-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="part-3---data-preprocessing"><a href="../lectures/data_preprocessing.html">Part 3 - Data Preprocessing</a></h3>
+<ul>
+<li>Establishing the Data Analysis Protocol</li>
+<li>Challenges in Data Handling</li>
+<li>Data Representation Techniques</li>
+<li>Splitting Data for Model Evaluation</li>
+<li>Feature engineering</li>
+<li>Exercises</li>
+</ul>
+</section>
+<section id="part-4---modelling" class="level3">
+<h3 class="anchored" data-anchor-id="part-4---modelling"><a href="../lectures/modelling.html">Part 4 - Modelling</a></h3>
+<ul>
+<li>What is Predictive Modelling</li>
+<li>Performance Metrics</li>
+<li>Predictive Models</li>
+<li>Model Training</li>
+<li>Utility and Explainability</li>
+<li>Exercises</li>
+</ul>
+</section>
+<section id="part-5---implementation" class="level3">
+<h3 class="anchored" data-anchor-id="part-5---implementation"><a href="../lectures/implementation.html">Part 5 - Implementation</a></h3>
+<ul>
+<li>Hosting and Access to Data</li>
+<li>FHIR</li>
+<li>Validation</li>
+<li>Exercises</li>
+</ul>
+</section>
+<section id="course-overview" class="level2">
+<h2 class="anchored" data-anchor-id="course-overview">Course Overview</h2>
+<p>This course provides an overview of the principles of dynamic risk prediction in healthcare applications. However, most of the concepts introduced in this course are general to predictive modelling and can be applied outside dynamic risk prediction in healthcare.</p>
+The course discusses key elements of the journey from data acquisition to implementation of a dynamic risk prediction model, as illustrated in Figure 1.
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
+</div>
+<p>Figure 1: A simplified workflow for a dynamic risk prediction model.</p>
+<p>&nbsp;</p>
+<p>The course material is divided into five core modules:</p>
+<ol type="1">
+<li><strong>Introduction:</strong></li>
+</ol>
+<p>This module introduces the concept of dynamic risk prediction.</p>
+<ol start="2" type="1">
+<li><strong>Data Sources and Data Acquisition:</strong></li>
+</ol>
+<p>This module is an introduction to the data required for dynamic risk prediction. Specifically, the definition of data, the characteristics of health data, potential associated issues, and major data providers in Denmark are covered.</p>
+<ol start="3" type="1">
+<li><strong>Data Preprocessing:</strong></li>
+</ol>
+<p>This module focuses on transforming raw health data into a clean, analysis-ready format. Common data challenges will be examined, and the reasons for data preprocessing will be explained. Furthermore, strategies for addressing the presented challenges while preparing the data for analysis will be discussed.</p>
+<ol start="4" type="1">
+<li><strong>Modelling:</strong></li>
+</ol>
+<p>In this module, the focus is on the process of building predictive models. It includes an introduction to both basic and advanced dynamic predictive models, such as logistic regression, decision trees, and neural networks. Additionally, model performance metrics, utility, and hyperparameter tuning techniques will be introduced.</p>
+<ol start="5" type="1">
+<li><strong>Implementation:</strong></li>
+</ol>
+<p>The final module explores the challenges of implementing predictive tools in clinical settings. Topics include technical considerations such as system hosting and integration with live data sources, including an introduction to the Fast Healthcare Interoperability Resources (FHIR) standard.</p>
+</section>
+<section id="introduction-to-dynamic-risk-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-dynamic-risk-prediction">Introduction to Dynamic Risk Prediction</h2>
+<p>In general, risk prediction refers to estimating how likely a binary future event is based on present, relevant information, commonly through statistical or machine learning models. In healthcare, risk prediction often focuses on estimating an individual’s likelihood of developing a disease or experiencing a medical event to guide prevention and treatment. The estimation is typically based on a variety of variables, such as clinical, demographic, and lifestyle data.</p>
+<p>Dynamic risk prediction enables repeated risk estimation over time, allowing the patient’s risk to be updated as new clinical information becomes available. Using data available up to the time of prediction, the prediction model outputs an estimate of the individual experiencing the event within a specified prediction horizon for each prediction time, as illustrated in Figure 2. Examples of binary outcomes include hospitalisation within the next six months, response to treatment within one month, or death in the following week for a patient in an intensive care unit.</p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
+</div>
+<p>Figure 2: Illustration of dynamic risk prediction.</p>
+<p>&nbsp;</p>
+<p>Dynamic risk prediction models are relevant because they can:</p>
+<ul>
+<li>Continuously monitor changes in patient risk over time.</li>
+<li>Inform timely interventions by providing insights that assist clinicians in making treatment decisions aligned with the patient’s current risk level.</li>
+<li>Contribute to more efficient allocation of healthcare resources.</li>
+</ul>
+<p>To build a dynamic risk prediction model, we need:</p>
+<ul>
+<li>A <strong>cohort of patients</strong> with clinical outcomes and relevant data recorded over time.</li>
+<li><strong>Prediction time points</strong> <span class="math inline">\(t_{ij}\)</span> that denote the specific time at which a prediction was made for the <span class="math inline">\(i\)</span>’th patient at the <span class="math inline">\(j\)</span>’th time point.</li>
+<li>A <strong>binary outcome</strong> <span class="math inline">\(Y(t_{ij})\)</span> is defined at each prediction time <span class="math inline">\(t_{ij}\)</span>, indicating whether the event of interest occurs within the chosen prediction horizon.</li>
+<li><strong>Static data</strong> <span class="math inline">\(X_i\)</span> for the <span class="math inline">\(i\)</span>th patient, i.e.&nbsp;characteristics that do not change over time, such as biological sex, age at diagnosis, or genetic factors. Static data are not a requirement for making dynamic risk prediction but is often available and relevant to include.</li>
+<li><strong>Time-dependent data</strong> <span class="math inline">\(Z_i(t)\)</span> for the <span class="math inline">\(i\)</span>th patient are measurements that vary over time <span class="math inline">\(t\)</span>, such as weight, laboratory values, or medication prescriptions.</li>
+</ul>
+<p>Based on <span class="math inline">\(Z_i(t)\)</span> for all <span class="math inline">\(t \leq t_{ij}\)</span> and <span class="math inline">\(X_i\)</span>, the aim is to predict the binary outcome <span class="math inline">\(Y(t_{ij})\)</span> at some time point after <span class="math inline">\(t_{ij}\)</span>.</p>
+<p>Predictions may be generated at regular intervals, for example every six hours, or irregularly in response to specific events such as a hospital visit or new test results. Figure 3 illustrates dynamic risk prediction with irregularly triggered predictions.</p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"></p>
+</div>
+<p>Figure 3: Dynamic risk prediction with irregularly triggered prediction times.</p>
+</section>
+<section id="example-30-day-mortality-in-advanced-lung-cancer" class="level2">
+<h2 class="anchored" data-anchor-id="example-30-day-mortality-in-advanced-lung-cancer">Example: 30-day Mortality in Advanced Lung Cancer</h2>
+<p>Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to slow disease progression and improve their quality of life. While SACT can provide substantial benefits, it may also cause serious and in some cases fatal adverse effects. Administering SACT requires balancing the potential survival benefits against adverse side effects and impacts on quality of life, as illustrated in Figure 4. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.</p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 80%;"></p>
+</div>
+<p>Figure 4: Model of health-related quality of life for a patient with limited life expectancy. Image credit: <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
+<p>&nbsp;</p>
+<p>To decide whether to initiate, continue, or stop SACT is a complex and difficult decision. To support this decision-making process, the development of dynamic predictive models may be a valuable tool. In a study by <a href="https://ascopubs.org/doi/10.1200/CCI.22.00054?url_ver=Z39.88-2003&amp;rfr_id=ori:rid:crossref.org&amp;rfr_dat=cr_pub%20%200pubmed">Vesteghem et al.&nbsp;(2022)</a>, the 30-day mortality risk for patients with advanced lung cancer was predicted dynamically for patients in the North Denmark Region. Extensive electronic health record and administrative data were used in the predictive models, including demographic information, cancer diagnosis, comorbidities, treatments, and biological tests. A new risk estimate was provided each time a patient was administered a drug at the Department of Oncology, Aalborg University Hospital.</p>
+</section>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<p>Consider patients with Crohn’s disease, a chronic inflammatory bowel disease with a fluctuating course, where periods of remission are interrupted by disease flares that may require hospitalization. Because patients have repeated contacts with the healthcare system (e.g., outpatient visits, medical treatment, and surgery), clinical data is collected over time. This includes biomarkers (faecal calprotectin, C-reactive protein), medication data, healthcare utilisation, etc. Further, information about age, sex, and comorbidities at time of diagnosis is available. We build a prediction model that estimates the risk of hospitalisation within the next year each time the patient is in contact with the hospital.</p>
+<p>Based on what has been presented in this chapter, please choose the correct option for the questions:</p>
+<style>
+  .quiz-container { font-family: sans-serif; max-width: 850px; margin: 20px 0; }
+  .q-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .q-header { font-weight: bold; font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; display: block; }
+  .opt-list { display: flex; flex-direction: column; gap: 10px; }
+  .opt-btn {
+    padding: 12px 15px;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  .opt-btn:hover { background: #f6f8fa; border-color: #4266A1; }
+
+  /* Success/Error States */
+  .ans-correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+  .ans-wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+
+  .feedback-text { margin-top: 12px; font-size: 0.9em; display: none; padding: 8px; border-radius: 4px; }
+  .feedback-visible { display: block; background: #f0f4f8; border-left: 3px solid #4266A1; }
+</style>
+<div class="quiz-container">
+<!-- Q1 -->
+<div id="q1" class="q-card">
+<span class="q-header">1) What is the prediction horizon? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, false, 'q1', 'Incorrect!')">
+<ol type="a">
+<li>30 days</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, true, 'q1', 'Correct.')">
+<ol start="2" type="a">
+<li>One year</li>
+</ol>
+</div>
+</div>
+<div id="fb-q1" class="feedback-text">
+
+</div>
+</div>
+<!-- Q2 -->
+<div id="q2" class="q-card">
+<span class="q-header">2) Predictions are triggered: </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, true, 'q2', 'Correct!')">
+<ol type="a">
+<li>irregularly</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q2', 'Incorrect.')">
+<ol start="2" type="a">
+<li>regularly</li>
+</ol>
+</div>
+</div>
+<div id="fb-q2" class="feedback-text">
+
+</div>
+</div>
+<!-- Q3 -->
+<div id="q3" class="q-card">
+<span class="q-header">3) What identifies the prediction time points? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, false, 'q3', 'Incorrect.')">
+<ol type="a">
+<li>Time of hospitalisation</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, true, 'q3', 'Correct!')">
+<ol start="2" type="a">
+<li>Time of any contact with hospital</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q3', 'Incorrect.')">
+<ol start="3" type="a">
+<li>Time of biomarker measurement</li>
+</ol>
+</div>
+</div>
+<div id="fb-q3" class="feedback-text">
+
+</div>
+</div>
+<!-- Q4 -->
+<div id="q4" class="q-card">
+<span class="q-header">4) We find that biological therapies (an intensive treatment for Crohn’s disease) is a strong predictor. Can we conclude that biological therapies cause an increased need for hospitalisation? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, false, 'q4', 'Incorrect.')">
+<ol type="a">
+<li>Yes, because they are strong treatments.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q4', 'Incorrect.')">
+<ol start="2" type="a">
+<li>Yes, predictors are always causal factors.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, true, 'q4', 'Correct!')">
+<ol start="3" type="a">
+<li>No, models identify associations, not necessarily causal effects.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q4', 'Incorrect.')">
+<ol start="4" type="a">
+<li>No, models cannot include treatment variables.</li>
+</ol>
+</div>
+</div>
+<div id="fb-q4" class="feedback-text">
+
+</div>
+</div>
+<!-- Q5 -->
+<div id="q5" class="q-card">
+<span class="q-header">5) What would be the purpose of implementing this tool? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, true, 'q5', 'Correct!')">
+<ol type="a">
+<li>To support clinical decision-making.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q5', 'Incorrect.')">
+<ol start="2" type="a">
+<li>To determine causal treatment effects.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q5', 'Incorrect.')">
+<ol start="3" type="a">
+<li>To replace clinician judgement.</li>
+</ol>
+</div>
+</div>
+<div id="fb-q5" class="feedback-text">
+
+</div>
+</div>
+</div>
+<script>
+  function check(el, isCorrect, qId, msg) {
+    const parent = document.getElementById(qId);
+    const opts = parent.querySelectorAll('.opt-btn');
+    const fb = document.getElementById('fb-' + qId);
+
+    // Clear previous
+    opts.forEach(o => o.classList.remove('ans-correct', 'ans-wrong'));
+
+    // Set feedback
+    if (isCorrect) {
+      el.classList.add('ans-correct');
+    } else {
+      el.classList.add('ans-wrong');
+    }
+
+    fb.innerHTML = msg;
+    fb.classList.add('feedback-visible');
+  }
+</script>
+<p align="center">
+To proceed to the next section of the course, please click the button below.
+</p>
+<p>&nbsp;</p>
+<p align="center">
+<a href="data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Continue to Data Sources and Data Acquisition </a>
+</p>
+<p>&nbsp;</p>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
+</section>
 
 
-</header>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
-
-<p><img src="jaCob.jpg" class="img-fluid" width="300"></p>
-<p><a href="https://www.linkedin.com/in/jacobfh"><img src="LinkedIN.png" class="img-fluid" width="50"></a> <a href="https://github.com/jacobfh1"><img src="Github_black.png" class="img-fluid" width="50"></a> <a href="jfredegaard@bmb.sdu.dk?subject=Test"><img src="Outlook.png" class="img-fluid" width="50"></a> <a href="https://www.sdu.dk/en/forskning/biomedical-ms"><img src="mapPin.png" class="img-fluid" width="50"></a> <a href="https://jacobfh.com/"><img src="www.png" class="img-fluid" width="50"></a></p>
-<p>Jacob is a Sandbox data scientist based at the university of Southern Danmark in Odense, and he is specialized in the proteomics applications.</p>
-
-
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<ol>
+<li id="fn1"><p>Other institutions (e.g.&nbsp;hospitals, libraries, …) can log on through WAYF. See all institutions <a href="https://www.wayf.dk/da/institutioner-i-wayf">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

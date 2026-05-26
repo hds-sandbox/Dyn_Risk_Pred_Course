@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>modelling – Dynamic Risk Prediction</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c732a6239e30a214eceddad462b89fad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a8962bef077d50ac613c655550dc82af.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c732a6239e30a214eceddad462b89fad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
+    <img src=".././img/logo.png" alt="" class="navbar-logo light-content">
+    <img src=".././img/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">Dynamic Risk Prediction</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/index.html"> 
+<span class="menu-text">Introduction</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/data_management.html"> 
+<span class="menu-text">Data Sources and Data Acquisition</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/data_preprocessing.html"> 
+<span class="menu-text">Data Preprocessing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../lectures/modelling.html" aria-current="page"> 
+<span class="menu-text">Modelling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lectures/implementation.html"> 
+<span class="menu-text">Implementation</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link active" data-scroll-target="#modelling">Modelling</a></li>
+  <li><a href="#introduction-to-predictive-modelling" id="toc-introduction-to-predictive-modelling" class="nav-link" data-scroll-target="#introduction-to-predictive-modelling">Introduction to predictive modelling</a></li>
+  <li><a href="#regression-vs.-classification" id="toc-regression-vs.-classification" class="nav-link" data-scroll-target="#regression-vs.-classification">Regression vs.&nbsp;classification</a>
+  <ul class="collapse">
+  <li><a href="#underfitting-and-overfitting" id="toc-underfitting-and-overfitting" class="nav-link" data-scroll-target="#underfitting-and-overfitting">Underfitting and overfitting</a></li>
+  </ul></li>
+  <li><a href="#performance-metrics" id="toc-performance-metrics" class="nav-link" data-scroll-target="#performance-metrics">Performance metrics</a>
+  <ul class="collapse">
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions">Loss functions</a></li>
+  </ul></li>
+  <li><a href="#predictive-modelling" id="toc-predictive-modelling" class="nav-link" data-scroll-target="#predictive-modelling">Predictive modelling</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees">Decision trees</a></li>
+  <li><a href="#ensemble-learning-methods" id="toc-ensemble-learning-methods" class="nav-link" data-scroll-target="#ensemble-learning-methods">Ensemble learning methods</a>
+  <ul class="collapse">
+  <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging">Bagging</a></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">Random Forest</a></li>
+  <li><a href="#gradient-boosted-trees" id="toc-gradient-boosted-trees" class="nav-link" data-scroll-target="#gradient-boosted-trees">Gradient boosted trees</a></li>
+  </ul></li>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks">Neural networks</a>
+  <ul class="collapse">
+  <li><a href="#training-a-neural-network" id="toc-training-a-neural-network" class="nav-link" data-scroll-target="#training-a-neural-network">Training a neural network</a></li>
+  </ul></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model training</a>
+  <ul class="collapse">
+  <li><a href="#grid-search" id="toc-grid-search" class="nav-link" data-scroll-target="#grid-search">Grid search</a></li>
+  </ul></li>
+  <li><a href="#random-search" id="toc-random-search" class="nav-link" data-scroll-target="#random-search">Random search</a></li>
+  <li><a href="#bayesian-optimisation" id="toc-bayesian-optimisation" class="nav-link" data-scroll-target="#bayesian-optimisation">Bayesian Optimisation</a></li>
+  <li><a href="#performance-evaluation" id="toc-performance-evaluation" class="nav-link" data-scroll-target="#performance-evaluation">Performance evaluation</a>
+  <ul class="collapse">
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross-validation</a></li>
+  <li><a href="#nested-cross-validation" id="toc-nested-cross-validation" class="nav-link" data-scroll-target="#nested-cross-validation">Nested cross-validation</a></li>
+  </ul></li>
+  <li><a href="#utility-and-explainability" id="toc-utility-and-explainability" class="nav-link" data-scroll-target="#utility-and-explainability">Utility and explainability</a>
+  <ul class="collapse">
+  <li><a href="#utility" id="toc-utility" class="nav-link" data-scroll-target="#utility">Utility</a></li>
+  <li><a href="#calibration" id="toc-calibration" class="nav-link" data-scroll-target="#calibration">Calibration</a></li>
+  <li><a href="#explainability" id="toc-explainability" class="nav-link" data-scroll-target="#explainability">Explainability</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+
+<p><style> body { text-align: justify} </style></p>
+<section id="modelling" class="level1 hero-banner">
+<h1>Modelling</h1>
+</section>
+<p>This module introduces the concepts of training, validating, and testing predictive models. Various risk prediction methods will be explored, including logistic regression, neural networks, and ensemble learning methods.</p>
+<p>Foundational challenges, such as overfitting, will be addressed, along with an introduction to how loss functions guide model training. An introduction to hyperparameter optimisation techniques for fine-tuning models to achieve optimal performance will also be provided.</p>
+<p>These concepts will then be linked to practical, real-world applications, covering model utility, the importance of prediction calibration, and methods for achieving explainability of “black-box” models, such as using SHAP values.</p>
+<p>The specific topics of this module are:</p>
+<ul>
+<li>Introduction to predictive modelling
+<ul>
+<li>Regression vs.&nbsp;classification</li>
+<li>Underfitting and overfitting</li>
+</ul></li>
+<li>Performance metrics
+<ul>
+<li>Loss functions</li>
+</ul></li>
+<li>Predictive modelling
+<ul>
+<li>Logistic regression</li>
+<li>Decision trees</li>
+<li>Neural networks</li>
+</ul></li>
+<li>Ensemble learning methods
+<ul>
+<li>Bagging</li>
+<li>Random forest</li>
+<li>Gradient boosted trees</li>
+</ul></li>
+<li>Model training
+<ul>
+<li>Grid search</li>
+<li>Random search</li>
+<li>Bayesian optimisation</li>
+</ul></li>
+<li>Performance evaluation
+<ul>
+<li>Cross-validation</li>
+<li>Nested cross-validation</li>
+</ul></li>
+<li>Utility and explainability
+<ul>
+<li>Utility</li>
+<li>Calibration</li>
+<li>Explainability</li>
+</ul></li>
+<li><strong>Exercises</strong></li>
+</ul>
+<section id="introduction-to-predictive-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-predictive-modelling">Introduction to predictive modelling</h2>
+<p>Predictive modelling uses statistical or machine learning models to identify patterns in historical data and apply them to predict future events or outcomes. For this course, these models are used to estimate the changing risk of a binary clinical event over time to assist clinicians in deciding upon potential interventions. In mathematical terms, predictive modelling involves finding a function <span class="math inline">\(f\)</span> that accurately maps one or more predictor variables <span class="math inline">\(x\)</span> (also called independent/explanatory variables or features) to an outcome <span class="math inline">\(y\)</span> (also called a dependent variable), such that <span class="math inline">\(y=f(x)\)</span>. Estimating an arbitrary functional relation <span class="math inline">\(f\)</span> is a complex, high-dimensional problem. Therefore, the function is typically parametrised by a parameter vector <span class="math inline">\(\beta\)</span>. This relationship can be expressed as:</p>
+<p><span class="math display">\[y=f(x,\beta).\]</span></p>
+<p>The parameter vector <span class="math inline">\(\beta\)</span> determines how the predictor variables <span class="math inline">\(x\)</span> are combined to make predictions. During model training, the algorithm “learns” the values of <span class="math inline">\(\beta\)</span> that make <span class="math inline">\(f(x, \beta)\)</span> best fit the observed data. In addition to the model parameters described by <span class="math inline">\(\beta\)</span>, many models have <em>hyperparameters</em>, which control the model’s structure or learning process. Hyperparameters are typically chosen by assessing model performance on a validation set.</p>
+<p>For example, in a simple linear regression model, the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is described by</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 x,\]</span></p>
+<p>where <span class="math inline">\(\beta_0\)</span> is the intercept and <span class="math inline">\(\beta_1\)</span> is the slope indicating how much <span class="math inline">\(y\)</span> changes when <span class="math inline">\(x\)</span> increases by one unit. Together, these parameters form the vector <span class="math inline">\(\beta = (\beta_0, \beta_1)\)</span>.</p>
+</section>
+<section id="regression-vs.-classification" class="level2">
+<h2 class="anchored" data-anchor-id="regression-vs.-classification">Regression vs.&nbsp;classification</h2>
+<p>The distinction between regression and classification can be stated simply as: If <span class="math inline">\(y\)</span> is a continuous, real-valued variable, the prediction problem is a regression problem, and if <span class="math inline">\(y\)</span> is a categorical variable, it is a classification problem. The distinction is illustrated in Figure 1.</p>
+<p>In regression, one or more predictor variables are used to predict the value of a continuous outcome. For example, predicting blood glucose levels based on predictors such as body mass index, blood pressure, and intake of insulin and carbohydrates.</p>
+<p>In classification, predictor variables are used to assign an observation to a category or class. This applies to both binary classification problems and multi-class problems. For example, predicting the presence of type 2 diabetes (binary outcome) based on lifestyle factors or predicting a patient’s blood type (multi-class outcome) based on genetic markers and clinical variables. In the following, we focus on binary classification problems, where the two possible outcomes are labelled <em>positive</em> and <em>negative</em>.</p>
+<div style="text-align: center;">
+<img src="../images/pred_vs_class.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+<p>Figure 1: Illustration of a classification (left) and a regression (right) problem. On the left, data is separated into two classes (positive and negative) based on the predictors <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. On the right, a fitted line shows the relationship between the predictor <span class="math inline">\(x\)</span> and the outcome <span class="math inline">\(y\)</span>.</p>
+<p>&nbsp;</p>
+<p>In healthcare applications, prediction models are typically trained using large datasets containing clinical information, lifestyle factors, genetic data, or medical imaging. The model learns patterns between predictors and outcome by estimating its parameters and can then be employed to predict outcomes, such as the risk of a binary event, for new patients.</p>
+<p>For further reading on classification and regression problems, see: <a href="https://www.statlearning.com/">James et al.&nbsp;2024:15-27</a></p>
+<section id="underfitting-and-overfitting" class="level3">
+<h3 class="anchored" data-anchor-id="underfitting-and-overfitting">Underfitting and overfitting</h3>
+<p><em>Underfitting</em> and <em>overfitting</em> are fundamental concepts in predictive modelling that describe how well a model learns from data. Underfitting happens when a model is too simple to capture the underlying patterns, resulting in poor performance on both the training set and unseen data. For example, a linear model is simple, and it is often unlikely for a real-world problem to have a perfectly linear relationship. This means that the model misses important relations among the features and the target. Overfitting, on the other hand, occurs when a model is very flexible and (almost) perfectly fits the training data, capturing the noise rather than the underlying general pattern, which leads to poor performance on new unseen data. The goal is to find a balance that allows the model to generalise well to new data.</p>
+<p>Figure 2 illustrates the model performance of three different models with varying complexity for binary prediction. Model performance is visualised for the training set (top row) and for new unseen data (bottom row). The “Simple fit” model (first column) is a straight line separating the two classes, but it is too simplistic to effectively separate the classes, illustrating underfitting. In contrast, the “Overfit” model (third column) is overly complex and fits the training data perfectly, but performs poorly on unseen data. The “Better fit” model strikes a balance, capturing the underlying pattern while generalising well to new data.</p>
+<div style="overflow: hidden;">
+<img src="../images/overfitting.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+</div>
+<p>Figure 2: Illustration of how model flexibility affects performance. White and black dots represent the true classes. Green and red backgrounds indicate predicted classes, while green-circled dots are correctly classified and red-circled dots are mis-classified. Image credit <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
+<p>&nbsp;</p>
+<p>To achieve the right balance between underfitting and overfitting, a model is trained on the training set to learn its parameters <span class="math inline">\(\beta\)</span>. Its performance is then evaluated on a validation set, which is used to tune hyperparameters. After the final model and hyperparameters are chosen its generalization performance is assessed on a separate test set that was not used in any part of the training or tuning process. Ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:31-34</a></p>
+</section>
+</section>
+<section id="performance-metrics" class="level1">
+<h1>Performance metrics</h1>
+<p>Performance metrics are used to evaluate how well a model makes predictions. A wide range of performance metrics exists, and the choice of metric(s) depends on the prediction task and whether the dataset has class imbalance, meaning that one class is much more frequent than the other. Below several commonly used metrics are introduced, each capturing different aspects of a model’s performance.</p>
+<p>A binary classification model typically outputs not a class label directly but a <em>risk score</em>, which is a continuous value between 0 and 1 representing the likelihood of the outcome occurring for a given individual, based on their predictors. To obtain a definitive class prediction, a threshold <span class="math inline">\(c\)</span> is applied: scores above <span class="math inline">\(c\)</span> are assigned to the positive class and those below to the negative. The larger the threshold <span class="math inline">\(c\)</span>, the more cases are predicted as negative, and conversely, the smaller <span class="math inline">\(c\)</span>, the more cases are predicted as positive. The threshold <span class="math inline">\(c\)</span> should not be chosen arbitrarily. It reflects a trade-off between competing objectives, such as minimising errors, managing costs, or optimising for fairness, and should be selected in accordance with the model’s intended application and context.</p>
+<p>After having obtained a predicted class for each case, the results can be categorised into four basic outcomes, depending on the true class and the predicted class:</p>
+<ul>
+<li>True Positives (TP): Positive cases that are correctly predicted as positive.</li>
+<li>True Negatives (TN): Negative cases that are correctly predicted as negative.</li>
+<li>False Positives (FP): Negative cases that are incorrectly predicted as positive (type I errors).</li>
+<li>False Negatives (FN): Positive cases that are incorrectly predicted as negative (type II errors).</li>
+</ul>
+<p>This can be aggregated in a so-called <em>confusion matrix</em>:</p>
+<div style="overflow: auto; text-align: center;">
+<img src="../images/iamconfusion.JPG" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(300px, 100%);">
+</div>
+<p>Figure 3: A visual representation of a confusion matrix. The green boxes represent the correct predictions, and the red boxes represent the incorrect predictions.</p>
+<p>&nbsp;</p>
+<p>The relative importance of different types of errors depends on the specific use-case. For example, in genetic testing, a type I error, i.e., incorrectly labelling a healthy person as ill, can cause unnecessary anxiety and interventions. In contrast, in cancer diagnosis, a type II error, that is, failing to detect disease in a patient who has cancer, may be considered more serious, as it delays treatment.</p>
+<p>A common and intuitive measure of predictive performance is <em>accuracy</em>, defined as the proportion of cases the model predicts correctly. That is, <span class="math display">\[\begin{align}
+\text{Accuracy} = \frac{TP+TN}{FP+TP+TN+FN}.\\
+
+\end{align}\]</span></p>
+<p>While accuracy gives an overall measure for model performance, it can be misleading for datasets with imbalanced classes. For example, consider a dataset of 5,000 observations with 4,900 positive cases and 100 negative cases. A model that always predicts observations as positive, would then achieve an accuracy of 98%, despite being entirely uninformative.</p>
+<p>Other aspects of model performance are reflected by metrics such as <em>sensitivity</em>, <em>precision</em>, and <em>specificity</em>. <strong>Sensitivity</strong>, also known as recall, measures the proportion of positive cases correctly classified: <span class="math display">\[\begin{align}
+   \text{Sensitivity} &amp;= \frac{TP}{TP+FN}.\\
+\end{align}\]</span></p>
+<p><strong>Specificity</strong>, by contrast, measures the proportion of negative cases correctly classified: <span class="math display">\[\begin{align}
+   \text{Specificity} &amp;= \frac{TN}{TN+FP}.\\
+\end{align}\]</span></p>
+<p><strong>Precision</strong> measures the proportion of the predicted positives that were positive cases:</p>
+<p><span class="math display">\[\begin{align}
+   \text{Precision}   &amp;= \frac{TP}{TP+FP}.\\
+\end{align}\]</span></p>
+<p>The <span class="math inline">\(F_1\)</span> score is a single measure that combines sensitivity and precision, that is particularly useful when there is a trade-off between catching positive cases (sensitivity) and avoiding false positives (precision) and when class imbalance is present. It is given by:</p>
+<p><span class="math display">\[\begin{align}
+
+      F_1\text{ score} = \frac{2\cdot\text{Precision}\cdot\text{Sensitivity}}{\text{Precision} + \text{Sensitivity}} = \frac{TP}{TP + \frac{1}{2}(FP + FN)}.
+
+\end{align}\]</span></p>
+<p>The values of all these metrics are bounded between 0 and 1. A value closer to 1 indicates better performance for the specific metric. In the modelling process, performance metrics can serve two primary roles. Either to optimise model parameters through their use in loss functions (for more detail see below) and their role in evaluating model performance.</p>
+<p>Note, the performance metrics introduced above are all threshold-dependent, meaning that their values depend on the choice of <span class="math inline">\(c\)</span>. Changing the threshold alters the balance of true/false positives/negatives and therefore affects the resulting metrics.</p>
+<p><strong>Example</strong></p>
+<p>Consider the following distribution of false/true positives/negatives:</p>
+<ul>
+<li><strong>TP:</strong> 10</li>
+<li><strong>FP:</strong> 20</li>
+<li><strong>TN:</strong> 75</li>
+<li><strong>FN:</strong> 4</li>
+</ul>
+<p>Then the metrics described above can be calculated, obtaining:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 21%">
+<col style="width: 19%">
+<col style="width: 18%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Accuracy</th>
+<th style="text-align: left;">Sensitivity</th>
+<th style="text-align: left;">Specificity</th>
+<th style="text-align: left;">Precision</th>
+<th style="text-align: left;"><span class="math inline">\(F_1\)</span> score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0.78</td>
+<td style="text-align: left;">0.71</td>
+<td style="text-align: left;">0.79</td>
+<td style="text-align: left;">0.33</td>
+<td style="text-align: left;">0.45</td>
+</tr>
+</tbody>
+</table>
+<section id="quiz" class="level4">
+<h4 class="anchored" data-anchor-id="quiz">QUIZ</h4>
+<p>In the above example, it has been demonstrated how to compute a range of well-known performance metrics. An efficient way of understanding the dynamics of these metrics is to try to compute them yourself. To do this, a new distribution of TP, FP, TN, and FN is provided:</p>
+<ul>
+<li><p><strong>TP:</strong> 90</p></li>
+<li><p><strong>FP:</strong> 10</p></li>
+<li><p><strong>TN:</strong> 85</p></li>
+<li><p><strong>FN:</strong> 15</p></li>
+</ul>
+<p>Compute the following metrics:</p>
+<style>
+  .quiz-container { font-family: sans-serif; max-width: 850px; margin: 20px 0; }
+  .q-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .q-header { font-weight: bold; font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; }
+  .metric-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    border: 2px solid #d1d5da;
+    border-radius: 6px;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .ans-correct { background-color: #d4edda !important; border-color: #28a745 !important; }
+  .ans-wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; }
+
+  .feedback { font-size: 0.9em; margin-top: 8px; font-weight: bold; min-height: 1.2em; }
+  .text-correct { color: #155724; }
+  .text-wrong { color: #721c24; }
+</style>
+
+<div class="quiz-container">
+  <div class="q-card">
+    <span class="q-header">Accuracy</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.875)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Sensitivity (Recall)</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.857)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Specificity</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.895)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">Precision</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.900)">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q-card">
+    <span class="q-header">F1 Score</span>
+    <input type="number" step="0.001" class="metric-input" placeholder="0.000" onchange="checkNumeric(this, 0.878)">
+    <div class="feedback"></div>
+  </div>
+</div>
+
+<script>
+  function checkNumeric(el, correctVal) {
+    const val = parseFloat(el.value);
+    const feedback = el.nextElementSibling;
+
+    if (isNaN(val)) {
+      el.classList.remove('ans-correct', 'ans-wrong');
+      feedback.innerHTML = "";
+      return;
+    }
+
+    const isCorrect = Math.abs(val - correctVal) < 0.01;
+
+    if (isCorrect) {
+      el.classList.add('ans-correct');
+      el.classList.remove('ans-wrong');
+      feedback.innerHTML = "Correct!";
+      feedback.className = "feedback text-correct";
+    } else {
+      el.classList.add('ans-wrong');
+      el.classList.remove('ans-correct');
+      feedback.innerHTML = "Incorrect. Try again.";
+      feedback.className = "feedback text-wrong";
+    }
+  }
+</script>
+<p>To learn more about confusion metrics and performance metrics, see this ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:150-156</a></p>
+</section>
+<section id="loss-functions" class="level2">
+<h2 class="anchored" data-anchor-id="loss-functions">Loss functions</h2>
+<p>During model training, a metric indicating the difference between the predicted value and the true outcome variable is required. This metric, often called the <em>loss functions</em>, enables the algorithm to improve the predicted output by adjusting model parameters to minimise the difference <a href="https://www.statlearning.com/">(James et al 2014:300-301)</a>. Loss functions are thus the main component to “learn” the best model parameters to make the most optimal predictions.</p>
+<p>Let <span class="math inline">\((x_1, y_1),…,(x_n,y_n)\)</span>, denote a series of corresponding predictor (<span class="math inline">\(x_i\)</span>) and outcome (<span class="math inline">\(y_i\)</span>) variables. A general loss function for continuous outcome variables <span class="math inline">\(y_i\)</span> to be minimised as function of the tuneable parameter <span class="math inline">\(\beta\)</span> can be expressed as the average distance between the outcome variables <span class="math inline">\(y_i\)</span> and the predicted outcome <span class="math inline">\(f(x_i, \beta)\)</span> given the predictors <span class="math inline">\(x_i\)</span> and the parameter <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[
+L(\beta) =  \sum_{i=1}^n (y_i – f(x_i,\beta)) ^2.
+\]</span></p>
+<p>However, other loss functions can also be formulated. In binary classification problems (0 if negative and 1 if positive), the default loss function is the binary cross-entropy, also known as the log-loss, given by <span class="math display">\[
+L(\beta) = -\sum_{i=1}^n \left[ y_i\log(p(x_i,\beta)) + (1-y_i)\log(1-p(x_i,\beta)) \right],
+\]</span></p>
+<p>where <span class="math inline">\(p(x_i,\beta)\)</span> is the model’s predicted probability that the <span class="math inline">\(i^{th}\)</span> observation belongs to the positive class given model parameters <span class="math inline">\(\beta\)</span> and predictors <span class="math inline">\(x_i\)</span>. When the true class is positive (<span class="math inline">\(y_i = 1\)</span>), only the first term, <span class="math inline">\(y_i \log(p(x_i,\beta))\)</span> contributes to the loss function, as the second term, <span class="math inline">\((1-y_i)log(1-p(x_i,\beta))\)</span>, becomes 0, and vice versa when the true class <span class="math inline">\(y_i\)</span> is 0.</p>
+<p>Alternative evaluation methods are Area Under the Curve (AUC) metrics, which are threshold-independent performance metrics. These metrics summarises the information given by, e.g., the Receiver Operating Characteristic (ROC) curve or the Precision-Recall (PR) curve. These curves are generated by evaluating a model’s performance across various classification thresholds, <span class="math inline">\(c\)</span>. Each threshold produces a single point on the curve, and the area under this resulting curve is then estimated.</p>
+<p>The ROC curve provides a visual representation of a model’s ability to discriminate classes by plotting the true positive rate (TPR), or sensitivity, against the false positive rate (FPR), which is equivalent to <span class="math inline">\(1−Specificity\)</span>, as the classification threshold <span class="math inline">\(c\)</span> varies from 0 to 1 (Figure 4) . The ROC curve illustrates the trade-off between TPR and FPR: increasing the classification threshold reduces FPR but also lowers TPR. The maximum possible value for ROC AUC is 1.0, which represents a perfect classifier, while a random classifier follows the diagonal and yields a ROC AUC of 0.5 (Figure 4). Thus, a ROC AUC significantly above 0.5 indicates superior classification performance.</p>
+<div style="overflow: auto; text-align: center;">
+<img src="../images/ROC.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
+<p>Figure 4: Illustration of a ROC curve and its corresponding ROC AUC. The diagonal line represents the performance of a random classifier. The red area is the AUC performance of a given classifier. Image credit <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
+<p>&nbsp;</p>
+<p>The PR curve plots precision against sensitivity, also known as recall (Figure 5). It shows the trade-off between precision and recall: a higher classification threshold <span class="math inline">\(c\)</span> increases precision by reducing false positives but decreases recall by reducing false positives. The PR curve is particularly useful when a dataset contains class imbalance, where the positive class is significantly smaller than the negative class. It emphasises the model’s performance on identifying positive cases by using precision and recall. True negatives are not part of these calculations, which makes the PR curve more informative than the ROC curve when the negative class dominates. The PR curve for a model is often compared to that of a random classifier represented by a horizontal line (Figure 5). This baseline value of the PR AUC (often approximated by <em>average precision</em>) is the proportion of positive cases in the dataset. An ideal model would have a PR AUC of 1, which indicates a perfect score on both precision and recall.</p>
+<div style="overflow: auto; text-align: center;">
+<img src="../images/PR.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
+<p>Figure 5: Illustration of PR curve and its corresponding PR AUC (here AP = average precision). The horizontal line illustrates the performance of a random classifier. Image credit <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
+<p>Ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:300-301</a></p>
+</section>
+</section>
+<section id="predictive-modelling" class="level1">
+<h1>Predictive modelling</h1>
+<p>This section introduces popular models for dynamic risk prediction. The models are presented from simple, interpretable algorithms to complex, “black-box” algorithms.</p>
+<section id="logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+<p>One of the most well-known models is logistic regression. This model is appropriate when the outcome is binary. A significant advantage of logistic regression is its explainability. This means that the model’s coefficients can be directly interpreted to understand the relationship between each predictor and the outcome. This allows for a high degree of interpretability, as the impact of each predictor on the predicted probability can be readily understood. Because of this and its inherent simplicity, logistic regression is often considered a suitable baseline model when multiple models are benchmarked to identify the most effective risk prediction model. Logistic regression is a linear model that outputs a probability score instead of a direct linear combination. This can be expressed formally as:</p>
+<p><span class="math display">\[p (x,\beta) = \sigma(\beta^T x)\]</span></p>
+<p>where <span class="math inline">\(\sigma\)</span> is the logistic function that transforms the linear combination of predictor variables into a probability ranging from 0 to 1 (Figure 6). It is given by</p>
+<p><span class="math display">\[\sigma(t) = \frac{1}{1 + \exp(-t)}.\]</span></p>
+<p>As <span class="math inline">\(t\)</span> approaches infinity, the logistic function approaches 1. In contrast, as <span class="math inline">\(t\)</span> approaches minus infinity, the logistic function approaches 0.</p>
+<p>The relationship between the logistic function, a threshold (typically <span class="math inline">\(c = 0.5\)</span>), and the decision boundary are illustrated in Figure 6 in case of a single predictor.</p>
+<div style="text-align: center;">
+<img src="../images/Log_reg_decision_boundary.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 75%);">
+</div>
+<p>Figure 6: Illustration of the predicted probability of belonging to the positive class in a logistic regression with a single predictor <span class="math inline">\(x_1\)</span>. Using a classification threshold of <span class="math inline">\(c = 0.5\)</span> (horizontal dotted line), the vertical dotted line marks the corresponding decision boundary in <span class="math inline">\(x_1\)</span>-space, separating datapoints into predicted negative (green) and positive (red) classes.</p>
+<p>&nbsp;</p>
+<p>In practice, logistic regression models are trained by minimising a loss function in <span class="math inline">\(\beta\)</span>, such as the binary cross-entropy computed from the predicted probabilities given by the logistic function. The optimisation method may range from a straightforward gradient descent to more advanced algorithms.</p>
+<p>In prediction problems involving numerous predictors, a challenge is presented if the number of potential predictors (<span class="math inline">\(m\)</span>) surpasses the number of data points within the dataset (<span class="math inline">\(n\)</span>). To address this imbalance effectively, regularization methods may be employed to construct a sparse model, specifically one in which only a select few important features are retained, and others are excluded <a href="http://www.stat.ucla.edu/~ywu/research/documents/BOOKS/ElementsLearningII.pdf">(Hastie et al.&nbsp;2001:649-664)</a>. Regularization is also used for mitigating model overfitting, a common issue that has been addressed in the underfitting and overfitting section.</p>
+<p>One of the most well-known and used regularization techniques is <em>ridge regression</em> (aka L2-regularization), in which a regularization term is added to the loss function:</p>
+<p><span class="math display">\[
+L(\beta) = \sum_{i : y_i=1} \log\big(1-p(\beta,  x_i)\big) + \sum_{i : y_i=0} \log\big(p(\beta, x_i)\big) + \lambda\sum_{j=1}^{m} \beta_j^2,
+\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is a tunable parameter controlling the amount of regularization.</p>
+<p>A benefit of ridge regression is its capacity to shrink the coefficients (<span class="math inline">\(\beta\)</span>) towards zero. In contrast, larger coefficients are subjected to heavier penalization, while smaller coefficients are reduced towards zero (but rarely exactly zero).</p>
+<p>Alternatively, penalization can be performed using the absolute value rather than the squared sum. This approach, known as the <em>Least Absolute Shrinkage and Selection Operator (LASSO)</em> (aka L1-regularization):</p>
+<p><span class="math display">\[
+L(\beta) = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda\sum_{j=1}^{m} |\beta_j|.
+\]</span></p>
+<p>This regularization method is highly effective for controlling model complexity and performing feature selection. By penalising coefficients proportionally to their absolute value, it encourages some coefficients to shrink to exactly zero. Consequently, predictors that contribute more noise than predictive signal can be effectively removed from the model.</p>
+<p>Compared to ridge regression, LASSO additionally performs variable selection by allowing some coefficients to be equal to 0. However, if all predictors are truly relevant, this might lead to worse predictions. Otherwise, the performance of the two regularization types is similar, and which method performs best varies from problem to problem.</p>
+<p>In certain scenarios, a benefit can be gained by combining the regularization properties of ridge regression and LASSO. This can be obtained by using <a href="https://en.wikipedia.org/wiki/Elastic_net_regularization">elastic net regularization</a> that also allows for the adjustment of the weighting of the two methods. The elastic net penalty is expressed as:</p>
+<p><span class="math display">\[
+L(\beta) = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\big(p(\beta, x_i)\big) + \lambda \sum_{j=1}^{m} (\alpha\beta_j^2 + (1 - \alpha)|\beta_j|),
+\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is still the regularization strength hyperparameter and <span class="math inline">\(\alpha\)</span> is a parameter between 0 and 1 that controls the weighting between ridge and LASSO penalties. When <span class="math inline">\(\alpha = 0\)</span> it is a pure LASSO regularization and <span class="math inline">\(\alpha = 1\)</span> is pure ridge regression. This method can provide flexibility in the modelling while also testing the effect of the two methods combined in different proportions.</p>
+<p>For further reading regarding the topics of this section, see ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:138-144;237-250</a></p>
+</section>
+<section id="decision-trees" class="level2">
+<h2 class="anchored" data-anchor-id="decision-trees">Decision trees</h2>
+<p>Decision trees are intuitive algorithms that can be applied to both regression and classification problems. They recursively split the data, asking simple yes/no questions about the predictors, until specific criteria are met.</p>
+<p>Initially, all observations are contained within a single region called the root node. Next, a predictor and a threshold are chosen (e.g., ‘age above 65’) to split the data into two distinct decision regions called branches. This recursive binary splitting process continues: a region is selected for further splitting, a predictor and a threshold is selected and new branches are created (e.g., splitting the ‘age under 65’ region by ‘bodyweight over 100kg’) (Figure 7). The splitting process continues until a stopping criteria is met, such as reaching a maximum tree depth or a minimum number of samples in a node. The final regions at the end of the branches are called leaf nodes, which provide the predicted class or value for observations within that region. The goal is to make the subgroups as “pure” as possible, meaning that each subgroup ideally only have observations from one class. If the subgroup have a mix of class, the degree of the mix is known as “impurity”.</p>
+<p>Loss is often measured by the Gini index, which is used as the metric to determine which region should be split. This index quantifies the impurity of each node based on the distribution of classes within it. The Gini index for the <span class="math inline">\(i\)</span>th node is given by:</p>
+<p><span class="math display">\[
+\text{Gini index}_i = 1 - \sum_{k=1}^{n} r_{i,k}^2,
+\]</span></p>
+<p>where <span class="math inline">\(r_{i,k}\)</span> is the proportion of samples that belong to class <span class="math inline">\(k\)</span> (among <span class="math inline">\(n\)</span> possible classes) at node <span class="math inline">\(i\)</span>. If a node is evenly divided between two classes, such as instances of benign or malignant cancer, its Gini index will be 0.5. In contrast, a node consisting entirely of one class, for example, 100% malignant cases, is considered pure, and its Gini index will be 0. For binary prediction, this reduces to</p>
+<p><span class="math display">\[
+\text{Gini index}_i = 2r_i (1 \; – \; r_i),
+\]</span></p>
+<p>where <span class="math inline">\(r_i\)</span> is the proportion of observations of one class in node <span class="math inline">\(i\)</span>. To illustrate: if a node is evenly divided between two classes, such as benign and malignant cancer, then <span class="math inline">\(R_i = 0.5\)</span>, which are the maximum degree of impurity. The algorithm chooses the split that minimizes the Gini index across the “nodes” in the three structure.</p>
+<div style="text-align: center;">
+<p><img src="../images/Decision_tree_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);"></p>
+</div>
+<p>Figure 7: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age &gt; 65, then further by weight and height, until four leaf nodes are eduction. To reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.</p>
+<p>&nbsp;</p>
+<p>While decision trees are powerful models, they can be unstable as their structures are highly sensitive to small changes in the data. This sensitivity can lead to overly complex structures that capture stopping noise rather than true patterns, and as a result, their predictive accuracy may be lower than that of other methods.</p>
+<p>To address these issues, ensemble learning methods can be employed.</p>
+</section>
+<section id="ensemble-learning-methods" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-learning-methods">Ensemble learning methods</h2>
+<p>In general, <em>ensemble learning methods</em> combine multiple models to solve problems better than any single model could, thus merging several weak learners into one strong predictor. This is also known as ‘wisdom of the crowd’. The most popular ensemble learning method for decision trees are bagging, random forest, and gradient boosted decision trees.</p>
+<p>For further reading, see: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:331-341</a></p>
+<section id="bagging" class="level3">
+<h3 class="anchored" data-anchor-id="bagging">Bagging</h3>
+<p><em>Bagging</em> (short for bootstrap aggregating) is an ensemble technique that helps prevent overfitting. In bagging, numerous independent models are trained on different subsets of the data, created through random sampling with replacement. Their predictions are then aggregated: in regression, typically taking the mean or median, and in classification, by taking the most common prediction (corresponding to the mode).</p>
+<p>In addition to the typical hyperparameters associated with decision trees, the bagging method has hyperparameters determining the number of trees used in the aggregation and the size of the sampled subsets.</p>
+<p>As opposed to trees, the variable importance is not immediately interpretable, as it is a combination of many trees with different structures. However, variable importance can still be estimated. In ensemble methods like Random Forest, the Gini index is used as a splitting criterion within each individual tree during construction. While the index itself is not aggregated for making predictions, the Gini reductions across all trees are summed to calculate variable importance. Gini reduction measures the decrease in impurity from a split, calculated as the parent node’s Gini index minus the weighted average of its children’s Gini indices. Variables that consistently yield higher Gini reductions across trees are deemed more important features.</p>
+</section>
+<section id="random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest">Random Forest</h3>
+<p>A limitation of bagging is that the decision trees utilised in the aggregation may be similar. This situation arises when a single predictor has significant importance, so that its selection for the initial split is consistently ensured.</p>
+<p>To address this issue, <em>random forests</em> extend the bagging method by incorporating an additional layer of randomness. In addition to sampling data points, a random subset of predictors is considered at each split within a tree. This makes the trees more diverse and helps them capture different patterns in the data, leading to better overall performance and robustness against noise. For a dataset with <span class="math inline">\(m\)</span> predictors, it is common to use <span class="math inline">\(\sqrt{m}\)</span> predictors per split (for classification), though this number can be treated as a tunable hyperparameter.</p>
+</section>
+<section id="gradient-boosted-trees" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-boosted-trees">Gradient boosted trees</h3>
+<p>Unlike bagging, which builds trees independently, gradient boosting constructs trees sequentially to correct errors from previous trees.</p>
+<p>After fitting an initial model, its prediction errors are computed. Each new tree is then trained to predict these errors, and its predictions are added to the ensemble to correct previous mistakes.</p>
+<p>This sequential error-correction process is what gives the method its name</p>
+<p>For iteration <span class="math inline">\(i + 1\)</span>, the update can be expressed as:</p>
+<p><span class="math display">\[
+F_{i+1}=F_i+\delta f_i,
+\]</span></p>
+<p>where <span class="math inline">\(F_i\)</span> is the ensemble’s predictions after <span class="math inline">\(i\)</span> iterations, <span class="math inline">\(f_i\)</span> is the new tree fitted to the errors, and <span class="math inline">\(\delta\)</span> is the learning rate controlling each tree’s influence</p>
+<p>This sequential improvement yields highly accurate models, but careful hyperparameter tuning, particularly of the learning rate, is needed to prevent overfitting.</p>
+<p>Ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:343-362</a></p>
+</section>
+</section>
+<section id="neural-networks" class="level2">
+<h2 class="anchored" data-anchor-id="neural-networks">Neural networks</h2>
+<p><em>Neural networks</em> are composed of interconnected nodes (or neurons) arranged in layers, each containing a customizable number of nodes. The structure consists of an input layer, one or more hidden layers, and an output layer. A network with two or more hidden layers is termed a <em>deep neural network</em>. An illustration of a neural network with three hidden layers is provided in Figure 8.</p>
+<p>The prediction process is initiated at the input layer, which consists of <span class="math inline">\(m\)</span> nodes that represents the <span class="math inline">\(m\)</span> input features <span class="math inline">\(x_{i1}, \dots, x_{im}\)</span> associated with the <span class="math inline">\(i\)</span>th sample. The connections between nodes are defined by weights, which together with <em>bias terms</em> constitute the tuneable parameters of the network. The weights determine how strongly the output of one node influences nodes in the subsequent layer. In each node, a weighted sum of the inputs is calculated and a bias term added before applying a continues activation function. The activation function allows the model to capture complex patterns in the data. Formally, we assume for the <span class="math inline">\(p\)</span>th node in the <span class="math inline">\(q\)</span>th hidden layer with activation <span class="math inline">\(A_p^{(q)}\)</span>, we can write this process as</p>
+<p><span class="math display">\[
+A_p^{(q)} = g(B_{q,p,0} + \sum_{j=1}^{k_{q-1}} B_{q,p,j}A_j^{(q-1)}),
+\]</span></p>
+<p>where <span class="math inline">\(B_{q,p,0}\)</span> is the bias of node <span class="math inline">\(p\)</span> in layer <span class="math inline">\(q\)</span> and <span class="math inline">\(B_{q,p,j}\)</span> (for <span class="math inline">\(j\geq 1\)</span>) is the weight connecting node <span class="math inline">\(j\)</span> in layer <span class="math inline">\(q-1\)</span> to node <span class="math inline">\(p\)</span> in layer <span class="math inline">\(q\)</span>. Further, <span class="math inline">\(g\)</span> is the activation function, often the ReLU function, <span class="math inline">\(\max(0,x)\)</span> or the logistic function.</p>
+<p>Assuming the <span class="math inline">\(q\)</span>th hidden layer contains <span class="math inline">\(k_q\)</span> nodes, the activation of the first node in the first hidden layer, <span class="math inline">\(A_p^{(1)}\)</span>, is given by</p>
+<p><span class="math display">\[
+A_p^{(1)} = g(B_{1,p,0} + \sum_{j=1}^m B_{1,p,j}x_j),
+\]</span></p>
+<p>where <span class="math inline">\(B_{1, p, 0}\)</span> is the bias term and <span class="math inline">\(B_{0,1,j}\)</span> is the weight for the <span class="math inline">\(j\)</span>th feature <span class="math inline">\(x_j\)</span> given in the input layer. Further, <span class="math inline">\(g\)</span> is the activation function, often the ReLU function, <span class="math inline">\(\max(0,x)\)</span> or the logistic function.</p>
+<p>We can continue this process, calculating activations layer by layer using outputs from the previous layer. The activations from the last hidden layer are passed to the output layer, where a final weighted sum is computed and passed through an output activation function, such as the logistic function <span class="math inline">\(\sigma\)</span> in the case of a binary outcome, to produce the final prediction (denoted <span class="math inline">\(Y_i\)</span> in Figure 8).</p>
+<div style="text-align: center;">
+<img src="../images/neural_network.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 80%);">
+</div>
+<p>Figure 8: An illustration of a deep feedforward neural network with three hidden layers (<span class="math inline">\(L_1\)</span>, <span class="math inline">\(L_2\)</span>, and <span class="math inline">\(L_3\)</span>). The input layer consists of the data points <span class="math inline">\(x_{ij}\)</span> with <span class="math inline">\(m\)</span> features. The <span class="math inline">\(q\)</span>th layer consists of <span class="math inline">\(k_q\)</span> nodes which are fully connected to all the nodes in the next layer. <span class="math inline">\(B_1\)</span>, <span class="math inline">\(B_2\)</span>, <span class="math inline">\(B_3\)</span>, and <span class="math inline">\(B_4\)</span> denote the weight/bias matrices that defines the layer-to-layer transformations, <span class="math inline">\(f\)</span> the output activation function, and <span class="math inline">\(Y_i\)</span> the final prediction.</p>
+<p>&nbsp;</p>
+<p>Note, the number of parameters in neural networks can grow rapidly, as adding a single node to a layer introduces one weight for each node in the subsequent layer, and an additional bias parameter.</p>
+<section id="training-a-neural-network" class="level3">
+<h3 class="anchored" data-anchor-id="training-a-neural-network">Training a neural network</h3>
+<p>To estimate model parameters, a loss function <span class="math inline">\(L\)</span> is minimised as previously discussed:</p>
+<p><span class="math display">\[
+L(\beta) = \sum_{i=1}^n(y_i-f(x_i, \beta))^2,
+\]</span></p>
+<p>where <span class="math inline">\(\beta\)</span> is now the weights and bias terms of the neural network.</p>
+<p>First, the weights of the network are initialised. Data is then passed through the network to produce predicted outcomes based on the initialised weights. The prediction error is then computed at the output layer, and during a process called <em>backpropagation</em> the derivative of this error is propagated backward through the hidden layers by partial derivatives to calculate the gradients of the loss function with respect to each parameter. Finally, the parameters are then updated in the direction of the gradient.</p>
+<p>The size of the update step taking in the direction of the gradient is called the learning rate. The learning rate is one of multiple hyperparameters in neural networks that control how training is performed.</p>
+<p>Key hyperparameters for neural networks are:</p>
+<ul>
+<li><p>Learning rate: step size for updating parameters during gradient descent</p></li>
+<li><p>Network structure: number of layers and nodes</p></li>
+<li><p>Batch size: number of samples processed before updating model parameters</p></li>
+<li><p>Regularization strength: degree to which the model penalises large weights to prevent overfitting</p></li>
+<li><p>Activation functions: non-linear function applied to a nodes output to introduce non-linearity</p></li>
+</ul>
+<p>To learn more about this topic, see this ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:399-406</a></p>
+</section>
+</section>
+<section id="model-training" class="level2">
+<h2 class="anchored" data-anchor-id="model-training">Model training</h2>
+<p>In the training process, the objective is to find values of the model’s parameters and hyperparameters that minimise the difference between the predictions and the observed outcome, as measured by the loss function. The goal for the model is to capture the underlying patterns in the data, enabling accurate predictions on unseen data. In this section, we will address the subject of model training.</p>
+<p>The foundational algorithm for training a model is <em>gradient descent</em>. Gradient descent is an iterative process that updates the model parameters in the direction that minimizes the loss function. It is an automated process in the training, with the <em>learning rate</em> as the only adjustable factor. The learning rate controls the size of the step taken in the direction of decreasing the loss. There are many versions of gradient descent and alternatives.</p>
+<p>Most of the models presented in the previous section are controlled by several hyperparameters, which define how the models are constructed. These hyperparameter values are set before the training process begins. The hyperparameters are then adjusted based on the performance of the models.</p>
+<p>These values can be chosen based on common practice or, more systematically, through a process called tuning. During this process, different combinations of hyperparameter values are used to fit a model. Each model’s predictive ability is then evaluated on a separate validation set, a concept that was covered in the data <a href="../lectures/data_preprocessing.html">preprocessing part of this course</a>. This process is repeated until the combination of hyperparameters that results in the best predictive performance is identified based on a stopping criterion.</p>
+<p>There are three popular approaches for hyperparameter search:</p>
+<ul>
+<li>Grid search</li>
+<li>Random search</li>
+<li>Bayesian optimisation</li>
+</ul>
+<section id="grid-search" class="level3">
+<h3 class="anchored" data-anchor-id="grid-search">Grid search</h3>
+<p><em>Grid search</em> is a method for hyperparameter tuning that systematically evaluates all possible combinations of a predefined set of hyperparameter values. For each hyperparameter, a discrete set of values is specified, and a model is trained and evaluated using every combination generated from these sets. The combination that yields the best performance on a validation set is then selected. Figure 9 illustrates the result of a grid search considering two hyperparameters.</p>
+<p>This approach constitutes an exhaustive search. The search space should be broad enough to explore a diverse range of hyperparameter values yet constrained to keep computation time manageable.</p>
+<div style="text-align: center;">
+<img src="../images/grid_search.png" alt="Image" style="margin-bottom: 15px; width: min(400px, 100%);">
+</div>
+<p>Figure 9: Results from a grid search for an elastic net model with the two hyperparameters: <span class="math inline">\(\alpha\)</span> (mixing parameter) and <span class="math inline">\(\lambda\)</span> (penalty parameter). Grid values are the average precision. The red box indicates the combination of hyperparameters which produces the highest average precision (mixing parameter = 0.6 and inverse penalty of 0.002). Image credit <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
+<p>&nbsp;</p>
+<p>Grid search can be computationally expensive, as a new model is fitted for each combination of hyperparameters. Its effectiveness is also limited by the dimensionality of the hyperparameter. Grid search is most suitable for models such as regularised logistic regression and certain tree-based methods, provided that only a limited number of hyperparameters are involved. It is generally not recommended for complex models with many hyperparameters, such as neural networks, due to their high dimensionality and the extensive computational resources required to train numerous network configurations.</p>
+</section>
+</section>
+<section id="random-search" class="level2">
+<h2 class="anchored" data-anchor-id="random-search">Random search</h2>
+<p>In contrast to the rigorous grid search method, computational complexity can be optimised through a technique known as <em>random search</em>. This approach involves the random sampling of a predetermined number of hyperparameter combinations.</p>
+<p>For this process, a defined sampling space is required for each hyperparameter. Unlike grid search, it does not evaluate every possible combination, but instead randomly sample hyperparameters to evaluate. This is repeated until a predefined stopping criteria is met.</p>
+<p>Random search effectively manages higher dimensionality because the number of models trained is explicitly controlled. While it performs well, it is acknowledged that the optimal set of hyperparameters may not always be identified.</p>
+</section>
+<section id="bayesian-optimisation" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-optimisation">Bayesian Optimisation</h2>
+<p><a href="https://medium.com/data-science/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f">Bayesian optimisation</a> is a method for finding the best hyperparameters efficiently. Instead of trying every combination, it builds a probabilistic ‘surrogate’ model that predicts how well different hyperparameters will perform while also quantifying the uncertainty of those predictions. The algorithm then chooses new hyperparameters to test based on a mathematical strategy that balances the exploration of unknown regions and exploitation of promising areas, also known as the ‘acquisition function’. After each evaluation, the surrogate model is updated with the results to form new probability distributions, gradually improving its predictions and decreasing uncertainty. This approach often finds good hyperparameters with fewer experiments than grid or random search.</p>
+<p>For further reading, see <a href="https://ieeexplore.ieee.org/document/7352306">Shahriari et al.&nbsp;(2015)</a></p>
+</section>
+<section id="performance-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="performance-evaluation">Performance evaluation</h2>
+<p>Evaluating a dynamic prediction model’s performance involves assessing how well the model generalises to new, unseen data and how reliable its predictions are in real-world scenarios.</p>
+<section id="cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation">Cross-validation</h3>
+<p>A common approach for evaluating model performance on unseen data, as discussed in <a href="../lectures/data_preprocessing.html">Data Preprocessing</a>, is to split data into separate subsets: a training set for fitting model parameters, a validation set for tuning hyperparameters, and a test set for assessing performance on unseen data, sometimes with an additional calibration set. While simple, performing these splits only once can lead to an evaluation that’s highly dependent on that specific division of the data. To address this limitation and obtain a more robust and reliable estimate of a model’s generalization performance, <em>cross-validation</em> is commonly used.</p>
+<p>Cross-validation is a technique employed to assess how a model performs on unseen data that produces an unbiased estimate of model performance. Instead of only splitting the data once and evaluating model performance on a single test set, the entire dataset is divided into <span class="math inline">\(K\)</span> subsets, called <em>folds</em> (Figure 11). In turn, each fold is left out of the total dataset, and the model is trained, validated, and calibrated on all the remaining data, and finally tested on the left-out fold. Based on the model’s test performance across these <span class="math inline">\(K\)</span> folds, its overall performance is evaluated. This specific process is known as <span class="math inline">\(K\)</span>-fold cross-validation.</p>
+<p>The number of folds is widely discussed, but often a value between 5 and 10 is used <a href="https://www.statlearning.com/">(James et al.&nbsp;2013:206)</a>.</p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/k-fold_data_splitting.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"></p>
+</div>
+<p>Figure 11: Illustration of 5-fold cross-validation. Visualise the process of using different parts of the dataset for test set across 5 splits of the dataset.</p>
+<p>&nbsp;</p>
+<p>If the cross-validation confirms an acceptable generalizability, a final model can be fitted using a train/validation split on the entire dataset.</p>
+<p>Ref: <a href="https://www.statlearning.com/">James et al.&nbsp;2014:202-212</a></p>
+</section>
+<section id="nested-cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="nested-cross-validation">Nested cross-validation</h3>
+<p>Although <span class="math inline">\(K\)</span>-fold cross-validation provides a more robust performance estimate than a single data split, a potential for bias exists if hyperparameter tuning is performed incorrectly within the cross-validation procedure. If the test set in each fold is used to evaluate different hyperparameter settings, information from the test set influences the selection of the best hyperparameters. This can lead to an overly optimistic estimate of model performance.</p>
+<p>To address this potential bias, <em>nested cross-validation</em> can be employed.</p>
+<p>This technique introduces an additional level of folding: First, the dataset is divided data into <span class="math inline">\(K\)</span> <em>outer</em> folds, with each fold providing a portion of data for constructing training and validation sets, similar to standard <span class="math inline">\(K\)</span>-fold cross-validation. Within each outer fold, an inner <span class="math inline">\(L\)</span>-fold cross-validation is performed using only the training/validation portion (Figure 12). The purpose of this “inner layer” is hyperparameter optimisation. The best hyperparameters identified by the inner <span class="math inline">\(L\)</span>-fold cross-validation are then used to train a model on the combined training/validation set of the outer fold. Finally, model performance is evaluated on the outer fold’s test set. This process is repeated for all outer folds.</p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/nested_cross_validation.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"></p>
+</div>
+<p>Figure 12: Illustration of nested cross-validation with five outer folds and three inner folds.</p>
+<p>&nbsp;</p>
+<p>Because each outer fold is evaluated using an additional <span class="math inline">\(L\)</span>-fold cross-validation, the risk of overfitting is greatly reduced, and the estimated model performance is more reliable.</p>
+<p>When the nested cross-validation process has provided a reliable estimate of performance, a final round of hyperparameter tuning is performed on the entire dataset. The resulting ‘best’ hyperparameters are then used to train the final model on the available data to produce a single final model for deployment.</p>
+<p>For further reading, see <a href="https://www.bmj.com/content/384/bmj-2023-074819">Colins, G. (2024).</a></p>
+</section>
+</section>
+<section id="utility-and-explainability" class="level2">
+<h2 class="anchored" data-anchor-id="utility-and-explainability">Utility and explainability</h2>
+<p>Below, we explore the <strong>utility</strong> and <strong>explainability</strong> of prediction models, examining not only how well they perform but also how their predictions can be interpreted and trusted by stakeholders. In fields such as healthcare, it is crucial to understand why models predict as they do and to see evidence of their practical benefits.</p>
+<section id="utility" class="level3">
+<h3 class="anchored" data-anchor-id="utility">Utility</h3>
+<p>Model performance can be evaluated using statistical metrics such as ROC AUC or PR AUC, as described in the section about performance metrics, but these metrics are probably not of much use for clinicians as the primary users of the prediction model.</p>
+<p>Clinicians might be presented with the model as a prediction tool, but if they do not understand the predictions and how it works, they may be reluctant to use it. Therefore, its usage should be demonstrated within the specific clinical context for which the model is intended, e.g.&nbsp;by considering a clinical scenario. To set up a clinical scenario:</p>
+<ol type="1">
+<li><p>State an objective, which should be something the model can achieve.</p></li>
+<li><p>Describe its intended use in practice, considering the clinicians’ limited time, their accessibility to the data, and the availability of the patient.</p></li>
+<li><p>Describe how model results should be interpreted.</p></li>
+<li><p>Disclose possible adverse consequences and how to mitigate them in case of false positive or negative prediction.</p></li>
+<li><p>Describe the measurable impact on employing the prediction model, such as optimising resource usage and lowering mortality.</p></li>
+</ol>
+<p>The course’s motivational example is to limit the amount of late Systematic Anti-Cancer Treatment (SACT) treatments, i.e., those administered within 30 days of death. In this context, a dynamic risk prediction model is applied before each treatment cycle to aid in clinicians in evaluating whether the patient is fit to receive the treatment, with the rule that treatment should generally be withheld if the model predicts a 30-day mortality risk above 50%.</p>
+<p>The believed measurable impact of the model is that it prevents suffering from the late SACT treatments and lessens the amount of chemotherapy given. Regarding adverse consequences, a false positive (i.e., predicting death within 30 days when the patient does not die within 30 days) could lead to the treatment would be stopped early, or perhaps just delayed to a later point.</p>
+<p>The utility of the 30-day mortality model is illustrated in Figure 13 where the predicted probability of dying within 30 days of a SACT administration is shown for each of the four outcomes from the confusion matrix (true positive, false positive, true negative, false negative) using a classification threshold of 50%. Here we consider 30 days before death as the appropriate time for cessation as opposed to continuing treatment when entering the last 30 days before death. Thus, the true negatives correspond to what we deem as “appropriate administrations”, while the true positives correspond to “appropriate stoppage”. Among the false positives, which are the cases where the model predicted death within 30 days incorrectly, the utility assessment here discriminates between “early stoppage” (died &gt; 90 days after SACT administration) and “acceptable stoppage” (died within 90 days after SACT administration). This division was included because the improvement in life quality after the SACT treatments would be short-lived, and it is debatable if it is worth it, considering the decrease in life quality under the treatment. In the study of <a href="https://pubmed.ncbi.nlm.nih.gov/36379004/">Vesteghem et al.&nbsp;(2022)</a> the authors conclude that by applying this simple threshold, 40% of late SACT administrations could have been prevented, at the cost of only 2% of patients stopping their treatment more than 90 days before death.</p>
+<div style="text-align: center;">
+<img src="../images/utility_example.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+</div>
+<p>Figure 13: A practical example of a confusion matrix related to 30-day mortality prediction in lung cancer. The scatter plot shows the predicted risk of dying within 30 days from a SACT administration versus days to actual death. The plot is divided into two zones on the horizontal line, which is the 50% mortality risk threshold. A vertical line indicates when the patient is within the last 30 days before death. The curly bracket denotes the counterproductive administrations. Image credit: <a href="https://ascopubs.org/doi/pdf/10.1200/CCI.22.00054">Vesteghem et al.&nbsp;(2022)</a></p>
+</section>
+<section id="calibration" class="level3">
+<h3 class="anchored" data-anchor-id="calibration">Calibration</h3>
+<p>For classification problems, the prediction model outputs risk scores, which are often scaled to values between 0 and 1 by a sigmoid function and often interpreted as class probabilities. It is often assumed that these “probabilities” accurately reflect real-world outcomes when based on a large dataset. However, this assumption does not always holds, especially if the model is not properly <em>calibrated</em>. Calibration refers to the agreement between predicted probabilities and observed outcomes: a well-calibrated model produces predictions that match the true likelihood of events, so that, for example, among instances predicted with a probability of 0.7, roughly 70% belong to the positive class. When a model is miscalibrated, post-hoc techniques can be applied to adjust the predicted probabilities.</p>
+<p>Model calibration can be assessed by comparing predicted risk scores with observed outcomes. This can for example be done by calibration plots, where predicted risk scores are averaged over a suitable bin and then plotted against the observed frequency of the positive class (for binary prediction); an example of a calibration plot can be seen in Figure 14. In this type of plot, the ideally calibrated model follows the identity line, while points above the line indicate the predicted risk score is smaller than the observed probability and vice versa for points below the line.</p>
+<div style="text-align: center;">
+<img src="../images/calibration_plot.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
+</div>
+<p>Figure 14: Example of a calibration plot for four different models. Image credit: <a href="https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html">Scikit-learn.org</a></p>
+<p>&nbsp;</p>
+<p>Alternatively, the <a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a> provides a useful measure of calibration in binary classification, but can also be used in multi-class problems. The Brier score quantifies the closeness of the predicted risk scores (<span class="math inline">\(\hat{p}_i(\hat{\beta},x_i)\)</span>) to the observed outcome (<span class="math inline">\(y_i\)</span>) by</p>
+<p><span class="math display">\[
+\text{Brier score} = \frac{1}{n} \sum_{i=1}^n (p_i (\hat{\beta},x_i) -y_i)^2,
+\]</span></p>
+<p>where <span class="math inline">\(n\)</span> is the number of predictions. A lower the Brier score indicates that the model provides more accurate probability estimates. Note, the Brier score reflects both how well the predicted probabilities align with actual outcomes (calibration) and the confidence of the predictions. A score of 0 indicates perfect predictions, where every probability exactly corresponds to the true outcome.</p>
+<p>If the model is not well calibrated, post-hoc calibration techniques can be applied to improve the agreement between predicted probabilities and observed outcomes. A common method is <a href="https://en.wikipedia.org/wiki/Isotonic_regression">isotonic regression</a>, which fits a non-parametric monotonic function to adjust the predicted probabilities. The isotonic function is typically a piecewise constant function, which ensures that probabilities are increasing.</p>
+<p>Following model calibration, calibration can again be checked using a calibration plot and the Brier score.</p>
+<p>For further reading, see <a href="https://www.bmj.com/content/384/bmj-2023-074820">Riley, R. (2024).</a></p>
+</section>
+<section id="explainability" class="level3">
+<h3 class="anchored" data-anchor-id="explainability">Explainability</h3>
+<p>Ideally, it should be possible to gain insight into why a dynamic risk prediction model predicts the way it does and to identify the most important predictors. This property is known as <em>explainability</em>. For example, in a model predicting mortality risk, explainability allows clinicians to see which patient features most strongly drive the predicted risk, supporting more informed decision-making.</p>
+<p>Some models are inherently explainable, such as logistic regression, where the effect of all predictors is visible through the model parameters, and decision trees, where the splits are made on specific predictors based on impurity. In contrast, in black-box models, such as ensemble methods (random forest, etc.) and neural networks, the relation between input and output is highly complex and not directly “visible”. Even though these models are not inherently explainable some information can be extracted using external methods.</p>
+<p>The standard for explainability of black-box models is called <em>Shapley Additive explanation SHAP</em> values and is based on game theory. SHAP values assign a contribution to each feature, showing how much it increases or decreases the predicted risk compared to the average prediction.</p>
+<p>SHAP can be visualised in a waterfall plot inspecting a specific prediction; an example is shown in Figure 15, visualizing the effect of being a 45-year-old man with an albumin level of 2.9 g/dL on the 30-day mortality rate.</p>
+<div style="text-align: center;">
+<img src="../images/SHAP_waterfall.png" alt="Image" style="margin-bottom: 15px; width: min(600px, 100%);">
+</div>
+<p>Figure 15: Waterfall plot of individual feature importance in prediction of 30-day mortality. It shows how features adjust the prediction from the average risk (Mean = 13%) to the final calculated probability (p = 24.5%). The red arrows denote variables which increase the risk while the green arrow shows variables which decrease the risk. <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a>.</p>
+</section>
+</section>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<p>In this exercise you will train and test at least one prediction model based on the data sets you prepared in Exercise 1 (in case you did not succeed with Exercise 2 , a prepared data set is available on <a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/formatted_data">here</a>. In this dataset there is a variable called split, indicating which split the observation belongs to). You will have a data set for training the model parameters (“training set”), one for evaluating a model fit on the training data while tuning hyper parameters (“validation set”), one to train a calibration model (“calibration set”), and one for final test of model performance (“test set”). Go through the following steps:</p>
+<ol type="1">
+<li><p>Choose a performance metric for final test of model performance (is there class imbalance in your data?)</p></li>
+<li><p>Choose a model to train (e.g.&nbsp;logistic regression with elastic net or random forest). What parameters and hyperparameters does the model have?</p></li>
+<li><p>Train model and tune hyperparameters.</p></li>
+<li><p>After selecting best hyperparameters, retrain your model on the combined training and validation sets.</p></li>
+<li><p>How is the predictive performance of your trained model in the test set? Have a look at the confusion matrix – did you predict both positive and negative outcomes well (and what should the threshold be)?</p></li>
+<li><p>Train a calibration model. How well is the model calibrated, considering the test set?*</p></li>
+</ol>
+<p><strong>Note</strong>: due to high class imbalance, too little data, and the small variation of predicted probabilities, the calibration plots generated here are not that meaningful unfortunately. Do not put too much energy in trying to decipher the calibration results.</p>
+<p align="center">
+To proceed to the next section of the course, please click the button below.
+</p>
+<p>&nbsp;</p>
+<p align="center">
+<a href="implementation.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Continue to Implementation </a>
+</p>
+<p>&nbsp;</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/Dyn_Risk_Pred_Course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Data Scientist, Southern Denmark University">
 
-<title>Jacob Fredegaard Hansen – Dynamic Risk Prediction</title>
+<title>implementation – Dynamic Risk Prediction</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -279,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Modelling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../lectures/implementation.html"> 
+    <a class="nav-link active" href="../lectures/implementation.html" aria-current="page"> 
 <span class="menu-text">Implementation</span></a>
   </li>  
 </ul>
@@ -306,42 +340,257 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link active" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#hosting-and-access-to-data" id="toc-hosting-and-access-to-data" class="nav-link" data-scroll-target="#hosting-and-access-to-data">Hosting and access to data</a></li>
+  <li><a href="#fhir" id="toc-fhir" class="nav-link" data-scroll-target="#fhir">FHIR</a></li>
+  <li><a href="#technical-validation-of-the-implementation" id="toc-technical-validation-of-the-implementation" class="nav-link" data-scroll-target="#technical-validation-of-the-implementation">Technical validation of the implementation</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#before-you-begin-environment-setup" id="toc-before-you-begin-environment-setup" class="nav-link" data-scroll-target="#before-you-begin-environment-setup">Before You Begin: Environment Setup</a></li>
+  <li><a href="#exercise-1-list-patients-using-the-get-method" id="toc-exercise-1-list-patients-using-the-get-method" class="nav-link" data-scroll-target="#exercise-1-list-patients-using-the-get-method">Exercise 1: List patients using the GET method</a></li>
+  <li><a href="#exercise-2-find-the-code-for-a-specific-observation" id="toc-exercise-2-find-the-code-for-a-specific-observation" class="nav-link" data-scroll-target="#exercise-2-find-the-code-for-a-specific-observation">Exercise 2: Find the code for a specific observation</a></li>
+  <li><a href="#exercise-3-get-measurements-of-cholesterol-for-a-patient-and-plot-them-over-time" id="toc-exercise-3-get-measurements-of-cholesterol-for-a-patient-and-plot-them-over-time" class="nav-link" data-scroll-target="#exercise-3-get-measurements-of-cholesterol-for-a-patient-and-plot-them-over-time">Exercise 3: Get measurements of cholesterol for a patient and plot them over time</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Jacob Fredegaard Hansen</h1>
+
+
+
+<section id="implementation" class="level1 hero-banner">
+<h1>Implementation</h1>
+</section>
+<p>Up to this point, we have focused on how to develop a dynamic risk prediction model, yet this is only half the challenge. The real impact happens when these models are seamlessly integrated into clinical workflows, connected to real-world data sources, and delivered to clinicians in real time.</p>
+<p>This section introduces the practical side of deploying prediction models in health care, which is made possible by established data exchange standards, such as FHIR <a href="https://www.healthit.gov/topic/standards-technology/standards/fhir">Fast Healthcare Interoperability Resources (FHIR)</a>. This standard streamlines the interaction with healthcare data globally. FHIR was briefly introduced under <a href="../lectures/data_management.html">Data Sources and Data Acquisition</a> and will be further elaborated here.</p>
+<p>This section will cover:</p>
+<ul>
+<li>Hosting and access to data</li>
+<li>FHIR</li>
+<li>Validation</li>
+<li><strong>Exercises</strong></li>
+</ul>
+<section id="hosting-and-access-to-data" class="level1">
+<h1>Hosting and access to data</h1>
+<p>Healthcare professionals generate and record much of the data in healthcare. However, they cannot manage it on their own. It must be stored digitally in an infrastructure that is easily accessible, secure, and can store all data from every health care professional at a regional, national, or even international level.</p>
+<p>Through this infrastructure, information about patients, such as diagnoses and treatments, can be transferred, stored, and reused by researchers. The infrastructure also provides services support for decision-making processes.</p>
+<p>Sharing of services are enabled through a network of servers. The term server refers to the computers providing the services. Network types includes Local Area Networks (LAN), which are clusters of connected devices. A LAN can be anything from a household with a Wi-Fi router to a university or hospital having a local, closed network where data can only be shared within that specific network. The other network type is the Wide Area Network (WAN), which is the global network that connects all the LAN networks, making data sharing among a wide range of devices possible. Resources, such as database servers with information about Danish residents, are primarily accessed through these broader networks.</p>
+<p>The LAN and WAN networks are connected by physical devices, such as routers or access points, which enable data retrieval and transmission to the intended locations within the networks. Through these mechanisms, the sharing of resources and information is securely facilitated.</p>
+<p>Servers typically operate within a client-server architecture, a fundamental model of network interaction. The client-to-server architecture is illustrated in Figure 1:</p>
+<div style="text-align: left;">
+<p><img src="../images/implementation/server_to_client.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);"></p>
 </div>
-
-<div>
-  <div class="description">
-    Data Scientist, Southern Denmark University
-  </div>
+<p>Figure 1: Illustration of the interaction of servers and clients through networks.</p>
+<p>&nbsp;</p>
+<p>There exist different types of servers, such as those for websites, search engines, email services, and databases. A database server is a type of server through which information is managed for easy access, management, and updating of databases. A database is composed of physical storage and software that enable the insertion, retrieval, and management of data from storage.</p>
+<p>To generate a new risk prediction from a trained model, the required raw input data must be retrieved, possibly preprocessed, and then made available to the model. This data will be placed in a database hosted on a database server.</p>
+<p>The database server can be linked to other servers where the predictive models are hosted. Easy and secure interaction between data, models, and the user interface, which displays predicted risk and auxiliary information to the user, is facilitated by this network of servers.</p>
+<p>This process is illustrated in Figure 2.</p>
+<div style="text-align: left;">
+<p><img src="../images/implementation/imp_overlook.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);"></p>
 </div>
+<p>Figure 2: Network infrastructure of a risk assessment tool for clinicians. It shows how data is accessed directly at the data sources and how they are processed in the data management component, then feed into the predictive model which is hosted on a server. The result of the model is then displayed on an interface on a local computer.</p>
+<p>&nbsp;</p>
+<p>Figure 2 shows the structure and the components necessary to build a basic predictive modelling system. The two main component are the data management component, which is what handle the <a href="../lectures/data_management.html">data acquisition</a> and <a href="../lectures/data_preprocessing.html">preprocessing</a>. The other component is the predictive modelling component, which calculates the risk score. The two main components are supported with access to live data and hosting of the system.</p>
+<p>Access to data is typically not direct, but rather goes via an Application Programming Interface (API). An API a standardized set of rules and protocols that allows two separate software applications to communicate with each other. Because APIs provide a structured way for systems to interact, this approach is effective for establishing automated tasks using a cron job, which is a scheduled task that is executed at a predetermined time or interval. For example, such jobs could involve triggering an API to update the database at midnight with all the blood tests collected throughout the day. The display on the app or webpage would then function through an API communicating with the backend system to securely read the appropriate data for the given tasks.</p>
+<p>Each API consists of a set of rules and a language that dictate how a client communicates with a server. These rules, known as the API protocol or architecture, specifies the applicable data formats, commands and overall behavior of the API. Many different API protocols and architectures exist, but the Representational State Transfer (REST) architectural style is typically used. REST is considered versatile, as no single message format is enforced by the style itself for the messages that can be handled. For REST interactions, a Uniform Resource Locator (URL) is used as the endpoint, and HyperText Transfer Protocol (HTTP) verbs (GET, POST, PATCH, PUT, and DELETE) are employed to perform operations such as resource creation, reading, updating, and deletion (CRUD). It is useful because it facilitates the exchange of data between servers and clients. An API that follows this style is referred to as a RESTful API.</p>
+<p>When a client wants to retrieve a specific dataset from a database, they formulate a request that specifies exactly what they need, for instance, the target dataset, specific variables, or a particular time period. The data is then pulled from a server and provided to the client. With a RESTful API, this request is formulated as a specific URL address and follows the HTTP protocol.</p>
+<p>An example of using a RESTful API could be to get data on a certain patient from a database. In this case, there must be a server address, the server needs to have a patient list, and the patients need to have some identifiers, like an ID number. If the server requirements are satisfied. The GET action can be employed:</p>
+<p><code>GET(https://server.com/Patient/123)</code></p>
+<p>This call would return a structured output, such as JSON or XML of the available patient data for the patient with ID 123. This output could look like the following:</p>
+<p><code>{ "id": "123", "name": "Hans Hansen", "age": "56", "Gender": "Male" }</code></p>
+<p>An example of a standard that leverages the principles of the RESTful API and is widely utilized in the healthcare sector is FHIR.</p>
+<p>For further information about API and API design, see this book: <a href="https://www.manning.com/books/the-design-of-web-apis-second-edition">Lauret, A. (2025)</a></p>
+</section>
+<section id="fhir" class="level1">
+<h1>FHIR</h1>
+<p>FHIR is a global standard published by HL7 for formatting and sharing health data. Built on a RESTful architecture, FHIR allows for standardized data access, which is beneficial for interoperability between different systems. Within this framework, health information is organized into discrete, standardized units called “resources”, such as a patient profile, a diagnostic report, or a medication.</p>
+<p>To improve usability, these FHIR resources are made available in both human-readable and machine-readable formats. While the RESTful architecture enables the actual access to real-time data, this standardized structure ensures that developers can easily interpret the information, and software applications can reliably process it.</p>
+<p><a href="https://hl7.dk/FHIR-implementations-1.0.0.html">In Denmark, FHIR has been implemented in electronic health record systems, such as Columna CIS and Columna Cura, at hospitals and municipalities</a>. The number of implemented systems is expected to increase as more projects adopt FHIR to enhance data sharing.</p>
+<p>FHIR is used to access real-time data from various sources, which can then inform prediction models. FHIR reduces the time and effort needed for data collection and preparation, facilitating clinical implementation. The pipeline in Figure 2 is updated with FHIR implementation in Figure 3:</p>
+<div style="text-align: left;">
+<p><img src="../images/implementation/imp_overlook_fhir.png" alt="Image" style="margin-bottom: 15px; width: min(700px, 100%);"></p>
+</div>
+<p>Figure 3: Network architecture of a risk assessment tool including FHIR interaction.</p>
+<p>&nbsp;</p>
+<p>The FHIR standard is organized into modules, which categories related health data structures (resources) based on their clinical or administrative purpose. For instance, the FHIR <a href="https://www.hl7.org/fhir/administration-module.html">administration module</a> covers most of the basic live data relevant to medical research, and the remaining info can be obtained using various other FHIR modules.</p>
+<p>Considering the example of predicting 30-day mortality in lung cancer from the introduction of the course. Relevant live data in a FHIR format looks as follows:</p>
+<ol type="1">
+<li><p>Patient: the baseline information about the person (e.g., sex and age), along with something unique to identify them by (e.g., CPR number in Denmark).</p></li>
+<li><p>EpisodeOfCare: Information about long-term care episodes, along with diagnoses and a time frame of when they were in care. Such as cancer diagnosis, comorbidities, and contacts.</p></li>
+<li><p>Observation: Anything measured, such as weight, the results of biochemical tests (Albumin, LDH), and BMI.</p></li>
+<li><p>Procedure: Drug administrations, surgeries.</p></li>
+</ol>
+<p>The first two points are from the administration module, the third from the <a href="https://www.hl7.org/fhir/diagnostics-module.html">diagnostic module</a>, and the final from the <a href="https://www.hl7.org/fhir/clinicalsummary-module.html">clinical module</a>.</p>
+</section>
+<section id="technical-validation-of-the-implementation" class="level1">
+<h1>Technical validation of the implementation</h1>
+<p>Technical validation of the implementation is a process of ensuring the functionality and the quality of the software infrastructure surrounding the dynamic risk prediction model in production. In this context, the ‘system’ is defined as the complete technical infrastructure, including the servers, data pipeline, and API connections.</p>
+<p>In terms of technical validation of the implementation, there are <a href="https://www.learngxp.com/good-validation-practices/the-difference-between-prospective-concurrent-and-retrospective-validation/">three main types</a>: prospective, concurrent, and retrospective.</p>
+<p>The prospective technical validation is an important validation type, as it validates that the system performs as intended, based on its protocols, after the system is used in practice. There is an emphasis on verifying that the technical implementation functions, separate from the clinical validation of the prediction model <a href="../lectures/modelling.html">as discussed in earlier in the course</a>.</p>
+<p>The validation process typically follows a systematic approach, starting with the process design, then going through the installation, operational, and performance qualifications. It is typically required that the system pass the validation checks before it is deployed.</p>
+<p>Next is the concurrent validation, which is relevant when the system has been implemented and used. It serves to check whether the system is still in control and is compliant. This type of validation is typically used when something related to the system is changed, such as the introduction of new data (e.g., another hospital’s data is made available and is used in the model) or a change of equipment. As it is concurrent, any deviations found can be corrected on an ongoing basis.</p>
+<p>Finally, the retrospective validation, which uses historical data and records to validate the system. The main reason to use this type of validation is if no prospective validation was performed before launching, and thus, no evidence for the system’s efficiency exists.</p>
+<p>For further information, please see this book: <a href="Principles of Health Interoperability: FHIR, HL7 and SNOMED CT | SpringerLink">Benson, Tim, and Grahame, Grieve. (2021).</a></p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<section id="before-you-begin-environment-setup" class="level3">
+<h3 class="anchored" data-anchor-id="before-you-begin-environment-setup">Before You Begin: Environment Setup</h3>
+<p>In a real-world scenario, you would connect to a remote hospital server via the internet using HTTP protocols. To save you the hassle of setting up API authentication, VPNs, and security clearances for this exercise, there are provided a simulated ’mock server (the <code>requests_fhir</code> scripts) for both R and Python.</p>
+<p>You will construct URLs and pass them to this script exactly as if you were communicating with a real web server, but it will process the data locally on your machine.</p>
+<section id="file-setup" class="level4">
+<h4 class="anchored" data-anchor-id="file-setup">File Setup:</h4>
+<p>Because the mock server acts as a stand-in for a real database, it needs to follow a exact folder structure. the folder structure should look as follows: 1. Create a main folder for this exercise on your computer. 2. Download the mock server script <a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/Code">(<code>requests_fhir.py</code> or <code>request_fhir.R</code>)</a> and place it in this main folder. 3. Create a subfolder named exactly <code>data</code> inside your main folder. 4. Download the <a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/exercise_data/raw_data">raw exercise data</a> and place all the CSV files into this <code>data</code> subfolder.</p>
+<p>Your folder should look like this:</p>
+<pre><code>my_exercise_folder/
+├── requests_fhir.py
+├── requests_fhir.R
+└── data/
+    ├── baseline_data.csv
+    ├── blood_data.csv
+    ├── diag_data.csv
+    ├── quest_data.csv
+    ├── snomed.csv
+    ├── treat_data.csv
+    └── visit_date.csv</code></pre>
+<p>Please note, that when a single patient is requested from a FHIR server, it returns a single “Patient” object. However, when you query a list of patients or multiple observations, FHIR groups them into a <code>Bundle</code>. When the JSON response is received, there is a extra step of navigating into the Bundle (in this exercise, under a key called <code>entry</code> or <code>resource</code>) to extract the individual records.</p>
+</section>
+</section>
+<section id="exercise-1-list-patients-using-the-get-method" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-list-patients-using-the-get-method">Exercise 1: List patients using the GET method</h3>
+<p>The goal of this exercise is to fetch a list of all the patients from the mock FHIR server and display their information. This is a realistic experience of querying a secure database to pull a cohort of patients.</p>
+<p>The steps are as follows:</p>
+<ol type="1">
+<li>Define the base URL for the mock server: <code>https://test/fhir</code></li>
+</ol>
+<p>Python hint: Import the <code>requests_fhir.py</code> script as <code>request</code> and the <code>json</code> library:</p>
+<pre><code>import requests_fhir as request
+import json
+import pandas as pd
+
+BASE_URL = 'https://test/fhir'</code></pre>
+<p>R hint: Source the <code>request_fhir.R</code> script:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>request_fhir.R</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="request_fhir.R"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"request_fhir.R"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>BASE_URL <span class="ot">&lt;-</span> <span class="st">"https://test/fhir"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Construct the full URL to access the patient resource. Following RESTful principles, this is achieved by appending <code>/Patient</code> to the base URL.</li>
+</ol>
+<p>Python hint: Use an f-string to create the URL:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>patients_url <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>BASE_URL<span class="sc">}</span><span class="ss">/Patient'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R hint: Construct the URL by using <code>paste0()</code>:</p>
+<pre><code>patients_url &lt;- paste0(BASE_URL, "/Patient")</code></pre>
+<ol start="3" type="1">
+<li>Make the request using the provided <code>get()</code> method (<code>get_r()</code> in R) with your URL.</li>
+</ol>
+<p>Python hint:</p>
+<pre><code>response = request.get(patients_url)</code></pre>
+<p>R hint:</p>
+<pre><code>response &lt;- get_r(patients_url)</code></pre>
+<ol start="4" type="1">
+<li>Parse the JSON object to extract the list of patient entries.</li>
+</ol>
+<p>Python hint: Use <code>json.loads()</code> to parse the object. It is highly recommended to print your JSON object (e.g., <code>print(json.dumps(parsed_data, indent=2))</code>) to visually inspect the nested Bundle structure:</p>
+<pre><code>parsed_data = json.loads(response._content)</code></pre>
+<p>R hint: Use <code>jsonlite::fromJSON()</code> to parse the data:</p>
+<pre><code>parsed_data &lt;- fromJSON(response$content)</code></pre>
+<ol start="5" type="1">
+<li>Extract the variables and build a dataframe.</li>
+</ol>
+<ul>
+<li>Iterate through the nested entries to pull out the relevant patient data and organize it into a structured dataframe.</li>
+</ul>
+<p>Python hints:</p>
+<ul>
+<li>The patient data is nested in the JSON structure under <code>['entry']</code>. Iterate through this list to access the <code>['resource']</code> for each patient.</li>
+<li>Create an empty list, append the extracted patient dictionaries to it, and then convert the list into a Pandas DataFrame.</li>
+</ul>
+<p>Python example code:</p>
+<pre><code>patients = []
+for entry in parsed_data['entry']:
+    resource = entry['resource']
+    patients.append({
+        'id': resource['id'],
+        'gender': resource['gender'],
+        'birthDate': resource['birthDate']
+    })
+
+patients_df = pd.DataFrame(patients)
+print(patients_df)</code></pre>
+<p>R hints:</p>
+<ul>
+<li>The parsed data is a list containing the Bundle. The patient information is nested inside <code>parsed_data$entry$resource</code>.</li>
+<li>You can use <code>dplyr::bind_rows()</code> or functions from the <code>purrr</code> package to flatten this nested structure into a clean dataframe.</li>
+</ul>
+<p>R example code:</p>
+<pre><code>entries &lt;- parsed_data$entry$resource
+patients_df &lt;- data.frame(
+  id = entries$id,
+  gender = entries$gender,
+  birthDate = entries$birthDate
+)
+print(patients_df)</code></pre>
+</section>
+<section id="exercise-2-find-the-code-for-a-specific-observation" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-find-the-code-for-a-specific-observation">Exercise 2: Find the code for a specific observation</h3>
+<p>In medical databases, clinical concepts are standardized using coding systems (like SNOMED CT). To extract information about a patient’s cholesterol, you first need to know the correct system code.</p>
+<p>Task: Look into the <code>snomed.csv</code> file (located in your <code>data</code> folder) and search for labels like ‘ldl’ or ‘chol’ to find the standardized code for cholesterol. Keep this code, as it will be utilized for the next exercise.</p>
+<p>This exercise can be completed with R and Python. But the files can also be inspected manually.</p>
+</section>
+<section id="exercise-3-get-measurements-of-cholesterol-for-a-patient-and-plot-them-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-get-measurements-of-cholesterol-for-a-patient-and-plot-them-over-time">Exercise 3: Get measurements of cholesterol for a patient and plot them over time</h3>
+<p>This exercise will combine the two previous exercises by fetching a single individual’s data and plotting their cholesterol level over time.</p>
+<p>Query Parameters: To filter data in a REST API, there is a “query parameters” at the end of your URL. You start the filter with a question mark <code>?</code>, assign a value with <code>=</code>, and chain multiple filters together using an ampersand <code>&amp;</code>.</p>
+<p>The URL string should somewhat like this:</p>
+<pre><code>https://test/fhir/Observation?patient=123&amp;code=456</code></pre>
+<p>The steps are as follows:</p>
+<ol type="1">
+<li>Select a patient: Choose a specific <code>patient_id</code> from the dataframe you created in Exercise 1.</li>
+<li>Select the code: Use the cholesterol code you found in Exercise 2.</li>
+<li>Construct the URL: Query the Observation resource and filter by your patient and code. The format of the URL will be: <code>.../Observation?patient={patient_id}&amp;code={chol_code}</code></li>
+<li>Make the request: Send a GET request to the mock server using this newly constructed URL (similar as to exercise 5.1).</li>
+<li>Parse and Extract: Parse the JSON Bundle. Extract the cholesterol values and their corresponding dates (recorded under <code>effectiveDateTime</code>).</li>
+</ol>
+<p>Python hint:</p>
+<pre><code>dates = []
+values = []
+for entry in parsed_obs['entry']:
+    resource = entry['resource']
+    dates.append(resource['effectiveDateTime'])
+    values.append(float(resource['valueQuantity']['value']))
+
+obs_df = pd.DataFrame({'date': pd.to_datetime(dates), 'cholesterol': values})
+print(obs_df)</code></pre>
+<p>R hint:</p>
+<pre><code>entries &lt;- parsed_obs$entry$resource
+obs_df &lt;- data.frame(
+  date = as.Date(entries$effectiveDateTime),
+  cholesterol = as.numeric(entries$valueQuantity$value)
+)
+print(obs_df)</code></pre>
+<ol start="6" type="1">
+<li>Visualize: Plot the extracted cholesterol values over time.</li>
+</ol>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p><img src="jaCob.jpg" class="img-fluid" width="300"></p>
-<p><a href="https://www.linkedin.com/in/jacobfh"><img src="LinkedIN.png" class="img-fluid" width="50"></a> <a href="https://github.com/jacobfh1"><img src="Github_black.png" class="img-fluid" width="50"></a> <a href="jfredegaard@bmb.sdu.dk?subject=Test"><img src="Outlook.png" class="img-fluid" width="50"></a> <a href="https://www.sdu.dk/en/forskning/biomedical-ms"><img src="mapPin.png" class="img-fluid" width="50"></a> <a href="https://jacobfh.com/"><img src="www.png" class="img-fluid" width="50"></a></p>
-<p>Jacob is a Sandbox data scientist based at the university of Southern Danmark in Odense, and he is specialized in the proteomics applications.</p>
-
-
+</section>
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

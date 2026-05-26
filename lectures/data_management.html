@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Data Scientist, Southern Denmark University">
 
-<title>Jacob Fredegaard Hansen – Dynamic Risk Prediction</title>
+<title>data_management – Dynamic Risk Prediction</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -267,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../lectures/data_management.html"> 
+    <a class="nav-link active" href="../lectures/data_management.html" aria-current="page"> 
 <span class="menu-text">Data Sources and Data Acquisition</span></a>
   </li>  
   <li class="nav-item">
@@ -306,44 +305,235 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-sources-and-data-acquisition" id="toc-data-sources-and-data-acquisition" class="nav-link active" data-scroll-target="#data-sources-and-data-acquisition">Data Sources and Data Acquisition</a></li>
+  <li><a href="#data-metadata-and-annotations" id="toc-data-metadata-and-annotations" class="nav-link" data-scroll-target="#data-metadata-and-annotations">Data, Metadata, and Annotations</a>
+  <ul class="collapse">
+  <li><a href="#description-of-the-data" id="toc-description-of-the-data" class="nav-link" data-scroll-target="#description-of-the-data">Description of the data</a></li>
+  </ul></li>
+  <li><a href="#coding-and-classification-systems" id="toc-coding-and-classification-systems" class="nav-link" data-scroll-target="#coding-and-classification-systems">Coding and Classification Systems</a></li>
+  <li><a href="#health-data-providers-in-denmark" id="toc-health-data-providers-in-denmark" class="nav-link" data-scroll-target="#health-data-providers-in-denmark">Health Data Providers in Denmark</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Jacob Fredegaard Hansen</h1>
+
+
+
+<section id="data-sources-and-data-acquisition" class="level1 hero-banner">
+<h1>Data Sources and Data Acquisition</h1>
+</section>
+<p>Data are the foundation of predictive modelling. Before a predictive model can be built, relevant data need to be collected and examined. Significant challenges are often encountered during these processes, such as:</p>
+<ul>
+<li>Time-consuming data gathering</li>
+<li>Legal barriers and permissions to use data</li>
+<li>Potential mismatches between expectations and the actual quality or completeness of the data</li>
+<li>Complexities when integrating datasets that contain varying measures, naming conventions, and different levels of granularity</li>
+</ul>
+<p>The topics in this module provide insight into what data is and how to collect it from official data providers.</p>
+<p>Throughout this module, the following topics will be covered:</p>
+<ul>
+<li>Data and Metadata</li>
+<li>Coding and Classification Systems</li>
+<li>Health Data Providers in Denmark</li>
+<li><strong>Exercises</strong></li>
+</ul>
+<section id="data-metadata-and-annotations" class="level2">
+<h2 class="anchored" data-anchor-id="data-metadata-and-annotations">Data, Metadata, and Annotations</h2>
+<p>When working with data, it is useful to differentiate between <strong>data</strong> and <strong>metadata</strong>. Data are the raw facts and measurements collected (e.g.&nbsp;patient blood pressure, lab test results, or imaging data), while metadata is “data about the data” (e.g.&nbsp;units or measurement methods). That is, metadata provides additional context and interpretation. For example, if a table containing information about blood pressure measurements (e.g., type of measures and measurement values) is data, then metadata would consist of descriptive information about that table. This metadata might specify that ‘Measurement values’ is a numerical value and ‘Measurement’ is text. The descriptive details in the metadata are frequently within the data structure itself. However, it can be presented as a separate table providing details about each column of the data table. A basic example of this can be seen in the illustration below:</p>
+<p><em>Example of raw blood pressure data:</em></p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/table21.PNG" alt="Image" style="margin-bottom: 15px; width: 65%;"></p>
+</div>
+<p><em>Example of metadata for the blood pressure data:</em></p>
+<div style="overflow: auto; text-align: center;">
+<p><img src="../images/table22.PNG" alt="Image" style="margin-bottom: 15px; width: 95%;"></p>
+</div>
+<section id="description-of-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-the-data">Description of the data</h3>
+<p>A critical requirement for performing any kind of modelling involving data is to have a deep understanding of the data. To be able to provide a detailed description of the data is an efficient approach to understand the background, implications, and meaning of the data. Knowing who collected the data at which time can provide some insight of the standards at the given time. Understanding the meaning of the columns, what the values represent, the population in the data, and the data distribution is the foundation for conducting meaningful modelling of the data.</p>
+</section>
+</section>
+<section id="coding-and-classification-systems" class="level2">
+<h2 class="anchored" data-anchor-id="coding-and-classification-systems">Coding and Classification Systems</h2>
+<p>To manage and analyse large amounts of health data, standardised coding and classification systems are essential. These systems simplify complex medical information (such as diagnoses, procedures, and lab results) and these systems are are widely implemented across health registries.</p>
+<p>A central Danish health data classification system is the Sundhedsvæsenets Klassifikationssystem (SKS), which is managed by <a href="https://english.sundhedsdatastyrelsen.dk/health-data-and-registers/classifications">The Danish Health Data Authority</a>. SKS is the national standard used throughout the Danish healthcare system.</p>
+<p>The SKS uses the <a href="https://www.who.int/standards/classifications/classification-of-diseases">World Health Organisation’s International Classification of Diseases</a>, 10th Revision (ICD-10) for diagnostic data, thereby ensuring that Danish data is aligned with international standards.</p>
+<p>All Danish diagnostic SKS code data can be searched through an open database, to either find a diagnosis by code or a code by diagnosis, as illustrated in Figure 1.</p>
+<div style="overflow: auto;">
+<p><img src="../images/medinfodk.PNG" alt="Screenshot of SKS-browser" style="margin-bottom: 5px; width: 80%;"></p>
+</div>
+<p>Figure 1: SKS browser for code description. Screenshot from <a href="https://medinfo.dk/">medinfo.dk</a></p>
+<p>&nbsp;</p>
+<p>For specific types of data, such as clinical laboratory data, more specialised terminologies are required. This type of data also has a widely adopted standard called Nomenclature for Properties and Units (NPU) terminology. The NPU provides unique identification codes for each type of laboratory analysis, e.g.&nbsp;blood tests, and are adopted in laboratory databases in Denmark, such as <a href="https://www.dovepress.com/the-danish-lymphoid-cancer-research-daly-care-data-resource-the-basis--peer-reviewed-fulltext-article-CLEP">LABKA</a>.</p>
+<p>SNOMED CT (Systematised Nomenclature of Medicine Clinical Terms) is the most comprehensive multilingual clinical terminology in the world. The core purpose is to serve as an ontology (a “Model of Meaning”) for clinical information. Enabling a common language to exchange information about diagnosis, procedures, medicine, and much more. SNOMED CT is a terminology designed to be logical, by having nested structures for all the information. It is designed to be flexible, as different variations of SNOMED CT for specific applications exist. Examples of such is the Danish pathology database Patobank, which adds letters to the SNOMED CT code to provide additional coding axes, such as structure, location, and cause, for the cancer data. See more on <a href="https://www.patobank.dk/wp-content/uploads/2019/10/A._Introduktion_og_vejledning_til_SNOMED-2.pdf">Patobank.dk</a>. Having standardised codes for medical information is one of the main components of being able to have functional interoperability between units that share medical information.</p>
+<p>For further information, please see this book: <a href="https://link.springer.com/book/10.1007/978-3-030-56883-2">Benson, Tim, and Grahame Grieve. (2021) “Principles of health interoperability.”</a></p>
+</section>
+<section id="health-data-providers-in-denmark" class="level2">
+<h2 class="anchored" data-anchor-id="health-data-providers-in-denmark">Health Data Providers in Denmark</h2>
+<p>Denmark has a unique system of <a href="https://dsfe.dk/danish-registries/">nationwide health registries</a> that collect data on diseases, treatment, and outcomes. These comprehensive databases form a valuable foundation for developing predictive models and research in general. The registries are administered by major public organisations in Denmark, which act as the official data controllers responsible for safeguarding information due to its person-sensitive nature. Below follows two of the major data controllers of healthcare data in Denmark.</p>
+<p><a href="https://english.sundhedsdatastyrelsen.dk/health-data-and-registers"><strong>The Danish Health Data Authority</strong></a> is one of Denmark’s primary entities for managing and providing access to extensive healthcare data. It maintains a wide array of national health registers, such as:</p>
+<ul>
+<li>The Danish Register of Causes of Death</li>
+<li>The Danish National Patient Register</li>
+<li>The Danish National Prescription Registry</li>
+<li>The Danish Pathology Register</li>
+<li>The Clinical Laboratory Information System Register</li>
+</ul>
+<p><a href="https://www.sundk.dk/about/"><strong>The Danish Healthcare Quality Institute</strong></a> is an organization that collaborates across the Danish healthcare sector, often focusing on areas such as clinical guidelines, evaluations, and clinical quality registries. This institute facilitates access to numerous health-related databases, including over 40 clinical quality databases, such as:</p>
+<ul>
+<li>Danish Head and Neck Cancer Database</li>
+<li>Danish Prostate Cancer Database</li>
+<li>Danish Diabetic Database</li>
+<li>Danish Heart Registry</li>
+<li>Danish Lymphoma Database</li>
+</ul>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<p>Based on the module regarding Danish health registries and data acquisition, please choose the correct option for the following questions:</p>
+<style>
+  .quiz-container { font-family: sans-serif; max-width: 850px; margin: 20px 0; }
+  .q-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: block;
+  }
+  .q-header { font-weight: bold; font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; display: block; }
+  .opt-list { display: flex; flex-direction: column; gap: 10px; }
+  .opt-btn {
+    padding: 12px 15px;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  .opt-btn:hover { background: #f6f8fa; border-color: #4266A1; }
+
+  /* Success/Error States */
+  .ans-correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+  .ans-wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+
+  .feedback-text { margin-top: 12px; font-size: 0.9em; display: none; padding: 8px; border-radius: 4px; }
+  .feedback-visible { display: block; background: #f0f4f8; border-left: 3px solid #4266A1; }
+</style>
+<div class="quiz-container">
+<div id="q-registry-bias" class="q-card">
+<span class="q-header">1) When using Danish registry data for research, which statement best reflects a potential source of bias? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">
+<ol type="a">
+<li>All patients are always captured, so no bias is possible.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">
+<ol start="2" type="a">
+<li>Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">
+<ol start="3" type="a">
+<li>Registry data automatically eliminates all errors in diagnosis coding through the application of specialized internal statistical models.</li>
+</ol>
+</div>
+</div>
+<div id="fb-q-registry-bias" class="feedback-text">
+
+</div>
+</div>
+<div id="q-dnpr-identification" class="q-card">
+<span class="q-header">2) You want to study patients with type 2 diabetes using the Danish National Patient Registry (DNPR). Can you reliably identify all patients with type 2 diabetes using DNPR alone? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">
+<ol type="a">
+<li>Yes, DNPR captures all type 2 diabetes diagnoses, as all type 2 diabetes cases are recorded in the hospital notes.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">
+<ol start="2" type="a">
+<li>No, because type 2 diabetes is usually managed in general practice. Only hospital-related cases appear in DNPR.
+</li></ol></div>
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">
+<ol start="3" type="a">
+<li>Yes, but only if you include emergency admissions.</li>
+</ol>
 </div>
 
-<div>
-  <div class="description">
-    Data Scientist, Southern Denmark University
-  </div>
 </div>
+</div>
+<div id="fb-q-dnpr-identification" class="feedback-text">
+
+</div>
+</div>
+<div id="q-prescription-identification" class="q-card">
+<span class="q-header">3) Can the Danish National Prescription Registry be used to identify patients with type 2 diabetes? </span>
+<div class="opt-list">
+<div class="opt-btn" onclick="check(this, true, 'q-prescription-identification', 'Correct!')">
+<ol type="a">
+<li>Yes, but you must consider that some medications may be prescribed for other conditions.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">
+<ol start="2" type="a">
+<li>No, prescriptions are not linked to diagnoses.</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">
+<ol start="3" type="a">
+<li>Yes, prescriptions perfectly identify type 2 diabetes without exceptions.</li>
+</ol>
+</div>
+</div>
+<div id="fb-q-prescription-identification" class="feedback-text">
+
+</div>
+</div>
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main></div>
+<script>
+  function check(el, isCorrect, qId, msg) {
+    const parent = document.getElementById(qId);
+    const opts = parent.querySelectorAll('.opt-btn');
+    const fb = document.getElementById('fb-' + qId);
+
+    opts.forEach(o => o.classList.remove('ans-correct', 'ans-wrong'));
+
+    if (isCorrect) {
+      el.classList.add('ans-correct');
+    } else {
+      el.classList.add('ans-wrong');
+    }
+
+    fb.innerHTML = msg;
+    fb.classList.add('feedback-visible');
+  }
+</script>
+<p align="center">
+To proceed to the next section of the course, please click the button below.
+</p>
+&nbsp;
+<p align="center">
+<a href="data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Continue to Preprocessing </a>
+</p>
+<p>&nbsp;</p>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<p><img src="jaCob.jpg" class="img-fluid" width="300"></p>
-<p><a href="https://www.linkedin.com/in/jacobfh"><img src="LinkedIN.png" class="img-fluid" width="50"></a> <a href="https://github.com/jacobfh1"><img src="Github_black.png" class="img-fluid" width="50"></a> <a href="jfredegaard@bmb.sdu.dk?subject=Test"><img src="Outlook.png" class="img-fluid" width="50"></a> <a href="https://www.sdu.dk/en/forskning/biomedical-ms"><img src="mapPin.png" class="img-fluid" width="50"></a> <a href="https://jacobfh.com/"><img src="www.png" class="img-fluid" width="50"></a></p>
-<p>Jacob is a Sandbox data scientist based at the university of Southern Danmark in Odense, and he is specialized in the proteomics applications.</p>
-
-
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -757,7 +947,7 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-</div> <!-- /content -->
+ <!-- /content -->
 
 
 
