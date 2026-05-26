@@ -1,7 +1,7 @@
 project:
   type: website
-  resources:
-      - "exercise_data/PAD-introduction.html"
+#  resources:
+#      - "exercise_data/PAD-introduction.html"
 
 website:
   title: "Dynamic Risk Prediction"
