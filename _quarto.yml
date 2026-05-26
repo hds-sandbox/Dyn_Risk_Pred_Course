@@ -11,7 +11,7 @@ website:
     logo-href: http://hds-sandbox.github.io/ 
     background: primary
     left:
-      - href: lectures/index.qmd
+      - href: index.qmd
         text: Introduction
       - href: lectures/data_management.qmd
         text: Data Sources and Data Acquisition
