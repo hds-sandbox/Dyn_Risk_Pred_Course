@@ -142,38 +142,38 @@ get_r <- function(url) {
   }
   
   tryCatch({
-    baseline_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/baseline_data.csv",
+    baseline_df <- read_csv("data/baseline_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sex = col_character(),
                               `d.birth` = col_date(format = ""),
                               smoking = col_character()
                             ), show_col_types = FALSE)
-    snomed_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/snomed.csv",
+    snomed_df <- read_csv("data/snomed.csv",
                           col_types = cols(
                             code = col_double(),
                             label = col_character(),
                             source = col_character()
                           ), show_col_types = FALSE)
   }, error = function(e) {
-    
+
     stop(glue("Error loading essential CSV files: {e$message}"))
-    
+
   })
-  
+
   if (!is.null(response$content) && response$status_code != 200) return(response)
-  
-  
+
+
   if (entity == 'Patient') {
     if (entity_id != 0) {
       patient_list <- baseline_df %>% filter(id == entity_id)
-      
+
       if (nrow(patient_list) != 1) {
         return(create_error_response(404, "NOT_FOUND", "The patient was not found."))
       }
-      
+
       patient_info <- patient_list %>% head(n = 1) #måske redundant
-      
+
       patient_str <- glue(
         RAW_PATIENT_STR,
         id = patient_info$id,
@@ -182,12 +182,12 @@ get_r <- function(url) {
       )
       response$content <- patient_str
       return(response)
-      
+
     } else {
       entries_list <- vector("list", nrow(baseline_df))
       for (i in 1:nrow(baseline_df)) {
         patient_info <- baseline_df[i, ]
-        
+
         patient_body <- glue(
           RAW_PATIENT_STR,
           id = patient_info$id,
@@ -202,13 +202,13 @@ get_r <- function(url) {
         )
         entries_list[[i]] <- paste0(temp_interpolated_start_str, patient_body, RAW_ENTRY_END_STR)
       }
-      
+
       entries_str <- paste(entries_list, collapse = ",\n")
-      
+
       generated_bundle_id <- paste0("bundle-", sample(1356:9871, 1))
       formatted_timestamp <- strftime(Sys.time(), format = "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
       current_query_str <- "" # Initialize here
-      
+
       bundle_str <- glue(
         RAW_BUNDLE_STR,
         bundle_id = generated_bundle_id,
@@ -225,33 +225,33 @@ get_r <- function(url) {
     if (entity_id != 0) {
       return(create_error_response(501, "NOT_IMPLEMENTED", glue("You cannot fetch a {entity} using an ID.")))
     }
-    
+
     parsed_url <- parse_url(url)
     query_params <- parsed_url$query
-    
+
     if (is.null(query_params$patient) || is.null(query_params$code)) {
       return(create_error_response(501, "NOT_IMPLEMENTED", glue("You cannot request all {entity}s, please specify one or more patient IDs and one or more codes (e.g., ?patient=1,2&code=100,200).")))
     }
-    
+
     patient_ids_str <- str_split(query_params$patient, ",")[[1]]
     snomed_codes_str <- str_split(query_params$code, ",")[[1]]
-    
+
     patient_ids <- suppressWarnings(as.numeric(patient_ids_str))
     snomed_codes <- suppressWarnings(as.numeric(snomed_codes_str))
-    
+
     if(any(is.na(patient_ids)) || any(is.na(snomed_codes))) {
       return(create_error_response(400, "BAD_REQUEST", "Invalid patient IDs or SNOMED codes provided. Ensure they are numeric."))
     }
-    
+
     tryCatch({
       if (entity == 'Procedure') {
-        treat_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/treat_data.csv",
+        treat_df <- read_csv("data/treat_data.csv",
                              col_types = cols(
                                id = col_double(),
                                treat_start_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        event_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/events.csv",
+        event_df <- read_csv("data/events.csv",
                              col_types = cols(
                                id = col_double(),
                                date = col_date(format = ""),
@@ -265,26 +265,26 @@ get_r <- function(url) {
                  stroke            = case_when(event == "stroke" ~ 1, T ~ 0))
       }
       if (entity == 'Observation') {
-        blood_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/blood_data.csv",
+        blood_df <- read_csv("data/blood_data.csv",
                              col_types = cols(
                                `id` = col_double(),
                                sample_date = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        diag_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/diag_data.csv",
+        diag_df <- read_csv("data/diag_data.csv",
                             col_types = cols(
                               id = col_double(),
                               sample_date = col_date(format = ""),
                               code = col_character(),
                               .default = col_guess()
                             ), show_col_types = FALSE)
-        quest_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/quest_data.csv",
+        quest_df <- read_csv("data/quest_data.csv",
                              col_types = cols(
                                id = col_double(),
                                `date` = col_date(format = ""),
                                .default = col_guess()
                              ), show_col_types = FALSE)
-        visit_df <- read_csv("~/Dyn_Risk_Pred_Course/exercise_data/raw_data/visit_date.csv",
+        visit_df <- read_csv("data/visit_date.csv",
                              col_types = cols(
                                id = col_double(),
                                visit_date = col_date(format = ""),

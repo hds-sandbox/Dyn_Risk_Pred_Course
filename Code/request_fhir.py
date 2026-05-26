@@ -81,8 +81,8 @@ def get(url):
         else:
             entity_id = int(entity_id)
 
-    baseline_df = pd.read_csv('../exercise_data/raw_data/baseline_data.csv', parse_dates=['d.birth'])
-    snomed_df = pd.read_csv('../exercise_data/raw_data/snomed.csv')
+    baseline_df = pd.read_csv('data/baseline_data.csv', parse_dates=['d.birth'])
+    snomed_df = pd.read_csv('data/snomed.csv')
 
     if entity == 'Patient':
         if entity_id:
@@ -139,10 +139,10 @@ def get(url):
                                 stroke=lambda df: (df["event"] == "stroke").astype(int)))
 
         if entity == 'Observation':
-            blood_df = pd.read_csv('../exercise_data/raw_data/blood_data.csv', parse_dates=['sample_date'], index_col=0)
-            diag_df = pd.read_csv('../exercise_data/raw_data/diag_data.csv', parse_dates=['sample_date'], index_col=0)
-            quest_df = pd.read_csv('../exercise_data/raw_data/quest_data.csv', parse_dates=['date'], index_col=0)
-            visit_df = pd.read_csv('../exercise_data/raw_data/visit_date.csv', parse_dates=['visit_date'], index_col=0)
+            blood_df = pd.read_csv('data/blood_data.csv', parse_dates=['sample_date'], index_col=0)
+            diag_df = pd.read_csv('data/diag_data.csv', parse_dates=['sample_date'], index_col=0)
+            quest_df = pd.read_csv('data/quest_data.csv', parse_dates=['date'], index_col=0)
+            visit_df = pd.read_csv('data/visit_date.csv', parse_dates=['visit_date'], index_col=0)
 
         entries_list = []
 
