@@ -175,7 +175,7 @@ The steps are as follows:
 
 Python hint: Import the `requests_fhir.py` script as `request` and the `json` library:
 
-```
+```{.python filename="requests_fhir.py"}
 import requests_fhir as request
 import json
 import pandas as pd
@@ -197,27 +197,26 @@ BASE_URL <- "https://test/fhir"
 
 Python hint: Use an f-string to create the URL:
 
-```{.python }
+```{.python}
 patients_url = f'{BASE_URL}/Patient'
 ```
 
 R hint: Construct the URL by using `paste0()`:
 
-```
+```{.r}
 patients_url <- paste0(BASE_URL, "/Patient")
 ```
 
 3. Make the request using the provided `get()` method (`get_r()` in R) with your URL.
 
-Python hint:
 
-```
+
+```{.python filename="Python hint"}
 response = request.get(patients_url)
 ```
 
-R hint:
 
-```
+```{.r filename="R hint"}
 response <- get_r(patients_url)
 ```
 
@@ -244,9 +243,7 @@ Python hints:
 - The patient data is nested in the JSON structure under `['entry']`. Iterate through this list to access the `['resource']` for each patient.
 - Create an empty list, append the extracted patient dictionaries to it, and then convert the list into a Pandas DataFrame.
 
-Python example code:
-
-```
+```{.python filename="Python Example code"}
 patients = []
 for entry in parsed_data['entry']:
     resource = entry['resource']
@@ -265,9 +262,7 @@ R hints:
 - The parsed data is a list containing the Bundle. The patient information is nested inside `parsed_data$entry$resource`.
 - You can use `dplyr::bind_rows()` or functions from the `purrr` package to flatten this nested structure into a clean dataframe.
 
-R example code:
-
-```
+```{.r filename="R Example code"}
 entries <- parsed_data$entry$resource
 patients_df <- data.frame(
   id = entries$id,
@@ -295,7 +290,7 @@ Query Parameters: To filter data in a REST API, there is a "query parameters" at
 
 The URL string should somewhat like this:
 
-```
+```{.bash}
 https://test/fhir/Observation?patient=123&code=456
 ```
 
@@ -307,9 +302,8 @@ The steps are as follows:
 4. Make the request: Send a GET request to the mock server using this newly constructed URL (similar as to exercise 5.1).
 5. Parse and Extract: Parse the JSON Bundle. Extract the cholesterol values and their corresponding dates (recorded under `effectiveDateTime`).
 
-Python hint:
 
-```
+```{.python filename="Python hint"}
 dates = []
 values = []
 for entry in parsed_obs['entry']:
@@ -321,9 +315,7 @@ obs_df = pd.DataFrame({'date': pd.to_datetime(dates), 'cholesterol': values})
 print(obs_df)
 ```
 
-R hint:
-
-```
+```{.r filename="R hint"}
 entries <- parsed_obs$entry$resource
 obs_df <- data.frame(
   date = as.Date(entries$effectiveDateTime),

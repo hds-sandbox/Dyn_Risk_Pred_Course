@@ -4,7 +4,9 @@ title: "Data Preprocessing"
 resources:
   - "exercise_data/PAD-introduction.html"
 ---
-
+:::{.hero-banner}
+# Data Preprocessing
+:::
 
 This section aims to prepare participants for the necessary considerations encountered during data preparation for dynamic risk prediction modelling.
 
@@ -273,7 +275,7 @@ You may further create summary variables (aggregating historical information), a
 &nbsp;
 
  <p align="center">
-  <a href="modelling.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="./modelling.qmd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Modelling
   </a>

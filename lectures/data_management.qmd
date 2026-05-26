@@ -205,7 +205,7 @@ Based on the module regarding Danish health registries and data acquisition, ple
 
 &nbsp;
  <p align="center">
-  <a href="data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="./data_preprocessing.qmd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Preprocessing
   </a>
