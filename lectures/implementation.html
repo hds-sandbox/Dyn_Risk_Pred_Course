@@ -473,11 +473,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Define the base URL for the mock server: <code>https://test/fhir</code></li>
 </ol>
 <p>Python hint: Import the <code>requests_fhir.py</code> script as <code>request</code> and the <code>json</code> library:</p>
-<pre><code>import requests_fhir as request
-import json
-import pandas as pd
-
-BASE_URL = 'https://test/fhir'</code></pre>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>requests_fhir.py</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="requests_fhir.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests_fhir <span class="im">as</span> request</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>BASE_URL <span class="op">=</span> <span class="st">'https://test/fhir'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>R hint: Source the <code>request_fhir.R</code> script:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -495,14 +500,22 @@ BASE_URL = 'https://test/fhir'</code></pre>
 <p>Python hint: Use an f-string to create the URL:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>patients_url <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>BASE_URL<span class="sc">}</span><span class="ss">/Patient'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>R hint: Construct the URL by using <code>paste0()</code>:</p>
-<pre><code>patients_url &lt;- paste0(BASE_URL, "/Patient")</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>patients_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(BASE_URL, <span class="st">"/Patient"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
 <li>Make the request using the provided <code>get()</code> method (<code>get_r()</code> in R) with your URL.</li>
 </ol>
-<p>Python hint:</p>
-<pre><code>response = request.get(patients_url)</code></pre>
-<p>R hint:</p>
-<pre><code>response &lt;- get_r(patients_url)</code></pre>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Python hint</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="Python hint"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> request.get(patients_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R hint</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="R hint"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">get_r</span>(patients_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol start="4" type="1">
 <li>Parse the JSON object to extract the list of patient entries.</li>
 </ol>
@@ -521,31 +534,39 @@ BASE_URL = 'https://test/fhir'</code></pre>
 <li>The patient data is nested in the JSON structure under <code>['entry']</code>. Iterate through this list to access the <code>['resource']</code> for each patient.</li>
 <li>Create an empty list, append the extracted patient dictionaries to it, and then convert the list into a Pandas DataFrame.</li>
 </ul>
-<p>Python example code:</p>
-<pre><code>patients = []
-for entry in parsed_data['entry']:
-    resource = entry['resource']
-    patients.append({
-        'id': resource['id'],
-        'gender': resource['gender'],
-        'birthDate': resource['birthDate']
-    })
-
-patients_df = pd.DataFrame(patients)
-print(patients_df)</code></pre>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Python Example code</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="Python Example code"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>patients <span class="op">=</span> []</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> entry <span class="kw">in</span> parsed_data[<span class="st">'entry'</span>]:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    resource <span class="op">=</span> entry[<span class="st">'resource'</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    patients.append({</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'id'</span>: resource[<span class="st">'id'</span>],</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'gender'</span>: resource[<span class="st">'gender'</span>],</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'birthDate'</span>: resource[<span class="st">'birthDate'</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>patients_df <span class="op">=</span> pd.DataFrame(patients)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(patients_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>R hints:</p>
 <ul>
 <li>The parsed data is a list containing the Bundle. The patient information is nested inside <code>parsed_data$entry$resource</code>.</li>
 <li>You can use <code>dplyr::bind_rows()</code> or functions from the <code>purrr</code> package to flatten this nested structure into a clean dataframe.</li>
 </ul>
-<p>R example code:</p>
-<pre><code>entries &lt;- parsed_data$entry$resource
-patients_df &lt;- data.frame(
-  id = entries$id,
-  gender = entries$gender,
-  birthDate = entries$birthDate
-)
-print(patients_df)</code></pre>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R Example code</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="R Example code"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>entries <span class="ot">&lt;-</span> parsed_data<span class="sc">$</span>entry<span class="sc">$</span>resource</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>patients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> entries<span class="sc">$</span>id,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gender =</span> entries<span class="sc">$</span>gender,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">birthDate =</span> entries<span class="sc">$</span>birthDate</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(patients_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="exercise-2-find-the-code-for-a-specific-observation" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2-find-the-code-for-a-specific-observation">Exercise 2: Find the code for a specific observation</h3>
@@ -558,7 +579,7 @@ print(patients_df)</code></pre>
 <p>This exercise will combine the two previous exercises by fetching a single individual’s data and plotting their cholesterol level over time.</p>
 <p>Query Parameters: To filter data in a REST API, there is a “query parameters” at the end of your URL. You start the filter with a question mark <code>?</code>, assign a value with <code>=</code>, and chain multiple filters together using an ampersand <code>&amp;</code>.</p>
 <p>The URL string should somewhat like this:</p>
-<pre><code>https://test/fhir/Observation?patient=123&amp;code=456</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">https://test/fhir/Observation?patient=123</span><span class="kw">&amp;</span><span class="va">code</span><span class="op">=</span>456</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The steps are as follows:</p>
 <ol type="1">
 <li>Select a patient: Choose a specific <code>patient_id</code> from the dataframe you created in Exercise 1.</li>
@@ -567,23 +588,31 @@ print(patients_df)</code></pre>
 <li>Make the request: Send a GET request to the mock server using this newly constructed URL (similar as to exercise 5.1).</li>
 <li>Parse and Extract: Parse the JSON Bundle. Extract the cholesterol values and their corresponding dates (recorded under <code>effectiveDateTime</code>).</li>
 </ol>
-<p>Python hint:</p>
-<pre><code>dates = []
-values = []
-for entry in parsed_obs['entry']:
-    resource = entry['resource']
-    dates.append(resource['effectiveDateTime'])
-    values.append(float(resource['valueQuantity']['value']))
-
-obs_df = pd.DataFrame({'date': pd.to_datetime(dates), 'cholesterol': values})
-print(obs_df)</code></pre>
-<p>R hint:</p>
-<pre><code>entries &lt;- parsed_obs$entry$resource
-obs_df &lt;- data.frame(
-  date = as.Date(entries$effectiveDateTime),
-  cholesterol = as.numeric(entries$valueQuantity$value)
-)
-print(obs_df)</code></pre>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Python hint</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="Python hint"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> []</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>values <span class="op">=</span> []</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> entry <span class="kw">in</span> parsed_obs[<span class="st">'entry'</span>]:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    resource <span class="op">=</span> entry[<span class="st">'resource'</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    dates.append(resource[<span class="st">'effectiveDateTime'</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    values.append(<span class="bu">float</span>(resource[<span class="st">'valueQuantity'</span>][<span class="st">'value'</span>]))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>obs_df <span class="op">=</span> pd.DataFrame({<span class="st">'date'</span>: pd.to_datetime(dates), <span class="st">'cholesterol'</span>: values})</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(obs_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R hint</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="R hint"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>entries <span class="ot">&lt;-</span> parsed_obs<span class="sc">$</span>entry<span class="sc">$</span>resource</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>obs_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as.Date</span>(entries<span class="sc">$</span>effectiveDateTime),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cholesterol =</span> <span class="fu">as.numeric</span>(entries<span class="sc">$</span>valueQuantity<span class="sc">$</span>value)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(obs_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol start="6" type="1">
 <li>Visualize: Plot the extracted cholesterol values over time.</li>
 </ol>

@@ -395,11 +395,11 @@ window.Quarto = {
 </ol>
 <p>&nbsp;</p>
 <ol start="3" type="1">
-<li><strong>CODE:</strong> Notebooks and scripts can be downloaded here:</li>
+<li><strong>Notebooks:</strong> Notebooks and scripts can be downloaded here:</li>
 </ol>
 <p>&nbsp;</p>
 <p align="center">
-<a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/Code" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Download code </a>
+<a href="https://github.com/hds-sandbox/Dyn_Risk_Pred_Course/tree/webpage-quarto/Notebooks" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Download code </a>
 </p>
 <p>&nbsp;</p>
 <ol start="4" type="1">
@@ -422,7 +422,7 @@ window.Quarto = {
 </ul>
 </section>
 <section id="part-2---data-sources-and-data-acquisition" class="level3">
-<h3 class="anchored" data-anchor-id="part-2---data-sources-and-data-acquisition"><a href="data_management.qmd">Part 2 - Data Sources and Data Acquisition</a></h3>
+<h3 class="anchored" data-anchor-id="part-2---data-sources-and-data-acquisition"><a href="./lectures/data_management.html">Part 2 - Data Sources and Data Acquisition</a></h3>
 <ul>
 <li>Data and Metadata</li>
 <li>Health Data Providers in Denmark</li>
@@ -431,7 +431,7 @@ window.Quarto = {
 </ul>
 </section>
 <section id="part-3---data-preprocessing" class="level3">
-<h3 class="anchored" data-anchor-id="part-3---data-preprocessing"><a href="data_preprocessing.qmd">Part 3 - Data Preprocessing</a></h3>
+<h3 class="anchored" data-anchor-id="part-3---data-preprocessing"><a href="./lectures/data_preprocessing.html">Part 3 - Data Preprocessing</a></h3>
 <ul>
 <li>Establishing the Data Analysis Protocol</li>
 <li>Challenges in Data Handling</li>
@@ -442,7 +442,7 @@ window.Quarto = {
 </ul>
 </section>
 <section id="part-4---modelling" class="level3">
-<h3 class="anchored" data-anchor-id="part-4---modelling"><a href="modelling.qmd">Part 4 - Modelling</a></h3>
+<h3 class="anchored" data-anchor-id="part-4---modelling"><a href="./lectures/modelling.html">Part 4 - Modelling</a></h3>
 <ul>
 <li>What is Predictive Modelling</li>
 <li>Performance Metrics</li>
@@ -453,7 +453,7 @@ window.Quarto = {
 </ul>
 </section>
 <section id="part-5---implementation" class="level3">
-<h3 class="anchored" data-anchor-id="part-5---implementation"><a href="implementation.qmd">Part 5 - Implementation</a></h3>
+<h3 class="anchored" data-anchor-id="part-5---implementation"><a href="./lectures/implementation.html">Part 5 - Implementation</a></h3>
 <ul>
 <li>Hosting and Access to Data</li>
 <li>FHIR</li>
@@ -466,7 +466,7 @@ window.Quarto = {
 <p>This course provides an overview of the principles of dynamic risk prediction in healthcare applications. However, most of the concepts introduced in this course are general to predictive modelling and can be applied outside dynamic risk prediction in healthcare.</p>
 The course discusses key elements of the journey from data acquisition to implementation of a dynamic risk prediction model, as illustrated in Figure 1.
 <div style="overflow: auto; text-align: center;">
-<p><img src="../images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
+<p><img src="images/jouney_from_raw_to_implementation.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
 </div>
 <p>Figure 1: A simplified workflow for a dynamic risk prediction model.</p>
 <p>&nbsp;</p>
@@ -497,7 +497,7 @@ The course discusses key elements of the journey from data acquisition to implem
 <p>In general, risk prediction refers to estimating how likely a binary future event is based on present, relevant information, commonly through statistical or machine learning models. In healthcare, risk prediction often focuses on estimating an individual’s likelihood of developing a disease or experiencing a medical event to guide prevention and treatment. The estimation is typically based on a variety of variables, such as clinical, demographic, and lifestyle data.</p>
 <p>Dynamic risk prediction enables repeated risk estimation over time, allowing the patient’s risk to be updated as new clinical information becomes available. Using data available up to the time of prediction, the prediction model outputs an estimate of the individual experiencing the event within a specified prediction horizon for each prediction time, as illustrated in Figure 2. Examples of binary outcomes include hospitalisation within the next six months, response to treatment within one month, or death in the following week for a patient in an intensive care unit.</p>
 <div style="overflow: auto; text-align: center;">
-<p><img src="../images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
+<p><img src="images/dyn_pred_in_a_nutshell.PNG" alt="Image" style="margin-bottom: 15px; width: 85%;"></p>
 </div>
 <p>Figure 2: Illustration of dynamic risk prediction.</p>
 <p>&nbsp;</p>
@@ -518,7 +518,7 @@ The course discusses key elements of the journey from data acquisition to implem
 <p>Based on <span class="math inline">\(Z_i(t)\)</span> for all <span class="math inline">\(t \leq t_{ij}\)</span> and <span class="math inline">\(X_i\)</span>, the aim is to predict the binary outcome <span class="math inline">\(Y(t_{ij})\)</span> at some time point after <span class="math inline">\(t_{ij}\)</span>.</p>
 <p>Predictions may be generated at regular intervals, for example every six hours, or irregularly in response to specific events such as a hospital visit or new test results. Figure 3 illustrates dynamic risk prediction with irregularly triggered predictions.</p>
 <div style="overflow: auto; text-align: center;">
-<p><img src="../images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"></p>
+<p><img src="images/Timeline_of_patients_visit.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;"></p>
 </div>
 <p>Figure 3: Dynamic risk prediction with irregularly triggered prediction times.</p>
 </section>
@@ -526,7 +526,7 @@ The course discusses key elements of the journey from data acquisition to implem
 <h2 class="anchored" data-anchor-id="example-30-day-mortality-in-advanced-lung-cancer">Example: 30-day Mortality in Advanced Lung Cancer</h2>
 <p>Patients suffering from cancer may receive systemic anti-cancer treatment (SACT) to slow disease progression and improve their quality of life. While SACT can provide substantial benefits, it may also cause serious and in some cases fatal adverse effects. Administering SACT requires balancing the potential survival benefits against adverse side effects and impacts on quality of life, as illustrated in Figure 4. In the best-case scenario, particularly within palliative care, SACT can provide the highest possible quality of life alongside effective treatment outcomes. In the worst-case scenario, the overall outcome may be less favorable with SACT than without it, potentially leading to greater discomfort and even a shorter lifespan compared to supportive care alone.</p>
 <div style="overflow: auto; text-align: center;">
-<p><img src="../images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 80%;"></p>
+<p><img src="images/Motivation.PNG" alt="Image" style="margin-bottom: 15px; width: 80%;"></p>
 </div>
 <p>Figure 4: Model of health-related quality of life for a patient with limited life expectancy. Image credit: <a href="https://vbn.aau.dk/ws/portalfiles/portal/549539126/phd_CPEV_e_pdf.pdf">Vesteghem, C. (2022)</a></p>
 <p>&nbsp;</p>
@@ -709,7 +709,7 @@ To proceed to the next section of the course, please click the button below.
 </p>
 <p>&nbsp;</p>
 <p align="center">
-<a href="data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Continue to Data Sources and Data Acquisition </a>
+<a href="./lectures/data_management.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Continue to Data Sources and Data Acquisition </a>
 </p>
 <p>&nbsp;</p>
 
