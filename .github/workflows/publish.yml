@@ -1,6 +1,7 @@
 on: 
   push:
-    branches: webpage-quarto
+    branches: 
+      - webpage-quarto
   workflow_dispatch:
 
 name: Quarto Publish
@@ -27,11 +28,10 @@ jobs:
 #      - name: Install R Dependencies
 #        uses: r-lib/actions/setup-renv@v2
 
-
 #      - name: Install pandoc
 #        uses: pandoc/actions/setup@{main}
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-          target: gh-pages
+          to: gh-pages
