@@ -5,6 +5,7 @@ project:
 
 website:
   title: "Dynamic Risk Prediction"
+  site-url: 'https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/'
   navbar:
     logo: ./img/logo.png
     logo-href: http://hds-sandbox.github.io/ 
