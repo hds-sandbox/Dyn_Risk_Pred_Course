@@ -12,6 +12,8 @@ website:
   title: "Dynamic Risk Prediction"
   navbar:
     logo: ./img/logo.png
+    logo-href: http://hds-sandbox.github.io/ 
+    background: primary
     left:
       - href: lectures/index.qmd
         text: Introduction
@@ -41,3 +43,5 @@ format:
     code-fold: true
 #    include-in-header:
 #      - file: "resources/bioschema.html"
+
+copyright: CC-BY-SA 4.0 license

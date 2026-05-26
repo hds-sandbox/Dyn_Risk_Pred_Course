@@ -185,7 +185,7 @@ BASE_URL = 'https://test/fhir'
 
 R hint: Source the `request_fhir.R` script:
 
-```
+```{.r filename="request_fhir.R"}
 source("request_fhir.R")
 library(jsonlite)
 library(dplyr)
@@ -197,7 +197,7 @@ BASE_URL <- "https://test/fhir"
 
 Python hint: Use an f-string to create the URL:
 
-```
+```{.python }
 patients_url = f'{BASE_URL}/Patient'
 ```
 
