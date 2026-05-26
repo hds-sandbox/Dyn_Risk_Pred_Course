@@ -29,8 +29,6 @@ Dyn_Risk_Pred_Course/
 │   │   │   ├── Workshop_1_data_preprocessing.ipynb
 │   │   │   ├── Workshop_2_Modelling.ipynb
 │   │   │   ├── Workshop_3_Implementation.ipynb
-│   │   │   ├── request_fhir.R         # FHIR request (kopi for øvelser)
-│   │   │   ├── request_fhir.py        # FHIR request (kopi for øvelser)
 │   │   │   └── requirements.txt       # Python afhængigheder
 │   │
 │   └── additional_code/       # Yderligere hjælpekode
