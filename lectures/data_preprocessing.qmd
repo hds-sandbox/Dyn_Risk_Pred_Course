@@ -1,6 +1,5 @@
 ---
 format: html
-title: "Data Preprocessing"
 resources:
   - "exercise_data/PAD-introduction.html"
 ---
