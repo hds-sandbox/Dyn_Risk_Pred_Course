@@ -463,21 +463,21 @@ ul.task-list li input[type="checkbox"] {
 </style>
 <div class="quiz-container">
 <div id="q-registry-bias" class="q-card">
-<span class="q-header">1) When using Danish registry data for research, which statement best reflects a potential source of bias? </span>
+<span class="q-header">1) You are given a dataset extracted from the Danish National Patient Registry containing records of hospital visits dates and associated diagnoses coded using ICD-10. You want to make a table, translating relevant ICD-10 codes to a diagnosis name. How will you translate the ICD-10 code K50? Use e.g.&nbsp;<a href="https://icd.who.int/browse10/2019/en">the ICD browser</a> </span>
 <div class="opt-list">
 <div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">
 <ol type="a">
-<li>All patients are always captured, so no bias is possible.</li>
+<li>Ulcerative colitis</li>
 </ol>
 </div>
 <div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">
 <ol start="2" type="a">
-<li>Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.</li>
+<li>Crohn’s disease</li>
 </ol>
 </div>
 <div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">
 <ol start="3" type="a">
-<li>Registry data automatically eliminates all errors in diagnosis coding through the application of specialized internal statistical models.</li>
+<li>Pancreatitis</li>
 </ol>
 </div>
 </div>
@@ -486,23 +486,17 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div id="q-dnpr-identification" class="q-card">
-<span class="q-header">2) You want to study patients with type 2 diabetes using the Danish National Patient Registry (DNPR). Can you reliably identify all patients with type 2 diabetes using DNPR alone? </span>
+<span class="q-header">2) You have now made a table, mapping ICD-10 codes to a diagnosis name. Would you call this metadata? </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">
-<ol type="a">
-<li>Yes, DNPR captures all type 2 diabetes diagnoses, as all type 2 diabetes cases are recorded in the hospital notes.</li>
-</ol>
-</div>
 <div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">
-<ol start="2" type="a">
-<li>No, because type 2 diabetes is usually managed in general practice. Only hospital-related cases appear in DNPR.
-</li></ol></div>
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">
-<ol start="3" type="a">
-<li>Yes, but only if you include emergency admissions.</li>
+<ol type="a">
+<li>Yes</li>
 </ol>
 </div>
-
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">
+<ol start="2" type="a">
+<li>No</li>
+</ol>
 </div>
 </div>
 <div id="fb-q-dnpr-identification" class="feedback-text">
@@ -510,21 +504,26 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div id="q-prescription-identification" class="q-card">
-<span class="q-header">3) Can the Danish National Prescription Registry be used to identify patients with type 2 diabetes? </span>
+<span class="q-header">3) You are building a prediction model for 1-year risk of hospitalization using Danish health registry data. You have access to the following four variables, seen below. Which of the options are standardized coding systems that can be directly used as structured inputs for a prediction model? (select all that apply) </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q-prescription-identification', 'Correct!')">
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">
 <ol type="a">
-<li>Yes, but you must consider that some medications may be prescribed for other conditions.</li>
+<li>ICD-10 diagnosis codes from hospital contacts</li>
 </ol>
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">
 <ol start="2" type="a">
-<li>No, prescriptions are not linked to diagnoses.</li>
+<li>SNOMED-coded pathology results</li>
 </ol>
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">
 <ol start="3" type="a">
-<li>Yes, prescriptions perfectly identify type 2 diabetes without exceptions.</li>
+<li>NPU-coded laboratory test results</li>
+</ol>
+</div>
+<div class="opt-btn" onclick="checkMulti(this, false, 'q-prescription-identification')">
+<ol start="4" type="a">
+<li>Free-text clinical notes from hospitals</li>
 </ol>
 </div>
 </div>
@@ -532,7 +531,7 @@ ul.task-list li input[type="checkbox"] {
 
 </div>
 </div>
-</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main></div>
+</div>
 <script>
   function check(el, isCorrect, qId, msg) {
     const parent = document.getElementById(qId);
@@ -550,6 +549,39 @@ ul.task-list li input[type="checkbox"] {
     fb.innerHTML = msg;
     fb.classList.add('feedback-visible');
   }
+
+  // Multi-select function for question 3
+  function checkMulti(el, isCorrect, qId) {
+    const parent = document.getElementById(qId);
+    
+    // Toggle selection on click
+    if (el.classList.contains('ans-correct') || el.classList.contains('ans-wrong')) {
+      el.classList.remove('ans-correct', 'ans-wrong');
+    } else {
+      if (isCorrect) {
+        el.classList.add('ans-correct');
+      } else {
+        el.classList.add('ans-wrong');
+      }
+    }
+
+    // Validate all selections
+    const fb = document.getElementById('fb-' + qId);
+    const selectedCorrect = parent.querySelectorAll('.ans-correct').length;
+    const selectedIncorrect = parent.querySelectorAll('.ans-wrong').length;
+    const totalCorrect = parent.querySelectorAll('[onclick*="true,"]').length;
+
+    if (selectedCorrect === totalCorrect && selectedIncorrect === 0) {
+      fb.innerHTML = "✓ Perfect! All correct options selected.";
+      fb.classList.add('feedback-visible');
+    } else if (selectedIncorrect > 0) {
+      fb.innerHTML = "✗ Deselect the incorrect option(s).";
+      fb.classList.add('feedback-visible');
+    } else {
+      fb.innerHTML = "Select all that apply";
+      fb.classList.add('feedback-visible');
+    }
+  }
 </script>
 <p align="center">
 To proceed to the next section of the course, please click the button below.
@@ -561,9 +593,9 @@ To proceed to the next section of the course, please click the button below.
 <p>&nbsp;</p>
 
 
+</section>
 
-
- <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -977,7 +1009,7 @@ To proceed to the next section of the course, please click the button below.
     }
   });
   </script>
- <!-- /content -->
+</div> <!-- /content -->
 
 
 
