@@ -138,14 +138,14 @@ Based on the module regarding Danish health registries and data acquisition, ple
 <div class="quiz-container">
 
 <div class="q-card" id="q-registry-bias">
-<span class="q-header">1) When using Danish registry data for research, which statement best reflects a potential source of bias?
+<span class="q-header">1) You are given a dataset extracted from the Danish National Patient Registry containing records of hospital visits dates and associated diagnoses coded using ICD-10. You want to make a table, translating relevant ICD-10 codes to a diagnosis name. How will you translate the ICD-10 code K50? Use e.g. [the ICD browser](https://icd.who.int/browse10/2019/en)
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">a. All patients are always captured, so no bias is possible.
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">a. Ulcerative colitis
 </div>
-<div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">b. Patients who are sicker may have more frequent healthcare contacts, leading to overrepresentation in the data.
+<div class="opt-btn" onclick="check(this, true, 'q-registry-bias', 'Correct!')">b. Crohn's disease
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">c. Registry data automatically eliminates all errors in diagnosis coding through the application of specialized internal statistical models.
+<div class="opt-btn" onclick="check(this, false, 'q-registry-bias', 'Incorrect.')">c. Pancreatitis
 </div>
 </div>
 <div class="feedback-text" id="fb-q-registry-bias">
@@ -153,13 +153,12 @@ Based on the module regarding Danish health registries and data acquisition, ple
 </div>
 
 <div class="q-card" id="q-dnpr-identification">
-<span class="q-header">2) You want to study patients with type 2 diabetes using the Danish National Patient Registry (DNPR). Can you reliably identify all patients with type 2 diabetes using DNPR alone?
+<span class="q-header">2) You have now made a table, mapping ICD-10 codes to a diagnosis name. Would you call this metadata?
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">a. Yes, DNPR captures all type 2 diabetes diagnoses, as all type 2 diabetes cases are recorded in the hospital notes.
+<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">a. Yes
 </div>
-<div class="opt-btn" onclick="check(this, true, 'q-dnpr-identification', 'Correct!')">b. No, because type 2 diabetes is usually managed in general practice. Only hospital-related cases appear in DNPR.</div>
-<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">c. Yes, but only if you include emergency admissions.
+<div class="opt-btn" onclick="check(this, false, 'q-dnpr-identification', 'Incorrect.')">b. No
 </div>
 </div>
 <div class="feedback-text" id="fb-q-dnpr-identification">
@@ -167,14 +166,16 @@ Based on the module regarding Danish health registries and data acquisition, ple
 </div>
 
 <div class="q-card" id="q-prescription-identification">
-<span class="q-header">3) Can the Danish National Prescription Registry be used to identify patients with type 2 diabetes?
+<span class="q-header">3) You are building a prediction model for 1-year risk of hospitalization using Danish health registry data. You have access to the following four variables, seen below. Which of the options are standardized coding systems that can be directly used as structured inputs for a prediction model? (select all that apply)
 </span>
 <div class="opt-list">
-<div class="opt-btn" onclick="check(this, true, 'q-prescription-identification', 'Correct!')">a. Yes, but you must consider that some medications may be prescribed for other conditions.
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">a. ICD-10 diagnosis codes from hospital contacts
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">b. No, prescriptions are not linked to diagnoses.
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">b. SNOMED-coded pathology results
 </div>
-<div class="opt-btn" onclick="check(this, false, 'q-prescription-identification', 'Incorrect.')">c. Yes, prescriptions perfectly identify type 2 diabetes without exceptions.
+<div class="opt-btn" onclick="checkMulti(this, true, 'q-prescription-identification')">c. NPU-coded laboratory test results
+</div>
+<div class="opt-btn" onclick="checkMulti(this, false, 'q-prescription-identification')">d. Free-text clinical notes from hospitals
 </div>
 </div>
 <div class="feedback-text" id="fb-q-prescription-identification">
@@ -199,6 +200,39 @@ Based on the module regarding Danish health registries and data acquisition, ple
 
     fb.innerHTML = msg;
     fb.classList.add('feedback-visible');
+  }
+
+  // Multi-select function for question 3
+  function checkMulti(el, isCorrect, qId) {
+    const parent = document.getElementById(qId);
+    
+    // Toggle selection on click
+    if (el.classList.contains('ans-correct') || el.classList.contains('ans-wrong')) {
+      el.classList.remove('ans-correct', 'ans-wrong');
+    } else {
+      if (isCorrect) {
+        el.classList.add('ans-correct');
+      } else {
+        el.classList.add('ans-wrong');
+      }
+    }
+
+    // Validate all selections
+    const fb = document.getElementById('fb-' + qId);
+    const selectedCorrect = parent.querySelectorAll('.ans-correct').length;
+    const selectedIncorrect = parent.querySelectorAll('.ans-wrong').length;
+    const totalCorrect = parent.querySelectorAll('[onclick*="true,"]').length;
+
+    if (selectedCorrect === totalCorrect && selectedIncorrect === 0) {
+      fb.innerHTML = "✓ Perfect! All correct options selected.";
+      fb.classList.add('feedback-visible');
+    } else if (selectedIncorrect > 0) {
+      fb.innerHTML = "✗ Deselect the incorrect option(s).";
+      fb.classList.add('feedback-visible');
+    } else {
+      fb.innerHTML = "Select all that apply";
+      fb.classList.add('feedback-visible');
+    }
   }
 </script>
 
