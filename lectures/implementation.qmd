@@ -1,5 +1,4 @@
 ---
-title: Implementation
 author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
 date: last-modified
 format: html
@@ -8,6 +7,8 @@ format: html
 # Implementation
 
 :::
+
+&nbsp;
 
 Up to this point, we have focused on how to develop a dynamic risk prediction model, yet this is only half the challenge. The real impact happens when these models are seamlessly integrated into clinical workflows, connected to real-world data sources, and delivered to clinicians in real time.
 

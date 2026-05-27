@@ -1,5 +1,4 @@
 ---
-title: Data Preprocessing
 author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
 date: last-modified
 format: html
@@ -9,6 +8,8 @@ resources:
 :::{.hero-banner}
 # Data Preprocessing
 :::
+
+&nbsp;
 
 This section aims to prepare participants for the necessary considerations encountered during data preparation for dynamic risk prediction modelling.
 

@@ -1,5 +1,4 @@
 ---
-title: Modelling
 author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
 date: last-modified
 format: html
@@ -13,6 +12,8 @@ format: html
 # Modelling
 
 :::
+
+&nbsp;
 
 This module introduces the concepts of training, validating, and testing predictive models. Various risk prediction methods will be explored, including logistic regression, neural networks, and ensemble learning methods.
 

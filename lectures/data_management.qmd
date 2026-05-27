@@ -1,5 +1,4 @@
 ---
-title: Data Sources and Data Acquisition
 author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
 date: last-modified
 format: html
@@ -9,6 +8,7 @@ format: html
 # Data Sources and Data Acquisition
 :::
 
+&nbsp;
 
 Data are the foundation of predictive modelling. Before a predictive model can be built, relevant data need to be collected and examined. Significant challenges are often encountered during these processes, such as:
 
