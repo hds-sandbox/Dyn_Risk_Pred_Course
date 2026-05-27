@@ -1,5 +1,5 @@
 ---
-author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
+author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Rasmus Brøndum, Charles Vesteghem, Heidi Søgaard Christensen, Martin Bøgsted
 date: last-modified
 format: html
 ---
