@@ -1,4 +1,7 @@
 ---
+title: Modelling
+author: Jakob Skelmose, Phillip Landgrebe Jeppesen, Jan Reiter, Heidi Søgaard Christensen, Martin Bøgsted
+date: last-modified
 format: html
 ---
  <style>
