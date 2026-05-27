@@ -741,7 +741,7 @@ In this exercise you will train and test at least one prediction model based on 
 &nbsp;
 
  <p align="center">
-  <a href="implementation.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="./implementation.qmd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Implementation
   </a>

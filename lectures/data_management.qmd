@@ -35,13 +35,13 @@ When working with data, it is useful to differentiate between **data** and **met
 *Example of raw blood pressure data:*
 
 <div style="overflow: auto; text-align: center;">
-  <img src="../images/table21.PNG" alt="Image" style="margin-bottom: 15px; width: 65%;">
+  <img src="../images/table21.png" alt="Image" style="margin-bottom: 15px; width: 65%;">
 </div>
 
 *Example of metadata for the blood pressure data:*
 
 <div style="overflow: auto; text-align: center;">
-  <img src="../images/table22.PNG" alt="Image" style="margin-bottom: 15px; width: 95%;">
+  <img src="../images/table22.png" alt="Image" style="margin-bottom: 15px; width: 95%;">
 </div>
 
 ### Description of the data
@@ -208,7 +208,7 @@ Based on the module regarding Danish health registries and data acquisition, ple
 
 &nbsp;
  <p align="center">
-  <a href="data_preprocessing.html" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="./data_preprocessing.qmd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Continue to
     Preprocessing
   </a>
