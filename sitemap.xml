@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/index.html</loc>
-    <lastmod>2026-05-28T06:54:20.011Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/SamueleSoraggi.html</loc>
-    <lastmod>2026-05-28T06:54:19.972Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/AlbaMartinez.html</loc>
-    <lastmod>2026-05-28T06:54:19.972Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/data_management.html</loc>
-    <lastmod>2026-05-28T06:54:20.012Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/implementation.html</loc>
-    <lastmod>2026-05-28T06:54:20.012Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/LICENSE.html</loc>
-    <lastmod>2026-05-28T06:54:19.969Z</lastmod>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/Notebooks/exercise_solutions/solutions/Workshop_2_Modelling.html</loc>
+    <lastmod>2026-05-28T07:00:12.703Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/Notebooks/exercise_solutions/solutions/Workshop_3_Implementation.html</loc>
-    <lastmod>2026-05-28T06:54:19.971Z</lastmod>
+    <lastmod>2026-05-28T07:00:12.703Z</lastmod>
   </url>
   <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/Notebooks/exercise_solutions/solutions/Workshop_1_data_preprocessing.html</loc>
-    <lastmod>2026-05-28T06:54:19.970Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/Notebooks/exercise_solutions/solutions/Workshop_2_Modelling.html</loc>
-    <lastmod>2026-05-28T06:54:19.971Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/modelling.html</loc>
-    <lastmod>2026-05-28T06:54:20.012Z</lastmod>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/implementation.html</loc>
+    <lastmod>2026-05-28T07:00:12.748Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/data_preprocessing.html</loc>
-    <lastmod>2026-05-28T06:54:20.012Z</lastmod>
+    <lastmod>2026-05-28T07:00:12.748Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/AlbaMartinez.html</loc>
+    <lastmod>2026-05-28T07:00:12.704Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/JenniferBartell.html</loc>
-    <lastmod>2026-05-28T06:54:19.972Z</lastmod>
-  </url>
-  <url>
-    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/JacobHansen.html</loc>
-    <lastmod>2026-05-28T06:54:19.972Z</lastmod>
+    <lastmod>2026-05-28T07:00:12.705Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/JakobSkelmose.html</loc>
-    <lastmod>2026-05-28T06:54:19.972Z</lastmod>
+    <lastmod>2026-05-28T07:00:12.705Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/LICENSE.html</loc>
+    <lastmod>2026-05-28T07:00:12.701Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/JacobHansen.html</loc>
+    <lastmod>2026-05-28T07:00:12.705Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/cards/SamueleSoraggi.html</loc>
+    <lastmod>2026-05-28T07:00:12.705Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/data_management.html</loc>
+    <lastmod>2026-05-28T07:00:12.747Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/lectures/modelling.html</loc>
+    <lastmod>2026-05-28T07:00:12.748Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/index.html</loc>
+    <lastmod>2026-05-28T07:00:12.747Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/Dyn_Risk_Pred_Course/Notebooks/exercise_solutions/solutions/Workshop_1_data_preprocessing.html</loc>
+    <lastmod>2026-05-28T07:00:12.702Z</lastmod>
   </url>
 </urlset>

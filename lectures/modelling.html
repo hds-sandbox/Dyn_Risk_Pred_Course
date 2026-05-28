@@ -46,9 +46,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-93d45b506c387c475854359eb5767e5d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-4954c030c383bd8fc8b39159c186ddfc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-93d45b506c387c475854359eb5767e5d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c732a6239e30a214eceddad462b89fad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a8962bef077d50ac613c655550dc82af.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c732a6239e30a214eceddad462b89fad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -757,7 +757,7 @@ L(\beta) = \sum_{i: y_i=1} \log\big(1-p(\beta, x_i)\big) + \sum_{i: y_i=0} \log\
 \]</span></p>
 <p>where <span class="math inline">\(r_i\)</span> is the proportion of observations of one class in node <span class="math inline">\(i\)</span>. To illustrate: if a node is evenly divided between two classes, such as benign and malignant cancer, then <span class="math inline">\(R_i = 0.5\)</span>, which are the maximum degree of impurity. The algorithm chooses the split that minimizes the Gini index across the “nodes” in the three structure.</p>
 <div style="text-align: center;">
-<p><img src="../images/Decision_tree_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);"></p>
+<p><img src="../images/Decision_tree_l4.png" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);"></p>
 </div>
 <p>Figure 7: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age &gt; 65, then further by weight and height, until four leaf nodes are eduction. To reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.</p>
 <p>&nbsp;</p>
