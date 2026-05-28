@@ -429,7 +429,7 @@ where $r_i$ is the proportion of observations of one class in node $i$. To illus
 
 
 <div style="text-align: center;">
-   <img src="../images/Decision_tree_l4.PNG" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
+   <img src="../images/Decision_tree_l4.png" alt="Image" style="margin-bottom: 15px; width: min(750px, 100%);">
 </div>
 
 Figure 7: Example of a decision tree for binary classification (green/red). Starting at the root node, the data is split by age > 65, then further by weight and height, until four leaf nodes are eduction. To reached. The black boxes, illustrating the leaf nodes, show the proportion of green observations in the specific node.
