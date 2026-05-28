@@ -108,7 +108,7 @@ Selection of a suitable discretization interval is required to structure the irr
 Several predictor values may be available within the same time interval, and these must be aggregated into a single representative value, for example by taking the mean. Figure 1 illustrates bundling measurements of albumin levels into 6-hour time intervals (for a single patient), where multiple measurements in a time interval is aggregated by the mean, and where predictions are regularly triggered every 6 hours.
 
 <div style="overflow: auto; text-align: center;">
-  <img src="../images/data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
+  <img src="../images/Data_bundling.PNG" alt="Image" style="margin-bottom: 15px; width: 75%;">
 </div>
 
 Figure 1: Bundling data into 6-hour intervals, where predictions are regularly triggered every 6 hours.
@@ -171,7 +171,7 @@ Categorical variables can cause problems when some categories have very few obse
 
 
 <div style="overflow: auto; text-align: center;">
-<img src="../images/table32.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
+<img src="../images/table32.png" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 
 Before and after collapsing infrequent values of a table showing the count of patients who experience primary symptoms.
@@ -183,7 +183,7 @@ Below, we outline typical methods for creating and transforming features, includ
 
 One-Hot Encoding is a common method used to represent categorical values in a format suitable for machine learning models. Each category of the categorical variable is transformed into a separate binary (0 or 1) feature, where a value of 1 indicates the presence of that category and 0 its absence. For example, a variable describing biological sex with categories “Female” and “Male” can be transformed into two features. This transformation allows categorical data to be used as input for models, such as linear models, which typically cannot process non-numeric or non-binary categorical features directly.
 <div style="overflow: auto; text-align: center;">
-<img src="../images/table34.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
+<img src="../images/table34.png" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 A simple table with one column of sex. Before and after One-Hot Encoding.
 
@@ -235,7 +235,7 @@ Now we have:
 All in all, a dataset ready for training a predictive model has been constructed. For most models, only time intervals related to a prediction time point are kept for the modelling. In that case a final step in the data preprocessing is to remove all rows not related to a prediction time point as illustrated in Figure 4.
 
 <div style="overflow: auto; text-align: center;">
-<img src="../images/table36.PNG" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
+<img src="../images/table36.png" alt="Data Split Illustration" style="margin-bottom: 15px; width: 75%;">
 </div>
 Figure 4. A dataset prepared for modelling. Rows highlighted in green represent prediction time points, which typically serve as the model’s input.
 
