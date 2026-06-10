@@ -122,7 +122,7 @@ After having obtained a predicted class for each case, the results can be catego
 This can be aggregated in a so-called *confusion matrix*:
 
 <div style="overflow: auto; text-align: center;">
-   <img src="../images/iamconfusion.JPG" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(300px, 100%);">
+   <img src="../images/iamconfusion.jpg" alt="Image" style="margin-bottom: 15px; margin-top: -30px; width: min(280px, 100%);">
  </div>
 
  Figure 3: A visual representation of a confusion matrix. The green boxes represent the correct predictions, and the red boxes represent the incorrect predictions.
@@ -664,7 +664,7 @@ The utility of the 30-day mortality model is illustrated in Figure 13 where the 
 
 <div style="text-align: center;">
    <img src="../images/utility_example.png" alt="Image" style="margin-bottom: 15px; width: min(800px, 100%);">
- </div>
+</div>
 
 Figure 13: A practical example of a confusion matrix related to 30-day mortality prediction in lung cancer. The scatter plot shows the predicted risk of dying within 30 days from a SACT administration versus days to actual death. The plot is divided into two zones on the horizontal line, which is the 50% mortality risk threshold. A vertical line indicates when the patient is within the last 30 days before death. The curly bracket denotes the counterproductive administrations. Image credit: [Vesteghem et al. (2022)](https://ascopubs.org/doi/pdf/10.1200/CCI.22.00054)
 
